@@ -1,0 +1,20 @@
+.doc-box-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 260px;
+    background-color: rgb(209, 200, 200);
+    color: black;
+    padding: 10px;
+    font-size: 1rem;
+    gap: 10px;
+}
+
+.doc-box-container-info {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: 10px;
+    top: -10px;
+}
+

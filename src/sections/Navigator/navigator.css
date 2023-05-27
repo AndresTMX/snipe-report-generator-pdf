@@ -1,0 +1,34 @@
+.nav {
+    display: flex;
+    padding: 10px 0px 10px;
+    height: 90px;
+    width: 100vw;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(56, 54, 54);
+    flex-wrap: wrap;
+}
+
+.nav section{
+    display: flex;
+    width: 40%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav .name-nav{
+    margin-left: 20px;
+}
+
+.nav .docStore-button{
+    width: 100px;
+    height: 50px;
+}
+
+.nav .buttonPDF-container{
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: 50px;
+}
+

@@ -1,0 +1,84 @@
+import axios from 'axios';
+
+const baseURL = import.meta.env.VITE_BASE_URL;
+
+const Authorization = import.meta.env.VITE_API_KEY;
+
+
+export const getItem = () => {
+    return axios.get(`${baseURL}hardware/1`, {
+        headers: {
+            accept: 'application/json',
+            Authorization: Authorization,
+        }
+    })
+        .then(res => res.data)
+        .catch((error) => console.log(error));
+};
+
+export const getUsers = () => {
+    return axios.get(`${baseURL}users?&order=asc&sort=id`, {
+        headers: {
+            accept: 'application/json',
+            Authorization: Authorization,
+        }
+    })
+    .then(res => res.data.rows)
+    .catch((error) => console.log(error));
+};
+
+export const getUserId = (id) => {
+    return axios.get(`${baseURL}users/${id}`, {
+        headers: {
+            accept: 'application/json',
+            Authorization: Authorization,
+        }
+    })
+    .then(res => res.data)
+    .catch((error) => console.log(error));
+};
+
+export const getAssetsUser = (userId) => {
+    return axios.get(`${baseURL}users/${userId}/assets`, {
+        headers: {
+            accept: 'application/json',
+            Authorization: Authorization,
+        }
+    })
+    .then(res => res.data.rows)
+    .catch((error) => console.log(error));
+};
+
+export const getAccesoriesUser = (userId) => {
+    return axios.get(`${baseURL}users/${userId}/accessories`, {
+        headers: {
+            accept: 'aplication/json',
+            Authorization: Authorization,
+        }
+    })
+    .then(res => res.data.rows)
+    .catch((error) => console.log(error));
+}
+
+export const getMaintancesAsset = (assetId) => {
+    return axios.get(`${baseURL}maintenances?&asset_id=${assetId}`, {
+        headers: {
+            accept: 'application/json',
+            Authorization: Authorization,
+        }
+    })
+    .then(res => res.data.rows)
+    .catch((error) => console.log(error));
+};
+
+export const getComponentsWhitComputerSerial = (serial) => {
+    return axios.get(`${baseURL}components?search=${serial}`, {
+        headers: {
+            accept: 'application/json',
+            Authorization: Authorization,
+        }
+    })
+    .then(res => res.data.rows)
+    .catch((error) => console.log(error));
+}
+

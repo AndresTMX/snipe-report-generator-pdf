@@ -1,0 +1,104 @@
+.view-maintances-box{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    position:absolute;
+    height: auto;
+    border-radius: 4px;
+    width:fit-content;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(241, 241, 241);
+    border: 1px solid rgb(223, 220, 220);
+    box-shadow: 5px 8px 40px rgba(54, 54, 54, 0.171);
+}
+
+.view-maintances-box table{
+    width: 80vw;
+    max-width: 700px;
+}
+
+.container-button-maintance {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.button-close:hover {
+    background-color: red;
+}
+
+.table-header-maintances {
+    display: table;
+    background-color: gray;
+    padding: 10px;
+    margin-top: 10px;
+    min-width: 400px;
+}
+
+.table-header-maintances th {
+    text-align: start;
+}
+
+.table-body-maintances td{
+    border-right: 1px solid rgb(110, 106, 106);
+    border-bottom:1px solid rgb(110, 106, 106);
+}
+
+.table-body-maintances .fecha{
+    width: 80px;
+    text-align: center;
+}
+
+.table-body-maintances .td-actions {
+    width: 60px;
+    border-right: none;
+    border-bottom:1px solid rgb(110, 106, 106) ;
+}
+
+.td-actions div {
+    display: flex;
+    gap: 10px;
+    height: 30px;
+    justify-content: space-between;
+}
+
+.td-actions div button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.td-actions .button-delete {
+    background-color: rgb(206, 12, 12);
+}
+
+.td-actions .button-add {
+    background-color: green;
+}
+
+.td-actions .button-maintance {
+    background-color: rgb(15, 15, 133);
+}
+
+.container-button {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+    height: fit-content;
+}
+
+.close {
+    justify-content: space-between;
+    position: relative;
+    margin: 0px;
+}
+
+.no-maintances{
+    font-size: 1.2rem;
+    color: black;
+    padding: 10px;
+}

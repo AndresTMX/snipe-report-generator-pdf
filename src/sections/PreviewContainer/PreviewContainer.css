@@ -1,0 +1,22 @@
+.preview-container{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    border: 1px solid whitesmoke;
+    background-color: #ffffff;
+    border-radius: 2px;
+    min-width: 200px;
+    max-width: 600px;
+    height: 700px;
+}
+
+@media (max-width: 1000px) {
+    .preview-container{
+        margin: 20px;
+        width: 80vw;
+        height: 500px;
+    }
+}
