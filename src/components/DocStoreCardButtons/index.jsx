@@ -2,6 +2,7 @@ import { actionTypes as actionTypesModals } from "../../Context/StatesModalsRedu
 import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
 import { GrDocumentConfig} from "react-icons/gr";
 import { BsChatSquareTextFill } from "react-icons/bs";
+import "./DocStoreCardButton.css"
 
 const managerSystems = import.meta.env.VITE_MANAGER_SYSTEMS;
 
@@ -43,7 +44,7 @@ function DocStoreCardButtons({state, dispatch}) {
 
     return (
         <>
-            <div>
+            <div className="DocStoreCardButton">
                 <button
                     title="Agregar comentario"
                     onClick={() => OpenModalComent()}
@@ -55,7 +56,6 @@ function DocStoreCardButtons({state, dispatch}) {
                 </button>
 
                 <button
-                    className="doc-box-buttons"
                     title="tipo de documento"
                     onClick={() => GenerateDocument()}
                 >

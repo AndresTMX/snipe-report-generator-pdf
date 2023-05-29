@@ -1,43 +1,48 @@
-import { actionTypes } from "../../Context/DocReducer";
 import { useItems } from '../../Hooks/useItems';
 
-function DocStoreCardItem({ tag, name, idUser, state }) {
+function DocStoreCardItem({ typeTable, tag, id, name, index, state }) {
 
-  const { initialStore, dataDocument } = state
+  const { initialStore } = state
   const { storage } = initialStore;
 
-  const {assets, count, user, company, city} = storage;
+  const {user, company, city, idUser} = storage;
 
   const { actions } = useItems({idUser, user, company, city});
 
-  const {deleteItem} = actions;
+  const {deleteItem, deleteAccessories} = actions;
 
-  const deleteItemDocument = (tag) => {
+ let newTag
 
-    const {assets} = storage;
-    
-    const key = assets.findIndex((asset) => asset.asset_tag === tag)
-    
-    const newState = assets.splice(key, 1)
-    
-    if(newState){
-        deleteItem(tag, idUser)
-      }else{
-        aler('alert en hanldeUpdate en DocStoreCardItem')
-      }
-  };
-
-  const newTag = tag.slice(6,9)
+  function renderTr(typeTable){
+    if (typeTable === 'Activos') {
+      newTag = tag.slice(6,10);
+      return (
+        <tr>
+          <td>{name}</td>
+          <td>{newTag}</td>
+          <td>
+            <button title="Eliminar de la lista" onClick={() => deleteItem(tag)}>x</button>
+          </td>
+        </tr>
+      );
+    } else {
+      return (
+        <tr>
+          <td>{name}</td>
+          <td>{id}</td>
+          <td>
+            <button title="Eliminar de la lista" onClick={() => deleteAccessories(index)}>x</button>
+          </td>
+        </tr>
+      );
+    }
+  }
 
   return (
     <>
-      <tr>
-        <td>{name}</td>
-        <td>{newTag}</td>
-        <td>
-          <button title="Eliminar de la lista" onClick={() => deleteItemDocument(tag)}>x</button>
-        </td>
-      </tr>
+      {
+        renderTr(typeTable)
+      }
     </>
   );
 }

@@ -13,9 +13,8 @@ function DocStoreCardInfoUser({state, dispatch}) {
 
     return (
         <>
-         <div className="doc-box-item-text">
-            <div className="doc-box-container-info">
-              <span>FECHA</span>
+         <div className="DocStoreCardInfoUser">
+              <p>FECHA</p>
               <input
                 type="date"
                 value={storage? storage.dateDay: date}
@@ -34,7 +33,6 @@ function DocStoreCardInfoUser({state, dispatch}) {
               <p>CORREO ELECTRONICO</p>
               <span>{storage?.email}</span>
               <div />
-            </div>
           </div>
         </>
     );

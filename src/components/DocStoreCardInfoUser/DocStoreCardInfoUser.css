@@ -1,20 +1,16 @@
-.doc-box-item {
+.DocStoreCardInfoUser {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    width: 260px;
-    background-color: rgb(209, 200, 200);
+    width: auto;
     color: black;
     padding: 10px;
     font-size: 1rem;
-    gap: 10px;
+    gap: 5px;
 }
 
-.doc-box-container-info {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    gap: 10px;
-    top: -10px;
+.DocStoreCardInfoUser p{
+    font-weight: 700;
+    margin: 0px;
 }
 

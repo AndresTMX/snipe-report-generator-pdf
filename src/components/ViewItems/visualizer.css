@@ -1,5 +1,6 @@
 .visualizer {
     display: flex;
+    flex-direction: column;
     padding: 10px;
     position:absolute;
     height: auto;
@@ -10,4 +11,11 @@
     background-color: rgb(241, 241, 241);
     border: 1px solid rgb(223, 220, 220);
     box-shadow: 5px 8px 40px rgba(54, 54, 54, 0.171);
+}
+
+@media (max-width:645px) {
+    .visualizer{
+        width: 90%;
+        position: fixed;
+    }
 }

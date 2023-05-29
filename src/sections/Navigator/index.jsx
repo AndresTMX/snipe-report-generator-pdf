@@ -20,10 +20,7 @@ function Navigator() {
     const count = countAccessories + countAssets;
     
     return (
-      <>
         <nav className="nav">
-          <span className="name-nav">Snipe Report Generator</span>
-
           <section>
            <div className="docStore-button">
               <ButtonDocStore count={count} state={modalDocStore} dispatch={dispatch}/>
@@ -35,13 +32,16 @@ function Navigator() {
 
           </section>
 
+          <section>
+            {modalDocStore && (
+            <DocStore state={state} dispatch={dispatch}/>
+          )}
+          </section>
+
+          
 
         </nav>
 
-          {modalDocStore && (
-            <DocStore state={state} dispatch={dispatch}/>
-          )}
-      </>
     );
 }
 

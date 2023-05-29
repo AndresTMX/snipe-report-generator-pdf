@@ -5,8 +5,8 @@ import "./DocStore.css";
 function DocStore({ state, dispatch }) {
 
     const { initialStore, StatesModals } = state;
-    const { modalDocStore } = StatesModals
-
+    const { modalDocStore } = StatesModals;
+    
     const CloseDocStore = () => {
         dispatch({type: actionTypesModals.setModalDocStore, payload: !modalDocStore})
     }
@@ -17,9 +17,9 @@ function DocStore({ state, dispatch }) {
            <button onClick={()=> CloseDocStore() }>X</button>
            </div> 
             <DocStoreCard
-                state={state}
-                dispatch={dispatch}
-            />
+            state={state}
+            dispatch={dispatch}
+        />
         </section>
 
     );

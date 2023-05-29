@@ -63,7 +63,7 @@ function DocStoreCardCheck({state, dispatch}) {
     
     return (
         <>
-            <div className="box-checkbox">
+            <div className="DocStoreCardCheck">
                 <input type="checkbox"
                     checked={stateComponents}
                     onChange={(e) => handleCheckComponents(stateComponents)}
@@ -71,7 +71,7 @@ function DocStoreCardCheck({state, dispatch}) {
                 <p>Incluir componentes</p>
             </div>
 
-            <div className="box-checkbox">
+            <div className="DocStoreCardCheck">
                 <input type="checkbox"
                     checked={stateBecario}
                     onChange={(e) => handleCheckBecario(stateBecario)}

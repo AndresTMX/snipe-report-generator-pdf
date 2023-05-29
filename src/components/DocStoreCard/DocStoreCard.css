@@ -1,0 +1,53 @@
+.DocStore{
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 80vh;
+    gap: 5px;
+}
+
+.not-store{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(135, 135, 135);
+}
+
+.DocStore::-webkit-scrollbar{
+    display: none;
+}
+
+.box-coment {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 15px;
+    height: 250px;
+    width: 90%;
+    margin: auto;
+    background-color: white;
+    border-radius: 4px;
+    border: rgb(224, 224, 224) 2px solid;
+}
+
+.box-coment p {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0px 10px 10px;
+}
+
+.box-coment textarea {
+    height: 100%;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    padding: 15px;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+
+.box-coment-button {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}

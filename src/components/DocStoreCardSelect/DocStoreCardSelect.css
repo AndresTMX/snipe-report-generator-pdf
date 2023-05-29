@@ -1,0 +1,13 @@
+
+.DocStoreCardSelect{
+    display: flex;
+    place-content: center;
+}
+
+.DocStoreCardSelect select {
+    padding: 5px;
+    font-size: 1rem;
+    width: 90%;
+    border-radius: 4px;
+    outline: none;
+}

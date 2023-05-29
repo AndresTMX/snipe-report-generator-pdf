@@ -21,7 +21,7 @@ function DocStoreCardSelect({state, dispatch}) {
       }
 
     return (
-        <>
+        <div className="DocStoreCardSelect">
             <select onClick={(e) => OnChangueOption(e)}>
 
                 <option value={"MP"}>
@@ -41,7 +41,7 @@ function DocStoreCardSelect({state, dispatch}) {
                 </option>
 
             </select>
-        </>
+        </div>
     );
 }
 

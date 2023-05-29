@@ -98,14 +98,12 @@ function AssetsBox({
 
   return (
     <>
-      <div className="section">
-        <div className="container-button close">
-          <span className="title">Lista de activos</span>
+        <div className="container-button-close">
           <button className="button-close" onClick={CloseModal}>
             x
           </button>
         </div>
-        
+        <span className="title">Lista de activos</span>
         <div className="container">
           <span>Activos agregados: {countAssets}</span>
           <div className="container-button">
@@ -113,8 +111,6 @@ function AssetsBox({
             <button className="button-action">Check List</button>
             <button className="button-action">Baja de equipos</button>
           </div>
-
-          <div>
             <table>
               <tbody className='table-header'>
                 <tr>
@@ -164,9 +160,7 @@ function AssetsBox({
                 ))}
               </tbody>
             </table>
-          </div>
         </div>
-      </div>
 
       {modal3 && (
         <ViewMaintances

@@ -15,6 +15,11 @@
   overflow-x: hidden;
 }
 
+:root::-webkit-scrollbar{
+  display: none;
+}
+
+
 body {
   margin: 0;
   display: flex;
@@ -29,20 +34,28 @@ p{
 
 
 button {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 10px;
+  font-size: 1rem;
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 
+button span{
+  color: white;
+}
+
 .footer{
   display: flex;
   background-color: #242424;
-  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   width: 100%;
   height: 50px;
   justify-content: center;
