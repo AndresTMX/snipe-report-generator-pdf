@@ -6,15 +6,15 @@ function useImagePDF(company) {
 
     let image;
 
-    if(company === 'CONEXIONES Y MANGUERAS INDUSTRIALES DE MINATITLAN' || company === 'INSTRUMENTACION Y PRECISION'){
+    if(company === 'Conexiones Y Mangueras Industriales De Minatitlan' || company === 'Instrumentacion Y Precision'){
         image = comind;
     }
 
-    if(company === 'STAFF RECURSOS EN MOVIMIENTO'){
+    if(company === 'Staff Recursos En Movimiento'){
         image = staff;
     }
 
-    if(company === 'TOH INDUSTRIAL'){
+    if(company === 'Toh Industrial'){
         image = toh;
     }
 

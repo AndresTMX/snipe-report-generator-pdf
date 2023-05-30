@@ -2,7 +2,7 @@ import { getComponentsWhitComputerSerial } from '../API';
 import { useState, useEffect } from 'react';
 import { useFilterItems } from './useFilterItems';
 
-function useGetComponents(arrayAssets, check) {
+function useGetComponents(arrayAssets, stateComponents) {
 
     const {ArrayResult} = useFilterItems(arrayAssets);    
 
@@ -10,7 +10,7 @@ function useGetComponents(arrayAssets, check) {
     const [loading, setLoading] = useState(false);
   
     useEffect(() => {
-      if (check) {
+      if (stateComponents) {
         // Realizar solicitudes para cada serial
       const fetchComponents = async () => {
         const requests = ArrayResult.map(serial => getComponentsWhitComputerSerial(serial));
@@ -20,7 +20,7 @@ function useGetComponents(arrayAssets, check) {
       };
       fetchComponents();
       }
-    }, [check]);
+    }, [stateComponents]);
   
     return { dataComponents, loading };
   }

@@ -85,7 +85,9 @@ function useItems({ idUser, user, company, location, manager, email, department,
       newStorage = {
         ...storageState,
         assets: newAssets,
-        countAssets: newCount
+        countAssets: newCount,
+        accessories: newData?.accessories,
+        countAccessories: newData?.countAccessories
       };
 
       dispatch({ type: actionTypes.updateStorage, payload: newStorage })
@@ -130,13 +132,16 @@ function useItems({ idUser, user, company, location, manager, email, department,
   }
 
   const deleteAccessories = (index) => {
+    const newData = JSON.parse(localStorage.getItem(idUser))
 
     const newAccessories = storageState.accessories.filter(accessorie =>  accessorie.index != index );
     const newCount = countAccessories - 1;
     const newStorage = {
       ...storageState,
       accessories:[...newAccessories],
-      countAccessories: newCount
+      countAccessories: newCount,
+      assets: newData?.assets,
+      countAssets:newData?.countAssets
     }
 
     dispatch({ type: actionTypes.updateStorage, payload: newStorage })

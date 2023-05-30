@@ -68,7 +68,7 @@ function PageHome() {
                <p>Aun sin documentos</p> 
               ) : (
               <Viewer>
-                <MyDocument dataDocument={state}/>
+                <MyDocument state={state}/>
               </Viewer>
               )
             }

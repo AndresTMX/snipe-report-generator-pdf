@@ -9,12 +9,15 @@ function useGetAssetsUser(idUser) {
   useEffect(() => {
     if (get) {
       //obteninedo activos del usuario
-      const fetchAssetsUser = async () => {
+      setTimeout(()=> {
+        const fetchAssetsUser = async () => {
         const result = await getAssetsUser(idUser);
         setDataAssets(result);
         setLoading(true);
       };
       fetchAssetsUser();
+      }, 2000)
+      
     }
   }, [get, idUser]);
 

@@ -10,11 +10,22 @@
     box-sizing: border-box;
 }
 
+.container-loading{
+    display: flex;
+    width: 100%;
+    height:auto;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    color: black;
+}
+
 .container table {
     font-size: 1.2rem;
     background-color: rgb(216, 213, 213);
     margin-top: 15px;
     border-spacing:  0px 0px;
+    width: 100%;
 }
 
 .container table .asset_included{
@@ -127,13 +138,14 @@
         width: 100%;
     }
 
-    table .table-header :nth-child(3){
-        display: none;
-    }
-
     table .table-header .td-actions div{
         width: 100px;
         justify-content: center;
+    }
+
+    
+    table .table-header .table-column-ns{
+        display: none;
     }
 
 

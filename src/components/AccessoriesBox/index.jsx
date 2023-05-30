@@ -3,6 +3,8 @@ import { useItems } from "../../Hooks/useItems";
 import { actionTypes } from "../../Context/DocReducer";
 import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
 import { Notification } from "../../modals/notification";
+import {ThreeDots} from "../Loading/"
+
 
 function AccessoriesBox({
   modal,
@@ -11,6 +13,7 @@ function AccessoriesBox({
   idUser,
   dataUser,
   state,
+  loadingAccessorie,
   dispatch,
 }) {
   const { user, company, location, manager, email, department } = dataUser;
@@ -145,6 +148,18 @@ function AccessoriesBox({
           </div>
         </div>
       </div>
+
+      { newDataRender.length === 0 && loadingAccessorie && (
+        <div className="container-loading">
+          <h2>Sin accesorios registrados</h2>
+        </div>
+      )}
+
+      {!loadingAccessorie && (
+        <div className="container-loading">
+          <ThreeDots />
+        </div>
+      )}
 
 
       {StatesModals.modalNotification && (

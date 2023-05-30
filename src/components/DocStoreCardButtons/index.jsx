@@ -32,7 +32,7 @@ function DocStoreCardButtons({state, dispatch}) {
 
         console.log(document)
     
-        // dispatch({ type: actionTypesDoc.updateStorage, payload: document });
+       dispatch({ type: actionTypesDoc.updateStorage, payload: document });
       };
 
     const OpenModalComent = () => {

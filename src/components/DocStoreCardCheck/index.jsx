@@ -8,15 +8,15 @@ function DocStoreCardCheck({state, dispatch}) {
   const { initialStore, StatesModals } = state? state: {};
   const { storage } = initialStore? initialStore: {};
   const {assets, accessories} = storage? storage : {};
-  const { dataComponents } = useGetComponents(assets, true);
   const [stateComponents, setComponents] = useState(false);
   const [stateBecario, setBecario] = useState(false);
+  const { dataComponents } = useGetComponents(assets, true);
 
     const handleCheckComponents = () => {
 
         let newState = {};
     
-        if (!state) {
+        if (!stateComponents) {
           setComponents(!stateComponents);
     
           newState = {

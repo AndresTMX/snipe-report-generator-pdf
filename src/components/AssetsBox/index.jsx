@@ -7,6 +7,7 @@ import { BsTools } from "react-icons/bs";
 import { actionTypes } from "../../Context/DocReducer";
 import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
 import { Notification } from "../../modals/notification";
+import {ThreeDots} from "../Loading/"
 
 function AssetsBox({
   modal,
@@ -15,7 +16,8 @@ function AssetsBox({
   idUser,
   dataUser,
   state,
-  dispatch,
+  loadingAssets,
+  dispatch
 }) {
   const { user, company, location, manager, email, department } = dataUser;
 
@@ -98,69 +100,77 @@ function AssetsBox({
 
   return (
     <>
-        <div className="container-button-close">
-          <button className="button-close" onClick={CloseModal}>
-            x
-          </button>
+      <div className="container-button-close">
+        <button className="button-close" onClick={CloseModal}>
+          x
+        </button>
+      </div>
+      <span className="title">Lista de activos</span>
+      <div className="container">
+        <span>Activos agregados: {countAssets}</span>
+        <div className="container-button">
+          <button className="button-action">Acta de mantenimiento</button>
+          <button className="button-action">Check List</button>
+          <button className="button-action">Baja de equipos</button>
         </div>
-        <span className="title">Lista de activos</span>
-        <div className="container">
-          <span>Activos agregados: {countAssets}</span>
-          <div className="container-button">
-            <button className="button-action">Acta de mantenimiento</button>
-            <button className="button-action">Check List</button>
-            <button className="button-action">Baja de equipos</button>
-          </div>
-            <table>
-              <tbody className='table-header'>
-                <tr>
-                  <th>OFCMI</th>
-                  <th>DESCRIPCION</th>
-                  <th>NS</th>
-                  <th>ACCION</th>
-                </tr>
+        <table>
+          <tbody className="table-header">
+            <tr>
+              <th>OFCMI</th>
+              <th>DESCRIPCION</th>
+              <th className="table-column-ns">NS</th>
+              <th>ACCION</th>
+            </tr>
 
-                {dataRender.map((asset) => (
-                  <tr
-                    className={`asset_${
-                       AssetsList.includes(asset.asset_tag)
-                        ? "included"
-                        : ""
-                    }`}
-                    key={asset.id}
-                  >
-                    <td>{asset.asset_tag.slice(6, 10)}</td>
-                    <td>{asset.name}</td>
-                    <td>{asset?.serial}</td>
-                    <td className="td-actions">
-                      <div>
-                        <button
-                          onClick={() =>
-                            ButtonDeleteItem(asset.asset_tag, idUser)
-                          }
-                          className="button-delete"
-                        >
-                          X
-                        </button>
-                        <button
-                          onClick={() => ButtonAddItem(asset)}
-                          className="button-add"
-                        >
-                          Ad
-                        </button>
-                        <button
-                          onClick={() => ButtonGetMaintance(asset.id)}
-                          className="button-maintance"
-                        >
-                          <BsTools />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {dataRender.map((asset) => (
+              <tr
+                className={`asset_${
+                  AssetsList.includes(asset.asset_tag) ? "included" : ""
+                }`}
+                key={asset.id}
+              >
+                <td>{asset.asset_tag.slice(6, 10)}</td>
+                <td>{asset.name}</td>
+                <td className="table-column-ns">{asset?.serial}</td>
+                <td className="td-actions">
+                  <div>
+                    <button
+                      onClick={() => ButtonDeleteItem(asset.asset_tag, idUser)}
+                      className="button-delete"
+                    >
+                      X
+                    </button>
+                    <button
+                      onClick={() => ButtonAddItem(asset)}
+                      className="button-add"
+                    >
+                      Ad
+                    </button>
+                    <button
+                      onClick={() => ButtonGetMaintance(asset.id)}
+                      className="button-maintance table-column-ns"
+                    >
+                      <BsTools />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      { dataRender.length === 0 && loadingAssets && (
+        <div className="container-loading">
+          <h2>Sin activos registrados</h2>
         </div>
+      )}
+
+      {!loadingAssets && (
+        <div className="container-loading">
+          <ThreeDots />
+        </div>
+      )}
 
       {modal3 && (
         <ViewMaintances

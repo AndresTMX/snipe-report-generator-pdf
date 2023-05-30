@@ -29,8 +29,8 @@ function UserCard({
 
   const { nameUser, nameCompany, namedepartment, nameLocation, nameManager } = transfromValues(user, company, department, location, manager)
 
-  const { dataAssets, get, SetGet, idUser } = useGetAssetsUser(id);  
-  const { dataAccesories, Aget, getAccesories } = usegetAccesoriesUser(id);
+  const { dataAssets, get, SetGet, idUser, loading } = useGetAssetsUser(id);  
+  const { dataAccesories, Aget, getAccesories, loadingAccessorie } = usegetAccesoriesUser(id);
   const { modal, setModal, modal2, setModal2 } = UseModal();
   const [dataUser, setDataUser] = useState({
     user: "",
@@ -44,13 +44,13 @@ function UserCard({
   const ButtongetActives = () => {
     SetGet(!get);
     setModal(!modal);
-    setDataUser({ user: user, company: nameCompany, location: nameLocation , manager: nameManager , email, department: namedepartment});
+    setDataUser({ user: nameUser, company: nameCompany, location: nameLocation , manager: nameManager , email, department: namedepartment});
   };
 
   const ButtongetAccesories = () => {
     getAccesories(!Aget);
     setModal2(!modal2);
-    setDataUser({ user: user, company: nameCompany, location: nameLocation , manager: nameManager , email, department: namedepartment});
+    setDataUser({ user: nameUser, company: nameCompany, location: nameLocation , manager: nameManager , email, department: namedepartment});
   };
 
   const ButtongetMoreInfoUser = () => {};
@@ -102,6 +102,7 @@ function UserCard({
               idUser={idUser}
               dataUser={dataUser}
               state={state}
+              loadingAssets={loading}
               dispatch={dispatch}
             />
           </ViewItems>
@@ -118,6 +119,7 @@ function UserCard({
               idUser={idUser}
               dataUser={dataUser}
               state={state}
+              loadingAccessorie={loadingAccessorie}
               dispatch={dispatch}
             />
           </ViewItems>
