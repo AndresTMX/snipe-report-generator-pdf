@@ -8,9 +8,16 @@
 
 .not-store{
     display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
     justify-content: center;
     align-items: center;
     color: rgb(135, 135, 135);
+}
+
+.not-store span{
+    font-size: 50px;
 }
 
 .DocStore::-webkit-scrollbar{

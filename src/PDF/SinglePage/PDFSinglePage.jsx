@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
   },
 });
 
-import {Cabecera} from "../PFDCabeceras/Cabecera";
-import {PDFDataUser} from "../PDFDataUser"
+import {Cabecera} from "../HeaderDocument/Cabecera";
+import {PDFDataUser} from "../DataUserDocument"
 
 function PDFSinglePage({storage, typeFormat, image}) {
     return ( 

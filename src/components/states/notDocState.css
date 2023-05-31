@@ -1,0 +1,16 @@
+.no-document-state{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+    color: rgb(135, 135, 135);
+    background-color: #f8f3f3;
+  }
+  
+  .no-document-state span{
+    font-size: 50px;
+    color: rgb(135, 135, 135);
+  }

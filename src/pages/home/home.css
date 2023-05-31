@@ -31,6 +31,17 @@
   z-index: 2;
 }
 
+.container-notification {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-weight: 600;
+  font-size: 1.2rem;
+  place-items: center;
+  border-radius: 4px;
+}
+
 @media (max-width: 600px) {
     
   .container-responsive{

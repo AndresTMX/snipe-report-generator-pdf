@@ -14,6 +14,12 @@ import { MyDocument } from "../../components/PDFGenerator";
 import { useContext } from 'react';
 import { DocContext } from '../../Context/DocContext';
 import { usePagination } from "../../Hooks/usePagination";
+//state
+import { NotDocState } from "../../components/states/notDocState";
+import { NotResultUsers } from "../../components/states/notResultUsersState";
+//notification
+import { Notification } from "../../modals/notification";
+import {actionTypes as actionTypesModals} from '../../Context/StatesModalsReducer';
 
 
 function PageHome() {
@@ -29,50 +35,71 @@ function PageHome() {
   //Hooks de buscador, fetch de usuarios y paginación 
   const { search, setSearch } = useSearcher();
   const { dataUsers, loading } = useGetUsers();
-  const {pageRender,searchResults, nextPage, prevPage} = usePagination(dataUsers, search);
+  const {pageRender,searchResults, nextPage, prevPage} = usePagination(dataUsers, search, dispatch);
 
   return (
     <section className="container-responsive">
-      <InputSearch state={search} setState={setSearch} resultSearch={searchResults} />
+      <InputSearch
+        state={search}
+        setState={setSearch}
+        resultSearch={searchResults}
+      />
 
-          <UserContainer nextPage={nextPage} prevPage={prevPage}>
-            {loading && (
-              <div className="loading-state">
-                <ThreeDots />
-              </div>
-            )}
+      <UserContainer nextPage={nextPage} prevPage={prevPage}>
+        {StatesModals.modalNotification && (
+          <Notification>
+            <div className="container-notification">
+              <p>{StatesModals.modalNotification}</p>
+              <button
+                onClick={() =>
+                  dispatch({
+                    type: actionTypesModals.setModalNotification,
+                    payload: false,
+                  })
+                }
+              >
+                Ok
+              </button>
+            </div>
+          </Notification>
+        )}
 
-            {pageRender.map((user) => (
-              <UserCard
-                key={user.id}
-                id={user.id}
-                user={user.name}
-                department={user.department?.name}
-                manager={user.manager?.name}
-                avatar={user?.avatar}
-                location={user.location?.name}
-                company={user.company?.name}
-                accesories={user.accessories_count}
-                assets={user.assets_count}
-                email={user?.email}
-                state={state}
-                dispatch={dispatch}
-              />
-            ))}
-          </UserContainer>
+        {loading && (
+          <div className="loading-state">
+            <ThreeDots />
+          </div>
+        )}
 
-          <PreviewContainer>
-            {
-              
-              complete != true? (
-               <p>Aun sin documentos</p> 
-              ) : (
-              <Viewer>
-                <MyDocument state={state}/>
-              </Viewer>
-              )
-            }
-          </PreviewContainer>
+        {!loading && pageRender.length === 0 && <NotResultUsers />}
+
+        {pageRender.map((user) => (
+          <UserCard
+            key={user.id}
+            id={user.id}
+            user={user.name}
+            department={user.department?.name}
+            manager={user.manager?.name}
+            avatar={user?.avatar}
+            location={user.location?.name}
+            company={user.company?.name}
+            accesories={user.accessories_count}
+            assets={user.assets_count}
+            email={user?.email}
+            state={state}
+            dispatch={dispatch}
+          />
+        ))}
+      </UserContainer>
+
+      <PreviewContainer>
+        {complete != true ? (
+          <NotDocState />
+        ) : (
+          <Viewer>
+            <MyDocument state={state} />
+          </Viewer>
+        )}
+      </PreviewContainer>
     </section>
   );
 }

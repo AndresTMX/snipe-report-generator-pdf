@@ -9,9 +9,9 @@
     flex-wrap: wrap;
 }
 
-.nav > section{
+.nav .section-buttons{
     display: flex;
-    width:300px;
+    width:200px;
     justify-content: space-around;
     align-items: center;
 }

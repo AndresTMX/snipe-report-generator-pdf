@@ -1,6 +1,6 @@
 //PDF plantillas
-import {PDFDoblePage} from "../PDFGenerator/PDFDoblePage";
-import {PDFSinglePage} from "../PDFGenerator/PDFSinglePage";
+import {PDFDoblePage} from "../../PDF/DoblePage/PDFDoblePage";
+import {PDFSinglePage} from "../../PDF/SinglePage/PDFSinglePage";
 //Hooks PDF
 import { useFormatDocument } from "../../Hooks/useFormatDocument";
 import { useImagePDF } from "../../Hooks/useImagePDF";

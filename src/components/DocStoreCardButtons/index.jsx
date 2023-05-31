@@ -2,10 +2,7 @@ import { actionTypes as actionTypesModals } from "../../Context/StatesModalsRedu
 import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
 import { GrDocumentConfig} from "react-icons/gr";
 import { BsChatSquareTextFill } from "react-icons/bs";
-import "./DocStoreCardButton.css"
-
-const managerSystems = import.meta.env.VITE_MANAGER_SYSTEMS;
-
+import "./DocStoreCardButton.css";
 
 function DocStoreCardButtons({state, dispatch}) {
 
@@ -26,7 +23,6 @@ function DocStoreCardButtons({state, dispatch}) {
           typeDocument: storage.typeDocument,
           dateDay: storage.dateDay ? storage.dateDay : formattedDate,
           manager: storage?.manager,
-          nameManagerSystems: managerSystems,
           complete: true
         };
 

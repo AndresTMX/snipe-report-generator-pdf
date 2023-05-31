@@ -7,6 +7,8 @@ import { DocStoreCardCheck } from "../DocStoreCardCheck";
 import { DocStoreCardButtons } from "../DocStoreCardButtons";
 import { DocStoreCardComent } from "../DocStoreCardComent"
 import { Modal } from "../../modals/modal";
+//icons
+import {AiOutlineLaptop} from 'react-icons/ai';
 
 function DocStoreCard({ state, dispatch }) {
 
@@ -40,7 +42,10 @@ function DocStoreCard({ state, dispatch }) {
         {
           !user && 
           <div className="not-store">
-            <h3>No has agregado activos o usuarios</h3>
+            <span>
+              <AiOutlineLaptop/>
+            </span>
+            <h1>Sin activos agregados</h1>
           </div>
         }
 

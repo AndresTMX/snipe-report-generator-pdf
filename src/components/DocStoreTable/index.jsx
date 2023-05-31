@@ -1,5 +1,5 @@
 import "./DocStoreTable.css";
-import { DocStoreCardItem } from "../DocStoreCardItem";
+import { DocStoreItemTable } from "../DocStoreItemTable";
 
 function DocStoreTable({ arrayRender, typeTable, state }) {
 
@@ -16,7 +16,7 @@ function DocStoreTable({ arrayRender, typeTable, state }) {
 
     return(
       arrayRender.map((asset) => (
-      <DocStoreCardItem
+      <DocStoreItemTable
         typeTable={typeTable}
         key={asset.asset_tag}
         tag={asset.asset_tag}
@@ -27,7 +27,7 @@ function DocStoreTable({ arrayRender, typeTable, state }) {
     else{
       return(
         arrayRender.map((accessorie) => (
-      <DocStoreCardItem
+      <DocStoreItemTable
         typeTable={typeTable}
         key={accessorie.index}
         index={accessorie.index}

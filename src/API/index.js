@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const baseURL = import.meta.env.VITE_BASE_URL;
-
 const Authorization = import.meta.env.VITE_API_KEY;
+const departmentSystemId = import.meta.env.VITE_DEPARTMENT_SYSTEMS;
 
 
 export const getItem = () => {
@@ -79,6 +79,28 @@ export const getComponentsWhitComputerSerial = (serial) => {
         }
     })
     .then(res => res.data.rows)
+    .catch((error) => console.log(error));
+}
+
+export const getUsersSystemsDepartment = () => {
+    return axios.get(`${baseURL}users?department_id=${departmentSystemId}`, {
+        headers:{
+            accept: 'application/json',
+            Authorization: Authorization,
+        }
+    })
+    .then(res => res.data.rows)
+    .catch((error) => console.log(error));
+}
+
+export const getManagerSystem = () => {
+    return axios.get(`${baseURL}departments/${departmentSystemId}`, {
+        headers:{
+            accept: 'application/json',
+            Authorization: Authorization,
+        }
+    })
+    .then(res => res.data)
     .catch((error) => console.log(error));
 }
 

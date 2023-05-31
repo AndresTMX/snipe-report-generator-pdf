@@ -1,6 +1,6 @@
 import { useItems } from '../../Hooks/useItems';
 
-function DocStoreCardItem({ typeTable, tag, id, name, index, state }) {
+function DocStoreItemTable({ typeTable, tag, id, name, index, state }) {
 
   const { initialStore } = state
   const { storage } = initialStore;
@@ -47,4 +47,4 @@ function DocStoreCardItem({ typeTable, tag, id, name, index, state }) {
   );
 }
 
-export { DocStoreCardItem };
+export { DocStoreItemTable };

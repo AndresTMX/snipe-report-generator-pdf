@@ -1,10 +1,13 @@
 import { useState } from "react";
 //helpers
 import filterSearch from '../Helpers/filterSearch';
+//notification modal
+import {actionTypes as actionTypesModals, StatesModals} from '../Context/StatesModalsReducer';
+//context 
 
 //este Hook recibe un array de usuarios y los pagina, 
 //devulve la pagina en la que estas
-function usePagination(users, search) {
+function usePagination(users, search, dispatch) {
 
     const [page, setPage] = useState({init: 0,end: 4})
     let pageRender
@@ -36,7 +39,7 @@ function usePagination(users, search) {
 
     const prevPage = () => {
         if (page.init < 1) {
-            alert('Ya estas en la primera pagina')
+            dispatch({type: actionTypesModals.setModalNotification, payload: "¡ya estas en la primera pagina!"})
             setPage({
                 ...page,
                 init: 0,

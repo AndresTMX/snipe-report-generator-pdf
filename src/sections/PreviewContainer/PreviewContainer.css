@@ -6,7 +6,7 @@
     justify-content: center;
     width: 600px;
     border: 1px solid whitesmoke;
-    background-color: #ffffff;
+    background-color:#f8f3f3;
     border-radius: 2px;
     min-width: 200px;
     max-width: 600px;
@@ -16,7 +16,7 @@
 @media (max-width: 1000px) {
     .preview-container{
         margin: 20px;
-        width: 80vw;
-        height: 500px;
+        width: 90%;
+        height: 700px;
     }
 }
