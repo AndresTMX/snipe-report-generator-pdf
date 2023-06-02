@@ -1,3 +1,4 @@
+//Cabecera para Acta de mantenimiento, checklist, baja de equipos
 import { Text, View, StyleSheet, Image } from "@react-pdf/renderer";
 import {useTitleDocument} from "../../Hooks/useTitleDocument";
 

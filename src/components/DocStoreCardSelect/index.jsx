@@ -40,6 +40,10 @@ function DocStoreCardSelect({state, dispatch}) {
                     Baja de equipos
                 </option>
 
+                <option value={"CR"}>
+                    Carta responsiva
+                </option>
+
             </select>
         </div>
     );

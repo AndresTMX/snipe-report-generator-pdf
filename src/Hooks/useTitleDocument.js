@@ -19,6 +19,9 @@ function useTitleDocument(typeDocument) {
         title = 'VALE DE BAJA DE EQUIPOS INFORMATICOS'
     }
 
+    if(typeDocument === 'CR'){
+        title = 'CARTA RESPONSIVA DE SISTEMAS'
+    }
 
     return {title};
 }

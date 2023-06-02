@@ -1,11 +1,7 @@
-import {
-    Document,
-    Page,
-    Text,
-    View,
-    StyleSheet,
-  } from "@react-pdf/renderer";
-
+import {Document,Page, View,StyleSheet,} from "@react-pdf/renderer";
+import { RenderHeaderPDF } from '../HeaderDocument/';
+import { PDFDataUser } from '../DataUserDocument/';
+import { RenderBodyPDF } from '../BodyDocument'
 const styles = StyleSheet.create({
   Page: {
     display:'flex',
@@ -28,8 +24,6 @@ const styles = StyleSheet.create({
   },
 });
 
-import {Cabecera} from "../HeaderDocument/Cabecera";
-import {PDFDataUser} from "../DataUserDocument"
 
 function PDFSinglePage({storage, typeFormat, image}) {
     return ( 
@@ -37,9 +31,11 @@ function PDFSinglePage({storage, typeFormat, image}) {
         <Page style={styles.Page} size={"A4"}>
           <View style={styles.Container}>
 
-            <Cabecera storage={storage} typeFormat={typeFormat} image={image} />
+          <RenderHeaderPDF storage={storage} typeFormat={typeFormat} image={image}/>
 
-            <PDFDataUser storage={storage} />
+          <PDFDataUser storage={storage}/>
+
+          <RenderBodyPDF storage={storage}/>
 
           </View>
         </Page>
