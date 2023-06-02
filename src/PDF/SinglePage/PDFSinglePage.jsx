@@ -1,7 +1,8 @@
 import {Document,Page, View,StyleSheet,} from "@react-pdf/renderer";
 import { RenderHeaderPDF } from '../HeaderDocument/';
 import { PDFDataUser } from '../DataUserDocument/';
-import { RenderBodyPDF } from '../BodyDocument'
+import { RenderBodyPDF } from '../BodyDocument';
+import { TableComponents } from "../TablesDocument/TableComponents";
 const styles = StyleSheet.create({
   Page: {
     display:'flex',
@@ -26,6 +27,9 @@ const styles = StyleSheet.create({
 
 
 function PDFSinglePage({storage, typeFormat, image}) {
+
+  const {components, checkComponents} = storage? storage: {};
+
     return ( 
         <Document>
         <Page style={styles.Page} size={"A4"}>
@@ -36,6 +40,11 @@ function PDFSinglePage({storage, typeFormat, image}) {
           <PDFDataUser storage={storage}/>
 
           <RenderBodyPDF storage={storage}/>
+
+          {checkComponents &&
+          (
+            <TableComponents components={components} checkComponents={checkComponents}/>
+          )}
 
           </View>
         </Page>

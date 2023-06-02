@@ -1,25 +1,5 @@
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  Font,
-} from "@react-pdf/renderer";
-import { AssetsCheckList } from "./AssetsCheckList";
-
-Font.register(
-  {
-    family: "RobotoMedium",
-    src: "../../../public/fonts/Roboto/Roboto-Medium.ttf",
-  },
-
-  {
-    family: "RobotoBold",
-    src: "../../../public/fonts/Roboto/Roboto-Black.ttf",
-  }
-);
+import {Text, View, StyleSheet} from "@react-pdf/renderer";
+import { ItemAssetCheckList } from "../ItemTables/ItemAssetCheckList";
 
 const styles = StyleSheet.create({
   
@@ -27,20 +7,33 @@ const styles = StyleSheet.create({
     display:'flex',
     flexDirection:'column',
     width:'100%',
-    marginTop:'10px'
+  },
+
+  containerTitle: {
+    display: "flex",
+    width: "100%",
+    height: "20px",
+    fontSize: "12px",
+    textAlign: "center",
+    justifyContent:'center',
+    borderTop:'1',
+    borderLeft:'1',
+    borderRight:'1',
+    borderStyle:'solid',
+    borderColor:'black'
   },
 
   TableTableAssetsCheckList: {
     display: "flex",
-    margin: "auto",
-    height: "30px",
+    height: "18px",
+    fontSize:'10px',
     flexDirection: "row",
     width: "100%",
   },
 
   ColumnId: {
     display: "flex",
-    width: "15%",
+    width: "14%",
     borderTop: "1",
     borderColor: "black",
     borderRight: "1",
@@ -51,7 +44,7 @@ const styles = StyleSheet.create({
 
   ColumnDescription: {
     display: "flex",
-    width: "25%",
+    width: "15%",
     borderTop: "1",
     borderColor: "black",
     borderRight: "1",
@@ -81,7 +74,7 @@ const styles = StyleSheet.create({
 
   ColumnNS: {
     display: "flex",
-    width: "20%",
+    width: "31%",
     borderTop: "1",
     borderColor: "black",
     borderRight: "1",
@@ -95,10 +88,6 @@ const styles = StyleSheet.create({
     borderTop: "1",
     borderRight:'1',
     textAlign: "center",
-  },
-
-  textNegrita: {
-    fontFamily: "RobotoMedium",
   },
 
   textContainer: {
@@ -119,40 +108,45 @@ const styles = StyleSheet.create({
   }
 });
 
-function TableAssetsCheckList({ ListAssets }) {
+function TableAssetsCheckList({storage}) {
+  const { assets } = storage ? storage : [];
   return (
     <>
       <View style={styles.TableContainer}>
+
+      <View style={styles.containerTitle}>
+          <Text>ACTIVOS ASIGNADOS AL USUARIO</Text>
+        </View>
 
         <View style={styles.TableTableAssetsCheckList}>
 
           <View style={styles.ColumnId}>
             <View style={styles.textContainer}>
-                <Text style={styles.textNegrita} >OFCMI</Text>
+                <Text>OFCMI</Text>
             </View>
           </View>
 
           <View style={styles.ColumnDescription}>
           <View style={styles.textContainer}>
-                <Text style={styles.textNegrita}>DESCRIPCIÓN</Text>
+                <Text>DESCRIPCIÓN</Text>
             </View>
           </View>
 
           <View style={styles.ColumnMarca}>
           <View style={styles.textContainer}>
-                <Text style={styles.textNegrita}>MARCA</Text>
+                <Text>MARCA</Text>
             </View>
           </View>
 
           <View style={styles.ColumnModel}>
           <View style={styles.textContainer}>
-                <Text style={styles.textNegrita}>MODELO</Text>
+                <Text>MODELO</Text>
             </View>
           </View>
 
           <View style={styles.ColumnNS}>
           <View style={styles.textContainer}>
-                <Text style={styles.textNegrita}>N° SERIE</Text>
+                <Text>N° SERIE</Text>
             </View>
           </View>
 
@@ -165,8 +159,8 @@ function TableAssetsCheckList({ ListAssets }) {
         </View>
 
           {
-            ListAssets.map((asset) => (
-              <AssetsCheckList
+            assets.map((asset) => (
+              <ItemAssetCheckList
               key={asset.asset_tag}
               tag={asset.asset_tag}
               description={asset.category?.name}

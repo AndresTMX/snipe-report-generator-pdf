@@ -1,24 +1,4 @@
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  Font,
-} from "@react-pdf/renderer";
-
-Font.register(
-  {
-    family: "RobotoMedium",
-    src: "../../../public/fonts/Roboto/Roboto-Medium.ttf",
-  },
-
-  {
-    family: "RobotoBold",
-    src: "../../../public/fonts/Roboto/Roboto-Black.ttf",
-  }
-);
+import {Text, View, StyleSheet} from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
 
@@ -32,28 +12,25 @@ const styles = StyleSheet.create({
       TableTableAssetsCheckList: {
         display: "flex",
         margin: "auto",
-        height: "30px",
+        height: "18px",
         flexDirection: "row",
         width: "100%",
       },
     
       ColumnId: {
         display: "flex",
-        width: "15%",
-        borderTop: "1",
+        width: "14%",
         borderColor: "black",
         borderRight: "1",
-        borderLeft:'1',
         borderStyle: "solid",
         textAlign: "center",
       },
     
       ColumnDescription: {
         display: "flex",
-        width: "25%",
-        borderTop: "1",
-        borderColor: "black",
+        width: "15%",
         borderRight: "1",
+        borderColor: "black",
         borderStyle: "solid",
         textAlign: "center",
       },
@@ -61,7 +38,6 @@ const styles = StyleSheet.create({
       ColumnMarca: {
         display: "flex",
         width: "15%",
-        borderTop: "1",
         borderColor: "black",
         borderRight: "1",
         borderStyle: "solid",
@@ -71,7 +47,6 @@ const styles = StyleSheet.create({
       ColumnModel: {
         display: "flex",
         width: "15%",
-        borderTop: "1",
         borderColor: "black",
         borderRight: "1",
         borderStyle: "solid",
@@ -80,8 +55,7 @@ const styles = StyleSheet.create({
     
       ColumnNS: {
         display: "flex",
-        width: "20%",
-        borderTop: "1",
+        width: "31%",
         borderColor: "black",
         borderRight: "1",
         borderStyle: "solid",
@@ -91,13 +65,7 @@ const styles = StyleSheet.create({
       ColumnCheck: {
         display: "flex",
         width: "10%",
-        borderTop: "1",
-        borderRight:'1',
         textAlign: "center",
-      },
-    
-      textNegrita: {
-        fontFamily: "RobotoMedium",
       },
     
       textContainer: {
@@ -118,7 +86,7 @@ const styles = StyleSheet.create({
       }
 });
 
-function AssetsCheckList({ tag, description, marca, modelo, serie }) {
+function ItemAssetCheckList({ tag, description, marca, modelo, serie }) {
   return (
     <>
       <View style={styles.TableContainer}>
@@ -168,4 +136,4 @@ function AssetsCheckList({ tag, description, marca, modelo, serie }) {
   );
 }
 
-export { AssetsCheckList };
+export { ItemAssetCheckList };

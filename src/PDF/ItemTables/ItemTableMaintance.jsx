@@ -1,54 +1,47 @@
 import { View, StyleSheet, Text } from "@react-pdf/renderer";
 const styles = StyleSheet.create({
-  //contenedor de la tabla
-  tableContainer: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    height: "auto",
-  },
-  //contenedor del titulo de la tabla
-  containerTitle: {
-    display: "flex",
-    width: "100%",
-    height: "18px",
-    fontSize: "14px",
-    textAlign: "center",
-  },
-  //Tabla
-  table: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-  },
   //Fila de titulos
-  rowTitles: {
-    display: "flex",
-    flexDirection: "row",
+  rowTitles:{
+    display: 'flex',
+    flexDirection:'row',
+    width:'100%',
+    borderBottom:'1',
+    borderStyle:'solid',
+    borderColor:'black'
   },
   //Estilos base del titulo
-  Boxtitle: {
-    display: "flex",
-    height: "18px",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  Boxtitle:{
+    display:'flex',
+    height:'18px',
+    fontSize:'10px',
+    justifyContent:'center',
+    alignItems:'center',
+  }
 });
 
 const RowStyles = StyleSheet.create({
-  tag: {
-    width: "15%",
-  },
-  description: {
-    width: "30%",
-  },
-  ns: {
-    width: "30%",
-  },
-  maintance: {
-    width: "25%",
-  },
-});
+    tag:{
+        width:'15%',
+        borderRight:'1',
+        borderColor:'black',
+        borderStyle:'solid'
+    },
+    description:{
+        width:'30%',
+        borderRight:'1',
+        borderColor:'black',
+        borderStyle:'solid'
+    },
+    ns:{
+        width:'30%',
+        borderRight:'1',
+        borderColor:'black',
+        borderStyle:'solid'
+    },
+    maintance:{
+        width:'25%'
+    }
+})
 
 function ItemTableMaintance({tag, description, serie, maintance}) {
   return (

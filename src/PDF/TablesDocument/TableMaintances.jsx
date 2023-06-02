@@ -1,6 +1,5 @@
 import { View, StyleSheet, Text } from "@react-pdf/renderer";
 import { ItemTableMaintance } from '../ItemTables/ItemTableMaintance';
-import { useTitleDocument } from "../../Hooks/useTitleDocument";
 
 const styles = StyleSheet.create({
   //contenedor de la tabla
@@ -14,9 +13,15 @@ const styles = StyleSheet.create({
   containerTitle: {
     display: "flex",
     width: "100%",
-    height: "18px",
-    fontSize: "14px",
+    height: "20px",
+    fontSize: "12px",
     textAlign: "center",
+    justifyContent:'center',
+    borderTop:'1',
+    borderLeft:'1',
+    borderRight:'1',
+    borderStyle:'solid',
+    borderColor:'black'
   },
   //Tabla
   table: {
@@ -28,11 +33,16 @@ const styles = StyleSheet.create({
   rowTitles:{
     display: 'flex',
     flexDirection:'row',
+    width:'100%',
+    border:'1',
+    borderStyle:'solid',
+    borderColor:'black'
   },
   //Estilos base del titulo
   Boxtitle:{
     display:'flex',
     height:'18px',
+    fontSize:'10px',
     justifyContent:'center',
     alignItems:'center',
   }
@@ -40,13 +50,22 @@ const styles = StyleSheet.create({
 
 const RowStyles = StyleSheet.create({
     tag:{
-        width:'15%'
+        width:'15%',
+        borderRight:'1',
+        borderColor:'black',
+        borderStyle:'solid'
     },
     description:{
-        width:'30%'
+        width:'30%',
+        borderRight:'1',
+        borderColor:'black',
+        borderStyle:'solid'
     },
     ns:{
-        width:'30%'
+        width:'30%',
+        borderRight:'1',
+        borderColor:'black',
+        borderStyle:'solid'
     },
     maintance:{
         width:'25%'
@@ -56,7 +75,17 @@ const RowStyles = StyleSheet.create({
 function TableMaintances({storage}) {
   const {assets} = storage? storage:[];
   const {typeDocument} = storage? storage:{};
-  const {title} = useTitleDocument(typeDocument);
+
+  function generateTitle (typeDocument){
+    let title
+    if(typeDocument === 'MP'){
+     return title = 'MANTENIMIENTO PREVENTIVO'
+    }else{
+     return title= 'MANTENIMIENTO CORRECTIVO'
+    }
+  }
+
+  const title = typeDocument? generateTitle(typeDocument): 'null';
 
   return (
     <>
@@ -85,20 +114,19 @@ function TableMaintances({storage}) {
                     <Text>Tipo de Mantenimiento</Text>
                 </View>
 
-                {
+            </View>
+              
+            {
                   assets.map((asset) => (
                     <ItemTableMaintance
                     key={asset.id}
-                    tag={asset.tag}
+                    tag={asset.asset_tag}
                     description={asset.category?.name}
                     serie={asset.serial}
-                    maintance={asset?.TypeMaintances?.value}
+                    maintance={asset?.custom_fields?.TypeMaintances?.value}
                     />
                   ))
                 }
-
-            </View>
-
         </View>
       </View>
     </>
