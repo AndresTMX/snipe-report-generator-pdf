@@ -21,7 +21,7 @@ function UserConfig({ state, dispatch }) {
     let newState = {
       ...storage,
       emisor: event.target.value,
-      nameManagerSystems:managerSystems
+      managerSystems:managerSystems
     };
     dispatch({ type: actionTypesDocs.updateStorage, payload: newState });
   };

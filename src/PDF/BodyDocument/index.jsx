@@ -7,6 +7,8 @@ import { TableAccessoriesCheckList } from "../TablesDocument/TableAccessoriesChe
 //Vale de baja
 import { TableAssetsValeBaja } from "../TablesDocument/TableAssetsValeBaja";
 import { TableAccessoriesValeBaja } from "../TablesDocument/TableAccessoriesValeBaja";
+//carta responsiva
+import { BodyCartaResponsiva } from "../PDFExtras/BodyCartaResponsiva";
 
 function RenderBodyPDF({ storage }) {
 
@@ -36,12 +38,9 @@ function RenderBodyPDF({ storage }) {
       )}
 
 
-      {/* {(typeDocument === 'CR') && (
-        <div>
-          aqui va el componente del doc
-          de carta responsiva
-        </div>
-       )} */}
+      {(typeDocument === 'CR') && (
+        <BodyCartaResponsiva storage={storage}/>
+       )}
       
     </>
   );

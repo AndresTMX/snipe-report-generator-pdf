@@ -5,6 +5,7 @@ function DocStoreCardComent({state, dispatch}) {
 
     const { initialStore, StatesModals } = state? state: {};
     const { storage } = initialStore? initialStore: {};
+    const {coment} = storage? storage: 'valor random';
 
     const CloseBoxComent = () => {
     
@@ -27,22 +28,22 @@ function DocStoreCardComent({state, dispatch}) {
     
         dispatch({
           type: actionTypesDoc.updateStorage,
-          payload: newState,
+          payload: newState
         });
       };
     
       const AddComentDocument = () => {
     
-        const newState = { ...storage, coment: storage.coment };
+        const newState = { ...storage, coment };
     
         dispatch({
           type: actionTypesDoc.updateStorage,
-          payload: newState,
+          payload: newState
         });
     
         dispatch({
           type: actionTypesModals.setModalComent,
-          payload: !StatesModals.modalComent,
+          payload: !StatesModals.modalComent
         });
       };
 
@@ -56,7 +57,7 @@ function DocStoreCardComent({state, dispatch}) {
             <p>Agregue comentarios para complementar su documento</p>
             <textarea
               onChange={(event) => OnChangueText(event)}
-              value={storage? storage.coment:""}
+              value={coment}
             />
             <div className="box-coment-button">
               <button onClick={() => AddComentDocument()}>

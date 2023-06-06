@@ -1,12 +1,12 @@
 import {Text,View, StyleSheet, Image} from "@react-pdf/renderer";
 import {useComind} from '../../Hooks/useComind';
-
+import formatDateDay  from '../../Helpers/dateDay';
 const styles = StyleSheet.create({
   //contenedor general
   container:{
     display:'flex',
     flexDirection:'row',
-    height:'100px',
+    height:'120px',
     width:'100%',
     border:'1',
     borderStyle:'solid',
@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     borderColor:'black'
   },
   image:{
-    height:'90px',
-    width:'90px',
+    height:'120px',
+    width:'120px',
     objectFit:'contain'
   },
   //contenedor de titulo de documento y compañia 
@@ -119,11 +119,11 @@ const borderStyles = StyleSheet.create({
 
 function CabeceraCR({ storage, image, typeFormat, title }) {
 
-    // const fecha = `${DayNum + " de " + monthName + " del " +  YaerNum }`
-
     const {company, dateDay} = storage? storage: {};
+    const {year, day, mounth} =  formatDateDay(dateDay)
+    const {newName} = useComind(company)
+    const fecha = `${day} / ${mounth} / ${year}`;
 
-    const {newName} = useComind(company);
 
   return (
     <>
@@ -187,7 +187,7 @@ function CabeceraCR({ storage, image, typeFormat, title }) {
             </View>
             <View style={styles.boxDetailsMid}>
               <View style={styles.boxTextRegular}>
-                <Text>{dateDay}</Text>
+                <Text>{fecha}</Text>
               </View>
             </View>
            

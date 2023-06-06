@@ -1,7 +1,7 @@
 //Cabecera para Acta de mantenimiento, checklist, baja de equipos
 import { Text, View, StyleSheet, Image } from "@react-pdf/renderer";
 import {useTitleDocument} from "../../Hooks/useTitleDocument";
-
+import  formatDateDay  from '../../Helpers/dateDay';
 const styles = StyleSheet.create({
   actaCabecera: {
     display: "flex",
@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
   },
   
   actaCabeceraLogo: {
-    width: "100px",
-    height: "100px",
+    width: "120px",
+    height: "120px",
     alignItems: "center",
     justifyContent: "center",
     borderRight: "1",
@@ -21,14 +21,14 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: "90px",
-    height: "90px",
+    width: "120px",
+    height: "120px",
     objectFit: "contain",
   },
   
   actaCabeceraTitle: {
     display: "flex",
-    fontSize: "24px",
+    fontSize: "23px",
     justifyContent: "center",
     alignItems: "center",
     borderRight: "1",
@@ -79,6 +79,8 @@ const actaCabeceraDateBlockBottom = {
 function Cabecera({ storage, image, typeFormat }) {
 
   const {typeDocument, dateDay} = storage? storage: {};
+  const {year, day, mounth} =  formatDateDay(dateDay)
+  const fecha = `${day} / ${mounth} / ${year}`;
 
   const {title} = useTitleDocument(typeDocument)
 
@@ -99,7 +101,7 @@ function Cabecera({ storage, image, typeFormat }) {
 
       <View style={styles.actaCabeceraDate}>
         <Text style={actaCabeceraDateBlockBottom}>Version: 00</Text>
-        <Text style={styles.actaCabeceraDateBlock}>Fecha: {dateDay}</Text>
+        <Text style={styles.actaCabeceraDateBlock}>Fecha: {fecha}</Text>
         <Text style={actaCabeceraDateBlockTop}>Codigo: {typeFormat}</Text>
       </View>
     </View>

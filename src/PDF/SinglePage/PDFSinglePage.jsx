@@ -3,6 +3,8 @@ import { RenderHeaderPDF } from '../HeaderDocument/';
 import { PDFDataUser } from '../DataUserDocument/';
 import { RenderBodyPDF } from '../BodyDocument';
 import { TableComponents } from "../TablesDocument/TableComponents";
+import { Comentarios } from "../PDFExtras/Comentarios";
+import {Firmas} from '../PDFExtras/Firmas'
 const styles = StyleSheet.create({
   Page: {
     display:'flex',
@@ -25,31 +27,41 @@ const styles = StyleSheet.create({
   },
 });
 
-
 function PDFSinglePage({storage, typeFormat, image}) {
 
-  const {components, checkComponents} = storage? storage: {};
+  const {components, checkComponents, typeDocument} = storage? storage: {};
 
-    return ( 
-        <Document>
+    return (
+      <Document>
         <Page style={styles.Page} size={"A4"}>
           <View style={styles.Container}>
+            <RenderHeaderPDF
+              storage={storage}
+              typeFormat={typeFormat}
+              image={image}
+            />
 
-          <RenderHeaderPDF storage={storage} typeFormat={typeFormat} image={image}/>
+            <PDFDataUser storage={storage} />
 
-          <PDFDataUser storage={storage}/>
+            <RenderBodyPDF storage={storage} />
 
-          <RenderBodyPDF storage={storage}/>
+            {checkComponents && (
+              <TableComponents
+                components={components}
+                checkComponents={checkComponents}
+              />
+            )}
 
-          {checkComponents &&
-          (
-            <TableComponents components={components} checkComponents={checkComponents}/>
-          )}
+            {typeDocument != 'CR' &&(
+              <Comentarios storage={storage}/>
+            )}
+
+            <Firmas storage={storage}/>
 
           </View>
         </Page>
       </Document>
-     );
+    );
 }
 
 export {PDFSinglePage};

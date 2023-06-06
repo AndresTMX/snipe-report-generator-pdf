@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
-
+import  formatDateDay  from '../../Helpers/dateDay';
 const styles = StyleSheet.create({
   container: {
     display: "flex",
@@ -128,29 +128,11 @@ const styles = StyleSheet.create({
 
 function PDFDataUser({ storage }) {
   const { user, company, department, manager, location, dateDay, typeDocument } = storage ? storage : {};
-
-  const date = new Date(dateDay); // fecha actual
-  const year = date.getFullYear();
-  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // agregar ceros a la izquierda si el mes es menor a 10
-  const day = date.getDate().toString().padStart(2, "0"); // agregar ceros a la izquierda si el día es menor a 10
-  const formattedDate = `${year}-${month}-${day}`; // formato YYYY-MM-DD
-
-  const fecha = dateDay? dateDay.split('-', 3):'00';
-  const newDay = fecha? fecha[2]: '00';
+  const {year, day, mounth} =  formatDateDay(dateDay);
 
   return (
     <View style={styles.container}>
       <View style={styles.containerDataUser}>
-        <View style={styles.containerDataBorderBotom}>
-          <View style={styles.boxTitle}>
-            <Text>Nombre</Text>
-          </View>
-
-          <View style={styles.boxData}>
-            <Text>{user}</Text>
-          </View>
-        </View>
-
         <View style={styles.containerDataBorderBotom}>
           <View style={styles.boxTitle}>
             <Text>Empresa</Text>
@@ -158,6 +140,16 @@ function PDFDataUser({ storage }) {
 
           <View style={styles.boxData}>
             <Text>{company}</Text>
+          </View>
+        </View>
+
+        <View style={styles.containerDataBorderBotom}>
+          <View style={styles.boxTitle}>
+            <Text>Personal</Text>
+          </View>
+
+          <View style={styles.boxData}>
+            <Text>{user}</Text>
           </View>
         </View>
 
@@ -229,10 +221,10 @@ function PDFDataUser({ storage }) {
 
           <View style={styles.tableRow}>
             <View style={styles.tableColD}>
-              <Text>{newDay}</Text>
+              <Text>{day}</Text>
             </View>
             <View style={styles.tableColM}>
-              <Text>{month}</Text>
+              <Text>{mounth}</Text>
             </View>
             <View style={styles.tableColA}>
               <Text>{year}</Text>

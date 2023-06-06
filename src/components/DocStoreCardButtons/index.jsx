@@ -15,11 +15,9 @@ function DocStoreCardButtons({state, dispatch}) {
     const formattedDate = `${year}-${month}-${day}`; // formato YYYY-MM-DD
 
     const GenerateDocument = () => {
-
-        const prevState = storage;
     
         const document = {
-          ...prevState,
+          ...storage,
           typeDocument: storage.typeDocument,
           dateDay: storage.dateDay ? storage.dateDay : formattedDate,
           manager: storage?.manager,
