@@ -48,10 +48,11 @@ const styles = StyleSheet.create({
   },
 });
 function Firmas({ storage }) {
-  const { user, managerSystems, typeDocument, becario, manager } = storage
+
+  const { user, managerSystems, typeDocument, becario, manager, emisor } = storage
     ? storage
     : {};
-  const { emisor } = handleTextFirmas(typeDocument);
+  // const { emisor } = handleTextFirmas(typeDocument);
 
   return (
     <>
@@ -62,17 +63,18 @@ function Firmas({ storage }) {
       )}
 
       <View style={styles.container}>
-        {typeDocument === "VB" && !becario && (
-          <View style={styles.boxFirma}>
+       
+       <View style={styles.containerFirmas}>
+
+       <View style={styles.boxFirma}>
             <View style={styles.spaceFirm}>
-              <Text>{user}</Text>
+              <Text>{emisor}</Text>
             </View>
 
             <View style={styles.nameFirma}>
-              <Text>NOMBRE Y FIRMA DEL JEFE INMEDIATO</Text>
+              <Text>NOMBRE Y FIRMA DEL PERSONAL DE TI</Text>
             </View>
           </View>
-        )}
 
         {becario && (
           <View style={styles.boxFirma}>
@@ -86,6 +88,8 @@ function Firmas({ storage }) {
           </View>
         )}
 
+       </View>
+          
         <View style={styles.containerFirmas}>
           <View style={styles.boxFirma}>
             <View style={styles.spaceFirm}>
@@ -93,7 +97,7 @@ function Firmas({ storage }) {
             </View>
 
             <View style={styles.nameFirma}>
-              <Text>{emisor}</Text>
+              <Text>NOMBRE Y FIRMA DEL LIDER DE TI</Text>
             </View>
           </View>
 

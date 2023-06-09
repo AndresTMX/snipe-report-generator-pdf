@@ -2,6 +2,7 @@
 export default function handleTextFirmas(typeDocument){
 
     let emisor
+   
 
     if(typeDocument === 'CR'){
         emisor = 'NOMBRE Y FIRMA DE LIDER DE TI'

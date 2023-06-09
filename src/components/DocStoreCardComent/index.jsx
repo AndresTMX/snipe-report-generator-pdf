@@ -24,7 +24,7 @@ function DocStoreCardComent({state, dispatch}) {
     
       const OnChangueText = (event) => {
 
-        const newState = { ...storage, coment: event.target.value };
+        const newState = { ...storage, coment: event.target.value, complete:false };
     
         dispatch({
           type: actionTypesDoc.updateStorage,
