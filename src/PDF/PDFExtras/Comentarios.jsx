@@ -6,13 +6,12 @@ const styles = StyleSheet.create({
         border:'1',
         borderColor:'black',
         borderStyle:'solid',
-        flexDirection:'column',
-        height:'auto',
-        minHeight:'100px'
+        flexDirection:'column'
     },
     boxTitle:{
         display:'flex',
         width:'100%',
+        height:'20px',
         alignItems:'center',
         fontSize:'12px',
         borderBottom:'1',
@@ -22,7 +21,8 @@ const styles = StyleSheet.create({
 
     boxText:{
         display:'flex',
-       alignItems:'center'
+       alignItems:'center',
+       height:'50px'
     },
     comentText:{
         display:'flex',

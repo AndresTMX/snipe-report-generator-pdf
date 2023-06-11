@@ -1,5 +1,4 @@
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
-import handleTextFirmas from "../../Helpers/helpText";
 const styles = StyleSheet.create({
   container: {
     display: "flex",
@@ -14,7 +13,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
     fontSize: "14px",
   },
 
@@ -33,6 +31,7 @@ const styles = StyleSheet.create({
     width: "40%",
     fontSize: "10px",
     lineHeight: "1.2px",
+
   },
   nameFirma: {
     borderTop: "1",
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
   spaceFirm: {
     display: "flex",
     justifyContent: "flex-end",
-    height: "50px",
+    height: "30px",
     margin: "0px",
   },
 });
@@ -52,7 +51,6 @@ function Firmas({ storage }) {
   const { user, managerSystems, typeDocument, becario, manager, emisor } = storage
     ? storage
     : {};
-  // const { emisor } = handleTextFirmas(typeDocument);
 
   return (
     <>

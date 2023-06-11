@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { DocContext } from "./../../Context/DocContext";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { MyDocument } from "../../components/PDFGenerator";
+import { useTitleDocument } from "../../Hooks/useTitleDocument";
 import "./ButtonPDF.css";
 
 function ButtonPDF() {
@@ -13,11 +14,13 @@ function ButtonPDF() {
 
   const { typeDocument, user } = storage? storage: {};
 
-  const nameDocument = `${typeDocument+"_"+user}`;
+  const {title} = useTitleDocument(typeDocument);
+
+  const nameDocument = `${title+"_"+user}`;
 
   return (
     <PDFDownloadLink
-      document={<MyDocument dataDocument={state} />}
+      document={<MyDocument state={state} />}
       fileName={`${nameDocument}`}
 
     >
