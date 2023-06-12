@@ -77,6 +77,7 @@ function PDFDoblePage({ storage, typeFormat, image }) {
             <TableComponents
               components={components}
               checkComponents={checkComponents}
+              typeDocument={typeDocument}
             />
           )}
            <View style={styles.boxNumPage}><Text>Pagina 1 de 2</Text></View>
@@ -90,6 +91,7 @@ function PDFDoblePage({ storage, typeFormat, image }) {
               <TableComponents
                 components={components}
                 checkComponents={checkComponents}
+                typeDocument={typeDocument}
               />
             )}
           </View>

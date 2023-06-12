@@ -11,7 +11,7 @@
 
 .nav .section-buttons{
     display: flex;
-    width:200px;
+    width:100%;
     justify-content: space-around;
     align-items: center;
 }

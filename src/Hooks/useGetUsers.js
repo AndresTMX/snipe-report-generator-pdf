@@ -1,5 +1,6 @@
-import {  getUsers } from "../API/index"
-import { useState, useEffect } from "react"
+import {  getUsers } from "../API/index";
+import { useState, useEffect } from "react";
+import filterUsersActives from "../Helpers/filterUsersActive";
 
 function useGetUsers() {
 
@@ -12,7 +13,7 @@ function useGetUsers() {
             //obteniendo info del usuario
         const fetchInfoUser = async () => {
             const result = await getUsers();
-            setDataUser(result);
+            setDataUser(filterUsersActives(result));
             setLoading(false);
         }
         fetchInfoUser();

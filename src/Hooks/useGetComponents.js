@@ -20,7 +20,7 @@ function useGetComponents(arrayAssets, stateComponents) {
       };
       fetchComponents();
       }
-    }, [stateComponents]);
+    }, [ArrayResult]);
   
     return { dataComponents, loading };
   }

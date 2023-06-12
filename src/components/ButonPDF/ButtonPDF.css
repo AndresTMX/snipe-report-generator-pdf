@@ -1,5 +1,6 @@
 .buton-download{
-    color: black;
+    color: white;
+    font-weight: 500;
     background-color: #646cff;
-    
+    text-decoration: none;    
 }

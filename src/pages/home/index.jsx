@@ -82,9 +82,11 @@ function PageHome() {
             avatar={user?.avatar}
             location={user.location?.name}
             company={user.company?.name}
-            accesories={user.accessories_count}
-            assets={user.assets_count}
+            accesories={user?.accessories_count}
+            licences={user?.licenses_count}
+            assets={user?.assets_count}
             email={user?.email}
+            jobtitle={user?.jobtitle}
             state={state}
             dispatch={dispatch}
           />

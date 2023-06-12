@@ -54,13 +54,14 @@ function Firmas({ storage }) {
 
   return (
     <>
+
+      <View style={styles.container}>
+
       {typeDocument === "CR" && (
         <View style={styles.titleBox}>
           <Text>ATENTAMENTE</Text>
         </View>
       )}
-
-      <View style={styles.container}>
        
        <View style={styles.containerFirmas}>
 

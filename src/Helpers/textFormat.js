@@ -5,7 +5,7 @@ function transformText (text) {
     return formattedText;
   }
 
-export default function transfromValues (user, company, department, location, manager, ) {
+export default function transfromValues (user, company, department, location, manager, jobtitle ) {
 
     const textDefault = "No asignado";
     const nameUser = user? transformText(user): textDefault;
@@ -13,6 +13,7 @@ export default function transfromValues (user, company, department, location, ma
     const namedepartment = department ? transformText(department) : textDefault;
     const nameLocation= location ? transformText(location) : textDefault;
     const nameManager = manager? transformText(manager) : textDefault;
+    const nameJobtitle = jobtitle? transformText(jobtitle): textDefault;
 
-    return {nameUser, nameCompany, namedepartment, nameLocation, nameManager}
+    return {nameUser, nameCompany, namedepartment, nameLocation, nameManager, nameJobtitle}
 }

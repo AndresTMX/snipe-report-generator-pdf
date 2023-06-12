@@ -5,12 +5,16 @@ import { AssetsBox } from "../AssetsBox";
 import { Modal } from "../../modals/modal";
 import { useGetAssetsUser } from "../../Hooks/useGetAssetsUser";
 import { UseModal } from "../../Hooks/useModal";
-import { BsHeadset } from "react-icons/bs";
-import { FaDesktop, FaUserCircle } from "react-icons/fa";
-import { usegetAccesoriesUser } from "../../Hooks/useAccesoriesUser";
 import { AccessoriesBox } from "../AccessoriesBox";
+//icons
+import { BsHeadset } from "react-icons/bs";
+import { FaDesktop } from "react-icons/fa";
+import {ImKey} from 'react-icons/im';
 //helper
 import transfromValues from "../../Helpers/textFormat";
+//hooks
+import {useImagePDF} from '../../Hooks/useImagePDF';
+import { usegetAccesoriesUser } from "../../Hooks/useAccesoriesUser";
 
 function UserCard({
   id,
@@ -21,17 +25,19 @@ function UserCard({
   location,
   company,
   accesories,
+  licences,
   assets,
   email,
   state,
+  jobtitle,
   dispatch
 }) {
 
-  const { nameUser, nameCompany, namedepartment, nameLocation, nameManager } = transfromValues(user, company, department, location, manager)
+  const { nameUser, nameCompany, namedepartment, nameLocation, nameManager, nameJobtitle } = transfromValues(user, company, department, location, manager, jobtitle)
 
   const { dataAssets, get, SetGet, idUser, loading } = useGetAssetsUser(id);  
   const { dataAccesories, Aget, getAccesories, loadingAccessorie } = usegetAccesoriesUser(id);
-  const { modal, setModal, modal2, setModal2 } = UseModal();
+  const { modal, setModal, modal2, setModal2, modal3, setModal3 } = UseModal();
   const [dataUser, setDataUser] = useState({
     user: "",
     company: "",
@@ -40,6 +46,8 @@ function UserCard({
     email:"",
     department:"",
   });
+
+  const {image} = useImagePDF(nameCompany);
 
   const ButtongetActives = () => {
     SetGet(!get);
@@ -53,25 +61,30 @@ function UserCard({
     setDataUser({ user: nameUser, company: nameCompany, location: nameLocation , manager: nameManager , email, department: namedepartment});
   };
 
-  const ButtongetMoreInfoUser = () => {};
+  const ButtongetMoreInfoUser = () => {
+    setModal3(!modal3)
+  };
 
   return (
     <>
       <div className="card">
         <picture>
-          <img alt="image" src={avatar} />
+          <img alt="image" src={image? image: avatar} />
         </picture>
 
         <div className="card-info-container">
           <p>ID:{id}</p>
           <p>{nameUser}</p>
+          <span>Puesto</span>
+          <p>{nameJobtitle}</p>
           <span>Empresa</span>
           <p>{nameCompany}</p>
+          <span>Jefe inmediado</span>
+          <p>{nameManager} </p>
           <span>Departamento</span>
           <p>{namedepartment} </p>
           <span>Ubicación</span>
           <p>{nameLocation}</p>
-
         </div>
 
         <div className="card-buttons-container">
@@ -84,10 +97,11 @@ function UserCard({
             {accesories}
           </button>
           <button
-            title="Informacion de usuarios"
-            onClick={() => ButtongetMoreInfoUser()}
+            title="Licencias"
+            // onClick={() => ButtongetMoreInfoUser()}
           >
-            <FaUserCircle />
+            <ImKey />
+            {licences}
           </button>
         </div>
       </div>
@@ -122,6 +136,26 @@ function UserCard({
               loadingAccessorie={loadingAccessorie}
               dispatch={dispatch}
             />
+          </ViewItems>
+        </Modal>
+      )}
+
+      {modal3 && (
+        <Modal>
+          <ViewItems>
+             <p>ID:{id}</p>
+            <p>{nameUser}</p>
+            <span>Empresa</span>
+            <p>{nameCompany}</p>
+            <span>Departamento</span>
+            <p>{namedepartment} </p>
+            <span>Ubicación</span>
+            <p>{nameLocation}</p>
+            <span>Jefe inmediado</span>
+            <p>{nameManager} </p>
+            <span>Puesto</span>
+            <p>{nameJobtitle}</p>
+            <button onClick={ButtongetMoreInfoUser} >x</button>
           </ViewItems>
         </Modal>
       )}

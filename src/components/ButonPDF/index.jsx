@@ -19,7 +19,7 @@ function ButtonPDF() {
   const nameDocument = `${title+"_"+user}`;
 
   return (
-    <PDFDownloadLink
+    <PDFDownloadLink 
       document={<MyDocument state={state} />}
       fileName={`${nameDocument}`}
 

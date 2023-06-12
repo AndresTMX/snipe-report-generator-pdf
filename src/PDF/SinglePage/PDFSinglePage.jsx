@@ -60,6 +60,7 @@ function PDFSinglePage({storage, typeFormat, image}) {
               <TableComponents
                 components={components}
                 checkComponents={checkComponents}
+                typeDocument={typeDocument}
               />
             )}
 
@@ -67,7 +68,7 @@ function PDFSinglePage({storage, typeFormat, image}) {
               <Comentarios storage={storage}/>
             )}
 
-            {(company != 'Instrumentacion Y Precision') && (<Compromiso storage={storage}/>)}
+            {(company != 'Instrumentacion Y Precision' && typeDocument != 'CR') && (<Compromiso storage={storage}/>)}
 
             <Firmas storage={storage}/>
           </View>

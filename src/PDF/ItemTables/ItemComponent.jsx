@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     display:'flex',
     justifyContent:'center',
     alignItems:'center',
-    width:'10%',
+    width:'5%',
     height:'18px',
     borderStyle:'solid',
     borderColor:'black',
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     display:'flex',
     justifyContent:'center',
     alignItems:'center',
-    width:'30%',
+    width:'35%',
     height:'18px',
     borderStyle:'solid',
     borderColor:'black',
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     display:'flex',
     justifyContent:'center',
     alignItems:'center',
-    width:'30%',
+    width:'20%',
     height:'18px',
     borderStyle:'solid',
     borderColor:'black',
@@ -52,40 +52,71 @@ const styles = StyleSheet.create({
     alignItems:'center',
     width:'30%',
     height:'18px',
+  },
+
+  serieColExtraLarge:{
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    width:'40%',
+    height:'18px',
+    borderStyle:'solid',
+    borderColor:'black',
+  },
+
+  checkCol:{
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    width:'10%',
+    height:'18px',
+    borderStyle:'solid',
+    borderColor:'black',
+    borderLeft:'1'
   }
 });
 
 
-function ItemComponent({id, name, category, serial}) {
+function ItemComponent({id, name, category, serial, typeDocument}) {
+
+  const serialStyles = typeDocument === 'CL'? true:false;
+
   return (
     <>
-        <View style={styles.RowItems}>
-
-          <View style={styles.IdCol}>
-            <View>
-              <Text>{id}</Text>
-            </View>
+      <View style={styles.RowItems}>
+        <View style={styles.IdCol}>
+          <View>
+            <Text>{id}</Text>
           </View>
-
-          <View style={styles.componentCol}>
-            <View>
-              <Text>{name}</Text>
-            </View>
-          </View>
-
-          <View style={styles.categoryCol}>
-            <View>
-            <Text>{category}</Text>
-            </View>
-          </View>
-
-          <View style={styles.serieCol}>
-            <View>
-              <Text>{serial}</Text>
-            </View>
-          </View>
-
         </View>
+
+        <View style={styles.componentCol}>
+          <View>
+            <Text>{name}</Text>
+          </View>
+        </View>
+
+        <View style={styles.categoryCol}>
+          <View>
+            <Text>{category}</Text>
+          </View>
+        </View>
+
+        <View style={serialStyles? styles.serieCol : styles.serieColExtraLarge }>
+          <View>
+            <Text>{serial}</Text>
+          </View>
+        </View>
+
+        {typeDocument === "CL" && (
+          <View style={styles.checkCol}>
+            <View>
+              <Text></Text>
+            </View>
+          </View>
+        )}
+
+      </View>
     </>
   );
 }

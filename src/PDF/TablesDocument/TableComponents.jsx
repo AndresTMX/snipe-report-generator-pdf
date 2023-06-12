@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     display:'flex',
     justifyContent:'center',
     alignItems:'center',
-    width:'10%',
+    width:'5%',
     height:'18px',
     borderStyle:'solid',
     borderColor:'black',
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     display:'flex',
     justifyContent:'center',
     alignItems:'center',
-    width:'30%',
+    width:'35%',
     height:'18px',
     borderStyle:'solid',
     borderColor:'black',
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     display:'flex',
     justifyContent:'center',
     alignItems:'center',
-    width:'30%',
+    width:'20%',
     height:'18px',
     borderStyle:'solid',
     borderColor:'black',
@@ -101,13 +101,35 @@ const styles = StyleSheet.create({
     height:'18px',
     borderStyle:'solid',
     borderColor:'black',
+  },
+
+  serieColExtraLarge:{
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    width:'40%',
+    height:'18px',
+    borderStyle:'solid',
+    borderColor:'black',
+  },
+
+  checkCol:{
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    width:'10%',
+    height:'18px',
+    borderStyle:'solid',
+    borderColor:'black',
+    borderLeft:'1'
   }
 
 });
 
-function RenderComponents(components) {
+function RenderComponents(components, typeDocument) {
 
   const flatComponents = components.flat();
+  const serialStyles = typeDocument === 'CL'? true:false;
 
     return (
       <>
@@ -116,7 +138,7 @@ function RenderComponents(components) {
           <View style={styles.HeadContainer}>
 
             <View style={styles.BoxTitle}>
-              <Text>Componentes incluidos en los activos del usuario</Text>
+              <Text>COMPONENTES INCLUIDOS EN LOS ACTIVOS DEL USUARIO</Text>
             </View>
 
           </View>
@@ -143,11 +165,20 @@ function RenderComponents(components) {
                   </View>
                 </View>
 
-                <View style={styles.serieCol}>
+                <View style={serialStyles? styles.serieCol : styles.serieColExtraLarge }>
                   <View>
                     <Text>N° SERIE</Text>
                   </View>
                 </View>
+
+                {typeDocument === "CL" && (
+                  <View style={styles.checkCol}>
+                  <View>
+                    <Text>LISTADO</Text>
+                  </View>
+               </View>
+                )}
+
               </View>
 
               {flatComponents.map((component) => (
@@ -157,6 +188,7 @@ function RenderComponents(components) {
                 name={component.name} 
                 category={component.category?.name}
                 serial={component?.serial}
+                typeDocument={typeDocument}
                  />
               ))}
             </View>
@@ -178,7 +210,7 @@ function RenderComponentDefault() {
   );
 }
 
-function TableComponents({ components, checkComponents }) {
+function TableComponents({ components, checkComponents, typeDocument }) {
 
    const flatComponents = components.flat();
 
@@ -186,7 +218,7 @@ function TableComponents({ components, checkComponents }) {
   
     return(
     checkComponents && validateComponents > 0?
-    RenderComponents(components)
+    RenderComponents(components, typeDocument)
     :
     RenderComponentDefault()
     )

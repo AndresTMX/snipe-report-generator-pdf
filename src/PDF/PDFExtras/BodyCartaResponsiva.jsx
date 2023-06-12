@@ -1,6 +1,16 @@
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
 import formatDateDay from '../../Helpers/dateDay';
 const styles = StyleSheet.create({
+
+  mainContainer:{
+    display: "flex",
+    width: "100%",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height:'50%'
+  },
+
   container: {
     display: "flex",
     width: "100%",
@@ -75,7 +85,7 @@ function BodyCartaResponsiva({ storage }) {
 
   return (
     <>
-      <View style={styles.container}>
+      <View style={styles.mainContainer}>
         <View style={styles.titleBox}>
           <Text>Coatzacoalcos, Veracruz {day} de {mounth} del {year}</Text>
         </View>
