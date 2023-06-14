@@ -56,7 +56,7 @@ function PDFSinglePage({storage, typeFormat, image}) {
 
             <RenderBodyPDF storage={storage} />
 
-            {checkComponents && (
+            {(checkComponents && typeDocument != 'CR') && (
               <TableComponents
                 components={components}
                 checkComponents={checkComponents}

@@ -21,11 +21,18 @@
 }
 
 .container table {
+    display: flex;
     font-size: 1.2rem;
     background-color: rgb(216, 213, 213);
     margin-top: 15px;
     border-spacing:  0px 0px;
     width: 100%;
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
+.container table::-webkit-scrollbar{
+    display: none;
 }
 
 .container table .asset_included{

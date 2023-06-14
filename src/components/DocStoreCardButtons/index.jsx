@@ -15,18 +15,22 @@ function DocStoreCardButtons({state, dispatch}) {
     const formattedDate = `${year}-${month}-${day}`; // formato YYYY-MM-DD
 
     const GenerateDocument = () => {
-    
-        const document = {
-          ...storage,
-          typeDocument: storage.typeDocument,
-          dateDay: storage.dateDay ? storage.dateDay : formattedDate,
-          manager: storage?.manager,
-          complete: true
-        };
 
-        console.log(document)
-    
-       dispatch({ type: actionTypesDoc.updateStorage, payload: document });
+        if(storage.typeDocument){
+            const document = {
+                ...storage,
+                typeDocument: storage.typeDocument,
+                dateDay: storage.dateDay ? storage.dateDay : formattedDate,
+                manager: storage?.manager,
+                complete: true
+            };
+          
+            dispatch({ type: actionTypesDoc.updateStorage, payload: document });
+        }else{
+
+            dispatch({ type:actionTypesModals.setModalNotification, payload:'Selecciona el tipo de documento que deseas generar'})
+        }
+
       };
 
     const OpenModalComent = () => {

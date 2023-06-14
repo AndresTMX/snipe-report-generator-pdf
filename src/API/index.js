@@ -104,3 +104,16 @@ export const getManagerSystem = () => {
     .catch((error) => console.log(error));
 }
 
+export const getLicensesUser = (idUser) => {
+    return axios.get(`${baseURL}users/${idUser}/licenses`, {
+        headers:{
+            accept: 'application/json',
+            Authorization: Authorization,
+        }
+    })
+    .then(res => res.data.rows)
+    .catch((error) => console.log(error));
+}
+
+
+
