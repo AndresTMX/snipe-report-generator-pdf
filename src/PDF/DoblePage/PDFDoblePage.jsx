@@ -73,7 +73,7 @@ function PDFDoblePage({ storage, typeFormat, image }) {
 
           <RenderBodyPDF storage={storage} />
 
-          {checkComponents && total <= 20 && (
+          {checkComponents && total <= 20 &&(
             <TableComponents
               components={components}
               checkComponents={checkComponents}
@@ -87,7 +87,7 @@ function PDFDoblePage({ storage, typeFormat, image }) {
         <View style={styles.Container}>
           
           <View style={styles.ContainerJustifyTop}>
-            {checkComponents && total >= 20 && (
+            {checkComponents && total >= 20 &&(
               <TableComponents
                 components={components}
                 checkComponents={checkComponents}

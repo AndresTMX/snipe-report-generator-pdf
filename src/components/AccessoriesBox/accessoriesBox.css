@@ -14,8 +14,12 @@
     font-size: 1.2rem;
     background-color: rgb(216, 213, 213);
     margin-top: 15px;
-    /* border-collapse: separate; */
     border-spacing:  0px 0px;
+    overflow-y: scroll;
+}
+
+.container table::-webkit-scrollbar{
+    display: none;
 }
 
 .container table .asset_included{

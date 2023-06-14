@@ -10,6 +10,7 @@ function DocStoreCardSelect({state, dispatch}) {
 
         const newState =  {
             ...storage,
+            complete: false,
             typeDocument:e.target.value
         }
     
@@ -18,7 +19,7 @@ function DocStoreCardSelect({state, dispatch}) {
           payload: newState,
         });
     
-      }
+    }
 
     return (
         <div className="DocStoreCardSelect">

@@ -16,8 +16,6 @@ const actionTypes = {
   updateStorage: 'UPDATE_STORAGE',
   setLoading: 'LOADING',
   setError: 'ERROR',
-  setStateStorage: 'SET_STATE_STORAGE',
-  setDateDay: 'SET_DATE_DAY'
 };
 
 const reducerStore = (state, payload) => ({

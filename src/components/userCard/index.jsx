@@ -6,6 +6,7 @@ import { Modal } from "../../modals/modal";
 import { useGetAssetsUser } from "../../Hooks/useGetAssetsUser";
 import { UseModal } from "../../Hooks/useModal";
 import { AccessoriesBox } from "../AccessoriesBox";
+import {LicensesBox} from '../LicensesBox';
 //icons
 import { BsHeadset } from "react-icons/bs";
 import { FaDesktop } from "react-icons/fa";
@@ -98,7 +99,7 @@ function UserCard({
           </button>
           <button
             title="Licencias"
-            // onClick={() => ButtongetMoreInfoUser()}
+            onClick={() => ButtongetMoreInfoUser()}
           >
             <ImKey />
             {licences}
@@ -113,7 +114,7 @@ function UserCard({
               modal={modal}
               setModal={setModal}
               dataAssets={dataAssets}
-              idUser={idUser}
+              idUser={id}
               dataUser={dataUser}
               state={state}
               loadingAssets={loading}
@@ -143,19 +144,7 @@ function UserCard({
       {modal3 && (
         <Modal>
           <ViewItems>
-             <p>ID:{id}</p>
-            <p>{nameUser}</p>
-            <span>Empresa</span>
-            <p>{nameCompany}</p>
-            <span>Departamento</span>
-            <p>{namedepartment} </p>
-            <span>Ubicación</span>
-            <p>{nameLocation}</p>
-            <span>Jefe inmediado</span>
-            <p>{nameManager} </p>
-            <span>Puesto</span>
-            <p>{nameJobtitle}</p>
-            <button onClick={ButtongetMoreInfoUser} >x</button>
+             <LicensesBox idUser={id} closeBox={ButtongetMoreInfoUser} />
           </ViewItems>
         </Modal>
       )}

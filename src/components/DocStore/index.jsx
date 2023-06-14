@@ -15,7 +15,7 @@ function DocStore({ state, dispatch }) {
     }
 
     const SwitchModal = () => {
-        dispatch({type: actionTypesModals.setModalConfig, payload: !actionTypesModals.modalConfig})
+        dispatch({type: actionTypesModals.setModalConfig, payload: !actionTypesModals.setModalConfig})
       }
     
 

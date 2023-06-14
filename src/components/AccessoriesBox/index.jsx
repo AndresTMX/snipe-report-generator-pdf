@@ -1,9 +1,9 @@
 import "./accessoriesBox.css";
 import { useItems } from "../../Hooks/useItems";
-import { actionTypes } from "../../Context/DocReducer";
+import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
 import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
 import { Notification } from "../../modals/notification";
-import {ThreeDots} from "../Loading/"
+import {ThreeDots} from "../Loading/";
 
 
 function AccessoriesBox({
@@ -43,6 +43,12 @@ function AccessoriesBox({
   const { storage } = initialStore;
 
   const AccessoriesList = storage ? storage?.accessories.map((accessorie) => accessorie.index) : [];
+
+  const date = new Date(); // fecha actual
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // agregar ceros a la izquierda si el mes es menor a 10
+  const day = date.getDate().toString().padStart(2, '0'); // agregar ceros a la izquierda si el día es menor a 10
+  const formattedDate = `${year}-${month}-${day}`; // formato YYYY-MM-DD
 
   const AddAccessorie = (item, index) => {
 
@@ -84,10 +90,30 @@ function AccessoriesBox({
   }
 
   const CloseModal = () => {
-    setModal(!modal);
-    const newData = JSON.parse(localStorage.getItem(idUser));
-    dispatch({ type: actionTypes.setStateStorage, payload: newData });
+    if(storage){
+      setModal(!modal);
+      dispatch({ type: actionTypesDoc.updateStorage, payload: storage }); 
+    }else{
+      setModal(!modal);
+      const newData = JSON.parse(localStorage.getItem(idUser));
+      dispatch({ type: actionTypesDoc.updateStorage, payload: newData }); 
+    }
   };
+
+
+  const GenerateDocument = (typeDocument) => {
+
+    const document = {
+        ...storage,
+        dateDay: storage.dateDay ? storage.dateDay : formattedDate,
+        typeDocument:typeDocument,
+        manager: manager,
+        complete: true
+    };
+  
+    dispatch({ type: actionTypesDoc.updateStorage, payload: document });
+
+};
 
   return (
     <>
@@ -102,9 +128,10 @@ function AccessoriesBox({
         <div className="container">
           <span>Accesorios agregados: {countAccessories}</span>
           <div className="container-button">
-            <button className="button-action">Acta de mantenimiento</button>
-            <button className="button-action">Check List</button>
-            <button className="button-action">Baja de equipos</button>
+          <button onClick={()=>GenerateDocument('MP')} className="button-action">Mantenimiento preventivo</button>
+          <button onClick={()=>GenerateDocument('MC')} className="button-action">Mantenimiento correctivo</button>
+          <button onClick={()=>GenerateDocument('VB')} className="button-action">Baja de equipos</button>
+          <button onClick={()=>GenerateDocument('CR')} className="button-action">Carta responsiva</button>
           </div>
 
           <div>
