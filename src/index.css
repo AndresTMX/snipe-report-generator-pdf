@@ -12,6 +12,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  scrollbar-width: 0px;
   overflow-x: hidden;
 }
 
@@ -25,6 +26,11 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
+}
+
+body:-webkit-scrollbar{
+  display: none;
+  width: none;
 }
 
 

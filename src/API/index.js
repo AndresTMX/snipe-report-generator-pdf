@@ -71,15 +71,18 @@ export const getMaintancesAsset = (assetId) => {
     .catch((error) => console.log(error));
 };
 
-export const getComponentsWhitComputerSerial = (serial) => {
-    return axios.get(`${baseURL}components?search=${serial}`, {
-        headers: {
-            accept: 'application/json',
-            Authorization: Authorization,
-        }
-    })
-    .then(res => res.data.rows)
-    .catch((error) => console.log(error));
+export const getComponentsWhitComputerSerial = async (serial) => {
+    try {
+        const res = await axios.get(`${baseURL}components?search=${serial}`, {
+            headers: {
+                accept: 'application/json',
+                Authorization: Authorization,
+            }
+        });
+        return res.data.rows;
+    } catch (error) {
+        return console.log(error);
+    }
 }
 
 export const getUsersSystemsDepartment = () => {

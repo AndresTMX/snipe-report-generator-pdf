@@ -16,6 +16,8 @@ import transfromValues from "../../Helpers/textFormat";
 //hooks
 import {useImagePDF} from '../../Hooks/useImagePDF';
 import { usegetAccesoriesUser } from "../../Hooks/useAccesoriesUser";
+//types
+import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
 
 function UserCard({
   id,
@@ -51,9 +53,18 @@ function UserCard({
   const {image} = useImagePDF(nameCompany);
 
   const ButtongetActives = () => {
+  
+    const data = JSON.parse(localStorage.getItem(idUser));
+
+    if(!data){
     SetGet(!get);
     setModal(!modal);
     setDataUser({ user: nameUser, company: nameCompany, location: nameLocation , manager: nameManager , email, department: namedepartment});
+    }else{
+      SetGet(!get);
+      setModal(!modal);
+      dispatch({type: actionTypesDoc.updateStorage, payload: data})
+    }
   };
 
   const ButtongetAccesories = () => {

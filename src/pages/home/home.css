@@ -1,13 +1,15 @@
 .container-responsive{
     display: flex;
     flex-wrap: wrap;
+    padding-top: 130px;
     height: auto;
-    width: 100%;
+    width: 100vw;
     gap: 10px;
     justify-content: space-around;
     align-items: center;
     background-color: #f8f3f3;
 }
+
 
 .loading-state {
     display: flex;

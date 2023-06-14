@@ -10,34 +10,34 @@ function DocStoreCardCheck({state, dispatch}) {
   const {assets, accessories} = storage? storage : {};
   const [stateComponents, setComponents] = useState(false);
   const [stateBecario, setBecario] = useState(false);
-  const { dataComponents } = useGetComponents(assets, true);
+  const { dataComponents, loading } = useGetComponents(assets, stateComponents);
+  
+  const  handleCheckComponents = () => {
 
-    const handleCheckComponents = () => {
+    let newState = {};
 
-        let newState = {};
-    
-        if (!stateComponents) {
-          setComponents(!stateComponents);
-    
-          newState = {
-            ...storage,
-            complete: false,
-            checkComponents: true,
-            components: dataComponents,
-          };
-        } else {
-          setComponents(!stateComponents);
-    
-          newState = {
-            ...storage,
-            complete: false,
-            checkComponents: false,
-            components: [],
-          };
-        }
-    
-        dispatch({ type: actionTypesDoc.updateStorage, payload: newState });
+    if (!stateComponents && loading) {
+      setComponents(true);
+
+      newState = {
+        ...storage,
+        complete: false,
+        checkComponents: true,
+        components:dataComponents,
       };
+    } else {
+      setComponents(!stateComponents);
+
+      newState = {
+        ...storage,
+        complete: false,
+        checkComponents: false,
+        components: [],
+      };
+    }
+
+    dispatch({ type: actionTypesDoc.updateStorage, payload: newState });
+  }
 
     const handleCheckBecario = () => {
         let newState = {};
@@ -74,7 +74,7 @@ function DocStoreCardCheck({state, dispatch}) {
             <div className="DocStoreCardCheck">
                 <input type="checkbox"
                     checked={stateBecario}
-                    onChange={(e) => handleCheckBecario(stateBecario)}
+                    onChange={(e) => handleCheckBecario()}
                 />
                 <p>Para practicante/becario</p>
             </div>

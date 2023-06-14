@@ -1,5 +1,6 @@
 .nav {
     display: flex;
+    position:fixed;
     padding: 10px 0px 10px;
     height: 90px;
     width: 100%;
@@ -7,6 +8,7 @@
     justify-content: space-between;
     background-color: rgb(56, 54, 54);
     flex-wrap: wrap;
+    z-index: 3;
 }
 
 .nav .section-buttons{

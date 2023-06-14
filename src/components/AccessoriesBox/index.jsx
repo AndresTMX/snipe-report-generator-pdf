@@ -112,7 +112,7 @@ function AccessoriesBox({
     };
   
     dispatch({ type: actionTypesDoc.updateStorage, payload: document });
-
+    setModal(!modal);
 };
 
   return (
@@ -128,10 +128,36 @@ function AccessoriesBox({
         <div className="container">
           <span>Accesorios agregados: {countAccessories}</span>
           <div className="container-button">
-          <button onClick={()=>GenerateDocument('MP')} className="button-action">Mantenimiento preventivo</button>
-          <button onClick={()=>GenerateDocument('MC')} className="button-action">Mantenimiento correctivo</button>
-          <button onClick={()=>GenerateDocument('VB')} className="button-action">Baja de equipos</button>
-          <button onClick={()=>GenerateDocument('CR')} className="button-action">Carta responsiva</button>
+            <button
+              onClick={() => GenerateDocument("MP")}
+              className="button-action"
+            >
+              Preventivo
+            </button>
+            <button
+              onClick={() => GenerateDocument("MC")}
+              className="button-action"
+            >
+              Correctivo
+            </button>
+            <button
+              onClick={() => GenerateDocument("MC")}
+              className="button-action"
+            >
+              CheckList
+            </button>
+            <button
+              onClick={() => GenerateDocument("VB")}
+              className="button-action"
+            >
+              Baja de equipos
+            </button>
+            <button
+              onClick={() => GenerateDocument("CL")}
+              className="button-action"
+            >
+              Carta responsiva
+            </button>
           </div>
 
           <div>
@@ -145,21 +171,25 @@ function AccessoriesBox({
                 </tr>
 
                 {newDataRender.map((accessorie, index) => (
-                  <tr 
-                  className={`asset_${
-                    AccessoriesList.includes(accessorie.index)
-                     ? "included"
-                     : ""
-                 }`}
-                  key={index}>
+                  <tr
+                    className={`asset_${
+                      AccessoriesList.includes(accessorie.index)
+                        ? "included"
+                        : ""
+                    }`}
+                    key={index}
+                  >
                     <td>{accessorie.id}</td>
                     <td>{accessorie.name}</td>
                     <td>{accessorie.manufacturer?.name}</td>
                     <td className="td-actions">
                       <div>
-                        <button 
-                        onClick={() => DeleteAccessorie(index)}
-                        className="button-delete">X</button>
+                        <button
+                          onClick={() => DeleteAccessorie(index)}
+                          className="button-delete"
+                        >
+                          X
+                        </button>
                         <button
                           onClick={() => AddAccessorie(accessorie, index)}
                           className="button-add"
@@ -176,7 +206,7 @@ function AccessoriesBox({
         </div>
       </div>
 
-      { newDataRender.length === 0 && loadingAccessorie && (
+      {newDataRender.length === 0 && loadingAccessorie && (
         <div className="container-loading">
           <h2>Sin accesorios registrados</h2>
         </div>
@@ -187,7 +217,6 @@ function AccessoriesBox({
           <ThreeDots />
         </div>
       )}
-
 
       {StatesModals.modalNotification && (
         <Notification>
@@ -206,7 +235,6 @@ function AccessoriesBox({
           </div>
         </Notification>
       )}
-
     </>
   );
 }
