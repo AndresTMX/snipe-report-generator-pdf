@@ -91,8 +91,8 @@ function AccessoriesBox({
 
   const CloseModal = () => {
     if(storage){
-      setModal(!modal);
       dispatch({ type: actionTypesDoc.updateStorage, payload: storage }); 
+      setModal(!modal);
     }else{
       setModal(!modal);
       const newData = JSON.parse(localStorage.getItem(idUser));
@@ -112,7 +112,6 @@ function AccessoriesBox({
     };
   
     dispatch({ type: actionTypesDoc.updateStorage, payload: document });
-    setModal(!modal);
 };
 
   return (
@@ -128,36 +127,10 @@ function AccessoriesBox({
         <div className="container">
           <span>Accesorios agregados: {countAccessories}</span>
           <div className="container-button">
-            <button
-              onClick={() => GenerateDocument("MP")}
-              className="button-action"
-            >
-              Preventivo
-            </button>
-            <button
-              onClick={() => GenerateDocument("MC")}
-              className="button-action"
-            >
-              Correctivo
-            </button>
-            <button
-              onClick={() => GenerateDocument("MC")}
-              className="button-action"
-            >
-              CheckList
-            </button>
-            <button
-              onClick={() => GenerateDocument("VB")}
-              className="button-action"
-            >
-              Baja de equipos
-            </button>
-            <button
-              onClick={() => GenerateDocument("CL")}
-              className="button-action"
-            >
-              Carta responsiva
-            </button>
+          <button onClick={()=>GenerateDocument('MP')} className="button-action">Mantenimiento preventivo</button>
+          <button onClick={()=>GenerateDocument('MC')} className="button-action">Mantenimiento correctivo</button>
+          <button onClick={()=>GenerateDocument('VB')} className="button-action">Baja de equipos</button>
+          <button onClick={()=>GenerateDocument('CR')} className="button-action">Carta responsiva</button>
           </div>
 
           <div>
