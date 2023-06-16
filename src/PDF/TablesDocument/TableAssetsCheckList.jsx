@@ -128,31 +128,31 @@ function TableAssetsCheckList({storage}) {
 
           <View style={styles.ColumnDescription}>
           <View style={styles.textContainer}>
-                <Text>DESCRIPCIÓN</Text>
+                <Text>Decripción</Text>
             </View>
           </View>
 
           <View style={styles.ColumnMarca}>
           <View style={styles.textContainer}>
-                <Text>MARCA</Text>
+                <Text>Marca</Text>
             </View>
           </View>
 
           <View style={styles.ColumnModel}>
           <View style={styles.textContainer}>
-                <Text>MODELO</Text>
+                <Text>Modelo</Text>
             </View>
           </View>
 
           <View style={styles.ColumnNS}>
           <View style={styles.textContainer}>
-                <Text>N° SERIE</Text>
+                <Text>NS</Text>
             </View>
           </View>
 
           <View style={styles.ColumnCheck}>
             <View style={styles.textContainer}>
-                <Text style={styles.textNegrita}>LISTADO</Text>
+                <Text style={styles.textNegrita}>Listado</Text>
             </View>
           </View>
 

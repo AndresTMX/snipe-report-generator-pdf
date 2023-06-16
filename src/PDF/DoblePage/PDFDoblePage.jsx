@@ -22,9 +22,6 @@ const styles = StyleSheet.create({
     gap: "10px",
     width: "95%",
     height: "95%",
-    border: "1",
-    borderStyle: "solid",
-    borderColor: "black",
   },
   ContainerJustifyTop: {
     display: "flex",
@@ -44,8 +41,8 @@ const styles = StyleSheet.create({
   boxNumPage:{
     display: "flex",
     position:'absolute',
-    bottom:'10px',
-    width:'90%',
+    bottom:'22px',
+    width:'95%',
     flexDirection: "column",
     alignItems:'flex-end',
     fontSize:'10px'
@@ -61,7 +58,7 @@ function PDFDoblePage({ storage, typeFormat, image }) {
 
   return (
     <Document>
-      <Page style={styles.Page} size={"A4"}>
+      <Page style={styles.Page} size={"LETTER"}>
         <View style={styles.Container}>
           <RenderHeaderPDF
             storage={storage}
@@ -80,10 +77,10 @@ function PDFDoblePage({ storage, typeFormat, image }) {
               typeDocument={typeDocument}
             />
           )}
-           <View style={styles.boxNumPage}><Text>Pagina 1 de 2</Text></View>
+           <View style={styles.boxNumPage}><Text>Pag 1/2</Text></View>
         </View>
       </Page>
-      <Page style={styles.Page} size={"A4"}>
+      <Page style={styles.Page} size={"LETTER"}>
         <View style={styles.Container}>
           
           <View style={styles.ContainerJustifyTop}>
@@ -101,7 +98,7 @@ function PDFDoblePage({ storage, typeFormat, image }) {
             {(company != 'Instrumentacion Y Precision') && (<Compromiso storage={storage}/>)}
             <Firmas storage={storage} />
           </View>
-          <View style={styles.boxNumPage}><Text>Pagina 2 de 2</Text></View>
+          <View style={styles.boxNumPage}><Text>Pag 2/2</Text></View>
         </View>
       </Page>
     </Document>

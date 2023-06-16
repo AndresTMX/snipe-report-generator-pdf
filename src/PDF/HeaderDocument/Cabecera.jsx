@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
   },
   
   actaCabeceraLogo: {
-    width: "120px",
-    height: "120px",
+    width: "90px",
+    height: "90px",
     alignItems: "center",
     justifyContent: "center",
     borderRight: "1",
@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: "110px",
-    height: "120px",
+    width: "90px",
+    height: "90px",
     objectFit: "contain",
   },
   

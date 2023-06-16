@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
 const RowStyles = StyleSheet.create({
   id: {
     width: "15%",
+    borderLeft: "1",
     borderRight: "1",
     borderColor: "black",
     borderStyle: "solid",
@@ -70,6 +71,7 @@ const RowStyles = StyleSheet.create({
     borderLeft: "1",
     borderColor: "black",
     borderStyle: "solid",
+    borderRight: "1",
   },
 });
 
@@ -82,7 +84,7 @@ function TableAccessories({ storage }) {
       {!!validate && (
         <View style={styles.tableContainer}>
           <View style={styles.containerTitle}>
-            <Text>Accesorios asignados al usuario</Text>
+            <Text>ACCESORIOS ASIGNADOS AL USUARIO</Text>
           </View>
 
           <View style={styles.table}>

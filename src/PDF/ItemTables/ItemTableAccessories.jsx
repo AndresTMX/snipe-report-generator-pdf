@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
   const RowStyles = StyleSheet.create({
       id:{
           width:'15%',
-          borderRight:'1',
+          borderLeft: "1",
+          borderRight: "1",
           borderColor:'black',
           borderStyle:'solid'
       },
@@ -61,7 +62,8 @@ const styles = StyleSheet.create({
       },
       manufacturer:{
           width:'25%',
-          borderLeft:'1',
+          borderLeft: "1",
+          borderRight: "1",
           borderColor:'black',
           borderStyle:'solid'
       },

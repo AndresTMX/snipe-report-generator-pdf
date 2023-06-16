@@ -135,7 +135,7 @@ function TableAccessoriesCheckList({ storage }) {
 
             <View style={styles.ColumnCheck}>
               <View style={styles.textContainer}>
-                <Text style={styles.textNegrita}>LISTADO</Text>
+                <Text style={styles.textNegrita}>Listado</Text>
               </View>
             </View>
           </View>

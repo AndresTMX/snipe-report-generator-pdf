@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container:{
     display:'flex',
     flexDirection:'row',
-    height:'120px',
+    height:'100px',
     width:'100%',
     border:'1',
     borderStyle:'solid',
@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     borderColor:'black'
   },
   image:{
-    height:'120px',
-    width:'120px',
+    height:'90px',
+    width:'90px',
     objectFit:'contain'
   },
   //contenedor de titulo de documento y compañia 
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     display:'flex',
     flexDirection:'row',
     height:'25%',
-    width:'168px',
+    width:'176px',
     justifyContent:'center',
     alignItems:'center',
   },

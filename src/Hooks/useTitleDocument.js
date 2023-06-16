@@ -12,7 +12,7 @@ function useTitleDocument(typeDocument) {
     }
 
     if(typeDocument === 'CL'){
-        title = 'CHECKLIST DE EQUIPOS INFORMATICOS'
+        title = 'CHECKLIST DE EQUIPOS\nINFORMÁTICOS'
     }
 
     if(typeDocument === 'VB'){

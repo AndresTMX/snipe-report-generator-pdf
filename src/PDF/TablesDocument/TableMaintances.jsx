@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
 const RowStyles = StyleSheet.create({
     tag:{
         width:'15%',
+        borderLeft:'1',
         borderRight:'1',
         borderColor:'black',
         borderStyle:'solid'
@@ -60,6 +61,7 @@ const RowStyles = StyleSheet.create({
         borderRight:'1',
         borderColor:'black',
         borderStyle:'solid'
+       
     },
     ns:{
         width:'30%',

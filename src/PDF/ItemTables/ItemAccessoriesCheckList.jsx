@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     fontSize: "12px",
     textAlign: "center",
     justifyContent: "center",
-    borderTop: "1",
     borderLeft: "1",
     borderRight: "1",
     borderStyle: "solid",
@@ -27,6 +26,7 @@ const styles = StyleSheet.create({
     fontSize: "10px",
     flexDirection: "row",
     width: "100%",
+    borderBottom:'1'
   },
 
   ColumnId: {
@@ -83,8 +83,6 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
-    borderBottom: "1",
-    borderTop: "1",
     borderStyle: "solid",
     borderColor: "black",
   },

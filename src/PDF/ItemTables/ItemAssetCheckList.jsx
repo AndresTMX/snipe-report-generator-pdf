@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         display:'flex',
         flexDirection:'column',
         width:'100%',
-        fontSize:'10px'
+        fontSize:'10px',
       },
     
       TableTableAssetsCheckList: {
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
         width: "14%",
         borderColor: "black",
         borderRight: "1",
+        borderLeft:'1',
         borderStyle: "solid",
         textAlign: "center",
       },
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
         display: "flex",
         width: "10%",
         textAlign: "center",
+        borderRight: "1",
       },
     
       textContainer: {

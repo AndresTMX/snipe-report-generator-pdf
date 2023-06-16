@@ -155,26 +155,26 @@ function RenderComponents(components, typeDocument) {
 
                 <View style={styles.componentCol}>
                   <View>
-                    <Text>COMPONENTE</Text>
+                    <Text>Componente</Text>
                   </View>
                 </View>
 
                 <View style={styles.categoryCol}>
                   <View>
-                    <Text>CATEGORIA</Text>
+                    <Text>Categoria</Text>
                   </View>
                 </View>
 
                 <View style={serialStyles? styles.serieCol : styles.serieColExtraLarge }>
                   <View>
-                    <Text>N° SERIE</Text>
+                    <Text>NS</Text>
                   </View>
                 </View>
 
                 {typeDocument === "CL" && (
                   <View style={styles.checkCol}>
                   <View>
-                    <Text>LISTADO</Text>
+                    <Text>Listado</Text>
                   </View>
                </View>
                 )}

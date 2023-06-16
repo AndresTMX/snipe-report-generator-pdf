@@ -20,18 +20,15 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     gap: "10px",
-    width: "95%",
-    height: "95%",
-    border: "1",
-    borderStyle: 'solid',
-    borderColor: "black",
+    width: "96%",
+    height: "96%",
   },
 
   boxNumPage:{
     display: "flex",
     position:'absolute',
-    bottom:'10px',
-    width:'90%',
+    bottom:'22px',
+    width:'95%',
     flexDirection: "column",
     alignItems:'flex-end',
     fontSize:'10px'
@@ -44,7 +41,7 @@ function PDFSinglePage({storage, typeFormat, image}) {
 
     return (
       <Document>
-        <Page style={styles.Page} size={"A4"}>
+        <Page style={styles.Page} size={"LETTER"}>
           <View style={styles.Container}>
             <RenderHeaderPDF
               storage={storage}
@@ -72,7 +69,7 @@ function PDFSinglePage({storage, typeFormat, image}) {
 
             <Firmas storage={storage}/>
           </View>
-          <View style={styles.boxNumPage}><Text>Pagina 1 de 1</Text></View>
+          <View style={styles.boxNumPage}><Text>Pag 1/1</Text></View>
         </Page>
       </Document>
     );

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     fontSize: "12px",
-    lineHeight:'1.2px',
+    lineHeight:'1.5px',
     width: "90%",
   },
 
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     fontSize: "14px",
+    lineHeight:'2px'
   },
   listBox: {
     display: "flex",
@@ -86,6 +87,7 @@ function BodyCartaResponsiva({ storage }) {
   return (
     <>
       <View style={styles.mainContainer}>
+
         <View style={styles.titleBox}>
           <Text>Coatzacoalcos, Veracruz {day} de {mounth} del {year}</Text>
         </View>
