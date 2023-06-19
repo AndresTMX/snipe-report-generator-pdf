@@ -65,7 +65,7 @@ function PDFSinglePage({storage, typeFormat, image}) {
               <Comentarios storage={storage}/>
             )}
 
-            {(company != 'Instrumentacion Y Precision' && typeDocument != 'CR') && (<Compromiso storage={storage}/>)}
+            {(typeDocument != 'CR') && (<Compromiso storage={storage}/>)}
 
             <Firmas storage={storage}/>
           </View>
