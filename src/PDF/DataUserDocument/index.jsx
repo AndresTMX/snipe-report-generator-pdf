@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
 });
 
 function PDFDataUser({ storage }) {
-  const { user, company, department, manager, location, dateDay, typeDocument } = storage ? storage : {};
+  const { user, company, department, manager, location, dateDay, typeDocument, becario } = storage ? storage : {};
   const {year, day, mounth} =  formatDateDay(dateDay);
 
   return (
@@ -163,7 +163,8 @@ function PDFDataUser({ storage }) {
           </View>
         </View>
 
-        <View style={styles.containerDataBorderBotom}>
+        { becario && (
+          <View style={styles.containerDataBorderBotom}>
           <View style={styles.boxTitle}>
             <Text>Jefe directo</Text>
           </View>
@@ -172,6 +173,7 @@ function PDFDataUser({ storage }) {
             <Text>{manager}</Text>
           </View>
         </View>
+        )}
 
         <View style={styles.containerData}>
           <View style={styles.boxTitle}>

@@ -101,7 +101,7 @@ function Cabecera({ storage, image, typeFormat }) {
 
       <View style={styles.actaCabeceraDate}>
         <Text style={actaCabeceraDateBlockBottom}>Version: 00</Text>
-        <Text style={styles.actaCabeceraDateBlock}>Fecha: {fecha}</Text>
+        <Text style={styles.actaCabeceraDateBlock}>Fecha: 19 / Junio / 2023</Text>
         <Text style={actaCabeceraDateBlockTop}>Codigo: {typeFormat}</Text>
       </View>
     </View>
