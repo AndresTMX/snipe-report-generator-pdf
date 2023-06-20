@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   
   actaCabeceraLogo: {
     width: "90px",
-    height: "90px",
+    height: "100px",
     alignItems: "center",
     justifyContent: "center",
     borderRight: "1",
@@ -100,7 +100,7 @@ function Cabecera({ storage, image, typeFormat }) {
       </View>
 
       <View style={styles.actaCabeceraDate}>
-        <Text style={actaCabeceraDateBlockBottom}>Version: 00</Text>
+        <Text style={actaCabeceraDateBlockBottom}>Version: 01</Text>
         <Text style={styles.actaCabeceraDateBlock}>Fecha: 19 / Junio / 2023</Text>
         <Text style={actaCabeceraDateBlockTop}>Codigo: {typeFormat}</Text>
       </View>

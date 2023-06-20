@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     width: "100%",
-    height: "15px",
+    height: "18px",
     borderBottom: "1",
     borderColor: "black",
   },
@@ -76,7 +76,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderStyle: "solid",
-    borderWidth: 1,
+    borderLeft:'1',
+    borderRight:'1',
+    borderTop:'1',
+    borderBottom:'1',
     borderColor: "black",
     height: "15px",
     textAlign: "center",
@@ -95,33 +98,26 @@ const styles = StyleSheet.create({
     margin: "auto",
     height: "22px",
     flexDirection: "row",
+    borderLeft:'1',
+    borderRight:'1',
+    borderBottom:'1',
     width: "100%",
   },
 
   tableColD: {
     width: "33.3%",
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderColor: "black",
-    padding: "2",
     textAlign: "center",
+    borderRight:'1'
   },
 
   tableColM: {
     width: "33.3%",
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderColor: "black",
-    padding: "2",
     textAlign: "center",
+    borderRight:'1'
   },
 
   tableColA: {
     width: "33.3%",
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderColor: "black",
-    padding: "2",
     textAlign: "center",
   },
 });
@@ -205,7 +201,7 @@ function PDFDataUser({ storage }) {
       <View style={styles.sectionContainerDate}>
 
         <View style={styles.tableColHeader}>
-          <Text>Fecha de emisión</Text>
+          <Text>Fecha de Emisión</Text>
         </View>
 
         <View style={styles.tableDate}>
