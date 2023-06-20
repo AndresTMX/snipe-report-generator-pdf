@@ -6,7 +6,7 @@ function useImagePDF(company) {
 
     let image;
 
-    if(company === 'Conexiones Y Mangueras Industriales De Minatitlan' || company === 'Instrumentacion Y Precision'){
+    if(company === 'Conexiones Y Mangueras Industriales De Minatitlan' || company === 'Instrumentación Y Precisión'){
         image = comind;
     }
 
