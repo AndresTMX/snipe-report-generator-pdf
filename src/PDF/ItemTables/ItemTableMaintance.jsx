@@ -21,15 +21,15 @@ const styles = StyleSheet.create({
 
 const RowStyles = StyleSheet.create({
     tag:{
-        width:'15%',
-        borderLeft:'1',
-        borderRight:'1',
-        borderColor:'black',
-        borderStyle:'solid'
-    },
+      width:'15%',
+      borderLeft:'1',
+      borderColor:'black',
+      borderStyle:'solid'
+  },
     description:{
         width:'30%',
         borderRight:'1',
+        borderLeft:'1',
         borderColor:'black',
         borderStyle:'solid'
     },

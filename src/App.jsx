@@ -13,7 +13,7 @@ function App() {
       </DataProvider>
       <Footer />
     </div>
-  );
+  ); 
 }
 
 export default App;

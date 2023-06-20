@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     width: "80%",
     paddingLeft: "5px",
     justifyContent: "center",
+    textTransform:'uppercase'
   },
 
   tableColHeader: {
@@ -104,19 +105,36 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 
+  tableRowBottom: {
+    margin: "auto",
+    height: "22px",
+    flexDirection: "row",
+    borderLeft:'1',
+    borderRight:'1',
+    borderBottom:'1',
+    width: "100%",
+  },
+
   tableColD: {
+    display:'flex',
     width: "33.3%",
     textAlign: "center",
+    justifyContent:'center',
     borderRight:'1'
   },
 
   tableColM: {
+    display:'flex',
+    justifyContent:'center',
     width: "33.3%",
     textAlign: "center",
-    borderRight:'1'
+    borderRight:'1',
+    textTransform:'capitalize'
   },
 
   tableColA: {
+    display:'flex',
+    justifyContent:'center',
     width: "33.3%",
     textAlign: "center",
   },
@@ -217,7 +235,7 @@ function PDFDataUser({ storage }) {
             </View>
           </View>
 
-          <View style={styles.tableRow}>
+          <View style={styles.tableRowBottom}>
             <View style={styles.tableColD}>
               <Text>{day}</Text>
             </View>

@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
 const RowStyles = StyleSheet.create({
     tag:{
         width:'15%',
-        borderLeft:'1',
         borderRight:'1',
         borderColor:'black',
         borderStyle:'solid'
@@ -65,12 +64,12 @@ const RowStyles = StyleSheet.create({
     },
     ns:{
         width:'30%',
-        borderRight:'1',
         borderColor:'black',
         borderStyle:'solid'
     },
     maintance:{
-        width:'25%'
+        width:'25%',
+        borderLeft:'1'
     }
 })
 
@@ -109,11 +108,11 @@ function TableMaintances({storage}) {
                 </View>
 
                 <View style={[styles.Boxtitle, RowStyles.ns]}>
-                    <Text>NS</Text>
+                    <Text>NUMERO DE SERIE</Text>
                 </View>
 
                 <View style={[styles.Boxtitle, RowStyles.maintance]}>
-                    <Text>Tipo de Mantenimiento</Text>
+                    <Text>TIPO DE MANTENIMIENTO</Text>
                 </View>
 
             </View>

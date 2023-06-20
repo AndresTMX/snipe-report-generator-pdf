@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
         width:'100%',
         height:'20px',
         alignItems:'center',
+        justifyContent:'center',
         fontSize:'12px',
         borderBottom:'1',
         borderColor:'black',
@@ -42,7 +43,7 @@ function Comentarios({storage}) {
         <>
         <View style={styles.container}>
             <View style={styles.boxTitle}>
-                <Text>COMENTARIOS</Text>
+                <Text>COMENTARIOS ADICIONALES</Text>
             </View>
             <View style={styles.boxText}>
                <Text style={styles.comentText}>{coment}</Text>
