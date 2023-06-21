@@ -6,6 +6,11 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     width: "100%",
+    height: "auto",
+    borderTop:'1',
+    borderLeft:'1',
+    borderRight:'1',
+    borderStyle:'solid',
   },
 
   HeadContainer: {
@@ -15,11 +20,7 @@ const styles = StyleSheet.create({
     fontSize: "12px",
     textAlign: "center",
     justifyContent:'center',
-    borderTop:'1',
-    borderLeft:'1',
-    borderRight:'1',
-    borderStyle:'solid',
-    borderColor:'black'
+    borderBottom:'1',
   },
 
   HeadContainerNotFound: {
@@ -55,9 +56,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection:'row',
     width:'100%',
-    border:'1',
     borderStyle:'solid',
-    borderColor:'black'
+    borderColor:'black',
+    borderBottom:'1'
   },
   
   IdCol:{
@@ -68,7 +69,6 @@ const styles = StyleSheet.create({
     height:'18px',
     borderStyle:'solid',
     borderColor:'black',
-    borderRight:'1',
   },
 
   componentCol:{
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     height:'18px',
     borderStyle:'solid',
     borderColor:'black',
+    borderLeft:'1',
     borderRight:'1'
   },
 
@@ -155,26 +156,26 @@ function RenderComponents(components, typeDocument) {
 
                 <View style={styles.componentCol}>
                   <View>
-                    <Text>Componente</Text>
+                    <Text>COMPONENTE</Text>
                   </View>
                 </View>
 
                 <View style={styles.categoryCol}>
                   <View>
-                    <Text>Categoria</Text>
+                    <Text>CATEGORÍA</Text>
                   </View>
                 </View>
 
                 <View style={serialStyles? styles.serieCol : styles.serieColExtraLarge }>
                   <View>
-                    <Text>NS</Text>
+                    <Text>NUMERO DE SERIE</Text>
                   </View>
                 </View>
 
                 {typeDocument === "CL" && (
                   <View style={styles.checkCol}>
                   <View>
-                    <Text>Listado</Text>
+                    <Text>LISTADO</Text>
                   </View>
                </View>
                 )}

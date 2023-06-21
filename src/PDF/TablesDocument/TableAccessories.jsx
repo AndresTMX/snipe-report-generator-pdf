@@ -8,6 +8,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
     height: "auto",
+    borderTop:'1',
+    borderLeft:'1',
+    borderRight:'1',
+    borderStyle:'solid',
   },
   //contenedor del titulo de la tabla
   containerTitle: {
@@ -17,9 +21,7 @@ const styles = StyleSheet.create({
     fontSize: "12px",
     textAlign: "center",
     justifyContent: "center",
-    borderTop: "1",
-    borderLeft: "1",
-    borderRight: "1",
+    borderBottom:'1',
     borderStyle: "solid",
     borderColor: "black",
   },
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     width: "100%",
-    border: "1",
+    borderBottom:'1',
     borderStyle: "solid",
     borderColor: "black",
   },
@@ -51,27 +53,26 @@ const styles = StyleSheet.create({
 const RowStyles = StyleSheet.create({
   id: {
     width: "15%",
-    borderLeft: "1",
-    borderRight: "1",
     borderColor: "black",
     borderStyle: "solid",
   },
   name: {
     width: "30%",
-    borderRight: "1",
+    borderRight:'1',
+    borderLeft:'1',
     borderColor: "black",
     borderStyle: "solid",
   },
   category: {
     width: "30%",
+    borderColor:'black',
+    borderStyle:'solid',
+    borderRight:'1'
   },
 
   manufacturer: {
     width: "25%",
-    borderLeft: "1",
-    borderColor: "black",
-    borderStyle: "solid",
-    borderRight: "1",
+  
   },
 });
 
@@ -94,15 +95,15 @@ function TableAccessories({ storage }) {
               </View>
 
               <View style={[styles.Boxtitle, RowStyles.name]}>
-                <Text>Descripción</Text>
+                <Text>DESCRIPCIÓN</Text>
               </View>
 
               <View style={[styles.Boxtitle, RowStyles.category]}>
-                <Text>Categoria</Text>
+                <Text>CATEGORIA</Text>
               </View>
 
               <View style={[styles.Boxtitle, RowStyles.manufacturer]}>
-                <Text>Fabricante</Text>
+                <Text>FABRICANTE</Text>
               </View>
             </View>
 

@@ -32,19 +32,14 @@ const styles = StyleSheet.create({
   ColumnId: {
     display: "flex",
     width: "8%",
-    borderTop: "1",
-    borderColor: "black",
-    borderRight: "1",
-    borderLeft: "1",
-    borderStyle: "solid",
     textAlign: "center",
   },
 
   ColumnDescription: {
     display: "flex",
     width: "30%",
-    borderTop: "1",
     borderColor: "black",
+    borderLeft:'1',
     borderRight: "1",
     borderStyle: "solid",
     textAlign: "center",
@@ -53,7 +48,6 @@ const styles = StyleSheet.create({
   ColumnMarca: {
     display: "flex",
     width: "28%",
-    borderTop: "1",
     borderColor: "black",
     borderRight: "1",
     borderStyle: "solid",
@@ -63,7 +57,6 @@ const styles = StyleSheet.create({
   ColumnModel: {
     display: "flex",
     width: "20%",
-    borderTop: "1",
     borderColor: "black",
     borderRight: "1",
     borderStyle: "solid",
@@ -73,8 +66,6 @@ const styles = StyleSheet.create({
   ColumnCheck: {
     display: "flex",
     width: "15%",
-    borderTop: "1",
-    borderRight: "1",
     textAlign: "center",
   },
 

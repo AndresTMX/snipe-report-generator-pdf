@@ -113,7 +113,7 @@ function TableAssetsValeBaja({ storage }) {
       <View style={styles.sectionAssets}>
 
       <View style={styles.containerTitle}>
-          <Text>Activos asignados al usuario</Text>
+          <Text>ACTIVOS ASIGNADOS AL USUARIO</Text>
         </View>
         <View style={styles.sectionAssetsTable}>
           <View style={styles.TableAssetsRow}>

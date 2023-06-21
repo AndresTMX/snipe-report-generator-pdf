@@ -6,11 +6,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection:'row',
     width:'100%',
-    borderBottom:'1',
-    borderLeft:'1',
-    borderRight:'1',
     borderStyle:'solid',
-    borderColor:'black'
+    borderColor:'black',
+    borderBottom:'1'
   },
   
   IdCol:{
@@ -21,7 +19,6 @@ const styles = StyleSheet.create({
     height:'18px',
     borderStyle:'solid',
     borderColor:'black',
-    borderRight:'1'
   },
 
   componentCol:{
@@ -32,6 +29,7 @@ const styles = StyleSheet.create({
     height:'18px',
     borderStyle:'solid',
     borderColor:'black',
+    borderLeft:'1',
     borderRight:'1'
   },
 

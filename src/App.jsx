@@ -7,7 +7,7 @@ import { Footer } from "./sections/Footer/";
 function App() {
   return (
     <div className="App">
-      <DataProvider>
+      <DataProvider>  
         <Navigator />
         <PageHome />
       </DataProvider>

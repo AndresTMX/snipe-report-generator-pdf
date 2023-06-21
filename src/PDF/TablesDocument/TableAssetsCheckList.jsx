@@ -7,6 +7,11 @@ const styles = StyleSheet.create({
     display:'flex',
     flexDirection:'column',
     width:'100%',
+    borderTop:'1',
+    borderLeft:'1',
+    borderRight:'1',
+    borderStyle:'solid',
+    borderColor:'black',
   },
 
   containerTitle: {
@@ -16,9 +21,7 @@ const styles = StyleSheet.create({
     fontSize: "12px",
     textAlign: "center",
     justifyContent:'center',
-    borderTop:'1',
-    borderLeft:'1',
-    borderRight:'1',
+    borderBottom:'1',
     borderStyle:'solid',
     borderColor:'black'
   },
@@ -34,10 +37,7 @@ const styles = StyleSheet.create({
   ColumnId: {
     display: "flex",
     width: "14%",
-    borderTop: "1",
     borderColor: "black",
-    borderRight: "1",
-    borderLeft:'1',
     borderStyle: "solid",
     textAlign: "center",
   },
@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
   ColumnDescription: {
     display: "flex",
     width: "15%",
-    borderTop: "1",
     borderColor: "black",
+    borderLeft:'1',
     borderRight: "1",
     borderStyle: "solid",
     textAlign: "center",
@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
   ColumnMarca: {
     display: "flex",
     width: "15%",
-    borderTop: "1",
     borderColor: "black",
     borderRight: "1",
     borderStyle: "solid",
@@ -65,7 +64,6 @@ const styles = StyleSheet.create({
   ColumnModel: {
     display: "flex",
     width: "15%",
-    borderTop: "1",
     borderColor: "black",
     borderRight: "1",
     borderStyle: "solid",
@@ -75,7 +73,6 @@ const styles = StyleSheet.create({
   ColumnNS: {
     display: "flex",
     width: "31%",
-    borderTop: "1",
     borderColor: "black",
     borderRight: "1",
     borderStyle: "solid",
@@ -84,9 +81,7 @@ const styles = StyleSheet.create({
 
   ColumnCheck: {
     display: "flex",
-    width: "10%",
-    borderTop: "1",
-    borderRight:'1',
+    width: "10%", 
     textAlign: "center",
   },
 
@@ -96,7 +91,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderBottom: "1",
-    borderTop: "1",
     borderStyle: "solid",
     borderColor: "black",
   },
@@ -128,31 +122,31 @@ function TableAssetsCheckList({storage}) {
 
           <View style={styles.ColumnDescription}>
           <View style={styles.textContainer}>
-                <Text>Decripción</Text>
+                <Text>DESCRIPCIÓN</Text>
             </View>
           </View>
 
           <View style={styles.ColumnMarca}>
           <View style={styles.textContainer}>
-                <Text>Marca</Text>
+                <Text>MARCA</Text>
             </View>
           </View>
 
           <View style={styles.ColumnModel}>
           <View style={styles.textContainer}>
-                <Text>Modelo</Text>
+                <Text>MODELO</Text>
             </View>
           </View>
 
           <View style={styles.ColumnNS}>
           <View style={styles.textContainer}>
-                <Text>NS</Text>
+                <Text>NUMERO DE SERIE</Text>
             </View>
           </View>
 
           <View style={styles.ColumnCheck}>
             <View style={styles.textContainer}>
-                <Text style={styles.textNegrita}>Listado</Text>
+                <Text style={styles.textNegrita}>LISTADO</Text>
             </View>
           </View>
 
