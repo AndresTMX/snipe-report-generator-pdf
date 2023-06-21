@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     textAlign: "center",
     gap: "5px",
-    width: "40%",
+    width: "45%",
     fontSize: "10px",
     lineHeight: "1.2px",
 
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     height: "30px",
     margin: "0px",
+    textTransform:'uppercase'
   },
 });
 function Firmas({ storage }) {
