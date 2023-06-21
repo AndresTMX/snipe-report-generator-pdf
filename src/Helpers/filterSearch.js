@@ -4,6 +4,7 @@
 // name, company, notes, location, 
 
 export default function filterSearch(busqueda, array) {
+  
     return array.filter(user => {
       const name = user.name.toLowerCase();
       const company = user.company?.name.toLowerCase();

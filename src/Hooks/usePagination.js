@@ -20,7 +20,7 @@ function usePagination(users, search, dispatch) {
 
     }else{
 
-        pageRender = filterSearch(search, users);
+        pageRender = users? filterSearch(search, users): false;
         searchResults = pageRender? pageRender.length:0;
 
     }
