@@ -1,19 +1,21 @@
-import "./pages/home/";
+import ScopedCssBaseline from "@mui/material/ScopedCssBaseline";
 import { PageHome } from "./pages/home/";
 import { Navigator } from "./sections/Navigator/";
 import { DataProvider } from "./Context/DocContext";
 import { Footer } from "./sections/Footer/";
+import { Banner } from "./sections/Banner";
 
 function App() {
   return (
-    <div className="App">
+    <ScopedCssBaseline>
       <DataProvider>
+        <Banner/>
         <Navigator />
         <PageHome />
       </DataProvider>
       <Footer />
-    </div>
-  ); 
+    </ScopedCssBaseline>
+  );
 }
 
 export default App;

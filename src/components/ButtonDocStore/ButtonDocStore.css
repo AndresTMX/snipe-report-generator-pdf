@@ -2,19 +2,20 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width:100px;
-    margin-right: 10px;
-}
-
-.icon{
-    font-size: 2.5rem;
+    width:70px;
+    height: 70px;
+    background-image: url('../../../public/statics/IconBrand.png');
+    background-size: contain;
+    object-fit: contain;
+    border-radius: 100px;
+    border: 1px solid #09233e;
+    cursor:pointer;
 }
 
 .doc-store-box .button-store{
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-color: #646cff;
     justify-content: center;
     width: 60px;
     height: 50px;
@@ -23,21 +24,12 @@
 .doc-store-box .counter{
     display: flex;
     justify-content: center;
-    width: 20px;
+    width: 18px;
     border-radius: 100%;
     padding: 2px;
     font-size: 1rem;
     position: relative;
-    top: -40px;
+    top: -20px;
     left: 30px;
-    background-color: red;
-}
-
-.nav .doc-item-box{
-    display: flex;
-    background-color: red;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    top: -100%;
+    background-color: #ef4036;
 }

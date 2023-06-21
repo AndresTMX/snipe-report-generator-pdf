@@ -1,7 +1,7 @@
 .container-responsive{
     display: flex;
     flex-wrap: wrap;
-    padding-top: 130px;
+    padding-top: 250px;
     height: auto;
     width: 100vw;
     gap: 10px;
@@ -47,6 +47,6 @@
 @media (max-width: 600px) {
     
   .container-responsive{
-    padding-top: 120px;
+    padding-top: 250px;
   }
 }

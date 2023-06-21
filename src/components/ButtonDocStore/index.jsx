@@ -12,14 +12,9 @@ function ButtonDocStore({state, dispatch, count}) {
 
     return ( 
         <>
-        <div className="doc-store-box">
-
-            <button className="button-store" onClick={()=> CloseDocStore()}>
-                <BsFiletypeDoc className="icon" />
-            </button>
+            <button className="doc-store-box" onClick={()=> CloseDocStore()}>
             <span className="counter">{newCount}</span>
-        </div>
-
+            </button>
         </>
      );
 }

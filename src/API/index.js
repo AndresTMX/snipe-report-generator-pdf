@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const baseURL = import.meta.env.VITE_BASE_URL;
-const Authorization = import.meta.env.VITE_API_KEY;
-// const baseURL = import.meta.env.VITE_BASE_URL_LOCAL;
-// const Authorization = import.meta.env.VITE_API_KEY_DEVELOPMENT;
+// const baseURL = import.meta.env.VITE_BASE_URL;
+// const Authorization = import.meta.env.VITE_API_KEY;
+const baseURL = import.meta.env.VITE_BASE_URL_LOCAL;
+const Authorization = import.meta.env.VITE_API_KEY_DEVELOPMENT;
 const departmentSystemId = import.meta.env.VITE_DEPARTMENT_SYSTEMS;
 
 

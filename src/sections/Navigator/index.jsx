@@ -1,10 +1,12 @@
 import "./navigator.css";
+import '@fontsource/roboto/500.css';
 import { ButtonPDF } from "../../components/ButonPDF";
 import { ButtonDocStore } from "../../components/ButtonDocStore";
 import { useContext } from "react";
 import { DocContext } from "../../Context/DocContext";
 import { DocStore } from "../../components/DocStore";
 import { UserConfig } from "../../components/UserConfig";
+import { Button } from "@mui/material";
 
 function Navigator() {
   const [state, dispatch] = useContext(DocContext);
@@ -22,17 +24,38 @@ function Navigator() {
     <>
       <nav className="nav">
         <section className="section-buttons">
-          <div className="docStore-button">
             <ButtonDocStore
               count={count}
               state={modalDocStore}
               dispatch={dispatch}
             />
-          </div>
 
-          <div className="buttonPDF-container">
+            <Button
+            variant="text"
+            sx={{
+              color:'white',
+              fontWeight:'700',
+              fontSize:'12px',
+              fontFamily:'roboto',
+            }}
+            >
+              Reportes
+            </Button>
+
+            <Button
+             variant="text"
+            sx={{
+              color:'white',
+              fontWeight:'700',
+              fontSize:'12px',
+              fontFamily:'roboto',
+            }}>
+              Mantenimientos
+            </Button>
+
+          {/* <div className="buttonPDF-container">
             <ButtonPDF />
-          </div>
+          </div> */}
 
         </section>
 
