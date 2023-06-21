@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
 const RowStyles = StyleSheet.create({
     tag:{
       width:'15%',
-      borderLeft:'1',
       borderColor:'black',
       borderStyle:'solid'
   },
@@ -43,7 +42,6 @@ const RowStyles = StyleSheet.create({
         width:'25%',
         borderColor:'black',
         borderStyle:'solid',
-        borderRight:'1',
     }
 })
 

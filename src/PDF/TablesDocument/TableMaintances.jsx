@@ -8,6 +8,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
     height: "auto",
+    borderTop:'1',
+    borderLeft:'1',
+    borderRight:'1',
+    borderStyle:'solid',
   },
   //contenedor del titulo de la tabla
   containerTitle: {
@@ -17,11 +21,7 @@ const styles = StyleSheet.create({
     fontSize: "12px",
     textAlign: "center",
     justifyContent:'center',
-    borderTop:'1',
-    borderLeft:'1',
-    borderRight:'1',
-    borderStyle:'solid',
-    borderColor:'black'
+    borderBottom:'1',
   },
   //Tabla
   table: {
@@ -34,9 +34,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection:'row',
     width:'100%',
-    border:'1',
     borderStyle:'solid',
-    borderColor:'black'
+    borderColor:'black',
+    borderBottom:'1'
   },
   //Estilos base del titulo
   Boxtitle:{
@@ -51,13 +51,13 @@ const styles = StyleSheet.create({
 const RowStyles = StyleSheet.create({
     tag:{
         width:'15%',
-        borderRight:'1',
         borderColor:'black',
         borderStyle:'solid'
     },
     description:{
         width:'30%',
         borderRight:'1',
+        borderLeft:'1',
         borderColor:'black',
         borderStyle:'solid'
        
@@ -65,11 +65,11 @@ const RowStyles = StyleSheet.create({
     ns:{
         width:'30%',
         borderColor:'black',
-        borderStyle:'solid'
+        borderStyle:'solid',
+        borderRight:'1'
     },
     maintance:{
         width:'25%',
-        borderLeft:'1'
     }
 })
 
@@ -104,7 +104,7 @@ function TableMaintances({storage}) {
                 </View>
 
                 <View style={[styles.Boxtitle, RowStyles.description]}>
-                    <Text>Descripción</Text>
+                    <Text>DESCRIPCIÓN</Text>
                 </View>
 
                 <View style={[styles.Boxtitle, RowStyles.ns]}>
