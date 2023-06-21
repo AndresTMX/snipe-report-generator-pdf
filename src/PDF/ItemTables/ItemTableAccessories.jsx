@@ -49,26 +49,24 @@ const styles = StyleSheet.create({
   const RowStyles = StyleSheet.create({
       id:{
           width:'15%',
-          borderLeft: "1",
-          borderRight: "1",
           borderColor:'black',
           borderStyle:'solid'
       },
       name:{
           width:'30%',
+          borderLeft:'1',
           borderRight:'1',
           borderColor:'black',
           borderStyle:'solid'
       },
       manufacturer:{
           width:'25%',
-          borderLeft: "1",
-          borderRight: "1",
           borderColor:'black',
           borderStyle:'solid'
       },
       category:{
-          width:'30%'
+          width:'30%', 
+          borderRight:'1'
       }
   })
 

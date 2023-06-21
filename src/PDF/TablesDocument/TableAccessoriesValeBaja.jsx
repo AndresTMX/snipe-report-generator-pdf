@@ -114,7 +114,7 @@ function TableAccessoriesValeBaja({ storage }) {
       {validate && (
         <View style={styles.sectionAssets}>
           <View style={styles.containerTitle}>
-            <Text>Accesorios asignados al usuario</Text>
+            <Text>ACCESORIOS ASIGNADOS AL USUARIO</Text>
           </View>
           <View style={styles.sectionAssetsTable}>
             <View style={styles.TableAssetsRow}>

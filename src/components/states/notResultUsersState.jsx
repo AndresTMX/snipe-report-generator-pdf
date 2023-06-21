@@ -1,12 +1,14 @@
 import {MdError} from 'react-icons/md'
 import './notDocState.css'
-function NotResultUsers() {
+function NotResultUsers({error, pageRender}) {
     return ( 
         <div className='no-document-state'>
             <span>
                 <MdError/>
             </span>
-            <h1>API not response</h1>
+            {error && (<h1>API not response</h1>)}
+
+            {!pageRender.length && (<h1>Sin resultados</h1>)}
         </div>
      );
 }

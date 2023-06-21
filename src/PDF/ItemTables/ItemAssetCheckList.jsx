@@ -15,22 +15,24 @@ const styles = StyleSheet.create({
         height: "18px",
         flexDirection: "row",
         width: "100%",
+        borderColor: "black",
+        borderStyle: "solid",
+        borderBottom:'1'
       },
     
       ColumnId: {
-        display: "flex",
-        width: "14%",
-        borderColor: "black",
-        borderRight: "1",
-        borderLeft:'1',
-        borderStyle: "solid",
-        textAlign: "center",
+      display: "flex",
+      width: "14%",
+      borderColor: "black",
+      borderStyle: "solid",
+      textAlign: "center",
       },
     
       ColumnDescription: {
         display: "flex",
         width: "15%",
         borderRight: "1",
+        borderLeft:'1',
         borderColor: "black",
         borderStyle: "solid",
         textAlign: "center",
@@ -67,7 +69,6 @@ const styles = StyleSheet.create({
         display: "flex",
         width: "10%",
         textAlign: "center",
-        borderRight: "1",
       },
     
       textContainer: {
@@ -75,8 +76,6 @@ const styles = StyleSheet.create({
         height: "100%",
         justifyContent: "center",
         alignItems: "center",
-        borderBottom: "1",
-        borderTop: "1",
         borderStyle: "solid",
         borderColor: "black",
       },

@@ -6,9 +6,11 @@ function useGetUsers() {
 
     const [dataUsers, setDataUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
 
+       try {
         setTimeout(()=> {
             //obteniendo info del usuario
         const fetchInfoUser = async () => {
@@ -18,11 +20,14 @@ function useGetUsers() {
         }
         fetchInfoUser();
 
-        },2000 )
+        },1000 )
+       } catch (error) {
+        setError(error);
+       }
         
 
     }, [loading]);
 
-    return { dataUsers, loading};
+    return { dataUsers, loading, error};
 }
 export {useGetUsers};

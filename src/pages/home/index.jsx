@@ -34,7 +34,7 @@ function PageHome() {
   
   //Hooks de buscador, fetch de usuarios y paginación 
   const { search, setSearch } = useSearcher();
-  const { dataUsers, loading } = useGetUsers();
+  const { dataUsers, loading, error } = useGetUsers();
   const {pageRender,searchResults, nextPage, prevPage} = usePagination(dataUsers, search, dispatch);
 
   return (
@@ -70,9 +70,9 @@ function PageHome() {
           </div>
         )}
 
-        {!loading && pageRender.length === 0 && <NotResultUsers />}
+        {!loading && !pageRender.length && <NotResultUsers error={error} pageRender={pageRender}/>}
 
-        {pageRender.map((user) => (
+        { pageRender && pageRender.map((user) => (
           <UserCard
             key={user.id}
             id={user.id}
@@ -91,6 +91,7 @@ function PageHome() {
             dispatch={dispatch}
           />
         ))}
+
       </UserContainer>
 
       <PreviewContainer>

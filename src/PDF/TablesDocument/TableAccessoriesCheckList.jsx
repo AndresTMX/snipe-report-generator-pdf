@@ -5,6 +5,11 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     width: "100%",
+    height: "auto",
+    borderTop:'1',
+    borderLeft:'1',
+    borderRight:'1',
+    borderStyle:'solid',
   },
 
   containerTitle: {
@@ -13,12 +18,8 @@ const styles = StyleSheet.create({
     height: "20px",
     fontSize: "12px",
     textAlign: "center",
-    justifyContent: "center",
-    borderTop: "1",
-    borderLeft: "1",
-    borderRight: "1",
-    borderStyle: "solid",
-    borderColor: "black",
+    justifyContent:'center',
+    borderBottom:'1',
   },
 
   TableTableaccessoriessCheckList: {
@@ -32,10 +33,7 @@ const styles = StyleSheet.create({
   ColumnId: {
     display: "flex",
     width: "8%",
-    borderTop: "1",
     borderColor: "black",
-    borderRight: "1",
-    borderLeft: "1",
     borderStyle: "solid",
     textAlign: "center",
   },
@@ -43,8 +41,8 @@ const styles = StyleSheet.create({
   ColumnDescription: {
     display: "flex",
     width: "30%",
-    borderTop: "1",
     borderColor: "black",
+    borderLeft:'1',
     borderRight: "1",
     borderStyle: "solid",
     textAlign: "center",
@@ -53,7 +51,6 @@ const styles = StyleSheet.create({
   ColumnMarca: {
     display: "flex",
     width: "28%",
-    borderTop: "1",
     borderColor: "black",
     borderRight: "1",
     borderStyle: "solid",
@@ -63,7 +60,6 @@ const styles = StyleSheet.create({
   ColumnModel: {
     display: "flex",
     width: "20%",
-    borderTop: "1",
     borderColor: "black",
     borderRight: "1",
     borderStyle: "solid",
@@ -73,8 +69,6 @@ const styles = StyleSheet.create({
   ColumnCheck: {
     display: "flex",
     width: "15%",
-    borderTop: "1",
-    borderRight: "1",
     textAlign: "center",
   },
 
@@ -84,7 +78,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderBottom: "1",
-    borderTop: "1",
     borderStyle: "solid",
     borderColor: "black",
   },
@@ -117,25 +110,25 @@ function TableAccessoriesCheckList({ storage }) {
 
             <View style={styles.ColumnDescription}>
               <View style={styles.textContainer}>
-                <Text>Descripción</Text>
+                <Text>DESCRIPCIÓN</Text>
               </View>
             </View>
 
             <View style={styles.ColumnMarca}>
               <View style={styles.textContainer}>
-                <Text>Categoria</Text>
+                <Text>CATEGORÍA</Text>
               </View>
             </View>
 
             <View style={styles.ColumnModel}>
               <View style={styles.textContainer}>
-                <Text>Fabricante</Text>
+                <Text>FABRICANTE</Text>
               </View>
             </View>
 
             <View style={styles.ColumnCheck}>
               <View style={styles.textContainer}>
-                <Text style={styles.textNegrita}>Listado</Text>
+                <Text style={styles.textNegrita}>LISTADO</Text>
               </View>
             </View>
           </View>

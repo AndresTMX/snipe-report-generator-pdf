@@ -9,11 +9,12 @@ const styles = StyleSheet.create({
     border: "1",
     borderStyle: "solid",
     borderColor: "black",
+    height: "100px",
   },
   
   actaCabeceraLogo: {
     width: "90px",
-    height: "100px",
+    height: "100%",
     alignItems: "center",
     justifyContent: "center",
     borderRight: "1",
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    fontSize: "11px",
+    fontSize: "10px",
   },
 
   borderTop: {
