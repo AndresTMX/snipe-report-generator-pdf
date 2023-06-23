@@ -2,9 +2,8 @@ import './ButtonDocStore.css';
 import { BsFiletypeDoc } from 'react-icons/bs';
 import { actionTypes as actionTypesModals } from '../../Context/StatesModalsReducer';
 
-function ButtonDocStore({state, dispatch, count}) {
+function ButtonDocStore({state, dispatch}) {
     
-    const newCount = count? count: 0;
 
     const CloseDocStore = () => {
         dispatch({type: actionTypesModals.setModalDocStore, payload: !state})
@@ -13,7 +12,6 @@ function ButtonDocStore({state, dispatch, count}) {
     return ( 
         <>
             <button className="doc-store-box" onClick={()=> CloseDocStore()}>
-            <span className="counter">{newCount}</span>
             </button>
         </>
      );

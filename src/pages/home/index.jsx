@@ -11,21 +11,30 @@ import { useSearcher } from "../../components/Searcher/useSearcher";
 import { Viewer } from "../../components/PDFViewer";
 import { MyDocument } from "../../components/PDFGenerator";
 //contexto
-import { useContext } from 'react';
-import { DocContext } from '../../Context/DocContext';
+import { useContext } from "react";
+import { DocContext } from "../../Context/DocContext";
 import { usePagination } from "../../Hooks/usePagination";
 //state
 import { NotDocState } from "../../components/states/notDocState";
 import { NotResultUsers } from "../../components/states/notResultUsersState";
+//Hooks
+
 //notification
 import { Notification } from "../../modals/notification";
-import {actionTypes as actionTypesModals} from '../../Context/StatesModalsReducer';
+import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
 //Icons
-import {LuFilter} from 'react-icons/lu';
+import { LuFilter } from "react-icons/lu";
 //MUI
-import { Container, Radio , FormLabel, Select, MenuItem} from "@mui/material";
-import Box from '@mui/material/Box';
-
+import {
+  Container,
+  Radio,
+  FormLabel,
+  Select,
+  MenuItem,
+  Button,
+  Box,
+  Paper
+} from "@mui/material";
 
 function PageHome() {
   //hook del contexto
@@ -35,12 +44,15 @@ function PageHome() {
   const { initialStore, StatesModals } = state;
 
   // comprobacion de documento
-  const {complete} = initialStore.storage? initialStore.storage: false;
-  
-  //Hooks de buscador, fetch de usuarios y paginación 
+  const { complete } = initialStore.storage ? initialStore.storage : false;
+
+  //Hooks de buscador, fetch de usuarios y paginación
   const { search, setSearch } = useSearcher();
   const { dataUsers, loading, error } = useGetUsers();
-  const {pageRender,searchResults, nextPage, prevPage} = usePagination(dataUsers, search, dispatch);
+  const { pageRender, searchResults, nextPage, prevPage, filter, setActives } = usePagination(
+    dataUsers,
+    search,
+    dispatch);
 
   return (
     <Container
@@ -58,7 +70,8 @@ function PageHome() {
           display: "flex",
           margin: "auto",
           flexDirection: "column",
-          paddingTop: "280px",
+          paddingTop: "250px",
+          paddingBottom: "50px",
           width: "70%",
           height: "100vh",
           position: "fixed",
@@ -70,21 +83,15 @@ function PageHome() {
             display: "flex",
             flexDirection: "column",
             width: "100%",
-            height: "100vh",
+            height: "650px",
             gap: "20px",
           }}
         >
-          {/* <InputSearch
-        state={search}
-        setState={setSearch}
-        resultSearch={searchResults}
-      /> */}
-
           {StatesModals.modalNotification && (
             <Notification>
-              <div className="container-notification">
+              <Paper elevation={2} sx={{display:'flex', flexDirection:'column', alignItems:'center', padding:'15px', justifyContent:'center'}}>
                 <p>{StatesModals.modalNotification}</p>
-                <button
+                <Button
                   onClick={() =>
                     dispatch({
                       type: actionTypesModals.setModalNotification,
@@ -93,12 +100,14 @@ function PageHome() {
                   }
                 >
                   Ok
-                </button>
-              </div>
+                </Button>
+              </Paper>
             </Notification>
           )}
 
-          <Container>
+          <Container
+            sx={{ display: "flex", flexDirection: "column", gap: "15px" }}
+          >
             <Box
               sx={{
                 background: "#0071BB",
@@ -107,7 +116,7 @@ function PageHome() {
                 width: "100%",
                 height: "40px",
                 alignItems: "center",
-                justifyContent: "flex-start",
+                justifyContent: "space-between",
                 color: "white",
                 gap: "15px",
                 paddingLeft: "10px",
@@ -137,10 +146,12 @@ function PageHome() {
                   display: "flex",
                   alignItems: "center",
                   height: "100%",
-                }}
-              >
+                }}>
                 Solo acivos
                 <Radio
+                onClick={()=> setActives()}
+                value={filter.actives}
+                checked={filter.actives}
                   size="small"
                   sx={{ color: "white", "&.Mui-checked": { color: "white" } }}
                 />
@@ -172,6 +183,87 @@ function PageHome() {
                   <MenuItem>TOH Industrial</MenuItem>
                 </Select>
               </FormLabel>
+
+              <FormLabel
+                sx={{
+                  color: "white",
+                  fontSize: "12px",
+                  display: "flex",
+                  alignItems: "center",
+                  height: "100%",
+                }}
+              >
+                Sucursal
+                <Select
+                  size="small"
+                  variant="standard"
+                  disableUnderline
+                  sx={{
+                    "& .MuiSelect-icon": {
+                      color: "white", // Cambia el color aquí
+                    },
+                  }}
+                >
+                  <MenuItem>COMNID Corporativo</MenuItem>
+                  <MenuItem>IPSA Coatzacoalcos</MenuItem>
+                  <MenuItem>TOH Coatzacoalcos</MenuItem>
+                  <MenuItem>COMIND Ordaz</MenuItem>
+                </Select>
+              </FormLabel>
+
+              <FormLabel
+                sx={{
+                  color: "white",
+                  fontSize: "12px",
+                  display: "flex",
+                  alignItems: "center",
+                  height: "100%",
+                }}
+              >
+                Departamento
+                <Select
+                  size="small"
+                  variant="standard"
+                  disableUnderline
+                  sx={{
+                    "& .MuiSelect-icon": {
+                      color: "white", // Cambia el color aquí
+                    },
+                  }}
+                >
+                  <MenuItem>Dirección</MenuItem>
+                  <MenuItem>Compras</MenuItem>
+                  <MenuItem>Calidad</MenuItem>
+                  <MenuItem>Sistemas</MenuItem>
+                  <MenuItem>Administración</MenuItem>
+                  <MenuItem>Ventas Mostrador</MenuItem>
+                  <MenuItem>Ventas Industria</MenuItem>
+                  <MenuItem>Recursos Humanos</MenuItem>
+                </Select>
+              </FormLabel>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              <Button
+                onClick={() => prevPage()}
+                variant="contained"
+                size="small"
+              >
+                Anterior
+              </Button>
+              <Button
+                onClick={() => nextPage()}
+                variant="contained"
+                size="small"
+              >
+                Siguiente
+              </Button>
             </Box>
           </Container>
 
@@ -209,15 +301,6 @@ function PageHome() {
           </UserContainer>
         </Container>
 
-        {/* <PreviewContainer>
-        {complete != true ? (
-          <NotDocState />
-        ) : (
-          <Viewer>
-            <MyDocument state={state} />
-          </Viewer>
-        )}
-      </PreviewContainer> */}
       </Container>
 
       <Container
@@ -246,8 +329,21 @@ function PageHome() {
           />
         </Box>
       </Container>
+
     </Container>
   );
 }
 
 export { PageHome };
+
+{
+  /* <PreviewContainer>
+        {complete != true ? (
+          <NotDocState />
+        ) : (
+          <Viewer>
+            <MyDocument state={state} />
+          </Viewer>
+        )}
+      </PreviewContainer> */
+}

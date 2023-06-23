@@ -13,7 +13,7 @@ function Banner() {
             backgroundSize:'cover',
             objectFit:'contain',
             width: '100%',
-            height: '170px',
+            height: '150px',
             position:'fixed',
             zIndex:'3',
             top:'-10px',

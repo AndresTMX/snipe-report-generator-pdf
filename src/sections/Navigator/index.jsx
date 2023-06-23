@@ -26,7 +26,6 @@ function Navigator() {
       <nav className="nav">
         <section className="section-buttons">
             <ButtonDocStore
-              count={count}
               state={modalDocStore}
               dispatch={dispatch}
             />

@@ -10,8 +10,9 @@ export default function filterSearch(busqueda, array) {
       const company = user.company?.name.toLowerCase();
       const notes = user.notes.toLowerCase();
       const location = user.location?.name.toLowerCase();
+      const department = user.department?.name.toLowerCase();      
       const busquedaMinuscula = busqueda.toLowerCase();
       
-      return name.includes(busquedaMinuscula) || company?.includes(busquedaMinuscula) || notes.includes(busquedaMinuscula) || location?.includes(busquedaMinuscula);
+      return name.includes(busquedaMinuscula) || company?.includes(busquedaMinuscula) || notes.includes(busquedaMinuscula) || location?.includes(busquedaMinuscula) || department?.includes(busquedaMinuscula);
     });
   }
