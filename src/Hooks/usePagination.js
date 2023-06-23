@@ -9,7 +9,7 @@ import {actionTypes as actionTypesModals, StatesModals} from '../Context/StatesM
 //devulve la pagina en la que estas
 function usePagination(users, search, dispatch) {
 
-    const [page, setPage] = useState({init: 0,end: 4})
+    const [page, setPage] = useState({init: 0,end: 6})
     let pageRender
     let searchResults
 

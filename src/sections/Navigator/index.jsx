@@ -7,6 +7,7 @@ import { DocContext } from "../../Context/DocContext";
 import { DocStore } from "../../components/DocStore";
 import { UserConfig } from "../../components/UserConfig";
 import { Button } from "@mui/material";
+import { Container } from "@mui/material";
 
 function Navigator() {
   const [state, dispatch] = useContext(DocContext);

@@ -1,4 +1,4 @@
-import "./userCard.css";
+// import "./userCard.css";
 import { useState } from "react";
 import { ViewItems } from "../ViewItems";
 import { AssetsBox } from "../AssetsBox";
@@ -18,6 +18,10 @@ import {useImagePDF} from '../../Hooks/useImagePDF';
 import { usegetAccesoriesUser } from "../../Hooks/useAccesoriesUser";
 //types
 import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
+
+//material UI
+import {Card, Paper } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 
 function UserCard({
   id,
@@ -79,12 +83,18 @@ function UserCard({
 
   return (
     <>
-      <div className="card">
-        <picture>
-          <img alt="image" src={image? image: avatar} />
-        </picture>
+      <Grid item >
+        
+        <Paper elevation={2} sx={{ width: '250px', height:'250px', background:'#D9D9D9' }}>
+        <span>Puesto</span>
+        <p>{nameJobtitle}</p>
+        </Paper>
 
-        <div className="card-info-container">
+        {/* <picture>
+          <img alt="image" src={image? image: avatar} />
+        </picture> */}
+
+        {/* <div className="card-info-container">
           <p>ID:{id}</p>
           <p>{nameUser}</p>
           <span>Puesto</span>
@@ -97,9 +107,9 @@ function UserCard({
           <p>{namedepartment} </p>
           <span>Ubicación</span>
           <p>{nameLocation}</p>
-        </div>
+        </div> */}
 
-        <div className="card-buttons-container">
+        {/* <div className="card-buttons-container">
           <button title="Activos" onClick={() => ButtongetActives()}>
             <FaDesktop />
             {assets}
@@ -115,8 +125,8 @@ function UserCard({
             <ImKey />
             {licences}
           </button>
-        </div>
-      </div>
+        </div> */}
+      </Grid>
 
       {modal && (
         <Modal>

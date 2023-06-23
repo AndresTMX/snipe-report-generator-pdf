@@ -8,6 +8,8 @@
     background-color:#0071BB;
     flex-wrap: wrap;
     z-index: 3;
+    margin: 0px;
+    left: 0px;
 }
 
 .nav .section-buttons{

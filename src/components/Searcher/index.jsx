@@ -1,4 +1,8 @@
 import './searcher.css';
+import { Container , Box, Paper} from '@mui/material';
+import {BiSearchAlt2} from 'react-icons/bi'
+import InputBase from '@mui/material/InputBase';
+
 
 function InputSearch({state, setState, resultSearch}) {
 
@@ -10,10 +14,11 @@ function InputSearch({state, setState, resultSearch}) {
       };
 
     return ( 
-        <div className='container-searcher'>
-            <input className='searcher' type="text" value={state} onChange={onSearchValueChangue} placeholder={'Buscar usuario'} />
-            <span className='results-search'>Resultados : {result}</span>
-        </div>
+        <Paper elevation={2} sx={{display:'flex', flexDirection:'column', alignItems:'center', height:'30px'}}>
+            <InputBase  type="text" value={state.toString()} onChange={onSearchValueChangue} placeholder={'Buscar usuario'}/>
+            <Box sx={{ position:'relative', top:'-25px', left:'-40%' }}><BiSearchAlt2/></Box>
+            {/* <span>Resultados : {result}</span> */}
+        </Paper>
      );
 }
 

@@ -17,6 +17,7 @@ function Banner() {
             position:'fixed',
             zIndex:'3',
             top:'-10px',
+            left:'0px',
             '@media (max-width: 1050px)': {
                 backgroundSize:'cover',
                 backgroundPosition:'initial',
