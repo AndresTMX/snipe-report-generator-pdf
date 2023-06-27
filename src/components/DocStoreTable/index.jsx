@@ -1,6 +1,9 @@
 import "./DocStoreTable.css";
 import { DocStoreItemTable } from "../DocStoreItemTable";
-
+//Material UI
+import { Accordion, AccordionSummary, AccordionDetails, Box } from "@mui/material";
+//icons
+import {IoIosArrowDown} from 'react-icons/io';
 function DocStoreTable({ arrayRender, typeTable, state }) {
 
   const { initialStore } = state? state: {};
@@ -40,7 +43,23 @@ function DocStoreTable({ arrayRender, typeTable, state }) {
 
   return (
     <>
-     {
+    <Accordion>
+      <AccordionSummary>
+      <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <span>Datos de {typeTable}</span>
+            <IoIosArrowDown/>
+          </Box>
+      </AccordionSummary>
+      <AccordionDetails>
+      {
       renderAssets?
       <div className="DocStoreTable">
         <h3>{typeTable} agregados</h3>
@@ -61,9 +80,11 @@ function DocStoreTable({ arrayRender, typeTable, state }) {
       </div>
       :
       <>
-      <h3 className="Not-DocStoreTable">Sin {typeTable} agregados</h3>
+      <span>Sin {typeTable} agregados</span>
       </> 
      }
+      </AccordionDetails>
+    </Accordion>
     </>
   );
 }

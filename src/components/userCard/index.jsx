@@ -1,4 +1,4 @@
-// import "./userCard.css";
+import "./userCard.css";
 import { useState } from "react";
 import { ViewItems } from "../ViewItems";
 import { AssetsBox } from "../AssetsBox";
@@ -9,8 +9,10 @@ import { AccessoriesBox } from "../AccessoriesBox";
 import {LicensesBox} from '../LicensesBox';
 //icons
 import { BsHeadset } from "react-icons/bs";
-import { FaDesktop } from "react-icons/fa";
+import {AiOutlineDesktop} from 'react-icons/ai'
 import {ImKey} from 'react-icons/im';
+import { MdLocationPin } from 'react-icons/md';
+import {IoIosArrowDown} from 'react-icons/io';
 //helper
 import transfromValues from "../../Helpers/textFormat";
 //hooks
@@ -18,9 +20,11 @@ import {useImagePDF} from '../../Hooks/useImagePDF';
 import { usegetAccesoriesUser } from "../../Hooks/useAccesoriesUser";
 //types
 import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
-
 //material UI
-import {Card, Paper } from '@mui/material';
+import {Card, Paper, CardHeader, Avatar, CardContent, Box, Collapse  } from '@mui/material/';
+import CardActions from '@mui/material/CardActions';
+import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 
 function UserCard({
@@ -39,9 +43,9 @@ function UserCard({
   jobtitle,
   dispatch
 }) {
-
-  const { nameUser, nameCompany, namedepartment, nameLocation, nameManager, nameJobtitle } = transfromValues(user, company, department, location, manager, jobtitle)
-
+  
+  const { nameUser, nameCompany, nameDepartment, nameLocation, nameManager, nameJobtitle } = transfromValues(user, company, department, location, manager, jobtitle)
+  
   const { dataAssets, get, SetGet, idUser, loading } = useGetAssetsUser(id);  
   const { dataAccesories, Aget, getAccesories, loadingAccessorie } = usegetAccesoriesUser(id);
   const { modal, setModal, modal2, setModal2, modal3, setModal3 } = UseModal();
@@ -53,6 +57,8 @@ function UserCard({
     email:"",
     department:"",
   });
+  
+    const [expanded, setExpanded] = useState(false);
 
   const {image} = useImagePDF(nameCompany);
 
@@ -81,13 +87,131 @@ function UserCard({
     setModal3(!modal3)
   };
 
+  const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <>
-      <Grid item >
-        
-        <Paper elevation={2} sx={{ width: '250px', height:'250px', background:'#D9D9D9' }}>
-        <span>Puesto</span>
-        <p>{nameJobtitle}</p>
+      <Grid item>
+        <Paper
+          elevation={8}
+          sx={{ width: "250px", height: 'auto', backgroundColor: "#d9d9d9", border:'2px', borderStyle:'solid', borderColor:'#d9d9d9' }}
+        >
+          <Card sx={{height:'100%'}}>
+            <CardHeader
+            sx={{height:'100px'}}
+              avatar={
+                <Avatar
+                  sx={{
+                    backgroundColor: "white",
+                    border: "2px",
+                    borderColor: "#0071bb",
+                    borderStyle: "solid",
+                  }}
+                >
+                  <img
+                    style={{
+                      height: "90%",
+                      width: "90%",
+                      objectFit: "contain",
+                    }}
+                    src={image}
+                  />
+                </Avatar>
+              }
+              title={nameUser}
+              subheader={nameJobtitle}
+            />
+
+            <CardContent sx={{ fontSize: "0.875rem", }}>
+              <Box>
+                <h4 className="h4">Departamento</h4>
+                <span className="span">{nameDepartment} </span>
+              </Box>
+            </CardContent>
+
+            <CardActions disableSpacing>
+              <IconButton 
+              aria-label="Activos"
+               title='Ver Activos'
+              onClick={() => ButtongetActives()}>
+                 <AiOutlineDesktop/>
+              </IconButton>
+
+              <IconButton 
+              aria-label="Accesorios"
+              title='Ver Accesorios'
+              onClick={()=> ButtongetAccesories()}>
+               <BsHeadset/>
+              </IconButton>
+
+              <IconButton 
+              aria-label="Licencias"
+              title='Ver Licencias'
+              onClick={() => ButtongetMoreInfoUser()}
+              >
+               <ImKey/>
+              </IconButton>
+
+              <ExpandMore
+                expand={expanded}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show more"
+              >
+                <IoIosArrowDown/>
+              </ExpandMore>
+            </CardActions>
+
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+
+            <CardContent sx={{ fontSize: "0.875rem" }}>
+              <Box>
+                <h4 className="h4">Empresa</h4>
+                <span className="span">{nameCompany}</span>
+              </Box>
+
+              <Box>
+                <h4 className="h4">Jefe Inmediato</h4>
+                <span className="span">{nameManager}</span>
+              </Box>
+
+              <Box>
+                <h4 className="h4">Departamento</h4>
+                <span className="span">{nameDepartment}</span>
+              </Box>
+
+            </CardContent>
+
+
+            </Collapse>
+
+            <Box
+              sx={{
+                position: "relative",
+                bottom: "2px",
+                right: "-5px",
+                display: "flex",
+              }}
+            >
+              <span>
+                <MdLocationPin />
+              </span>
+              <h4 className="h4">{nameLocation}</h4>
+            </Box>
+          </Card>
         </Paper>
 
         {/* <picture>
@@ -165,7 +289,7 @@ function UserCard({
       {modal3 && (
         <Modal>
           <ViewItems>
-             <LicensesBox idUser={id} closeBox={ButtongetMoreInfoUser} />
+            <LicensesBox idUser={id} closeBox={ButtongetMoreInfoUser} />
           </ViewItems>
         </Modal>
       )}

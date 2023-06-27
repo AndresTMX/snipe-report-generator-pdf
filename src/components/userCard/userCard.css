@@ -88,3 +88,18 @@
 .button_delete:hover{
     color: red;
 }
+
+.h4{
+    margin: 1px;
+    font-size: 12px;
+    color: gray;
+    font-weight: 400;
+    font-style: oblique;
+}
+
+.span{
+    margin: 0px;
+    font-size: 14px;
+    font-weight:400;
+    color:black;
+}

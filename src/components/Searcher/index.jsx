@@ -14,9 +14,9 @@ function InputSearch({state, setState, resultSearch}) {
       };
 
     return ( 
-        <Paper elevation={2} sx={{display:'flex', flexDirection:'column', alignItems:'center', height:'30px'}}>
-            <InputBase  type="text" value={state.toString()} onChange={onSearchValueChangue} placeholder={'Buscar usuario'}/>
-            <Box sx={{ position:'relative', top:'-25px', left:'-40%' }}><BiSearchAlt2/></Box>
+        <Paper elevation={2} sx={{display:'flex', flexDirection:'row', alignItems:'center', height:'40px', justifyContent:'space-between'}}>
+            <Box sx={{display:'flex', height:'100%', width:'10%', alignItems:'center', justifyContent:'center' }}><BiSearchAlt2/></Box>
+            <InputBase sx={{display:'flex', height:'100%', width:'90%'}}  type="text" value={state.toString()} onChange={onSearchValueChangue} placeholder={'Buscar usuario'}/>
             {/* <span>Resultados : {result}</span> */}
         </Paper>
      );

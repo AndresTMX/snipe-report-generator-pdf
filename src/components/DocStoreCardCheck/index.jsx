@@ -1,19 +1,17 @@
 import { useState } from "react";
-import "./DocStoreCardCheck.css";
 import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
-import { useGetComponents } from '../../Hooks/useGetComponents';
+import { useGetComponents } from "../../Hooks/useGetComponents";
+import { FormGroup, FormControlLabel, Switch } from "@mui/material";
 
-function DocStoreCardCheck({state, dispatch}) {
-  
-  const { initialStore, StatesModals } = state? state: {};
-  const { storage } = initialStore? initialStore: {};
-  const {assets, accessories} = storage? storage : {};
+function DocStoreCardCheck({ state, dispatch }) {
+  const { initialStore, StatesModals } = state ? state : {};
+  const { storage } = initialStore ? initialStore : {};
+  const { assets, accessories } = storage ? storage : {};
   const [stateComponents, setComponents] = useState(false);
   const [stateBecario, setBecario] = useState(false);
   const { dataComponents, loading } = useGetComponents(assets, stateComponents);
-  
-  const  handleCheckComponents = () => {
 
+  const handleCheckComponents = () => {
     let newState = {};
 
     if (!stateComponents && loading) {
@@ -23,7 +21,7 @@ function DocStoreCardCheck({state, dispatch}) {
         ...storage,
         complete: false,
         checkComponents: true,
-        components:dataComponents,
+        components: dataComponents,
       };
     } else {
       setComponents(!stateComponents);
@@ -37,49 +35,53 @@ function DocStoreCardCheck({state, dispatch}) {
     }
 
     dispatch({ type: actionTypesDoc.updateStorage, payload: newState });
-  }
+  };
 
-    const handleCheckBecario = () => {
-        let newState = {};
-    
-        if (!stateBecario) {
-          setBecario(!stateBecario);
-    
-          newState = {
-            ...storage,
-            becario: true,
-          };
-        } else {
-          setBecario(!stateBecario);
-    
-          newState = {
-            ...storage,
-            becario: false,
-          };
-        }
-    
-        dispatch({ type: actionTypesDoc.updateStorage, payload: newState });
+  const handleCheckBecario = () => {
+    let newState = {};
+
+    if (!stateBecario) {
+      setBecario(!stateBecario);
+
+      newState = {
+        ...storage,
+        becario: true,
+      };
+    } else {
+      setBecario(!stateBecario);
+
+      newState = {
+        ...storage,
+        becario: false,
+      };
     }
-    
-    return (
-        <>
-            <div className="DocStoreCardCheck">
-                <input type="checkbox"
-                    checked={stateComponents}
-                    onChange={(e) => handleCheckComponents(stateComponents)}
-                />
-                <p>Incluir componentes</p>
-            </div>
 
-            <div className="DocStoreCardCheck">
-                <input type="checkbox"
-                    checked={stateBecario}
-                    onChange={(e) => handleCheckBecario()}
-                />
-                <p>Para practicante/becario</p>
-            </div>
-        </>
-    );
+    dispatch({ type: actionTypesDoc.updateStorage, payload: newState });
+  };
+
+  return (
+    <FormGroup>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={stateComponents}
+            onChange={(e) => handleCheckComponents(stateComponents)}
+          />
+        }
+        label={"Incluir componentes"}>
+        </FormControlLabel>
+
+      <FormControlLabel
+        control={
+          <Switch
+            checked={stateBecario}
+            onChange={(e) => handleCheckBecario()}
+          />
+        }
+        label={"Para practicante/becario"}>
+        </FormControlLabel>
+    </FormGroup>
+  );
 }
 
 export { DocStoreCardCheck };

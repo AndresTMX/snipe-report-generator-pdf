@@ -10,10 +10,10 @@ export default function transfromValues (user, company, department, location, ma
     const textDefault = "No asignado";
     const nameUser = user? transformText(user): textDefault;
     const nameCompany = company ? transformText(company) : textDefault;
-    const namedepartment = department ? transformText(department) : textDefault;
+    const nameDepartment = department ? transformText(department) : textDefault;
     const nameLocation= location ? transformText(location) : textDefault;
     const nameManager = manager? transformText(manager) : textDefault;
     const nameJobtitle = jobtitle? transformText(jobtitle): textDefault;
 
-    return {nameUser, nameCompany, namedepartment, nameLocation, nameManager, nameJobtitle}
+    return {nameUser, nameCompany, nameDepartment, nameLocation, nameManager, nameJobtitle}
 }

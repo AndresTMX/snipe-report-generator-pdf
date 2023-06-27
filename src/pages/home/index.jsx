@@ -18,23 +18,25 @@ import { usePagination } from "../../Hooks/usePagination";
 import { NotDocState } from "../../components/states/notDocState";
 import { NotResultUsers } from "../../components/states/notResultUsersState";
 //Hooks
+import {Modal} from '../../modals/modal';
+import { DocStoreCardComent } from "../../components/DocStoreCardComent";
+
+//filter
+import { Filters } from "../../components/Filters";
+import { ConfigReport } from "../../components/ConfigReport";
+//DocStoreItems
 
 //notification
 import { Notification } from "../../modals/notification";
 import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
-//Icons
-import { LuFilter } from "react-icons/lu";
 //MUI
 import {
   Container,
-  Radio,
-  FormLabel,
-  Select,
-  MenuItem,
   Button,
-  Box,
-  Paper
+  Paper, 
+  Box
 } from "@mui/material";
+import { actionTypes as actionTypesDocs} from "../../Context/DocReducer";
 
 function PageHome() {
   //hook del contexto
@@ -45,6 +47,7 @@ function PageHome() {
 
   // comprobacion de documento
   const { complete } = initialStore.storage ? initialStore.storage : false;
+  const { assets, accessories } = initialStore.storage ? initialStore.storage : {};
 
   //Hooks de buscador, fetch de usuarios y paginación
   const { search, setSearch } = useSearcher();
@@ -89,7 +92,16 @@ function PageHome() {
         >
           {StatesModals.modalNotification && (
             <Notification>
-              <Paper elevation={2} sx={{display:'flex', flexDirection:'column', alignItems:'center', padding:'15px', justifyContent:'center'}}>
+              <Paper
+                elevation={2}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "15px",
+                  justifyContent: "center",
+                }}
+              >
                 <p>{StatesModals.modalNotification}</p>
                 <Button
                   onClick={() =>
@@ -105,245 +117,91 @@ function PageHome() {
             </Notification>
           )}
 
-          <Container
-            sx={{ display: "flex", flexDirection: "column", gap: "15px" }}
-          >
-            <Box
-              sx={{
-                background: "#0071BB",
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                height: "40px",
-                alignItems: "center",
-                justifyContent: "space-between",
-                color: "white",
-                gap: "15px",
-                paddingLeft: "10px",
-                fontSize: "12px",
-              }}
-            >
-              <FormLabel
-                sx={{
-                  color: "white",
-                  fontSize: "12px",
-                  display: "flex",
-                  alignItems: "center",
-                  height: "100%",
-                  gap: "5px",
-                }}
-              >
-                <Box>
-                  <LuFilter />
-                </Box>
-                <span>Filtrar</span>
-              </FormLabel>
+          {StatesModals.modalComent && (
+            <Modal>
+              <DocStoreCardComent state={state} dispatch={dispatch} />
+            </Modal>
+          )}
 
-              <FormLabel
-                sx={{
-                  color: "white",
-                  fontSize: "12px",
-                  display: "flex",
-                  alignItems: "center",
-                  height: "100%",
-                }}>
-                Solo acivos
-                <Radio
-                onClick={()=> setActives()}
-                value={filter.actives}
-                checked={filter.actives}
-                  size="small"
-                  sx={{ color: "white", "&.Mui-checked": { color: "white" } }}
-                />
-              </FormLabel>
-
-              <FormLabel
-                sx={{
-                  color: "white",
-                  fontSize: "12px",
-                  display: "flex",
-                  alignItems: "center",
-                  height: "100%",
-                }}
-              >
-                Empresa
-                <Select
-                  size="small"
-                  variant="standard"
-                  disableUnderline
-                  sx={{
-                    "& .MuiSelect-icon": {
-                      color: "white", // Cambia el color aquí
-                    },
-                  }}
-                >
-                  <MenuItem>Conexiones Y Mangueras</MenuItem>
-                  <MenuItem>Instrumentación y Precisión</MenuItem>
-                  <MenuItem>Staff Recursos En Movimiento</MenuItem>
-                  <MenuItem>TOH Industrial</MenuItem>
-                </Select>
-              </FormLabel>
-
-              <FormLabel
-                sx={{
-                  color: "white",
-                  fontSize: "12px",
-                  display: "flex",
-                  alignItems: "center",
-                  height: "100%",
-                }}
-              >
-                Sucursal
-                <Select
-                  size="small"
-                  variant="standard"
-                  disableUnderline
-                  sx={{
-                    "& .MuiSelect-icon": {
-                      color: "white", // Cambia el color aquí
-                    },
-                  }}
-                >
-                  <MenuItem>COMNID Corporativo</MenuItem>
-                  <MenuItem>IPSA Coatzacoalcos</MenuItem>
-                  <MenuItem>TOH Coatzacoalcos</MenuItem>
-                  <MenuItem>COMIND Ordaz</MenuItem>
-                </Select>
-              </FormLabel>
-
-              <FormLabel
-                sx={{
-                  color: "white",
-                  fontSize: "12px",
-                  display: "flex",
-                  alignItems: "center",
-                  height: "100%",
-                }}
-              >
-                Departamento
-                <Select
-                  size="small"
-                  variant="standard"
-                  disableUnderline
-                  sx={{
-                    "& .MuiSelect-icon": {
-                      color: "white", // Cambia el color aquí
-                    },
-                  }}
-                >
-                  <MenuItem>Dirección</MenuItem>
-                  <MenuItem>Compras</MenuItem>
-                  <MenuItem>Calidad</MenuItem>
-                  <MenuItem>Sistemas</MenuItem>
-                  <MenuItem>Administración</MenuItem>
-                  <MenuItem>Ventas Mostrador</MenuItem>
-                  <MenuItem>Ventas Industria</MenuItem>
-                  <MenuItem>Recursos Humanos</MenuItem>
-                </Select>
-              </FormLabel>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
-            >
-              <Button
-                onClick={() => prevPage()}
-                variant="contained"
-                size="small"
-              >
-                Anterior
-              </Button>
-              <Button
-                onClick={() => nextPage()}
-                variant="contained"
-                size="small"
-              >
-                Siguiente
-              </Button>
-            </Box>
-          </Container>
-
-          <UserContainer>
-            {loading && (
-              <div className="loading-state">
-                <ThreeDots />
-              </div>
-            )}
-
-            {!loading && !pageRender.length && (
-              <NotResultUsers error={error} pageRender={pageRender} />
-            )}
-
-            {pageRender &&
-              pageRender.map((user) => (
-                <UserCard
-                  key={user.id}
-                  id={user.id}
-                  user={user.name}
-                  department={user.department?.name}
-                  manager={user.manager?.name}
-                  avatar={user?.avatar}
-                  location={user.location?.name}
-                  company={user.company?.name}
-                  accesories={user?.accessories_count}
-                  licences={user?.licenses_count}
-                  assets={user?.assets_count}
-                  email={user?.email}
-                  jobtitle={user?.jobtitle}
-                  state={state}
-                  dispatch={dispatch}
-                />
-              ))}
-          </UserContainer>
-        </Container>
-
-      </Container>
-
-      <Container
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          width: "25%",
-          background: "#D9D9D9",
-          height: "100vh",
-          position: "fixed",
-          right: "0px",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: "100%",
-            paddingTop: "270px",
-          }}
-        >
-          <InputSearch
-            state={search}
-            setState={setSearch}
-            resultSearch={searchResults}
+          <Filters
+            nextPage={nextPage}
+            prevPage={prevPage}
+            setActives={setActives}
+            filter={filter}
           />
-        </Box>
+
+          {!complete && (
+            <UserContainer>
+
+              {loading && (
+                <div className="loading-state">
+                  <ThreeDots />
+                </div>
+              )}
+
+              {!loading && !pageRender.length && (
+                <NotResultUsers error={error} pageRender={pageRender} />
+              )}
+
+              {pageRender &&
+                pageRender.map((user) => (
+                  <UserCard
+                    key={user.id}
+                    id={user.id}
+                    user={user.name}
+                    department={user.department?.name}
+                    manager={user.manager?.name}
+                    avatar={user?.avatar}
+                    location={user.location?.name}
+                    company={user.company?.name}
+                    accesories={user?.accessories_count}
+                    licences={user?.licenses_count}
+                    assets={user?.assets_count}
+                    email={user?.email}
+                    jobtitle={user?.jobtitle}
+                    state={state}
+                    dispatch={dispatch}
+                  />
+                ))}
+            </UserContainer>
+          )}
+
+          {complete && (
+            <Box sx={{ display:'flex', flexDirection:'column', paddingTop:'20px' , paddingBottom:'20px' , heigth:'auto%', width: '100%', overflowY: "scroll",
+            alignItems:'center',
+            margin:'auto',
+            backgroundColor:'#d9d9d9',
+            "&::-webkit-scrollbar": {
+              width: "8px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "lightgray",
+              borderRadius: "4px",
+            },
+            "&::-webkit-scrollbar-thumb:hover": {
+              backgroundColor: "gray",
+            }, }}>
+              <Button onClick={() => dispatch({type:actionTypesDocs.updateStorage,payload: {...initialStore.storage, complete:false } })}>close</Button>
+              <PreviewContainer>
+              <Viewer>
+                <MyDocument state={state} />
+              </Viewer>
+            </PreviewContainer>
+            </Box>
+          )}
+
+        </Container>
       </Container>
 
+      <ConfigReport
+        state={state}
+        dispatch={dispatch}
+        search={search}
+        setSearch={setSearch}
+        searchResults={searchResults}
+      />
     </Container>
   );
 }
 
 export { PageHome };
-
-{
-  /* <PreviewContainer>
-        {complete != true ? (
-          <NotDocState />
-        ) : (
-          <Viewer>
-            <MyDocument state={state} />
-          </Viewer>
-        )}
-      </PreviewContainer> */
-}
