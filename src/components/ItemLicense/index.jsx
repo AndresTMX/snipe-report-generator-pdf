@@ -1,26 +1,28 @@
-import './ItemLicense.css';
+import '../../index.css';
+//Material UI
+import {Box, IconButton, Container, ButtonGroup, Button, Paper } from '@mui/material';
 
 function ItemLicense({license,manufacturer,category,expiration,notes}) {
     
     return ( 
         <>
-        <section className='ItemLicense'>
+        <Container sx={{display:'flex', flexDirection:'column', width:'300px', gap:'10px', backgroundColor:'#d9d9d9', padding:'5px'}}>
 
-            <div className="box-top">
-                <span>{category}</span>
-                <span>{manufacturer}</span>
-            </div>
+            <Box sx={{display: 'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}> 
+                <p className='subtitle'>{category}</p>
+                <p className='subtitle'>{manufacturer}</p>
+            </Box>
 
-            <div className="box-middle">
-                <h3>{license}</h3>
-                <p>{notes}</p>
-            </div>
+            <Box sx={{display: 'flex', flexDirection:'column', alignItems:'center'}}>
+                <h3 className='h3 title'>{license}</h3>
+                <p className='text'>{notes}</p>
+            </Box>
 
-            <div className="box-bottom">
-                <span>{expiration? expiration: 'Fecha de expriración no registrada'}</span>
-            </div>
+            <Box>
+                <h4 className='h4'>{expiration? expiration: 'Fecha de expriración no registrada'}</h4>
+            </Box>
 
-        </section>
+        </Container>
         </>  
      );
 }

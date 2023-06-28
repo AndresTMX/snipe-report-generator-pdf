@@ -1,4 +1,7 @@
 import { useItems } from '../../Hooks/useItems';
+import IconButton from '@mui/material/IconButton';
+import { FaTrashAlt } from 'react-icons/fa';
+
 
 function DocStoreItemTable({ typeTable, tag, id, name, index, state }) {
 
@@ -21,7 +24,13 @@ function DocStoreItemTable({ typeTable, tag, id, name, index, state }) {
           <td>{name}</td>
           <td>{newTag}</td>
           <td>
-            <button title="Eliminar de la lista" onClick={() => deleteItem(tag)}>x</button>
+            <IconButton sx={{'&:hover':{
+              color:'red',
+              transition:'all',
+              transitionDuration:'0.3s'
+            }}} title="Eliminar de la lista" onClick={() => deleteItem(tag)}>
+              <FaTrashAlt/>
+            </IconButton>
           </td>
         </tr>
       );
@@ -31,7 +40,13 @@ function DocStoreItemTable({ typeTable, tag, id, name, index, state }) {
           <td>{name}</td>
           <td>{id}</td>
           <td>
-            <button title="Eliminar de la lista" onClick={() => deleteAccessories(index)}>x</button>
+            <IconButton sx={{'&:hover':{
+              color:'red',
+              transition:'all',
+              transitionDuration:'0.3s'
+            }}} title="Eliminar de la lista" onClick={() => deleteAccessories(index)}>
+              <FaTrashAlt/>
+            </IconButton>
           </td>
         </tr>
       );

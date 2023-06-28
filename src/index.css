@@ -1,27 +1,73 @@
-/* :root {
-  font-family: 'Roboto' , sans-serif;
-  line-height: 1.5;
+
+.h2{
+  margin: 1px;
+  font-size: 30px;
+  color:black;
+  font-weight: 500;
+}
+
+.h3{
+  margin: 1px;
+  font-size: 16px;
+  color: gray;
   font-weight: 400;
-  font-size: 62.5%;
-  box-sizing: border-box;
-  color-scheme: light dark;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  background-color: #fff;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-  scrollbar-width: 0px;
-  overflow-x: hidden;
-}
-
-:root::-webkit-scrollbar{
-  display: none;
+  font-style: oblique;
 }
 
 
-body:-webkit-scrollbar{
-  display: none;
-  width: none;
+.h4{
+  margin: 1px;
+  font-size: 14px;
+  color: gray;
+  font-weight: 400;
+  font-style: oblique;
 }
- */
+
+.span{
+  margin: 0px;
+  font-size: 14px;
+  font-weight:400;
+  color:black;
+}
+
+.th{
+  margin: 1px;
+  font-size: 16px;
+  color: black;
+  font-weight: 400;
+}
+
+.text{
+  margin: 1px;
+  font-size: 1rem;
+  color: black;
+  line-height: 1.2rem;
+}
+
+.title{
+  color: black;
+  font-weight: 500;
+  font-size: 1.3rem;
+  margin:0px;
+}
+
+.subtitle{
+  color: black;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin:0px;
+}
+
+.textIcon{
+  font-size: 1rem;
+  font-weight: 700;
+  color:#0071bb;
+  position: relative;
+  right:12px;
+  bottom: 15px;
+  background-color: white;
+  padding: 4px;
+  border-radius: 100%;
+}
+
+/*color:#0071bb;

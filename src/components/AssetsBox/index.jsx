@@ -1,14 +1,30 @@
-import "./assetsBox.css";
+// import "./assetsBox.css";
+import "../../index.css";
+//Hooks
 import { UseModal } from "../../Hooks/useModal";
 import { useItems } from "../../Hooks/useItems";
-import { ViewMaintances } from "../ViewMaintances";
 import { useMaintancesAssets } from "../../Hooks/useMaintancesAsset";
-import { BsTools } from "react-icons/bs";
+//Icons
+import { IoIosCloseCircle } from "react-icons/io";
+import { FaTrashAlt } from "react-icons/fa";
+import { MdAdd } from "react-icons/md";
+//actionsTypes
 import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
 import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
-
+//componentes
+import { ViewMaintances } from "../ViewMaintances";
 import { Notification } from "../../modals/notification";
-import {ThreeDots} from "../Loading/"
+import { ThreeDots } from "../Loading/";
+//material UI
+import { Box, IconButton, Container, ButtonGroup, Button, Paper } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
 function AssetsBox({
   modal,
@@ -102,100 +118,219 @@ function AssetsBox({
     }
   };
 
-  
   const GenerateDocument = (typeDocument) => {
-    
     const document = {
       ...storage,
       dateDay: storage.dateDay ? storage.dateDay : formattedDate,
-      typeDocument:typeDocument,
+      typeDocument: typeDocument,
       manager: manager,
-      complete: true
+      complete: true,
     };
-    
+
     dispatch({ type: actionTypesDoc.updateStorage, payload: document });
     setModal(!modal);
   };
-  
+
   const CloseModal = () => {
     const newData = JSON.parse(localStorage.getItem(idUser));
-    dispatch({ type: actionTypesDoc.updateStorage, payload: newData }); 
+    dispatch({
+      type: actionTypesDoc.updateStorage,
+      payload: {
+        ...newData,
+        user,
+        company,
+        location,
+        manager,
+        email,
+        department,
+      },
+    });
     setModal(!modal);
-    }
-  
+  };
+
   return (
     <>
-      <div className="container-button-close">
-        <button className="button-close" onClick={CloseModal}>
-          x
-        </button>
-      </div>
-      <span className="title">Lista de activos</span>
-      <div className="container">
-        <span>Activos agregados: {countAssets}</span>
-        <div className="container-button">
-          <button onClick={()=>GenerateDocument('MP')} className="button-action">Mantenimiento preventivo</button>
-          <button onClick={()=>GenerateDocument('MC')} className="button-action">Mantenimiento correctivo</button>
-          <button onClick={()=>GenerateDocument('VB')} className="button-action">Baja de equipos</button>
-          <button onClick={()=>GenerateDocument('CR')} className="button-action">Carta responsiva</button>
-        </div>
-        <table>
-          <tbody className="table-header">
-            <tr>
-              <th>OFCMI</th>
-              <th>DESCRIPCION</th>
-              <th className="table-column-ns">NS</th>
-              <th>ACCION</th>
-            </tr>
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          justifyContent: "flex-end",
+          position: "relative",
+          top: "10px",
+          left: "-5px",
+        }}
+      >
+        <IconButton
+          sx={{
+            "&:hover": {
+              color: "rgb(206, 12, 12)",
+              transition: "all",
+              transitionDuration: "0.3s",
+            },
+          }}
+          onClick={CloseModal}
+        >
+          <IoIosCloseCircle />
+        </IconButton>
+      </Box>
 
-            {dataRender.map((asset) => (
-              <tr
-                className={`asset_${
-                  AssetsList.includes(asset.asset_tag) ? "included" : ""
-                }`}
-                key={asset.id}
-              >
-                <td>{asset.asset_tag.slice(6, 10)}</td>
-                <td>{asset.name}</td>
-                <td className="table-column-ns">{asset?.serial}</td>
-                <td className="td-actions">
-                  <div>
-                    <button
-                      onClick={() => ButtonDeleteItem(asset.asset_tag, idUser)}
-                      className="button-delete"
-                    >
-                      X
-                    </button>
-                    <button
-                      onClick={() => ButtonAddItem(asset)}
-                      className="button-add"
-                    >
-                      Ad
-                    </button>
-                    <button
-                      onClick={() => ButtonGetMaintance(asset.id)}
-                      className="button-maintance table-column-ns"
-                    >
-                      <BsTools />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          flexDirection: "column",
+          paddingLeft: "20px",
+          marginBottom: "10px",
+        }}
+      >
+        <h2 className="h2">Lista de activos</h2>
+        <span className="span">Activos agregados: {countAssets}</span>
+      </Box>
+
+      <Container
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          height: "auto",
+          width: "100%",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            gap: "10px",
+            "@media (max-width: 807px)": {
+              flexDirection: "column",
+            },
+          }}
+        >
+          <Button
+            variant="contained"
+            onClick={() => GenerateDocument("MP")}
+            className="button-action"
+          >
+            Preventivo
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => GenerateDocument("MC")}
+            className="button-action"
+          >
+            Correctivo
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => GenerateDocument("VB")}
+            className="button-action"
+          >
+            Baja de equipos
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => GenerateDocument("CL")}
+            className="button-action"
+          >
+            CheckList
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => GenerateDocument("CR")}
+            className="button-action"
+          >
+            Carta responsiva
+          </Button>
+        </Box>
+        <TableContainer
+          sx={{
+            height: "auto",
+            maxHeight: "350px",
+            overflow: "auto",
+            "&::-webkit-scrollbar": {
+              width: "8px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "lightgray",
+              borderRadius: "4px",
+            },
+            "&::-webkit-scrollbar-thumb:hover": {
+              backgroundColor: "gray",
+            },
+          }}
+        >
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>OFCMI</TableCell>
+                <TableCell>DESCRIPCION</TableCell>
+                <TableCell>NS</TableCell>
+                <TableCell>ACCION</TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {dataRender.map((asset) => (
+                <TableRow
+                  sx={{ [`&.asset_included`]: { backgroundColor: "#d9d9d9" } }}
+                  className={`asset_${
+                    AssetsList.includes(asset.asset_tag) ? "included" : ""
+                  }`}
+                  key={asset.asset_tag}
+                >
+                  <TableCell>{asset.asset_tag.slice(6, 10)}</TableCell>
+                  <TableCell>{asset.name}</TableCell>
+                  <TableCell>{asset?.serial}</TableCell>
+                  <TableCell>
+                    <ButtonGroup>
+                      <IconButton
+                        onClick={() => ButtonAddItem(asset)}
+                        className="button-add"
+                      >
+                        <MdAdd />
+                      </IconButton>
+
+                      <IconButton
+                        onClick={() =>
+                          ButtonDeleteItem(asset.asset_tag, idUser)
+                        }
+                        className="button-delete"
+                      >
+                        <FaTrashAlt />
+                      </IconButton>
+                    </ButtonGroup>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
 
       {dataRender.length === 0 && loadingAssets && (
-        <div className="container-loading">
-          <h2>Sin activos registrados</h2>
-        </div>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alingItems: "center",
+            height: "200px",
+          }}
+        >
+          <h2 className="h2">Sin activos registrados</h2>
+        </Box>
       )}
 
       {!loadingAssets && (
-        <div className="container-loading">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alingItems: "center",
+            height: "200px",
+          }}
+        >
           <ThreeDots />
-        </div>
+        </Box>
       )}
 
       {modal3 && (
@@ -208,9 +343,9 @@ function AssetsBox({
 
       {StatesModals.modalNotification && (
         <Notification>
-          <div className="container-notification">
-            <p>{StatesModals.modalNotification}</p>
-            <button
+          <Paper elevation={2} sx={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', padding:'10px', gap:'20px'}}>
+            <p className="span">{StatesModals.modalNotification}</p>
+            <Button
               onClick={() =>
                 dispatch({
                   type: actionTypesModals.setModalNotification,
@@ -219,8 +354,8 @@ function AssetsBox({
               }
             >
               Ok
-            </button>
-          </div>
+            </Button>
+          </Paper>
         </Notification>
       )}
     </>

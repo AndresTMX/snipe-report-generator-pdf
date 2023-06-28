@@ -1,4 +1,4 @@
-import "./DocStoreCardInfoUser.css";
+import "../../index.css";
 import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
 import { Accordion, AccordionSummary, AccordionDetails, Box } from "@mui/material";
 import { BiSolidUser } from 'react-icons/bi';
@@ -6,6 +6,9 @@ import { BiSolidUser } from 'react-icons/bi';
 function DocStoreCardInfoUser({ state, dispatch }) {
   const { initialStore, StatesModals } = state ? state : {};
   const { storage } = initialStore ? initialStore : {};
+  const { user, location, company, department, manager, email } = storage
+    ? storage
+    : {};
 
   const date = new Date(); // fecha actual
   const year = date.getFullYear();
@@ -47,7 +50,7 @@ function DocStoreCardInfoUser({ state, dispatch }) {
           <Box
             sx={{ display: "flex", flexDirection: "column", fontSize: "12px" }}
           >
-            <p>FECHA</p>
+            <h4 className="h4">FECHA</h4>
 
            
               <input
@@ -57,18 +60,18 @@ function DocStoreCardInfoUser({ state, dispatch }) {
                 onChange={(event) => onChangueValues(event)}
               />
     
-            <p>USUARIO</p>
-            <span>{storage?.user}</span>
-            <p>UBICACION</p>
-            <span>{storage?.location}</span>
-            <p>EMPRESA</p>
-            <span>{storage?.company}</span>
-            <p>DEPARTAMENTO</p>
-            <span>{storage?.department}</span>
-            <p>JEFE INMEDIATO</p>
-            <span>{storage?.manager}</span>
-            <p>CORREO ELECTRONICO</p>
-            <span>{storage?.email}</span>
+            <h4 className="h4">USUARIO</h4>
+            <span className="span">{user}</span>
+            <h4 className="h4">UBICACION</h4>
+            <span className="span">{location}</span>
+            <h4 className="h4">EMPRESA</h4>
+            <span className="span">{company}</span>
+            <h4 className="h4">DEPARTAMENTO</h4>
+            <span className="span">{department}</span>
+            <h4 className="h4">JEFE INMEDIATO</h4>
+            <span className="span">{manager}</span>
+            <h4 className="h4">CORREO ELECTRONICO</h4>
+            <span className="span">{email}</span>
           </Box>
         </AccordionDetails>
       </Accordion>

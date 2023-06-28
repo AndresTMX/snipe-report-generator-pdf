@@ -1,10 +1,26 @@
-import "./accessoriesBox.css";
+import '../../index.css'
+//Hooks
 import { useItems } from "../../Hooks/useItems";
+//ActionTypes
 import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
 import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
+//Components
 import { Notification } from "../../modals/notification";
 import {ThreeDots} from "../Loading/";
-
+//Material UI
+import {Box, IconButton, Container, ButtonGroup, Button, Paper } from '@mui/material';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+//Icons
+import {IoIosCloseCircle} from 'react-icons/io';
+import { FaTrashAlt } from 'react-icons/fa';
+import { MdAdd } from 'react-icons/md';
 
 function AccessoriesBox({
   modal,
@@ -96,7 +112,7 @@ function AccessoriesBox({
     }else{
       setModal(!modal);
       const newData = JSON.parse(localStorage.getItem(idUser));
-      dispatch({ type: actionTypesDoc.updateStorage, payload: newData }); 
+      dispatch({ type: actionTypesDoc.updateStorage, payload: {...newData, user, company, location, manager, email, department }}); 
     }
   };
 
@@ -116,86 +132,168 @@ function AccessoriesBox({
 
   return (
     <>
-      <div className="section">
-        <div className="container-button close">
-          <span className="title">Lista de accesorios</span>
-          <button className="button-close" onClick={() => CloseModal()}>
-            x
-          </button>
-        </div>
+      <Container>
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "flex-end",
+            position: "relative",
+            top: "10px",
+            left: "-5px",
+          }}
+        >
+          <IconButton
+            sx={{
+              "&:hover": {
+                color: "rgb(206, 12, 12)",
+                transition: "all",
+                transitionDuration: "0.3s",
+              },
+            }}
+            onClick={CloseModal}
+          >
+            <IoIosCloseCircle />
+          </IconButton>
+        </Box>
 
-        <div className="container">
-          <span>Accesorios agregados: {countAccessories}</span>
-          <div className="container-button">
-          <button onClick={()=>GenerateDocument('MP')} className="button-action">Mantenimiento preventivo</button>
-          <button onClick={()=>GenerateDocument('MC')} className="button-action">Mantenimiento correctivo</button>
-          <button onClick={()=>GenerateDocument('VB')} className="button-action">Baja de equipos</button>
-          <button onClick={()=>GenerateDocument('CR')} className="button-action">Carta responsiva</button>
-          </div>
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            flexDirection: "column",
+            paddingLeft: "20px",
+            marginBottom: "10px",
+          }}
+        >
+          <h2 className="h2">Lista de activos</h2>
+          <span className="span">Accesorios agregados: {countAccessories}</span>
+        </Box>
 
-          <div>
-            <table>
-              <tbody className="table-header">
-                <tr>
-                  <th>ID</th>
-                  <th>ACCESORIO</th>
-                  <th>MARCA</th>
-                  <th>ACCION</th>
-                </tr>
+        <Container>
+          <Box
+            sx={{
+              display: "flex",
+              gap: "10px",
+              "@media (max-width: 807px)": {
+                flexDirection: "column",
+              },
+            }}
+          >
+            <Button
+              variant="contained"
+              onClick={() => GenerateDocument("MP")}
+              className="button-action"
+            >
+              Preventivo
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => GenerateDocument("MC")}
+              className="button-action"
+            >
+              Correctivo
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => GenerateDocument("VB")}
+              className="button-action"
+            >
+              Baja de equipos
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => GenerateDocument("CL")}
+              className="button-action"
+            >
+              CheckList
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => GenerateDocument("CR")}
+              className="button-action"
+            >
+              Carta responsiva
+            </Button>
+          </Box>
 
+          <Container sx={{ display: 'flex', flexDirection: 'column', height: 'auto', width:'100%'}}>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>ACCESORIO</TableCell>
+                  <TableCell>MARCA</TableCell>
+                  <TableCell>ACCION</TableCell>
+                </TableRow>
+                </TableHead>
+
+                <TableBody>
                 {newDataRender.map((accessorie, index) => (
-                  <tr
-                    className={`asset_${
-                      AccessoriesList.includes(accessorie.index)
-                        ? "included"
-                        : ""
-                    }`}
-                    key={index}
+                  <TableRow
+                  sx={{ [`&.asset_included`]: { backgroundColor: '#d9d9d9' } }}
+                  className={`asset_${
+                    AccessoriesList.includes(accessorie.index) ? "included" : ""
+                  }`}
+                  key={index}
                   >
-                    <td>{accessorie.id}</td>
-                    <td>{accessorie.name}</td>
-                    <td>{accessorie.manufacturer?.name}</td>
-                    <td className="td-actions">
-                      <div>
-                        <button
-                          onClick={() => DeleteAccessorie(index)}
-                          className="button-delete"
-                        >
-                          X
-                        </button>
-                        <button
+                    <TableCell>{accessorie.id}</TableCell>
+                    <TableCell>{accessorie.name}</TableCell>
+                    <TableCell>{accessorie.manufacturer?.name}</TableCell>
+                    <TableCell>
+                      <ButtonGroup>
+                       
+                        <IconButton
                           onClick={() => AddAccessorie(accessorie, index)}
                           className="button-add"
                         >
-                          Ad
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                          <MdAdd/>
+                        </IconButton>
+
+                        <IconButton
+                          onClick={() => DeleteAccessorie(index)}
+                          className="button-delete"
+                        >
+                          <FaTrashAlt/>
+                        </IconButton>
+
+                      </ButtonGroup>
+                    </TableCell>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+                  </TableBody>
+            </Table>
+          </TableContainer>
+          </Container>
+        </Container>
+      </Container>
 
       {newDataRender.length === 0 && loadingAccessorie && (
-        <div className="container-loading">
-          <h2>Sin accesorios registrados</h2>
-        </div>
+        <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center', alingItems:'center', height:'200px'}}>
+        <h2 className='h2'>Sin activos registrados</h2>
+      </Box>
       )}
 
       {!loadingAccessorie && (
-        <div className="container-loading">
-          <ThreeDots />
-        </div>
+        <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center', alingItems:'center', height:'200px'}}>
+        <ThreeDots />
+         </Box>
       )}
 
       {StatesModals.modalNotification && (
         <Notification>
-          <div className="container-notification">
-            <p>{StatesModals.modalNotification}</p>
-            <button
+          <Paper  
+          elevation={2}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "25px",
+                  justifyContent: "center",
+                }}>
+            <span className='span'>{StatesModals.modalNotification}</span>
+            <Button
               onClick={() =>
                 dispatch({
                   type: actionTypesModals.setModalNotification,
@@ -204,8 +302,8 @@ function AccessoriesBox({
               }
             >
               Ok
-            </button>
-          </div>
+            </Button>
+          </Paper>
         </Notification>
       )}
     </>

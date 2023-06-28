@@ -14,15 +14,6 @@
     box-shadow: 5px 8px 40px rgba(54, 54, 54, 0.171);
 }
 
-.visualizer span{
-    color: black;
-}
-
-.visualizer p{
-    font-size: 12px;
-    font-weight: 500;
-}
-
 @media (max-width:645px) {
     .visualizer{
         width: 90%;

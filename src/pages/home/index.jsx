@@ -4,7 +4,6 @@ import "./home.css";
 import { ThreeDots } from "../../components/Loading";
 import { useGetUsers } from "../../Hooks/useGetUsers";
 import { UserCard } from "../../components/userCard/";
-import { InputSearch } from "../../components/Searcher";
 import { UserContainer } from "../../sections/UserContainer/";
 import { PreviewContainer } from "../../sections/PreviewContainer";
 import { useSearcher } from "../../components/Searcher/useSearcher";
@@ -15,28 +14,20 @@ import { useContext } from "react";
 import { DocContext } from "../../Context/DocContext";
 import { usePagination } from "../../Hooks/usePagination";
 //state
-import { NotDocState } from "../../components/states/notDocState";
 import { NotResultUsers } from "../../components/states/notResultUsersState";
 //Hooks
 import {Modal} from '../../modals/modal';
 import { DocStoreCardComent } from "../../components/DocStoreCardComent";
-
 //filter
 import { Filters } from "../../components/Filters";
 import { ConfigReport } from "../../components/ConfigReport";
-//DocStoreItems
-
 //notification
 import { Notification } from "../../modals/notification";
-import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
 //MUI
-import {
-  Container,
-  Button,
-  Paper, 
-  Box
-} from "@mui/material";
+import { Container, Button, Paper, Box } from "@mui/material";
+//ActionTypes
 import { actionTypes as actionTypesDocs} from "../../Context/DocReducer";
+import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
 
 function PageHome() {
   //hook del contexto
@@ -86,34 +77,26 @@ function PageHome() {
             display: "flex",
             flexDirection: "column",
             width: "100%",
-            height: "650px",
+            height: "auto",
+            maxHeight: "70vh",
             gap: "20px",
           }}
         >
           {StatesModals.modalNotification && (
             <Notification>
-              <Paper
-                elevation={2}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  padding: "15px",
-                  justifyContent: "center",
-                }}
-              >
-                <p>{StatesModals.modalNotification}</p>
-                <Button
-                  onClick={() =>
-                    dispatch({
-                      type: actionTypesModals.setModalNotification,
-                      payload: false,
-                    })
-                  }
-                >
-                  Ok
-                </Button>
-              </Paper>
+             <Paper elevation={2} sx={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', padding:'10px', gap:'20px'}}>
+            <p className="span">{StatesModals.modalNotification}</p>
+            <Button
+              onClick={() =>
+                dispatch({
+                  type: actionTypesModals.setModalNotification,
+                  payload: false,
+                })
+              }
+            >
+              Ok
+            </Button>
+          </Paper>
             </Notification>
           )}
 
@@ -132,11 +115,10 @@ function PageHome() {
 
           {!complete && (
             <UserContainer>
-
               {loading && (
-                <div className="loading-state">
-                  <ThreeDots />
-                </div>
+                <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center', alingItems:'center', height:'200px'}}>
+                <ThreeDots />
+              </Box>
               )}
 
               {!loading && !pageRender.length && (
@@ -167,29 +149,50 @@ function PageHome() {
           )}
 
           {complete && (
-            <Box sx={{ display:'flex', flexDirection:'column', paddingTop:'20px' , paddingBottom:'20px' , heigth:'auto%', width: '100%', overflowY: "scroll",
-            alignItems:'center',
-            margin:'auto',
-            backgroundColor:'#d9d9d9',
-            "&::-webkit-scrollbar": {
-              width: "8px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "lightgray",
-              borderRadius: "4px",
-            },
-            "&::-webkit-scrollbar-thumb:hover": {
-              backgroundColor: "gray",
-            }, }}>
-              <Button onClick={() => dispatch({type:actionTypesDocs.updateStorage,payload: {...initialStore.storage, complete:false } })}>close</Button>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                paddingTop: "20px",
+                paddingBottom: "20px",
+                heigth: "100%",
+                width: "100%",
+                overflowY: "scroll",
+                alignItems: "center",
+                margin: "auto",
+                backgroundColor: "#d9d9d9",
+                "&::-webkit-scrollbar": {
+                  width: "8px",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "lightgray",
+                  borderRadius: "4px",
+                },
+                "&::-webkit-scrollbar-thumb:hover": {
+                  backgroundColor: "gray",
+                },
+              }}
+            >
+              <Container sx={{ display:'flex' , width:'100%', justifyContent:'flex-end'}}>
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    dispatch({
+                      type: actionTypesDocs.updateStorage,
+                      payload: { ...initialStore.storage, complete: false },
+                    })
+                  }
+                >
+                  X
+                </Button>
+              </Container>
               <PreviewContainer>
-              <Viewer>
-                <MyDocument state={state} />
-              </Viewer>
-            </PreviewContainer>
+                <Viewer>
+                  <MyDocument state={state} />
+                </Viewer>
+              </PreviewContainer>
             </Box>
           )}
-
         </Container>
       </Container>
 

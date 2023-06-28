@@ -1,11 +1,13 @@
 //styles
-import './LicensesBox.css';
+import '../../index.css'
 //Hook
 import {useGetLicenses} from '../../Hooks/useGetLicenses';
 //Componente
 import {ViewItems} from '../ViewItems/';
 import { ThreeDots } from '../Loading/';
 import {ItemLicense} from '../ItemLicense/';
+//Material UI
+import {Box, IconButton, Container, ButtonGroup, Button, Paper } from '@mui/material';
 
 function LicensesBox({idUser, closeBox}) {
 
@@ -38,24 +40,25 @@ function LicensesBox({idUser, closeBox}) {
           )}
 
           {!loading && !renderMap.length && (
-            <section className="container-license">
-              <div className="container-button-close">
-              <h3>Sin licencias asignadas</h3>
-                <button className="button-close" onClick={closeBox}>
+            <Container  sx={{display:'flex', flexDirection:'column', gap:'10px', width:'100%'}}>
+              <Box sx={{display: 'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', width:'100%'}}>
+              <p className='title'>Sin licencias asignadas</p>
+                <Button className="button-close" onClick={closeBox}>
                   x
-                </button>
-              </div>
-            </section>
+                </Button>
+              </Box>
+            </Container>
           )}
 
           {!loading && renderMap.length && (
-            <section className="container-license">
-              <div className="container-button-close">
-              <h3>Licencias Asignadas</h3>
-                <button className="button-close" onClick={closeBox}>
+            <Container
+            sx={{display:'flex', flexDirection:'column', gap:'10px', width:'100%'}}>
+              <Box sx={{display: 'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', width:'100%'}}>
+              <h2 className='title'>Licencias Asignadas</h2>
+                <Button onClick={closeBox}>
                   x
-                </button>
-              </div>
+                </Button>
+              </Box>
 
               {renderMap.map((license) => (
                 <ItemLicense
@@ -67,7 +70,7 @@ function LicensesBox({idUser, closeBox}) {
                   notes={license.notes}
                 />
               ))}
-            </section>
+            </Container>
           )}
         </ViewItems>
       </>

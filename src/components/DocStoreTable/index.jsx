@@ -1,4 +1,5 @@
 import "./DocStoreTable.css";
+import "../../index.css";
 import { DocStoreItemTable } from "../DocStoreItemTable";
 //Material UI
 import { Accordion, AccordionSummary, AccordionDetails, Box } from "@mui/material";
@@ -62,12 +63,12 @@ function DocStoreTable({ arrayRender, typeTable, state }) {
       {
       renderAssets?
       <div className="DocStoreTable">
-        <h3>{typeTable} agregados</h3>
+        <h3 className="h3">{typeTable} agregados</h3>
         <table>
           <tbody>
             <tr>
-              <th>{typeTable}</th>
-              <th>OFCMI</th>
+              <th className="th">{typeTable}</th>
+              <th className="th">OFCMI</th>
               <th></th>
             </tr>
 

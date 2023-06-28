@@ -1,4 +1,4 @@
-import "./userCard.css";
+import "../../index.css";
 import { useState } from "react";
 import { ViewItems } from "../ViewItems";
 import { AssetsBox } from "../AssetsBox";
@@ -46,6 +46,7 @@ function UserCard({
   
   const { nameUser, nameCompany, nameDepartment, nameLocation, nameManager, nameJobtitle } = transfromValues(user, company, department, location, manager, jobtitle)
   
+  const [expanded, setExpanded] = useState(false);
   const { dataAssets, get, SetGet, idUser, loading } = useGetAssetsUser(id);  
   const { dataAccesories, Aget, getAccesories, loadingAccessorie } = usegetAccesoriesUser(id);
   const { modal, setModal, modal2, setModal2, modal3, setModal3 } = UseModal();
@@ -58,8 +59,6 @@ function UserCard({
     department:"",
   });
   
-    const [expanded, setExpanded] = useState(false);
-
   const {image} = useImagePDF(nameCompany);
 
   const ButtongetActives = () => {
@@ -69,24 +68,32 @@ function UserCard({
     if(!data){
     SetGet(!get);
     setModal(!modal);
-    setDataUser({ user: nameUser, company: nameCompany, location: nameLocation , manager: nameManager , email, department: namedepartment});
+    setDataUser({ user: nameUser, company: nameCompany, location: nameLocation , manager: nameManager , email, department: nameDepartment});
     }else{
       SetGet(!get);
       setModal(!modal);
-      dispatch({type: actionTypesDoc.updateStorage, payload: data})
+      setDataUser({ user: nameUser, company: nameCompany, location: nameLocation , manager: nameManager , email, department: nameDepartment});
+      dispatch({type: actionTypesDoc.updateStorage, payload: {...data, user:nameUser, company:nameCompany, location:nameLocation, manager:nameManager, email, department:nameDepartment}})
     }
+  
   };
 
   const ButtongetAccesories = () => {
-    getAccesories(!Aget);
-    setModal2(!modal2);
-    setDataUser({ user: nameUser, company: nameCompany, location: nameLocation , manager: nameManager , email, department: namedepartment});
+    const data = JSON.parse(localStorage.getItem(idUser));
+      getAccesories(!Aget);
+      setModal2(!modal2);
+      setDataUser({ user: nameUser, company: nameCompany, location: nameLocation , manager: nameManager , email, department: nameDepartment});
+      dispatch({type: actionTypesDoc.updateStorage, payload: {...data, user:nameUser, company:nameCompany, location:nameLocation, manager:nameManager, email, department:nameDepartment}})
   };
 
   const ButtongetMoreInfoUser = () => {
     setModal3(!modal3)
   };
 
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+  
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -97,10 +104,6 @@ function UserCard({
       duration: theme.transitions.duration.shortest,
     }),
   }));
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   return (
     <>
@@ -148,6 +151,7 @@ function UserCard({
                title='Ver Activos'
               onClick={() => ButtongetActives()}>
                  <AiOutlineDesktop/>
+                 <span className="textIcon">{assets}</span>
               </IconButton>
 
               <IconButton 
@@ -155,6 +159,7 @@ function UserCard({
               title='Ver Accesorios'
               onClick={()=> ButtongetAccesories()}>
                <BsHeadset/>
+               <span className="textIcon">{accesories}</span>
               </IconButton>
 
               <IconButton 
@@ -163,6 +168,7 @@ function UserCard({
               onClick={() => ButtongetMoreInfoUser()}
               >
                <ImKey/>
+               <span className="textIcon">{licences}</span>
               </IconButton>
 
               <ExpandMore
@@ -188,11 +194,6 @@ function UserCard({
                 <span className="span">{nameManager}</span>
               </Box>
 
-              <Box>
-                <h4 className="h4">Departamento</h4>
-                <span className="span">{nameDepartment}</span>
-              </Box>
-
             </CardContent>
 
 
@@ -213,43 +214,6 @@ function UserCard({
             </Box>
           </Card>
         </Paper>
-
-        {/* <picture>
-          <img alt="image" src={image? image: avatar} />
-        </picture> */}
-
-        {/* <div className="card-info-container">
-          <p>ID:{id}</p>
-          <p>{nameUser}</p>
-          <span>Puesto</span>
-          <p>{nameJobtitle}</p>
-          <span>Empresa</span>
-          <p>{nameCompany}</p>
-          <span>Jefe inmediado</span>
-          <p>{nameManager} </p>
-          <span>Departamento</span>
-          <p>{namedepartment} </p>
-          <span>Ubicación</span>
-          <p>{nameLocation}</p>
-        </div> */}
-
-        {/* <div className="card-buttons-container">
-          <button title="Activos" onClick={() => ButtongetActives()}>
-            <FaDesktop />
-            {assets}
-          </button>
-          <button title="Accesorios" onClick={() => ButtongetAccesories()}>
-            <BsHeadset />
-            {accesories}
-          </button>
-          <button
-            title="Licencias"
-            onClick={() => ButtongetMoreInfoUser()}
-          >
-            <ImKey />
-            {licences}
-          </button>
-        </div> */}
       </Grid>
 
       {modal && (
