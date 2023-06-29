@@ -43,10 +43,8 @@ function PageHome() {
   //Hooks de buscador, fetch de usuarios y paginación
   const { search, setSearch } = useSearcher();
   const { dataUsers, loading, error } = useGetUsers();
-  const { pageRender, searchResults, nextPage, prevPage, filter, setActives } = usePagination(
-    dataUsers,
-    search,
-    dispatch);
+  const { statesFilters, actionsFiters } = usePagination( dataUsers,search,dispatch);
+  const {pageRender, searchResults, filter} = statesFilters;
 
   return (
     <Container
@@ -106,12 +104,7 @@ function PageHome() {
             </Modal>
           )}
 
-          <Filters
-            nextPage={nextPage}
-            prevPage={prevPage}
-            setActives={setActives}
-            filter={filter}
-          />
+          <Filters statesFilters={statesFilters} actionsFiters={actionsFiters}/>
 
           {!complete && (
             <UserContainer>

@@ -28,8 +28,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #0000008f;
-  z-index: 5;
+  background-color: #00000054;
+  z-index: 4;
 }
 
 .container-notification {

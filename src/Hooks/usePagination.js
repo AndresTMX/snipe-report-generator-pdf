@@ -2,10 +2,9 @@ import { useState } from "react";
 //helpers
 import filterSearch from '../Helpers/filterSearch';
 import {filterUsersActives, filterUsersCompany, filterUsersLocation, filterUsersDepartment} from "../Helpers/filterUsers";
-
 //notification modal
 import {actionTypes as actionTypesModals, StatesModals} from '../Context/StatesModalsReducer';
-//context 
+//Symbols
 
 //este Hook recibe un array de usuarios y los pagina, 
 //devulve la pagina en la que estas
@@ -35,25 +34,43 @@ function usePagination(users, search, dispatch) {
     if(!filter.actives){
         pageRender = users? users.slice(page.init, page.end): false;
         searchResults = pageRender? pageRender.length:0;
-        console.log('entrando filtro')
     }
 
     if(filter.actives){
         pageRender = users? filterUsersActives(users).slice(page.init, page.end): false;
         searchResults = pageRender? pageRender.length:0;
-        console.log('entrando filtro activos')
     }
     
-
     if(filter.actives && filter.company){
-        actives = users? filterUsersActives(users): false;
-        pageRender = actives? filterUsersCompany(actives, filter.company): false;
+        const usersActives = users? filterUsersActives(users): false;
+        pageRender = usersActives? filterUsersCompany(usersActives, filter.company): false;
         searchResults = pageRender? pageRender.length:0;
     }
 
-    if(filter.actives && filter.company){
-        actives = users? filterUsersActives(users): false;
-        pageRender = actives? filterUsersCompany(actives, filter.company): false;
+    if(filter.actives && filter.location){
+        const usersActives = users? filterUsersActives(users): false;
+        pageRender = usersActives? filterUsersLocation(usersActives, filter.location): false;
+        searchResults = pageRender? pageRender.length:0;
+    }
+
+    if(filter.actives && filter.company && filter.location){
+        const userActives = users? filterUsersActives(users): false;
+        const usersCompnay = userActives? filterUsersCompany(userActives, filter.company): false;
+        pageRender = usersCompnay? filterUsersLocation(usersCompnay, filter.location): false;
+        searchResults = pageRender? pageRender.length:0;
+    }
+
+    if(filter.actives && filter.department){
+        const usersActives = users? filterUsersActives(users): false;
+        pageRender = usersActives? filterUsersDepartment(usersActives, filter.department): false;
+        searchResults = pageRender? pageRender.length:0;
+    }
+
+    if(filter.actives && filter.company && filter.location & filter.department){
+        const userActives = users? filterUsersActives(users): false;
+        const usersCompnay = userActives? filterUsersCompany(userActives, filter.company): false;
+        const usersLocation = usersCompnay? filterUsersLocation(company, filter.location): false;
+        pageRender = usersLocation? filterUsersDepartment(usersLocation, filter.department): false;
         searchResults = pageRender? pageRender.length:0;
     }
 
@@ -97,7 +114,40 @@ function usePagination(users, search, dispatch) {
         })
     }
 
-    return {pageRender, searchResults, filter, nextPage, prevPage, setActives};
+    const setCompany = (company) => {
+        setFilter({
+            ...filter,
+            company: company
+        })
+    }
+
+    const setLocation = (location) => {
+        setFilter({
+            ...filter,
+            location:location
+        })
+    }
+
+    const setDepartment = (department) => {
+        setFilter({
+            ...filter,
+            department:department
+        })
+    }
+    
+    const clearFilters = () => {
+        setFilter({
+        actives:true,
+        company:false,
+        location:false,
+        department:false,
+        })
+    }
+
+    const statesFilters = {pageRender, searchResults, filter}
+    const actionsFiters = {nextPage, prevPage, setActives, setCompany, setLocation, setDepartment, clearFilters}
+
+    return {statesFilters, actionsFiters};
 }
 
 export {usePagination};

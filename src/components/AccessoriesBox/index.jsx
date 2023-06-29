@@ -119,15 +119,25 @@ function AccessoriesBox({
 
   const GenerateDocument = (typeDocument) => {
 
-    const document = {
-        ...storage,
-        dateDay: storage.dateDay ? storage.dateDay : formattedDate,
-        typeDocument:typeDocument,
-        manager: manager,
-        complete: true
-    };
-  
-    dispatch({ type: actionTypesDoc.updateStorage, payload: document });
+    if(!storage?.typeDocument){
+      dispatch({ type:actionTypesModals.setModalNotification, payload:'Selecciona el tipo de documento que deseas generar'})
+    }
+    
+    if(storage?.assets.length == 0){
+      dispatch({ type:actionTypesModals.setModalNotification, payload:'Agrega activos para generar un documento'})
+    }
+
+    if(storage.typeDocument && storage.assets.length>0){
+        const document = {
+            ...storage,
+            typeDocument: storage.typeDocument,
+            dateDay: storage.dateDay ? storage.dateDay : formattedDate,
+            manager: storage?.manager,
+            complete: true
+        };
+      
+        dispatch({ type: actionTypesDoc.updateStorage, payload: document });
+    }
 };
 
   return (
@@ -252,6 +262,11 @@ function AccessoriesBox({
                         </IconButton>
 
                         <IconButton
+                        sx={{'&:hover':{
+                          color:'rgb(206, 12, 12)',
+                          transition:'all',
+                          transitionDuration:'0.3s'
+                        }}} 
                           onClick={() => DeleteAccessorie(index)}
                           className="button-delete"
                         >

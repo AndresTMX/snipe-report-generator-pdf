@@ -3,8 +3,7 @@ import { DocContext } from "./../../Context/DocContext";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { MyDocument } from "../../components/PDFGenerator";
 import { useTitleDocument } from "../../Hooks/useTitleDocument";
-import "./ButtonPDF.css";
-
+import { Button } from "@mui/material";
 function ButtonPDF() {
   const [state, dispatch] = useContext(DocContext);
 
@@ -26,9 +25,9 @@ function ButtonPDF() {
     >
       {({ blob, url, loading, error }) =>
         loading ? (
-          <button className="buton-download">Cargando documento...</button>
+          <Button variant="contained" size="meidum">Cargando...</Button>
         ) : (
-          <button className="buton-download">Descargar documento</button>
+          <Button variant="contained" size="meidum">Descargar</Button>
         )
       }
     </PDFDownloadLink>

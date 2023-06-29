@@ -25,37 +25,31 @@ function Navigator() {
     <>
       <nav className="nav">
         <section className="section-buttons">
-            <ButtonDocStore
+            {/* <ButtonDocStore
               state={modalDocStore}
               dispatch={dispatch}
-            />
+            /> */}
 
             <Button
             variant="text"
             sx={{
               color:'white',
-              fontWeight:'700',
-              fontSize:'12px',
-              fontFamily:'roboto',
+              fontWeight:'500',
+              fontSize:'1rem',
             }}
             >
               Reportes
             </Button>
 
-            <Button
+            {/* <Button
              variant="text"
             sx={{
               color:'white',
-              fontWeight:'700',
-              fontSize:'12px',
-              fontFamily:'roboto',
+              fontWeight:'500',
+              fontSize:'1rem',
             }}>
               Mantenimientos
-            </Button>
-
-          {/* <div className="buttonPDF-container">
-            <ButtonPDF />
-          </div> */}
+            </Button> */}
 
         </section>
 

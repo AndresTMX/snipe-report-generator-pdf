@@ -16,6 +16,6 @@ export function filterUsersLocation(arrayUsers, location){
 }
 
 export function filterUsersDepartment(arrayUsers, department){
-    const usersFiltered = arrayUsers.filter(user => user.department?.name === department);
+    const usersFiltered = arrayUsers.filter(user => user.department?.name.includes(department));
     return usersFiltered;
 }

@@ -7,7 +7,7 @@ import { actionTypes as actionTypesModals } from "../../Context/StatesModalsRedu
 import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
 import {Container, Box, Accordion, AccordionSummary, AccordionDetails, Button,} from '@mui/material';
 import {AiOutlineSetting} from 'react-icons/ai';
-
+import { ButtonPDF } from "../ButonPDF";
 
 
 function ConfigReport({state, dispatch, search, setSearch, searchResults}) {
@@ -15,7 +15,7 @@ function ConfigReport({state, dispatch, search, setSearch, searchResults}) {
     const { initialStore, StatesModals } = state;    
     const { storage } = initialStore? initialStore: {};
     const { assets, accessories } = storage ? storage : {};
-
+    const validateContent = storage? storage.user && storage.assets && storage.typeDocument: false;
     const date = new Date(); // fecha actual
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // agregar ceros a la izquierda si el mes es menor a 10
@@ -119,7 +119,8 @@ function ConfigReport({state, dispatch, search, setSearch, searchResults}) {
 
           <Box sx={{display:'flex', flexDirection:'row', width:'100%', gap:'10px', justifyContent:'space-between'}}>
             <Button variant="contained" onClick={GenerateDocument}>Vista Peevia</Button>
-            <Button variant="contained">Descargar</Button>
+            {validateContent && (<ButtonPDF/>)}
+            {!validateContent && (<Button variant="contained" onClick={GenerateDocument}>Descargar</Button>)}
           </Box>
 
 
