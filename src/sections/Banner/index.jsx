@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box';
-//            backgroundImage:'url("https://comimsa.net/wp-content/uploads/2022/10/4-Diseno-fondo-Tapiz-scaled.jpg")',
 import banner from '../../../public/statics/banner.png'
 
 
@@ -7,7 +6,7 @@ function Banner() {
     return ( 
         <Box
         sx={{
-            backgroundImage:'url("../../../public/statics/banner.png")',
+            backgroundImage: `url(${banner})`,
             backgroundRepeat:'no-repeat',
             backgroundPosition:'center',
             backgroundSize:'cover',
