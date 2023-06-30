@@ -45,14 +45,14 @@ import {
   almacen,
   sistemas,
   compras,
+  recursosH,
 } from "../../Helpers/symbols";
 
 
 
-function Filters({statesFilters, actionsFiters}) {
-
-  const {pageRender, searchResults, filter} = statesFilters;
-  const {nextPage, prevPage, setActives, setCompany, setLocation, setDepartment, clearFilters} = actionsFiters;
+function Filters({actionsPages, filterActions, filter}) {
+  const {nextPage, prevPage} = actionsPages;
+  const { setActives, setCompany, setLocation, setDepartment, clearFilters} = filterActions;
 
     return ( 
         <Container
@@ -114,7 +114,6 @@ function Filters({statesFilters, actionsFiters}) {
               flexDirection:'column',
               color: "white",
               fontSize: "16px",
-              display: "flex",
               height: "auto",
               alignItems:'flex-start',
             }}
@@ -122,7 +121,7 @@ function Filters({statesFilters, actionsFiters}) {
             Empresa
             <Select
               onChange={(e) => setCompany((e.target.value))}
-              value={filter.company}
+              value={!filter.company?'': filter.company}
               size="small"
               variant="standard"
               disableUnderline
@@ -147,7 +146,6 @@ function Filters({statesFilters, actionsFiters}) {
             flexDirection:'column',
             color: "white",
             fontSize: "16px",
-            display: "flex",
             height: "auto",
             alignItems:'flex-start',
           }}
@@ -155,7 +153,7 @@ function Filters({statesFilters, actionsFiters}) {
             Sucursal
             <Select
             onChange={(e)=> setLocation(e.target.value)}
-            value={filter.location}
+            value={filter.location?filter.location:''}
               size="small"
               variant="standard"
               disableUnderline
@@ -190,14 +188,13 @@ function Filters({statesFilters, actionsFiters}) {
               flexDirection:'column',
               color: "white",
               fontSize: "16px",
-              display: "flex",
               height: "auto",
               alignItems:'flex-start',
             }}
           >
             Departamento
             <Select
-              value={filter.department}
+              value={filter.department? filter.department:''}
               onChange={(e)=> setDepartment(e.target.value)}
               size="small"
               variant="standard"
@@ -219,7 +216,7 @@ function Filters({statesFilters, actionsFiters}) {
               <MenuItem value={sistemas.description}>Sistemas</MenuItem>
               <MenuItem value={ventasMost.description}>Ventas Mostrador</MenuItem>
               <MenuItem value={ventasInd.description}>Ventas Industria</MenuItem>
-              <MenuItem value={rh.description}>Recursos Humanos</MenuItem>
+              <MenuItem value={recursosH.description}>Recursos Humanos</MenuItem>
               <MenuItem value={almacen.description}>Almacen</MenuItem>
               <MenuItem value={marketing.description}>Marketing</MenuItem>
               <MenuItem value={contaduria.description}>Contabilidad</MenuItem>

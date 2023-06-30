@@ -31,4 +31,5 @@ export const ventasInd = Symbol('VENTAS INDUSTRIA')
 export const ventasMost = Symbol('VENTAS MOSTRADOR')
 export const almacen = Symbol('ALMACEN')
 export const sistemas = Symbol('SISTEMAS INFORMATICOS')
+export const recursosH = Symbol('RECURSOS HUMANOS')
 

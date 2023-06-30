@@ -118,25 +118,29 @@ function AssetsBox({
   };
 
   const GenerateDocument = (typeDocument) => {
-    if(!storage?.typeDocument){
+
+    // dispatch({ type: actionTypesDoc.updateStorage, payload: {...storage, typeDocument:typeDocument}});
+
+    if(typeDocument && storage.assets.length>0){
+      const document = {
+          ...storage,
+          typeDocument: typeDocument,
+          dateDay: storage.dateDay ? storage.dateDay : formattedDate,
+          manager: storage?.manager,
+          complete: true
+      };
+    
+      dispatch({ type: actionTypesDoc.updateStorage, payload: document });
+    }
+
+    if(!storage?.typeDocument && !typeDocument){
       dispatch({ type:actionTypesModals.setModalNotification, payload:'Selecciona el tipo de documento que deseas generar'})
     }
     
-    if(storage?.assets.length == 0){
+    if(storage?.assets.length === 0){
       dispatch({ type:actionTypesModals.setModalNotification, payload:'Agrega activos para generar un documento'})
     }
 
-    if(storage.typeDocument && storage.assets.length>0){
-        const document = {
-            ...storage,
-            typeDocument: storage.typeDocument,
-            dateDay: storage.dateDay ? storage.dateDay : formattedDate,
-            manager: storage?.manager,
-            complete: true
-        };
-      
-        dispatch({ type: actionTypesDoc.updateStorage, payload: document });
-    }
   };
 
   const CloseModal = () => {

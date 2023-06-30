@@ -1,5 +1,6 @@
-import { Container , Box, Paper, InputBase} from '@mui/material';
+import { Container , Box, Paper} from '@mui/material';
 import {BiSearchAlt2} from 'react-icons/bi'
+import InputBase from '@mui/material/InputBase';
 
 
 function InputSearch({state, setState, resultSearch}) {

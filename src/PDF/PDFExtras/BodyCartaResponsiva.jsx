@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: "12px",
     lineHeight:'1.5px',
-    width: "90%",
+    width: "95%",
   },
 
   titleBox: {
@@ -74,6 +74,9 @@ const styles = StyleSheet.create({
     justifyContent:'flex-end',
     height:'80px',
     margin:'0px',
+  },
+  nameCompany:{
+    textTransform:'uppercase'
   }
 });
 
@@ -87,9 +90,10 @@ function BodyCartaResponsiva({ storage }) {
   return (
     <>
       <View style={styles.mainContainer}>
-
         <View style={styles.titleBox}>
-          <Text>Coatzacoalcos, Veracruz {day} de {mounth} del {year}</Text>
+          <Text>
+            Coatzacoalcos, Veracruz {day} de {mounth} del {year}
+          </Text>
         </View>
 
         <View style={styles.container}>
@@ -102,11 +106,12 @@ function BodyCartaResponsiva({ storage }) {
             <View style={styles.textBox}>
               <Text>
                 Sirva este documento como comprobante de entrega de{" "}
-                {dataAsset.category?.name} , marca{" "}
-                {dataAsset.manufacturer?.name}, modelo {dataAsset.model?.name},
-                con número de serie {dataAsset.serial}, el cuál le prtenece a {company}, 
-                y se entrega a {user} quien a partir del día {day} de {mounth} del {year} se
-                compromete a resguardarlo y darle uso estrictamente laboral y evitar:
+                {dataAsset.category?.name} , marca{" "} {dataAsset.manufacturer?.name},
+                modelo {dataAsset.model?.name},con número de serie {dataAsset.serial}, 
+                el cuál le pertenece a{" "} <Text style={styles.nameCompany}>{company}</Text>
+                , y se entrega a {user} quien a partir del día {day} de {mounth} del {year} se
+                compromete a resguardarlo y darle uso estrictamente laboral y
+                evitar:
               </Text>
             </View>
 
@@ -114,11 +119,15 @@ function BodyCartaResponsiva({ storage }) {
               <Text>• Contacto con agua</Text>
               <Text>• Conectarlo de forma erronea</Text>
               <Text>• Sobrecalentamiento </Text>
+              {dataAsset.category?.name === "IMPRESORA" && (
+                <>
+                  <Text>
+                    • Escanear con grapas en las hojas (cristal o alimentador)
+                  </Text>
+                  <Text>• Llegar al limite establecido de tinta</Text>
+                </>
+              )}
               <Text>• Cerrarlo de forma abrupta</Text>
-              <Text>
-                • Escanear con grapas en las hojas (cristal o alimentador)
-              </Text>
-              <Text>• Llegar al limite establecido de tinta</Text>
               <Text>• Modificar la configuración del equipo</Text>
             </View>
 
@@ -131,7 +140,6 @@ function BodyCartaResponsiva({ storage }) {
             </View>
           </View>
         </View>
-
       </View>
     </>
   );

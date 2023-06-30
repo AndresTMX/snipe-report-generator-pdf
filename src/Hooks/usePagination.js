@@ -1,78 +1,210 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 //helpers
 import filterSearch from '../Helpers/filterSearch';
 import {filterUsersActives, filterUsersCompany, filterUsersLocation, filterUsersDepartment} from "../Helpers/filterUsers";
 //notification modal
-import {actionTypes as actionTypesModals, StatesModals} from '../Context/StatesModalsReducer';
-//Symbols
-
+import {actionTypes as actionTypesModals} from '../Context/StatesModalsReducer';
+//hooks
+import {useFilterUsers} from '../Hooks/useFilterUsers';  
 //este Hook recibe un array de usuarios y los pagina, 
 //devulve la pagina en la que estas
 function usePagination(users, search, dispatch) {
 
-    const [filter, setFilter] = useState({
-        actives:true,
-        company:false,
-        location:false,
-        department:false,
-    });
-
-    const [page, setPage] = useState({init: 0,end: 6})
-    let pageRender
-    let searchResults
-
-    if(!search){
-        pageRender = users ? users.slice(page.init, page.end) : [];
-        searchResults = users? users.length: 0;
-    }
+    const [pageRender, setPageRender] = useState([]);
+    const [searchResults, setSearchResults] = useState(0);
+    const {filterActions, filter} = useFilterUsers();
+    const [page, setPage] = useState({init: 0,end: 6});
+    const {actives, company, location, department} = filter;
     
-    if(search){
-        pageRender = users? filterSearch(search, users): false;
-        searchResults = pageRender? pageRender.length:0;
-    }
-
-    if(!filter.actives){
-        pageRender = users? users.slice(page.init, page.end): false;
-        searchResults = pageRender? pageRender.length:0;
-    }
-
-    if(filter.actives){
-        pageRender = users? filterUsersActives(users).slice(page.init, page.end): false;
-        searchResults = pageRender? pageRender.length:0;
-    }
     
-    if(filter.actives && filter.company){
-        const usersActives = users? filterUsersActives(users): false;
-        pageRender = usersActives? filterUsersCompany(usersActives, filter.company): false;
-        searchResults = pageRender? pageRender.length:0;
+    useEffect(()=> {
+
+    let newPageRender;
+    let newSearchResults;
+
+
+//si todos los filtros estan desactivados
+    if(!search && !actives && !company && !department && !location){
+        newPageRender = users ? users.slice(page.init, page.end) : [];
+        newSearchResults = users? users.length: 0;
+        setPageRender(newPageRender);
+        setSearchResults(newSearchResults);
+        // console.log('1')
+    }
+//si acitvos esta off y hay busqueda
+    if(search && !actives && !company && !department && !location){
+        newPageRender= users? filterSearch(search, users): [];
+        newSearchResults = pageRender? pageRender.length:0;
+        setPageRender(newPageRender);
+        setSearchResults(newSearchResults);
+        // console.log('2')
+    }
+//si activos esta on y hay busqueda
+    if(actives && search && !company && !department && !location){
+        const userActives = users? filterUsersActives(users): [];
+        newPageRender = userActives? filterSearch(search, userActives):[];
+        newSearchResults = pageRender? pageRender.length:0;
+        setPageRender(newPageRender);
+        setSearchResults(newSearchResults);
+        // console.log('3')
     }
 
-    if(filter.actives && filter.location){
-        const usersActives = users? filterUsersActives(users): false;
-        pageRender = usersActives? filterUsersLocation(usersActives, filter.location): false;
-        searchResults = pageRender? pageRender.length:0;
+//si acitovos esta on y NO hay busqueda
+    if(actives && !search && !company && !department && !location){
+        newPageRender = users? filterUsersActives(users).slice(page.init, page.end): [];
+        newSearchResults = pageRender? pageRender.length:0;
+        setPageRender(newPageRender);
+        setSearchResults(newSearchResults);
+        // console.log('4')
     }
 
-    if(filter.actives && filter.company && filter.location){
-        const userActives = users? filterUsersActives(users): false;
-        const usersCompnay = userActives? filterUsersCompany(userActives, filter.company): false;
-        pageRender = usersCompnay? filterUsersLocation(usersCompnay, filter.location): false;
-        searchResults = pageRender? pageRender.length:0;
+//si activos esta en on, company en on y search on
+    if(actives && search && company && !department && !location){
+        const usersActives = users? filterUsersActives(users): [];
+        const dataSearch = usersActives? filterUsersCompany(usersActives, company): [];
+        newPageRender = dataSearch? filterSearch(search, dataSearch):[]
+        newSearchResults = pageRender? pageRender.length:0;
+        setPageRender(newPageRender);
+        setSearchResults(newSearchResults);
+        // console.log('5');
     }
 
-    if(filter.actives && filter.department){
-        const usersActives = users? filterUsersActives(users): false;
-        pageRender = usersActives? filterUsersDepartment(usersActives, filter.department): false;
-        searchResults = pageRender? pageRender.length:0;
+//si activos esta en on, company en on y search of
+    if(actives && company && !search && !location && !department){
+        const usersActives = users? filterUsersActives(users): [];
+        newPageRender = usersActives? filterUsersCompany(usersActives, company): []; 
+        newSearchResults = pageRender? pageRender.length:0;
+        setPageRender(newPageRender);
+        setSearchResults(newSearchResults);
+        // console.log('6');
     }
 
-    if(filter.actives && filter.company && filter.location & filter.department){
-        const userActives = users? filterUsersActives(users): false;
-        const usersCompnay = userActives? filterUsersCompany(userActives, filter.company): false;
-        const usersLocation = usersCompnay? filterUsersLocation(company, filter.location): false;
-        pageRender = usersLocation? filterUsersDepartment(usersLocation, filter.department): false;
-        searchResults = pageRender? pageRender.length:0;
+//si activos esta on, company esta on y search esta en on    
+    if(actives && company && location && search && !department){
+        const usersActives = users? filterUsersActives(users): [];
+        const usersCompany = usersActives? filterUsersCompany(usersActives, company):[];
+        const usersLocation = usersCompany? filterUsersLocation(usersCompany, location): [];
+        newPageRender = usersLocation? filterSearch(search, usersLocation):[];
+        newSearchResults = pageRender? pageRender.length:0;
+        setPageRender(newPageRender);
+        setSearchResults(newSearchResults);
+        // console.log('7')
     }
+
+//si activos esta on, company esta on, location on y search esta en off    
+    if(actives && company && location && !search && !department){
+        const usersActives = users? filterUsersActives(users): [];
+        const usersCompany = usersActives? filterUsersCompany(usersActives, company):[];
+        newPageRender = usersCompany? filterUsersLocation(usersCompany, location): [];
+        newSearchResults = pageRender? pageRender.length:0;
+        setPageRender(newPageRender);
+        setSearchResults(newSearchResults);
+        // console.log('8')
+    }
+
+//si activos esta en on, company on, location on, department on, search en off
+    if(actives && company && location && department && !search){
+        const userActives = users? filterUsersActives(users): [];
+        const usersCompnay = userActives? filterUsersCompany(userActives, company): [];
+        const usersLocation = usersCompnay? filterUsersLocation(usersCompnay, location): [];
+        newPageRender = usersLocation? filterUsersDepartment(usersLocation, department):[];
+        newSearchResults = pageRender? pageRender.length:0;
+        setPageRender(newPageRender);
+        setSearchResults(newSearchResults);
+        // console.log('9')
+    }
+
+//si activos esta en on, company on, location on, department on, search en on
+if(actives && company && location && department && search){
+    const userActives = users? filterUsersActives(users): [];
+    const usersCompnay = userActives? filterUsersCompany(userActives, company): [];
+    const usersLocation = usersCompnay? filterUsersLocation(usersCompnay, location): [];
+    const userDepartment = usersLocation? filterUsersDepartment(usersLocation, department):[];
+    newPageRender = userDepartment? filterSearch(search, userDepartment): [];
+    newSearchResults = pageRender? pageRender.length:0;
+    setPageRender(newPageRender);
+    setSearchResults(newSearchResults);
+    // console.log('10')
+}
+
+//si actives on, empresa on, department on y search off
+if(actives && company && !location && department && !search){
+    const userActives = users? filterUsersActives(users): [];
+    const usersCompnay = userActives? filterUsersCompany(userActives, company): [];
+    newPageRender = usersCompnay? filterUsersDepartment(usersCompnay, department):[];
+    newSearchResults = pageRender? pageRender.length:0;
+    setPageRender(newPageRender);
+    setSearchResults(newSearchResults);
+    // console.log('11')
+}
+
+//si actives on, empresa on, department on y search on
+if(actives && company && !location && department && search){
+    const usersActives = users? filterUsersActives(users): [];
+    const usersCompnay = usersActives? filterUsersCompany(usersActives, company): [];
+    const usersDepartment = usersCompnay? filterUsersDepartment(usersCompnay, department):[];
+    newPageRender = usersDepartment? filterSearch(search, usersDepartment):[];
+    newSearchResults = pageRender? pageRender.length:0;
+    setPageRender(newPageRender);
+    setSearchResults(newSearchResults);
+    // console.log('12')
+}
+
+//si solo location, actives on y search of
+if(actives && !company && location && !department && !search){
+    const usersActives = users? filterUsersActives(users): [];
+    newPageRender = usersActives? filterUsersLocation(usersActives, location): [];
+    newSearchResults = pageRender? pageRender.length:0;
+    setPageRender(newPageRender);
+    setSearchResults(newSearchResults);
+    // console.log('13')
+}
+
+//si solo location, actives on y search of
+if(actives && !company && location && !department && search){
+    const usersActives = users? filterUsersActives(users): [];
+    const usersLocation = usersActives? filterUsersLocation(usersActives, location): [];
+    newPageRender = usersLocation? filterSearch(search, usersLocation): [];
+    newSearchResults = pageRender? pageRender.length:0;
+    setPageRender(newPageRender);
+    setSearchResults(newSearchResults);
+    // console.log('14')
+}
+
+//si solo department, actives on y search of
+if(actives && !company && !location && department && !search){
+    const usersActives = users? filterUsersActives(users): [];
+    newPageRender = usersActives? filterUsersDepartment(usersActives, department): [];
+    newSearchResults = pageRender? pageRender.length:0;
+    setPageRender(newPageRender);
+    setSearchResults(newSearchResults);
+    // console.log('15')
+}
+
+//si department y location on y search of
+if(actives && !company && location && department && !search){
+    const usersActives = users? filterUsersActives(users): [];
+    const usersLocation = usersActives? filterUsersLocation(usersActives, location): [];
+    newPageRender = usersLocation? filterUsersDepartment(usersLocation,department ) : [];
+    setPageRender(newPageRender);
+    setSearchResults(newSearchResults);
+    // console.log('16')
+}
+
+//si department y location on y search of
+if(actives && !company && location && department && search){
+    const usersActives = users? filterUsersActives(users): [];
+    const usersLocation = usersActives? filterUsersLocation(usersActives, location): [];
+    const usersDepartment = usersLocation? filterUsersDepartment(usersLocation,department ) : [];
+    newPageRender = usersDepartment? filterSearch(search, usersDepartment): [];
+    setPageRender(newPageRender);
+    setSearchResults(newSearchResults);
+    // console.log('17')
+}
+
+
+
+   }, [search, actives, company, location, department, users, page])
 
     const nextPage = () => {
 
@@ -107,47 +239,9 @@ function usePagination(users, search, dispatch) {
 
     }
 
-    const setActives = () =>{
-        setFilter({
-            ...filter,
-            actives: !filter.actives
-        })
-    }
+    const actionsPages = {nextPage, prevPage}
 
-    const setCompany = (company) => {
-        setFilter({
-            ...filter,
-            company: company
-        })
-    }
-
-    const setLocation = (location) => {
-        setFilter({
-            ...filter,
-            location:location
-        })
-    }
-
-    const setDepartment = (department) => {
-        setFilter({
-            ...filter,
-            department:department
-        })
-    }
-    
-    const clearFilters = () => {
-        setFilter({
-        actives:true,
-        company:false,
-        location:false,
-        department:false,
-        })
-    }
-
-    const statesFilters = {pageRender, searchResults, filter}
-    const actionsFiters = {nextPage, prevPage, setActives, setCompany, setLocation, setDepartment, clearFilters}
-
-    return {statesFilters, actionsFiters};
+    return {searchResults, pageRender, actionsPages, filterActions, filter}
 }
 
 export {usePagination};

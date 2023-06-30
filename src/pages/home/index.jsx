@@ -42,9 +42,8 @@ function PageHome() {
 
   //Hooks de buscador, fetch de usuarios y paginación
   const { search, setSearch } = useSearcher();
-  const { dataUsers, loading, error } = useGetUsers();
-  const { statesFilters, actionsFiters } = usePagination( dataUsers,search,dispatch);
-  const {pageRender, searchResults, filter} = statesFilters;
+  const { dataUsers, loading, error } = useGetUsers();  
+  const { searchResults, pageRender, actionsPages, filterActions, filter } = usePagination( dataUsers,search,dispatch);
 
   return (
     <Container
@@ -82,19 +81,29 @@ function PageHome() {
         >
           {StatesModals.modalNotification && (
             <Notification>
-             <Paper elevation={2} sx={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', padding:'10px', gap:'20px'}}>
-            <p className="span">{StatesModals.modalNotification}</p>
-            <Button
-              onClick={() =>
-                dispatch({
-                  type: actionTypesModals.setModalNotification,
-                  payload: false,
-                })
-              }
-            >
-              Ok
-            </Button>
-          </Paper>
+              <Paper
+                elevation={2}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "10px",
+                  gap: "20px",
+                }}
+              >
+                <p className="span">{StatesModals.modalNotification}</p>
+                <Button
+                  onClick={() =>
+                    dispatch({
+                      type: actionTypesModals.setModalNotification,
+                      payload: false,
+                    })
+                  }
+                >
+                  Ok
+                </Button>
+              </Paper>
             </Notification>
           )}
 
@@ -104,14 +113,22 @@ function PageHome() {
             </Modal>
           )}
 
-          <Filters statesFilters={statesFilters} actionsFiters={actionsFiters}/>
+          <Filters actionsPages={actionsPages} filterActions={filterActions} filter={filter}/>
 
           {!complete && (
             <UserContainer>
               {loading && (
-                <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center', alingItems:'center', height:'200px'}}>
-                <ThreeDots />
-              </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alingItems: "center",
+                    height: "200px",
+                  }}
+                >
+                  <ThreeDots />
+                </Box>
               )}
 
               {!loading && !pageRender.length && (
@@ -166,7 +183,13 @@ function PageHome() {
                 },
               }}
             >
-              <Container sx={{ display:'flex' , width:'100%', justifyContent:'flex-end'}}>
+              <Container
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "flex-end",
+                }}
+              >
                 <Button
                   variant="contained"
                   onClick={() =>

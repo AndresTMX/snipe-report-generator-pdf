@@ -26,6 +26,7 @@ function DocStoreCardSelect({state, dispatch}) {
       <FormLabel>
         Tipo de documento
         <Select
+          value={storage? storage.typeDocument:''}
           variant="standard"
           disableUnderline
           onChange={(e) => OnChangueOption(e)}
