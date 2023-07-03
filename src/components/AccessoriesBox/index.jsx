@@ -142,7 +142,7 @@ function AccessoriesBox({
 
   return (
     <>
-      <Container>
+      <Container sx={{display:'flex', flexDirection:'column', backgroundColor:'white'}}>
         <Box
           sx={{
             display: "flex",
@@ -284,7 +284,7 @@ function AccessoriesBox({
         </Container>
       </Container>
 
-      {newDataRender.length === 0 && loadingAccessorie && (
+      {!newDataRender.length && loadingAccessorie && (
         <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center', alingItems:'center', height:'200px'}}>
         <h2 className='h2'>Sin activos registrados</h2>
       </Box>

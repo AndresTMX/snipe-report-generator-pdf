@@ -161,7 +161,7 @@ function AssetsBox({
   };
 
   return (
-    <>
+    <Container sx={{display:'flex', flexDirection:'column', backgroundColor:'white'}}>
       <Box
         sx={{
           display: "flex",
@@ -375,7 +375,7 @@ function AssetsBox({
           </Paper>
         </Notification>
       )}
-    </>
+    </Container>
   );
 }
 
