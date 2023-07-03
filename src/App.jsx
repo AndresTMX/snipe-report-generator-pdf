@@ -1,14 +1,13 @@
-import { PageHome } from "./pages/home/";
 import { Navigator } from "./sections/Navigator/";
 import { DataProvider } from "./Context/DocContext";
 import { Banner } from "./sections/Banner";
 
-function App() {
+function App({children}) {
   return (
       <DataProvider>
         <Banner />
         <Navigator />
-        <PageHome />
+        {children}
       </DataProvider>
   );
 }
