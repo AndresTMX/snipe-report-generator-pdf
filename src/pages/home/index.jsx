@@ -61,7 +61,7 @@ function PageHome() {
           display: "flex",
           margin: "auto",
           flexDirection: "column",
-          paddingTop: "250px",
+          paddingTop: "140px",
           paddingBottom: "50px",
           width: "70%",
           height: "100vh",

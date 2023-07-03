@@ -12,10 +12,9 @@ function Banner() {
             backgroundSize:'cover',
             objectFit:'contain',
             width: '100%',
-            height: '150px',
+            height: '80px',
             position:'fixed',
             zIndex:'3',
-            top:'-10px',
             left:'0px',
             '@media (max-width: 1050px)': {
                 backgroundSize:'cover',

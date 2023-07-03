@@ -1,8 +1,8 @@
 .nav {
     display: flex;
     position:fixed;
-    top:140px;
-    height: 90px;
+    top:80px;
+    height: 50px;
     width: 100%;
     align-items: center;
     background-color:#0071BB;
@@ -18,26 +18,9 @@
     margin: auto;
     justify-content: flex-start;
     align-items: center;
-    gap: 20px;
 }
 
-.nav .name-nav{
-    margin-left: 20px;
-}
 
-.nav .docStore-button{
-    width: 100px;
-    height: 50px;
-}
-
-.nav .buttonPDF-container{
-    display: flex;
-    align-items: center;
-    width: auto;
-    height: 50px;
-}
-
-    
     @media (max-width: 807px) {
     
         .nav{

@@ -70,7 +70,7 @@ function ConfigReport({state, dispatch, search, setSearch, searchResults}) {
             display: "flex",
             flexDirection: "column",
             width: "100%",
-            paddingTop: "270px",
+            paddingTop: "140px",
             gap: "15px",
           }}
         >
