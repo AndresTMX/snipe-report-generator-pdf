@@ -9,8 +9,6 @@ import {
   IconButton,
 } from "@mui/material";
 //icons
-import {LuFilter} from 'react-icons/lu';
-import { FaTrashAlt } from "react-icons/fa";
 import { RiFilterOffFill } from 'react-icons/ri';
 //empresas
 import {comind, ipsa, toh, staff} from '../../Helpers/symbols';
@@ -54,9 +52,153 @@ function Filters({actionsPages, filterActions, filter}) {
   const {nextPage, prevPage} = actionsPages;
   const { setActives, setCompany, setLocation, setDepartment, clearFilters} = filterActions;
 
+  const onSelectCompany = (company) => {
+
+    let shortName
+
+    if(company === comind.description){
+      shortName = 'COMIND';
+    }
+
+    if(company === ipsa.description){
+      shortName = 'IPSA';
+    }
+
+    if(company === staff.description){
+      shortName = 'STAFF';
+    }
+
+    if(company === toh.description){
+      shortName = 'TOH';
+    }
+
+    return shortName
+  }
+
+  const onSelectLocation = (location) => {
+    let shortName
+
+    if(location === contabilidad.description){
+      shortName = 'Contabilidad'
+    }
+
+    if(location === tohCentro.description){
+      shortName = 'TOH Coatza'
+    }
+
+    if(location === rh.description){
+      shortName = 'Recursos Humanos'
+    }
+
+    if(location === tohTlaxcala.description){
+      shortName = 'TOH Tlaxcala'
+    }
+
+    if(location === tohTejeria.description){
+      shortName = 'TOH Tejeria'
+    }
+
+    if(location === coatza.description){
+      shortName = 'IPSA Coatzacoalcos'
+    }
+    
+    if(location === matamoros.description){
+      shortName = 'Taller Matamoros'
+    }
+
+    if(location === corpo.description){
+      shortName = 'Corporativo'
+    }
+
+    if(location === tejeria.description){
+      shortName = 'COMIND Tejeria'
+    }
+
+    if(location === paraiso.description){
+      shortName = 'COMIND Paraiso'
+    }
+
+    if(location === tuxtla.description){
+      shortName = 'COMIND Tuxtla'
+    }
+
+    if(location === salina.description){
+      shortName = 'COMIND Salina'
+    }
+
+    if(location === ordaz.description){
+      shortName = 'COMIND Ordaz'
+    }
+
+    if(location === norte.description){
+      shortName = 'COMIND Norte'
+    }
+
+    return shortName
+  }
+
+  const onSelectDepartment = (department) => {
+    let shortName 
+
+    if(department === direccion.description){
+      shortName = 'Dirección'
+    }
+
+    if(department === contraloria.description){
+      shortName = 'Contraloría'
+    }
+
+    if(department === sucursales.description){
+      shortName = 'Coord. Sucursales'
+    }
+
+    if(department === calidad.description){
+      shortName = 'Calidad'
+    }
+
+    if(department === admon.description){
+      shortName = 'Administración'
+    }
+
+    if(department === contaduria.description){
+      shortName = 'Contabilidad'
+    }
+
+    if(department === marketing.description){
+      shortName = 'Marketing'
+    }
+
+    if(department === ventasInd.description){
+      shortName = 'Ventas Industria'
+    }
+
+    if(department === ventasMost.description){
+      shortName = 'Ventas Mostrador'
+    }
+
+    if(department === almacen.description){
+      shortName = 'Almacén'
+    }
+
+    if(department === sistemas.description){
+      shortName = 'Sistemas'
+    }
+
+    if(department === compras.description){
+      shortName = 'Compras'
+    }
+
+    if(department === recursosH.description){
+      shortName = 'Recursos Humanos'
+    }
+
+    return shortName;
+
+  }
+
     return ( 
         <Container
-        sx={{ display: "flex", flexDirection: "column", gap: "15px", borderRadius:'4px' }}
+        sx={{ display: "flex", flexDirection: "column", gap: "15px" }}
       >
         <Box
           sx={{
@@ -64,11 +206,12 @@ function Filters({actionsPages, filterActions, filter}) {
             display: "flex",
             flexDirection: "row",
             width: "100%",
-            height: "60px",
+            height: "auto",
             alignItems: "center",
             justifyContent: 'space-around',
             color: "white",
             gap: "8px",
+            borderRadius:'4px'
           }}
           >
           {/* Icon */}
@@ -111,17 +254,17 @@ function Filters({actionsPages, filterActions, filter}) {
           <FormLabel
             sx={{
               display:'flex',
-              flexDirection:'column',
               color: "white",
               fontSize: "16px",
               height: "auto",
               alignItems:'flex-start',
             }}
           >
-            Empresa
+            {filter.company? onSelectCompany(filter.company): 'Empresa' } 
             <Select
               onChange={(e) => setCompany((e.target.value))}
               value={!filter.company?'': filter.company}
+              renderValue={()=> {return null}}
               size="small"
               variant="standard"
               disableUnderline
@@ -143,17 +286,17 @@ function Filters({actionsPages, filterActions, filter}) {
           <FormLabel
            sx={{
             display:'flex',
-            flexDirection:'column',
             color: "white",
             fontSize: "16px",
             height: "auto",
             alignItems:'flex-start',
           }}
           >
-            Sucursal
+            {filter.location? onSelectLocation(filter.location): 'Sucursal'}
             <Select
             onChange={(e)=> setLocation(e.target.value)}
             value={filter.location?filter.location:''}
+            renderValue={()=> {return null}}
               size="small"
               variant="standard"
               disableUnderline
@@ -185,17 +328,17 @@ function Filters({actionsPages, filterActions, filter}) {
           <FormLabel
              sx={{
               display:'flex',
-              flexDirection:'column',
               color: "white",
               fontSize: "16px",
               height: "auto",
               alignItems:'flex-start',
             }}
           >
-            Departamento
+            {filter.department? onSelectDepartment(filter.department): 'Departamento'}
             <Select
               value={filter.department? filter.department:''}
               onChange={(e)=> setDepartment(e.target.value)}
+              renderValue={()=> {return null}}
               size="small"
               variant="standard"
               disableUnderline
@@ -208,8 +351,8 @@ function Filters({actionsPages, filterActions, filter}) {
               }}
             >
               <MenuItem value={direccion.description}>Dirección</MenuItem>
-              <MenuItem value={contraloria.description}>Contraloria</MenuItem>
-              <MenuItem value={sucursales.description}>Coordinación de Suc.</MenuItem>
+              <MenuItem value={contraloria.description}>Contraloría</MenuItem>
+              <MenuItem value={sucursales.description}>Coord. Sucursales</MenuItem>
               <MenuItem value={admon.description}>Administración</MenuItem>
               <MenuItem value={calidad.description}>Calidad</MenuItem>
               <MenuItem value={compras.description}>Compras</MenuItem>
@@ -217,7 +360,7 @@ function Filters({actionsPages, filterActions, filter}) {
               <MenuItem value={ventasMost.description}>Ventas Mostrador</MenuItem>
               <MenuItem value={ventasInd.description}>Ventas Industria</MenuItem>
               <MenuItem value={recursosH.description}>Recursos Humanos</MenuItem>
-              <MenuItem value={almacen.description}>Almacen</MenuItem>
+              <MenuItem value={almacen.description}>Almacén</MenuItem>
               <MenuItem value={marketing.description}>Marketing</MenuItem>
               <MenuItem value={contaduria.description}>Contabilidad</MenuItem>
 

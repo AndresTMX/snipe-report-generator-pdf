@@ -1,4 +1,4 @@
-import {  getUsers } from "../API/index";
+import { getUsers } from "../API/index";
 import { useState, useEffect } from "react";
 
 function useGetUsers() {
@@ -8,25 +8,22 @@ function useGetUsers() {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-
-       try {
-        setTimeout(()=> {
-            //obteniendo info del usuario
+        //obteniendo info del usuario
         const fetchInfoUser = async () => {
-            const result = await getUsers();
-            setDataUser(result);
-            setLoading(false);
-        }
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                const result = await getUsers();
+                setDataUser(result);
+                setLoading(false);
+
+            } catch (error) {
+                setError(error);
+                setLoading(false);
+            }
+        };
         fetchInfoUser();
+    }, []);
 
-        },1000 )
-       } catch (error) {
-        setError(error);
-       }
-        
-
-    }, [loading]);
-
-    return { dataUsers, loading, error};
+    return { dataUsers, loading, error };
 }
-export {useGetUsers};
+export { useGetUsers };

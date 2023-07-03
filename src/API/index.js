@@ -6,71 +6,74 @@ const Authorization = import.meta.env.VITE_API_KEY;
 // const Authorization = import.meta.env.VITE_API_KEY_DEVELOPMENT;
 const departmentSystemId = import.meta.env.VITE_DEPARTMENT_SYSTEMS;
 
-
-export const getItem = () => {
-    return axios.get(`${baseURL}hardware/1`, {
+export const getUsers = async () => {
+    try {
+      const response = await axios.get(`${baseURL}users?&order=asc&sort=id`, {
         headers: {
-            accept: 'application/json',
-            Authorization: Authorization,
-        }
-    })
-        .then(res => res.data)
-        .catch((error) => console.log(error));
+          accept: 'application/json',
+          Authorization: Authorization,
+        },
+      });
+      return response.data.rows;
+    } catch (error) {
+      throw new Error('Error al obtener los usuarios');
+    }
+  };
+
+export const getUserId = async (id) => {
+    try {
+        const response = await axios.get(`${baseURL}users/${id}`, {
+            headers: {
+                accept: 'application/json',
+                Authorization: Authorization,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error('Error al obtener el usuario')
+    }
 };
 
-export const getUsers = () => {
-    return axios.get(`${baseURL}users?&order=asc&sort=id`, {
-        headers: {
-            accept: 'application/json',
-            Authorization: Authorization,
-        }
-    })
-    .then(res => res.data.rows)
-    .catch((error) => console.log(error));
+export const getAssetsUser = async (userId) => {
+    try {
+        const response = await axios.get(`${baseURL}users/${userId}/assets`, {
+            headers: {
+                accept: 'application/json',
+                Authorization: Authorization,
+            }
+        });
+        return response.data.rows;
+    } catch (error) {
+        throw new Error('Error al obtener los activos de usuario');
+    }
 };
 
-export const getUserId = (id) => {
-    return axios.get(`${baseURL}users/${id}`, {
-        headers: {
-            accept: 'application/json',
-            Authorization: Authorization,
-        }
-    })
-    .then(res => res.data)
-    .catch((error) => console.log(error));
-};
-
-export const getAssetsUser = (userId) => {
-    return axios.get(`${baseURL}users/${userId}/assets`, {
-        headers: {
-            accept: 'application/json',
-            Authorization: Authorization,
-        }
-    })
-    .then(res => res.data.rows)
-    .catch((error) => console.log(error));
-};
-
-export const getAccesoriesUser = (userId) => {
-    return axios.get(`${baseURL}users/${userId}/accessories`, {
+export const getAccesoriesUser = async (userId) => {
+   try {
+    const response = await axios.get(`${baseURL}users/${userId}/accessories`, {
         headers: {
             accept: 'aplication/json',
             Authorization: Authorization,
         }
-    })
-    .then(res => res.data.rows)
-    .catch((error) => console.log(error));
+    });
+    return response.data.rows;
+   } catch (error) {
+    throw new Error ('Error al obtener los accesorios de usuario');
+   }
 }
 
-export const getMaintancesAsset = (assetId) => {
-    return axios.get(`${baseURL}maintenances?&asset_id=${assetId}`, {
-        headers: {
-            accept: 'application/json',
-            Authorization: Authorization,
-        }
-    })
-    .then(res => res.data.rows)
-    .catch((error) => console.log(error));
+export const getMaintancesAsset = async (assetId) => {
+    try {
+        const response = await axios.get(`${baseURL}maintenances?&asset_id=${assetId}`, {
+            headers: {
+                accept: 'application/json',
+                Authorization: Authorization,
+            }
+        });
+        return response.data.rows;
+    } catch (error) {
+        throw new Error('Error al obtener los mantenimientos del activo');
+    }
 };
 
 export const getComponentsWhitComputerSerial = async (serial) => {
@@ -83,41 +86,50 @@ export const getComponentsWhitComputerSerial = async (serial) => {
         });
         return res.data.rows;
     } catch (error) {
-        return console.log(error);
+        throw new Error('Error al obtener los componentes de los activos');
     }
 }
 
-export const getUsersSystemsDepartment = () => {
-    return axios.get(`${baseURL}users?department_id=${departmentSystemId}`, {
-        headers:{
-            accept: 'application/json',
-            Authorization: Authorization,
-        }
-    })
-    .then(res => res.data.rows)
-    .catch((error) => console.log(error));
+export const getUsersSystemsDepartment = async () => {
+    try {
+        const response = await axios.get(`${baseURL}users?department_id=${departmentSystemId}`, {
+            headers:{
+                accept: 'application/json',
+                Authorization: Authorization,
+            }
+        });
+        return response.data.rows;
+    } catch (error) {
+        throw new Error('Error al obtener los usuarios del departamento de sistemas')
+    }
 }
 
-export const getManagerSystem = () => {
-    return axios.get(`${baseURL}departments/${departmentSystemId}`, {
-        headers:{
-            accept: 'application/json',
-            Authorization: Authorization,
-        }
-    })
-    .then(res => res.data)
-    .catch((error) => console.log(error));
+export const getManagerSystem = async () => {
+    try {
+        const response = await axios.get(`${baseURL}departments/${departmentSystemId}`, {
+            headers:{
+                accept: 'application/json',
+                Authorization: Authorization,
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error('Error al obtener Manager Systems');
+    }
 }
 
-export const getLicensesUser = (idUser) => {
-    return axios.get(`${baseURL}users/${idUser}/licenses`, {
-        headers:{
-            accept: 'application/json',
-            Authorization: Authorization,
-        }
-    })
-    .then(res => res.data.rows)
-    .catch((error) => console.log(error));
+export const getLicensesUser = async (idUser) => {
+    try {
+        const response = await axios.get(`${baseURL}users/${idUser}/licenses`, {
+            headers:{
+                accept: 'application/json',
+                Authorization: Authorization,
+            }
+        });
+        return response.data.rows;
+    } catch (error) {
+        throw new Error('Error al traer la licencia del usuario')
+    }
 }
 
 

@@ -6,9 +6,9 @@ function NotResultUsers({error, pageRender}) {
             <span>
                 <MdError/>
             </span>
-            {error && (<h1>API not response</h1>)}
+            {error && (<h1>{error.message}</h1>)}
 
-            {!pageRender.length && (<h1>Sin resultados</h1>)}
+            {!pageRender.length && !error && (<h1>Sin resultados</h1>)}
         </div>
      );
 }
