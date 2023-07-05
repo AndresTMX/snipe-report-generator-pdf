@@ -151,7 +151,7 @@ function UserCard({
                title='Ver Activos'
               onClick={() => ButtongetActives()}>
                  <AiOutlineDesktop/>
-                 <span className="textIcon">{assets}</span>
+                 <span className="textIcon">{assets.toString()}</span>
               </IconButton>
 
               <IconButton 
@@ -159,7 +159,7 @@ function UserCard({
               title='Ver Accesorios'
               onClick={()=> ButtongetAccesories()}>
                <BsHeadset/>
-               <span className="textIcon">{accesories}</span>
+               <span className="textIcon">{accesories.toString()}</span>
               </IconButton>
 
               <IconButton 
@@ -168,7 +168,7 @@ function UserCard({
               onClick={() => ButtongetMoreInfoUser()}
               >
                <ImKey/>
-               <span className="textIcon">{licences}</span>
+               <span className="textIcon">{licences.toString()}</span>
               </IconButton>
 
               <ExpandMore
@@ -222,6 +222,7 @@ function UserCard({
             <AssetsBox
               modal={modal}
               setModal={setModal}
+              numAssets={assets}
               dataAssets={dataAssets}
               idUser={id}
               dataUser={dataUser}
@@ -238,6 +239,7 @@ function UserCard({
           <ViewItems>
             <AccessoriesBox
               modal={modal2}
+              numAccessories={accesories}
               setModal={setModal2}
               dataAccessories={dataAccesories}
               idUser={idUser}
@@ -253,7 +255,7 @@ function UserCard({
       {modal3 && (
         <Modal>
           <ViewItems>
-            <LicensesBox idUser={id} closeBox={ButtongetMoreInfoUser} />
+            <LicensesBox idUser={id} licencesNum={licences} closeBox={ButtongetMoreInfoUser} />
           </ViewItems>
         </Modal>
       )}

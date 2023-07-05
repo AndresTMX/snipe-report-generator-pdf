@@ -6,7 +6,7 @@ function ItemLicense({license,manufacturer,category,expiration,notes}) {
     
     return ( 
         <>
-        <Container sx={{display:'flex', flexDirection:'column', width:'300px', gap:'10px', backgroundColor:'#d9d9d9', padding:'5px'}}>
+        <Paper elevation={2} sx={{display:'flex', flexDirection:'column', width:'300px', gap:'10px', padding:'20px'}}>
 
             <Box sx={{display: 'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}> 
                 <p className='subtitle'>{category}</p>
@@ -19,10 +19,10 @@ function ItemLicense({license,manufacturer,category,expiration,notes}) {
             </Box>
 
             <Box>
-                <h4 className='h4'>{expiration? expiration: 'Fecha de expriración no registrada'}</h4>
+                <h4 className='h4'>{expiration? expiration.toString(): 'Fecha de expriración no registrada'}</h4>
             </Box>
 
-        </Container>
+        </Paper>
         </>  
      );
 }

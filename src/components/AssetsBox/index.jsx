@@ -29,6 +29,7 @@ function AssetsBox({
   modal,
   setModal,
   dataAssets,
+  numAssets,
   idUser,
   dataUser,
   state,
@@ -50,6 +51,8 @@ function AssetsBox({
   const { addItem, deleteItem } = actions;
 
   const { countAssets } = states;
+
+  const count = countAssets.toString()
 
   const { modal3, setModal3 } = UseModal();
 
@@ -160,6 +163,7 @@ function AssetsBox({
     setModal(!modal);
   };
 
+
   return (
     <Container sx={{display:'flex', flexDirection:'column', backgroundColor:'white'}}>
       <Box
@@ -196,7 +200,7 @@ function AssetsBox({
         }}
       >
         <h2 className="h2">Lista de activos</h2>
-        <span className="span">Activos agregados: {countAssets}</span>
+        <span className="span">Activos agregados: {count}</span>
       </Box>
 
       <Container
@@ -322,7 +326,7 @@ function AssetsBox({
         </TableContainer>
       </Container>
 
-      {dataRender.length === 0 && loadingAssets && (
+      {numAssets === 0 && (
         <Box
           sx={{
             display: "flex",
@@ -336,7 +340,7 @@ function AssetsBox({
         </Box>
       )}
 
-      {!loadingAssets && (
+      {!loadingAssets && numAssets > 0 && (
         <Box
           sx={{
             display: "flex",
@@ -344,6 +348,7 @@ function AssetsBox({
             justifyContent: "center",
             alingItems: "center",
             height: "200px",
+            margin:'auto',
           }}
         >
           <ThreeDots />

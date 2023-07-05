@@ -26,6 +26,7 @@ function AccessoriesBox({
   modal,
   setModal,
   dataAccessories,
+  numAccessories,
   idUser,
   dataUser,
   state,
@@ -47,6 +48,8 @@ function AccessoriesBox({
   const { addAccessories, deleteAccessories } = actions;
 
   const { countAccessories } = states;
+
+  const count = countAccessories.toString();
 
   const { initialStore, StatesModals } = state;
 
@@ -177,7 +180,7 @@ function AccessoriesBox({
           }}
         >
           <h2 className="h2">Lista de activos</h2>
-          <span className="span">Accesorios agregados: {countAccessories}</span>
+          <span className="span">Accesorios agregados: {count}</span>
         </Box>
 
         <Container>
@@ -284,13 +287,13 @@ function AccessoriesBox({
         </Container>
       </Container>
 
-      {!newDataRender.length && loadingAccessorie && (
+      {numAccessories === 0 && (
         <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center', alingItems:'center', height:'200px'}}>
         <h2 className='h2'>Sin activos registrados</h2>
       </Box>
       )}
 
-      {!loadingAccessorie && (
+      {!loadingAccessorie && numAccessories >  0 && (
         <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center', alingItems:'center', height:'200px'}}>
         <ThreeDots />
          </Box>

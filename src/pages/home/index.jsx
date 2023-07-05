@@ -62,7 +62,6 @@ function PageHome() {
           margin: "auto",
           flexDirection: "column",
           paddingTop: "140px",
-          paddingBottom: "50px",
           width: "70%",
           height: "100vh",
           position: "fixed",
@@ -75,7 +74,7 @@ function PageHome() {
             flexDirection: "column",
             width: "100%",
             height: "auto",
-            maxHeight: "70vh",
+            maxHeight: "90vh",
             gap: "20px",
           }}
         >
@@ -117,6 +116,7 @@ function PageHome() {
 
           {!complete && (
             <UserContainer>
+
               {loading && (
                 <Box
                   sx={{
@@ -131,7 +131,7 @@ function PageHome() {
                 </Box>
               )}
 
-              {!loading && !pageRender.length && (
+              {!loading && error && (
                 <NotResultUsers error={error} pageRender={pageRender} />
               )}
 
@@ -171,6 +171,7 @@ function PageHome() {
                 alignItems: "center",
                 margin: "auto",
                 backgroundColor: "#d9d9d9",
+                gap:'20px',
                 "&::-webkit-scrollbar": {
                   width: "8px",
                 },

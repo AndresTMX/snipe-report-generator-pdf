@@ -5,8 +5,6 @@ import logo from '../../../public/statics/comind.ico';
 
 function Banner() {
 
-    const bannerText = 'Tu aliado confiable en \n Conexiones y Mangueras'
-
     return ( 
         <Container
         maxWidth
@@ -31,7 +29,7 @@ function Banner() {
         }}
         >
 
-            <Container maxWidth sx={{display:'flex', flexDirection:'row', justifyContent:'space-between', width:'90%' , margin:'auto'}}>
+            <Container maxWidth="xl" sx={{display:'flex', flexDirection:'row', justifyContent:'space-between', width:'90%' , margin:'auto'}}>
 
                 <Box sx={{display:'flex', height:'60px', margin:'0px', width:'60px' , backgroundImage:`url(${logo})`, backgroundPosition:'center', backgroundSize:'cover', objectFit:'contain',}}/>
 

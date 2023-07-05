@@ -38,10 +38,11 @@
 }
 
 .text{
-  margin: 1px;
-  font-size: 1rem;
-  color: black;
-  line-height: 1.2rem;
+  font-size: 0.9rem;
+  color: rgb(62, 62, 62);
+  line-height: 1.1rem;
+  width:95%;
+
 }
 
 .title{
@@ -69,5 +70,3 @@
   padding: 4px;
   border-radius: 100%;
 }
-
-/*color:#0071bb;

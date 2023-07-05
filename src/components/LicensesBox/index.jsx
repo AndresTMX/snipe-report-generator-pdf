@@ -3,13 +3,12 @@ import '../../index.css'
 //Hook
 import {useGetLicenses} from '../../Hooks/useGetLicenses';
 //Componente
-import {ViewItems} from '../ViewItems/';
 import { ThreeDots } from '../Loading/';
 import {ItemLicense} from '../ItemLicense/';
 //Material UI
 import {Box, IconButton, Container, ButtonGroup, Button, Paper } from '@mui/material';
 
-function LicensesBox({idUser, closeBox}) {
+function LicensesBox({idUser, licencesNum , closeBox}) {
 
     const {dataLicenses, loading} = useGetLicenses(idUser);
 
@@ -32,27 +31,37 @@ function LicensesBox({idUser, closeBox}) {
 
     return (
       <>
-        <ViewItems>
-          {loading && (
-            <div className="container-loading">
+        <Container sx={{width:'auto'}}>
+          {loading && licencesNum > 0 && (
+            <Paper elevation={2} sx={{backgroundColor:'white', padding:'10px'}}>
               <ThreeDots />
-            </div>
+            </Paper>
           )}
 
-          {!loading && !renderMap.length && (
-            <Container  sx={{display:'flex', flexDirection:'column', gap:'10px', width:'100%'}}>
-              <Box sx={{display: 'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', width:'100%'}}>
+          {licencesNum === 0 && (
+            <Paper  sx={{display:'flex', flexDirection:'column', gap:'10px', width:'300px', padding:'10px', backgroundColor:'white'}}>
+              <Box sx={{display: 'flex', flexDirection:'column', justifyContent:'space-between', alignItems:'center', width:'100%'}}>
               <p className='title'>Sin licencias asignadas</p>
-                <Button className="button-close" onClick={closeBox}>
-                  x
-                </Button>
               </Box>
-            </Container>
+                <Button className="button-close" onClick={closeBox}>
+                  Ok
+                </Button>
+            </Paper>
           )}
 
-          {!loading && renderMap.length && (
+          {!loading && licencesNum>0 && (
             <Container
-            sx={{display:'flex', flexDirection:'column', gap:'10px', width:'100%'}}>
+            sx={{display:'flex', flexDirection:'column', gap:'10px', width:'100%',  backgroundColor:'white', height:'330px', padding:'20px',  overflowY:'auto',
+            "&::-webkit-scrollbar": {
+              width: "8px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "lightgray",
+              borderRadius: "4px",
+            },
+            "&::-webkit-scrollbar-thumb:hover": {
+              backgroundColor: "gray",
+            }, }}>
               <Box sx={{display: 'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', width:'100%'}}>
               <h2 className='title'>Licencias Asignadas</h2>
                 <Button onClick={closeBox}>
@@ -72,7 +81,7 @@ function LicensesBox({idUser, closeBox}) {
               ))}
             </Container>
           )}
-        </ViewItems>
+        </Container>
       </>
     );
 }
