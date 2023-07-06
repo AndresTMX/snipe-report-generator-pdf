@@ -23,7 +23,7 @@ function Login() {
         backgroundImage:'url(https://comimsa.net/wp-content/uploads/2022/10/4-Diseno-fondo-Tapiz-scaled.jpg)',
         backgroundPosition:'center',
         backgroundSize:'cover',
-        objectFit:'contain',
+        backgroundRepeat:'no-repeat',
         width:'100%',
         position:'fixed',
         margin:'0px',
@@ -31,7 +31,7 @@ function Login() {
     >
     
       <Paper
-        sx={{ display: "flex", placeItems: "center", backgroundColor: "withe" , padding:'20px', flexDirection:'column'}}
+        sx={{ display: "flex", placeItems: "center", backgroundColor: "withe" , padding:'20px', flexDirection:'column', width:'300px'}}
         elevation={4}
       >
         <h3>Inicio de sesion</h3>

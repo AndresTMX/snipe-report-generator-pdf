@@ -70,3 +70,12 @@
   padding: 4px;
   border-radius: 100%;
 }
+
+.navLink{
+  display: flex;
+  border-radius: 4px;
+  text-decoration: none;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 1rem;
+}
