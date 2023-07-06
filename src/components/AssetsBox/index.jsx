@@ -51,17 +51,12 @@ function AssetsBox({
   const { addItem, deleteItem } = actions;
 
   const { countAssets } = states;
-
   const count = countAssets.toString()
-
   const { modal3, setModal3 } = UseModal();
-
-  const dataRender = dataAssets || [];
-
   const { initialStore, StatesModals } = state;
-
   const { storage } = initialStore;
 
+  const dataRender = dataAssets || [];
   const AssetsList = storage?.assets
     ? storage?.assets.map((asset) => asset.asset_tag)
     : [];

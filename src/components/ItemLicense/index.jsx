@@ -3,6 +3,8 @@ import '../../index.css';
 import {Box, IconButton, Container, ButtonGroup, Button, Paper } from '@mui/material';
 
 function ItemLicense({license,manufacturer,category,expiration,notes}) {
+
+    const dateExpiration = expiration? expiration.date:'Fecha de expriración no registrada';
     
     return ( 
         <>
@@ -19,7 +21,7 @@ function ItemLicense({license,manufacturer,category,expiration,notes}) {
             </Box>
 
             <Box>
-                <h4 className='h4'>{expiration? expiration.toString(): 'Fecha de expriración no registrada'}</h4>
+                <h4 className='h4'>{dateExpiration}</h4>
             </Box>
 
         </Paper>

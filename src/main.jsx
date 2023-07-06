@@ -11,18 +11,18 @@ import {PageHome} from '../src/pages/home/';
 
 const router = createBrowserRouter([
   {
-    path: "/login",
-    element: <Login />,
-  },
-  {
     path: "/",
     element: (
-      <DataProvider> 
+      <DataProvider>
         <Banner />
         <Navigator />
         <PageHome />
       </DataProvider>
     ),
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 

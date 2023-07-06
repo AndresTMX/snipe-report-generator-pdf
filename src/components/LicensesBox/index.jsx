@@ -32,6 +32,7 @@ function LicensesBox({idUser, licencesNum , closeBox}) {
     return (
       <>
         <Container sx={{width:'auto'}}>
+          
           {loading && licencesNum > 0 && (
             <Paper elevation={2} sx={{backgroundColor:'white', padding:'10px'}}>
               <ThreeDots />

@@ -1,4 +1,4 @@
-import '../../index.css'
+import "../../index.css";
 //Hooks
 import { useItems } from "../../Hooks/useItems";
 //ActionTypes
@@ -6,9 +6,16 @@ import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
 import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
 //Components
 import { Notification } from "../../modals/notification";
-import {ThreeDots} from "../Loading/";
+import { ThreeDots } from "../Loading/";
 //Material UI
-import {Box, IconButton, Container, ButtonGroup, Button, Paper } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  Container,
+  ButtonGroup,
+  Button,
+  Paper,
+} from "@mui/material";
 import {
   Table,
   TableBody,
@@ -18,9 +25,9 @@ import {
   TableRow,
 } from "@mui/material";
 //Icons
-import {IoIosCloseCircle} from 'react-icons/io';
-import { FaTrashAlt } from 'react-icons/fa';
-import { MdAdd } from 'react-icons/md';
+import { IoIosCloseCircle } from "react-icons/io";
+import { FaTrashAlt } from "react-icons/fa";
+import { MdAdd } from "react-icons/md";
 
 function AccessoriesBox({
   modal,
@@ -44,39 +51,33 @@ function AccessoriesBox({
     email,
     department,
   });
-
   const { addAccessories, deleteAccessories } = actions;
-
   const { countAccessories } = states;
-
   const count = countAccessories.toString();
-
   const { initialStore, StatesModals } = state;
-
-  const dataRender = dataAccessories || [];
-  
-  const newDataRender =  dataRender.map((accessorie, index)=> {
-    return {...accessorie, index}
-  })
-
   const { storage } = initialStore;
-
-  const AccessoriesList = storage ? storage?.accessories.map((accessorie) => accessorie.index) : [];
+  const dataRender = dataAccessories || [];
+  const newDataRender = dataRender
+    ? dataRender.map((accessorie, index) => {
+        return { ...accessorie, index };
+      })
+    : [];
+  const AccessoriesList = storage?.accessories? storage.accessories.map((accessorie) => accessorie.index):[];
 
   const date = new Date(); // fecha actual
   const year = date.getFullYear();
-  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // agregar ceros a la izquierda si el mes es menor a 10
-  const day = date.getDate().toString().padStart(2, '0'); // agregar ceros a la izquierda si el día es menor a 10
+  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // agregar ceros a la izquierda si el mes es menor a 10
+  const day = date.getDate().toString().padStart(2, "0"); // agregar ceros a la izquierda si el día es menor a 10
   const formattedDate = `${year}-${month}-${day}`; // formato YYYY-MM-DD
 
   const AddAccessorie = (item, index) => {
-
     const stateVerification = JSON.parse(localStorage.getItem(idUser));
 
     const preState = stateVerification ? stateVerification : false;
 
-    const repeat = preState.accessories? 
-    preState.accessories.find((accessorie) => accessorie.index === index):false;
+    const repeat = preState.accessories
+      ? preState.accessories.find((accessorie) => accessorie.index === index)
+      : false;
 
     if (repeat) {
       dispatch({
@@ -86,66 +87,86 @@ function AccessoriesBox({
     } else {
       const newItem = {
         ...item,
-        index
-      }
+        index,
+      };
       addAccessories(newItem);
     }
   };
 
   const DeleteAccessorie = (index) => {
+    const repeat = storage.accessories.find(
+      (accessorie) => accessorie.index === index
+    );
 
-    const repeat = storage.accessories.find((accessorie) => accessorie.index === index);
-    let newState
-
-    if(!repeat){
+    if (!repeat) {
       dispatch({
         type: actionTypesModals.setModalNotification,
         payload: "Aun no agregas este accesorio",
       });
-    }else{
-      deleteAccessories(index)
-    }
-
-  }
-
-  const CloseModal = () => {
-    if(storage){
-      dispatch({ type: actionTypesDoc.updateStorage, payload: storage }); 
-      setModal(!modal);
-    }else{
-      setModal(!modal);
-      const newData = JSON.parse(localStorage.getItem(idUser));
-      dispatch({ type: actionTypesDoc.updateStorage, payload: {...newData, user, company, location, manager, email, department }}); 
+    } else {
+      deleteAccessories(index);
     }
   };
 
+  const CloseModal = () => {
+    if (storage) {
+      dispatch({ type: actionTypesDoc.updateStorage, payload: storage });
+      setModal(!modal);
+    } else {
+      setModal(!modal);
+      const newData = JSON.parse(localStorage.getItem(idUser));
+      dispatch({
+        type: actionTypesDoc.updateStorage,
+        payload: {
+          ...newData,
+          user,
+          company,
+          location,
+          manager,
+          email,
+          department,
+        },
+      });
+    }
+  };
 
   const GenerateDocument = (typeDocument) => {
-
-    if(!storage?.typeDocument){
-      dispatch({ type:actionTypesModals.setModalNotification, payload:'Selecciona el tipo de documento que deseas generar'})
-    }
-    
-    if(storage?.assets.length == 0){
-      dispatch({ type:actionTypesModals.setModalNotification, payload:'Agrega activos para generar un documento'})
+    if (!storage?.typeDocument) {
+      dispatch({
+        type: actionTypesModals.setModalNotification,
+        payload: "Selecciona el tipo de documento que deseas generar",
+      });
     }
 
-    if(storage.typeDocument && storage.assets.length>0){
-        const document = {
-            ...storage,
-            typeDocument: storage.typeDocument,
-            dateDay: storage.dateDay ? storage.dateDay : formattedDate,
-            manager: storage?.manager,
-            complete: true
-        };
-      
-        dispatch({ type: actionTypesDoc.updateStorage, payload: document });
+    if (storage?.assets.length == 0) {
+      dispatch({
+        type: actionTypesModals.setModalNotification,
+        payload: "Agrega activos para generar un documento",
+      });
     }
-};
+
+    if (storage.typeDocument && storage.assets.length > 0) {
+      const document = {
+        ...storage,
+        typeDocument: storage.typeDocument,
+        dateDay: storage.dateDay ? storage.dateDay : formattedDate,
+        manager: storage?.manager,
+        complete: true,
+      };
+
+      dispatch({ type: actionTypesDoc.updateStorage, payload: document });
+    }
+  };
 
   return (
     <>
-      <Container sx={{display:'flex', flexDirection:'column', backgroundColor:'white'}}>
+      <Container
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          backgroundColor: "white",
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -179,7 +200,7 @@ function AccessoriesBox({
             marginBottom: "10px",
           }}
         >
-          <h2 className="h2">Lista de activos</h2>
+          <h2 className="h2">Lista de accesorios</h2>
           <span className="span">Accesorios agregados: {count}</span>
         </Box>
 
@@ -230,100 +251,135 @@ function AccessoriesBox({
             </Button>
           </Box>
 
-          <Container sx={{ display: 'flex', flexDirection: 'column', height: 'auto', width:'100%'}}>
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>ID</TableCell>
-                  <TableCell>ACCESORIO</TableCell>
-                  <TableCell>MARCA</TableCell>
-                  <TableCell>ACCION</TableCell>
-                </TableRow>
+          <Container
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              height: "auto",
+              width: "100%",
+              margin:'auto',
+              justifyContent:'center',
+              alignItems:'center'
+            }}
+          >
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>ID</TableCell>
+                    <TableCell>ACCESORIO</TableCell>
+                    <TableCell>MARCA</TableCell>
+                    <TableCell>ACCION</TableCell>
+                  </TableRow>
                 </TableHead>
 
-                <TableBody>
-                {newDataRender.map((accessorie, index) => (
-                  <TableRow
-                  sx={{ [`&.asset_included`]: { backgroundColor: '#d9d9d9' } }}
-                  className={`asset_${
-                    AccessoriesList.includes(accessorie.index) ? "included" : ""
-                  }`}
-                  key={index}
-                  >
-                    <TableCell>{accessorie.id}</TableCell>
-                    <TableCell>{accessorie.name}</TableCell>
-                    <TableCell>{accessorie.manufacturer?.name}</TableCell>
-                    <TableCell>
-                      <ButtonGroup>
-                       
-                        <IconButton
-                          onClick={() => AddAccessorie(accessorie, index)}
-                          className="button-add"
-                        >
-                          <MdAdd/>
-                        </IconButton>
+                {numAccessories > 0 && (
+                  <TableBody>
+                    {newDataRender.map((accessorie, index) => (
+                      <TableRow
+                        sx={{
+                          [`&.asset_included`]: { backgroundColor: "#d9d9d9" },
+                        }}
+                        className={`asset_${
+                          AccessoriesList.includes(accessorie.index)
+                            ? "included"
+                            : ""
+                        }`}
+                        key={index}
+                      >
+                        <TableCell>{accessorie.id}</TableCell>
+                        <TableCell>{accessorie.name}</TableCell>
+                        <TableCell>{accessorie.manufacturer?.name}</TableCell>
+                        <TableCell>
+                          <ButtonGroup>
+                            <IconButton
+                              onClick={() => AddAccessorie(accessorie, index)}
+                              className="button-add"
+                            >
+                              <MdAdd />
+                            </IconButton>
 
-                        <IconButton
-                        sx={{'&:hover':{
-                          color:'rgb(206, 12, 12)',
-                          transition:'all',
-                          transitionDuration:'0.3s'
-                        }}} 
-                          onClick={() => DeleteAccessorie(index)}
-                          className="button-delete"
-                        >
-                          <FaTrashAlt/>
-                        </IconButton>
-
-                      </ButtonGroup>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                            <IconButton
+                              sx={{
+                                "&:hover": {
+                                  color: "rgb(206, 12, 12)",
+                                  transition: "all",
+                                  transitionDuration: "0.3s",
+                                },
+                              }}
+                              onClick={() => DeleteAccessorie(index)}
+                              className="button-delete"
+                            >
+                              <FaTrashAlt />
+                            </IconButton>
+                          </ButtonGroup>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
-            </Table>
-          </TableContainer>
-          </Container>
-        </Container>
-      </Container>
+                )}
+              </Table>
+            </TableContainer>
 
-      {numAccessories === 0 && (
-        <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center', alingItems:'center', height:'200px'}}>
-        <h2 className='h2'>Sin activos registrados</h2>
-      </Box>
-      )}
-
-      {!loadingAccessorie && numAccessories >  0 && (
-        <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center', alingItems:'center', height:'200px'}}>
-        <ThreeDots />
-         </Box>
-      )}
-
-      {StatesModals.modalNotification && (
-        <Notification>
-          <Paper  
-          elevation={2}
+            {numAccessories === 0 && (
+              <Box
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",
-                  padding: "25px",
                   justifyContent: "center",
-                }}>
-            <span className='span'>{StatesModals.modalNotification}</span>
-            <Button
-              onClick={() =>
-                dispatch({
-                  type: actionTypesModals.setModalNotification,
-                  payload: false,
-                })
-              }
-            >
-              Ok
-            </Button>
-          </Paper>
-        </Notification>
-      )}
+                  alingItems: "center",
+                  height: "200px",
+                  width: "100%",
+                  textAlign:'center',
+                }}
+              >
+                <h2 className="h2">Sin accesorios registrados</h2>
+              </Box>
+            )}
+
+            {!loadingAccessorie && numAccessories > 0 && (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alingItems: "center",
+                  height: "200px",
+                }}
+              >
+                <ThreeDots />
+              </Box>
+            )}
+
+            {StatesModals.modalNotification && (
+              <Notification>
+                <Paper
+                  elevation={2}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    padding: "25px",
+                    justifyContent: "center",
+                  }}
+                >
+                  <span className="span">{StatesModals.modalNotification}</span>
+                  <Button
+                    onClick={() =>
+                      dispatch({
+                        type: actionTypesModals.setModalNotification,
+                        payload: false,
+                      })
+                    }
+                  >
+                    Ok
+                  </Button>
+                </Paper>
+              </Notification>
+            )}
+          </Container>
+        </Container>
+      </Container>
     </>
   );
 }
