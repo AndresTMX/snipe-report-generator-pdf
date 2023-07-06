@@ -1,15 +1,15 @@
 import { Container, Box, Paper, FormControl, InputLabel, Input, Button, Link } from "@mui/material";
+import { useAuth } from "../../Context/AuthContext.jsx";
 import { useState } from "react";
+
 function Login() {
+  const auth = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes realizar la lógica de autenticación, como enviar los datos al servidor, validar las credenciales, etc.
-    // Puedes utilizar librerías adicionales o hacer llamadas a la API según tus necesidades.
-    console.log('Email:', email);
-    console.log('Password:', password);
+    auth.login(email, password);
   };
   return (
     <Container
@@ -31,11 +31,11 @@ function Login() {
     >
     
       <Paper
-        sx={{ display: "flex", placeItems: "center", backgroundColor: "withe" , padding:'20px', flexDirection:'column', width:'300px'}}
+        sx={{ display: "flex", placeItems: "center", backgroundColor: "withe" , padding:'20px', flexDirection:'column', width:'400px'}}
         elevation={4}
       >
         <h3>Inicio de sesion</h3>
-        <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', padding:'10px', gap:'20px'}}>
+        <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', padding:'10px', gap:'20px', width:'100%'}}>
           <FormControl>
             <InputLabel htmlFor="email">Email</InputLabel>
             <Input
