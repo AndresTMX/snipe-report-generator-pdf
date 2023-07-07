@@ -74,7 +74,7 @@ function PageHome() {
             flexDirection: "column",
             width: "100%",
             height: "auto",
-            maxHeight: "90vh",
+            maxHeight: "75vh",
             gap: "20px",
           }}
         >

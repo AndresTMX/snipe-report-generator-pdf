@@ -11,7 +11,7 @@ import { PageHome } from "../src/pages/home/";
 import { ErrorPage } from "./pages/ErrorPage";
 import { UI } from "./pages/UI";
 //autenticator
-import { AuthProvider } from "./Context/AuthContext.jsx";
+import { AuthProvider, AuthProtect } from "./Context/AuthContext.jsx";
 
 function App() {
   return (
@@ -25,13 +25,24 @@ function App() {
               <Route
                 path="/Reporteador"
                 element={
-                  <UI>
-                    <PageHome />
-                  </UI>
+                  <AuthProtect>
+                    <UI>
+                      <PageHome />
+                    </UI>
+                  </AuthProtect>
                 }
               />
 
-              <Route path="/Mantenimientos" element={<PageHome />} />
+              <Route
+                path="/Mantenimientos"
+                element={
+                  <AuthProtect>
+                    <UI>
+                      <PageHome />
+                    </UI>
+                  </AuthProtect>
+                }
+              />
 
               <Route path="*" element={<ErrorPage />} />
             </Routes>

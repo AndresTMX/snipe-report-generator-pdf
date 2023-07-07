@@ -18,8 +18,11 @@ import {
   Tooltip,
   IconButton,
 } from "@mui/material";
+//Auth
+import { useAuth } from "../../Context/AuthContext";
 
 function Navigator() {
+  const auth = useAuth();
   const [state, dispatch] = useContext(DocContext);
   const { initialStore, StatesModals } = state;
   const { storage } = initialStore ? initialStore : {};
@@ -27,7 +30,7 @@ function Navigator() {
   const handleCloseUserMenu = () => {
     setConfig(!config);
   };
-  const settings = ["Profile", "Account", "Logout"];
+  const settings = [{name:'Logout', function:auth.logOut}];
   const routes = [
     {
       to: "/Reporteador",
@@ -104,8 +107,8 @@ function Navigator() {
           onClose={handleCloseUserMenu}
         >
           {settings.map((setting) => (
-            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">{setting}</Typography>
+            <MenuItem key={setting.name} onClick={setting.function}>
+              <Typography textAlign="center">{setting.name}</Typography>
             </MenuItem>
           ))}
         </Menu>

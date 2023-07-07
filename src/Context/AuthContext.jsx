@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from "firebase/auth";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAppFirebase } from "../Firebase/useAppFirebase";
 
@@ -8,28 +8,50 @@ const AuthContext = createContext();
 function AuthProvider({children}) {
     const firebaseOn = useAppFirebase();
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
-    const login = ({email, password}) => {
+    const login = ({ email, password }) => {
+        return new Promise((resolve, reject) => {
+          const auth = getAuth();
+          signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              const user = userCredential.user;
+              setUser(user);
+              navigate('/Reporteador');
+              resolve(user);
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        });
+      };      
 
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, email, password)
-         .then((userCredential) => {
-             
-             const user = userCredential.user;
-             setUser(user);
-             Navigate('/Reporteador');
+    const logOut = () => {
+      const auth = getAuth();
+      signOut(auth)
+        .then(() => {
+          setUser(null);
+          navigate('/');
+        })
+        .catch((error) => {
+          return error
+        });
+      };
 
-       })
-           .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            alert(errorCode);
-            alert(errorMessage);
-       });
-
-     }
+    const resetPass = ({email}) => {
+        return new Promise((resolve, reject) => {
+            const auth = getAuth();
+            sendPasswordResetEmail(auth, email)
+            .then(() => {
+                resolve(email)
+            })
+            .catch((error) => {
+                reject(error)
+            })
+        })
+    }
      
-    const auth = {user, login}
+    const auth = {user, login, logOut, resetPass}
 
     return ( 
         <AuthContext.Provider value={auth}>
@@ -43,5 +65,15 @@ function useAuth () {
     return auth;
 }
 
+function AuthProtect(props) {
+    const auth = useAuth();
 
-export {AuthProvider, useAuth};
+    if(!auth.user){
+        return <Navigate to="/"/>
+    }
+
+    return props.children;
+}
+
+
+export {AuthProvider, useAuth, AuthProtect};
