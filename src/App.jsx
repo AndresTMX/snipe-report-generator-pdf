@@ -8,6 +8,7 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import { DataProvider } from "./Context/DocContext";
 import { Login } from "../src/pages/Login";
 import { PageHome } from "../src/pages/home/";
+import { PageMaintenances } from "./pages/PageMaintenances";
 import { ErrorPage } from "./pages/ErrorPage";
 import { UI } from "./pages/UI";
 //autenticator
@@ -38,7 +39,7 @@ function App() {
                 element={
                   <AuthProtect>
                     <UI>
-                      <PageHome />
+                      <PageMaintenances/>
                     </UI>
                   </AuthProtect>
                 }
