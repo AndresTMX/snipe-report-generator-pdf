@@ -7,7 +7,7 @@ function Banner() {
 
     return ( 
         <Container
-        maxWidth
+        maxWidth='xxl'
         sx={{
             display:'flex',
             alignItems:'center',
@@ -29,7 +29,7 @@ function Banner() {
         }}
         >
 
-            <Container maxWidth="xl" sx={{display:'flex', flexDirection:'row', justifyContent:'space-between', width:'90%' , margin:'auto'}}>
+            <Container maxWidth='xxl' sx={{display:'flex', flexDirection:'row', justifyContent:'space-between', width:'90%' , margin:'auto'}}>
 
                 <Box sx={{display:'flex', height:'60px', margin:'0px', width:'60px' , backgroundImage:`url(${logo})`, backgroundPosition:'center', backgroundSize:'cover', objectFit:'contain',}}/>
 

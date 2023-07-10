@@ -23,8 +23,8 @@ function Login() {
   const { StatesModals } = state ? state : {};
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [view, setView] = useState(false);
-  const icon = view ? <AiFillEye /> : <AiFillEyeInvisible />;
+  const [view, setView] = useState(true);
+  const icon = view ? <AiFillEyeInvisible /> : <AiFillEye />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,7 +65,7 @@ function Login() {
 
   return (
     <Container
-      maxWidth
+      maxWidth='xxl'
       sx={{
         display: "flex",
         flexDirection: "column",

@@ -3,18 +3,15 @@ import { useState } from "react";
 import { useGetUsers } from "../../Hooks/useGetUsers";
 import { usePagination } from "../../Hooks/usePagination";
 //Material ui
-import {
-  Container,
-  TabContext,
-  Box,
-  TabList,
-  Tab,
-  TabPanel,
-} from "@mui/material";
+import {Container, Box} from "@mui/material";
+import { Tab } from '@mui/material';
+import { TabContext } from '@mui/lab';
+import { TabList } from '@mui/lab';
+import { TabPanel } from '@mui/lab';
 
 function PageMaintenances() {
-  const { dataUsers, loading, error } = useGetUsers();
-  const { searchResults, pageRender, actionsPages, filterActions, filter } = usePagination(dataUsers, search, dispatch);
+  // const { dataUsers, loading, error } = useGetUsers();
+  // const { searchResults, pageRender, actionsPages, filterActions, filter } = usePagination(dataUsers, search, dispatch);
 
   const [tabValue, setTabValue] = useState('1');
 

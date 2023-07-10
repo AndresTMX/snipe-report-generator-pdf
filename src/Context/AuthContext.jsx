@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { getAuth, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from "firebase/auth";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAppFirebase } from "../Firebase/useAppFirebase";
@@ -7,8 +7,29 @@ const AuthContext = createContext();
 
 function AuthProvider({children}) {
     const firebaseOn = useAppFirebase();
-    const [user, setUser] = useState(null);
     const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+
+      const newAuth = getAuth()
+      const unsubscribe = newAuth.onAuthStateChanged((currentUser) => {
+        if (currentUser) {
+          sessionStorage.setItem(currentUser.uid, JSON.stringify(currentUser));
+          setUser(currentUser);
+          console.log('agrega sesion')
+        } else {
+          sessionStorage.removeItem(user.uid);
+          setUser(null);
+          console.log('elimina sesion')
+        } 
+        
+      });
+  
+      return () => {
+        unsubscribe();
+      };
+    }, [user]);
 
     const login = ({ email, password }) => {
         return new Promise((resolve, reject) => {
@@ -51,7 +72,7 @@ function AuthProvider({children}) {
         })
     }
      
-    const auth = {user, login, logOut, resetPass}
+    const auth = {user, login, logOut, resetPass, setUser}
 
     return ( 
         <AuthContext.Provider value={auth}>
@@ -66,13 +87,13 @@ function useAuth () {
 }
 
 function AuthProtect(props) {
-    const auth = useAuth();
+  const auth = useAuth();
 
-    if(!auth.user){
-        return <Navigate to="/"/>
-    }
+  if (!auth.user) {
+    return <Navigate to="/" />;
+  }
 
-    return props.children;
+  return props.children;
 }
 
 
