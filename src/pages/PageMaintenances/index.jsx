@@ -33,14 +33,16 @@ function PageMaintenances() {
       <TabContext value={tabValue}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleTab} aria-label="lab API tabs example">
-            <Tab label="Item One" value="1" />
-            <Tab label="Item Two" value="2" />
-            <Tab label="Item Three" value="3" />
+            <Tab label="Ver Mantenimientos" value="1" />
+            <Tab label="Crear Mantenimientos" value="2" />
           </TabList>
         </Box>
-        <TabPanel value="1">Item One</TabPanel>
-        <TabPanel value="2">Item Two</TabPanel>
-        <TabPanel value="3">Item Three</TabPanel>
+        <TabPanel value="1">
+          <Container>
+            
+          </Container>
+        </TabPanel>
+        <TabPanel value="2">Subir</TabPanel>
       </TabContext>
 
     </Container>

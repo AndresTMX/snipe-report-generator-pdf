@@ -121,6 +121,7 @@ function Login() {
               type={view ? "password" : "text"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="off"
             />
             <IconButton
               onClick={handleViewPass}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 //helpers
-import filterSearch from '../Helpers/filterSearch';
+import {filterSearch} from '../Helpers/filterSearch';
 import {filterUsersActives, filterUsersCompany, filterUsersLocation, filterUsersDepartment} from "../Helpers/filterUsers";
 //notification modal
 import {actionTypes as actionTypesModals} from '../Context/StatesModalsReducer';
@@ -8,7 +8,7 @@ import {actionTypes as actionTypesModals} from '../Context/StatesModalsReducer';
 import {useFilterUsers} from '../Hooks/useFilterUsers';  
 //este Hook recibe un array de usuarios y los pagina, 
 //devulve la pagina en la que estas
-function usePagination(users, search, dispatch) {
+function usePagination(loading, users, search, dispatch) {
 
     const [pageRender, setPageRender] = useState([]);
     const [searchResults, setSearchResults] = useState(0);
