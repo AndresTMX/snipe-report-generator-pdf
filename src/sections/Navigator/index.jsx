@@ -28,7 +28,7 @@ function Navigator() {
   const { storage } = initialStore ? initialStore : {};
   const [config, setConfig] = useState(false);
   const handleCloseUserMenu = () => {
-    setConfig(!config);
+    setConfig((prevConfig) => !prevConfig);
   };
   const settings = [{name:'Logout', function:auth.logOut}];
   const routes = [
@@ -84,7 +84,7 @@ function Navigator() {
       >
         <Tooltip
           title="Open settings"
-          sx={{ display: "flex", height: "100%", alignitems: "center" }}
+          sx={{ display: "flex", height: "100%", alignItems: "center" }}
         >
           <IconButton onClick={handleCloseUserMenu}>
             <FaUserCog />
@@ -93,7 +93,6 @@ function Navigator() {
         <Menu
           sx={{ mt: "110px" }}
           id="menu-appbar"
-          anchorEl={config}
           anchorOrigin={{
             vertical: "top",
             horizontal: "right",

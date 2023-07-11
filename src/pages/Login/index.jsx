@@ -1,3 +1,4 @@
+import "../../index.css";
 import {
   Container,
   Box,
@@ -14,7 +15,6 @@ import { useAuth } from "../../Context/AuthContext.jsx";
 import { DocContext } from "../../Context/DocContext.jsx";
 import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer.js";
 import { useState, useContext } from "react";
-import "../../index.css";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 function Login() {
@@ -35,6 +35,7 @@ function Login() {
         type: actionTypesModals.setModalNotification,
         payload: "correo o contraseña incorrectos",
       });
+      console.log(error)
     }
   };
 
