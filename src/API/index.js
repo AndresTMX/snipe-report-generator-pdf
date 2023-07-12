@@ -76,6 +76,20 @@ export const getMaintancesAsset = async (assetId) => {
     }
 };
 
+export const getAllMaintances = async (offset,limit) => {
+    try {
+        const response = await axios.get(`${baseURL}maintenances?limit=${limit}&offset=${offset}&sort=created_at`, {
+            headers: {
+                accept: 'application/json',
+                Authorization: Authorization,
+            }
+        });
+        return response.data.rows;
+    } catch (error) {
+        throw new Error('Error al obtener la lista de mantenimientos');
+    }
+};
+
 export const getComponentsWhitComputerSerial = async (serial) => {
     try {
         const res = await axios.get(`${baseURL}components?search=${serial}`, {

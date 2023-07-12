@@ -1,22 +1,21 @@
 import { useState } from "react";
-//hooks
-import { useGetUsers } from "../../Hooks/useGetUsers";
-import { usePagination } from "../../Hooks/usePagination";
 //Material ui
-import {Container, Box} from "@mui/material";
-import { Tab } from '@mui/material';
-import { TabContext } from '@mui/lab';
-import { TabList } from '@mui/lab';
-import { TabPanel } from '@mui/lab';
+import {Container, Box, IconButton, Button,} from "@mui/material";
+//components
+import { CardViewMaintance } from "../../components/CardViewMaintance";
+import { UserCardMaintenances } from "../../components/UserCardMaintenances";
+//hooks
+import { useGetAllMaintances } from "../../Hooks/useGettAllMaintances";
+import { useGetUsers } from "../../Hooks/useGetUsers";
 
 function PageMaintenances() {
-  // const { dataUsers, loading, error } = useGetUsers();
   // const { searchResults, pageRender, actionsPages, filterActions, filter } = usePagination(dataUsers, search, dispatch);
+  const {pageMaintances, loadingMaintances, errorMaintances} = useGetAllMaintances(0,10);
+  const { dataUsers, loading, error } = useGetUsers();
+  const [section, setSection] = useState(false);
 
-  const [tabValue, setTabValue] = useState('1');
-
-  const handleTab = (e, newValue) => {
-    setTabValue(newValue);
+  const handleSection = () => {
+    setSection(!section)
   }
 
   return (
@@ -28,23 +27,41 @@ function PageMaintenances() {
         paddingTop: "140px",
         width: "100%",
         height: "100vh",
-      }}
-    >
-      <TabContext value={tabValue}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleTab} aria-label="lab API tabs example">
-            <Tab label="Ver Mantenimientos" value="1" />
-            <Tab label="Crear Mantenimientos" value="2" />
-          </TabList>
-        </Box>
-        <TabPanel value="1">
-          <Container>
-            
-          </Container>
-        </TabPanel>
-        <TabPanel value="2">Subir</TabPanel>
-      </TabContext>
+      }}>
 
+      <Button onClick={handleSection} >Cambiar de seccion</Button>
+
+      {section && (
+        <Container>
+          {!loadingMaintances &&
+            pageMaintances &&
+            pageMaintances.map((maintance) => (
+              <CardViewMaintance
+                key={maintance.id}
+                idAsset={maintance.asset.id}
+                asset={maintance.asset.name}
+                tag={maintance.asset.asset_tag}
+                model={maintance.model.name}
+                title={maintance.title}
+                location={maintance.location.name}
+                notes={maintance.notes}
+                provider={maintance.supplier.name}
+                cost={maintance.cost}
+                type={maintance.asset_maintenance_type}
+                init={maintance.start_date.date}
+                end={maintance.completion_date.date}
+              />
+            ))}
+        </Container>
+      )}
+
+      {!section && (
+        <Container>
+          {!loading && dataUsers && dataUsers.map((user) => (
+              <UserCardMaintenances key={user.id} username={user.name} />
+            ))}
+        </Container>
+      )}
     </Container>
   );
 }
