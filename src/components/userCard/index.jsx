@@ -151,7 +151,7 @@ function UserCard({
                title='Ver Activos'
               onClick={() => ButtongetActives()}>
                  <AiOutlineDesktop/>
-                 <span className="textIcon">{assets.toString()}</span>
+                 <span className="textIcon">{assets}</span>
               </IconButton>
 
               <IconButton 
@@ -159,7 +159,7 @@ function UserCard({
               title='Ver Accesorios'
               onClick={()=> ButtongetAccesories()}>
                <BsHeadset/>
-               <span className="textIcon">{accesories.toString()}</span>
+               <span className="textIcon">{accesories}</span>
               </IconButton>
 
               <IconButton 
@@ -168,7 +168,7 @@ function UserCard({
               onClick={() => ButtongetMoreInfoUser()}
               >
                <ImKey/>
-               <span className="textIcon">{licences.toString()}</span>
+               <span className="textIcon">{licences}</span>
               </IconButton>
 
               <ExpandMore

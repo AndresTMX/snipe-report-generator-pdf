@@ -131,12 +131,11 @@ function PageHome() {
                 </Box>
               )}
 
-              {!loading && error && (
+              {!loading && !pageRender.length && (
                 <NotResultUsers error={error} pageRender={pageRender} />
               )}
 
-              {!loading &&
-                pageRender.map((user) => (
+              {!loading && pageRender && pageRender.map((user) => (
                   <UserCard
                     key={user.id}
                     id={user.id}

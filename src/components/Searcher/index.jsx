@@ -9,7 +9,7 @@ function InputSearch({state, setState, resultSearch}) {
 
     
     const onSearchValueChangue = (event) => {
-        setState(event.target.value.toLowerCase())
+        setState(event.target.value.toLowerCase());
       };
 
     return ( 

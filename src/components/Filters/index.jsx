@@ -46,8 +46,6 @@ import {
   recursosH,
 } from "../../Helpers/symbols";
 
-
-
 function Filters({actionsPages, filterActions, filter}) {
   const {nextPage, prevPage} = actionsPages;
   const { setActives, setCompany, setLocation, setDepartment, clearFilters} = filterActions;

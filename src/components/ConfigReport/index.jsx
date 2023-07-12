@@ -10,7 +10,7 @@ import {AiOutlineSetting} from 'react-icons/ai';
 import { ButtonPDF } from "../ButonPDF";
 
 
-function ConfigReport({state, dispatch, search, setSearch, searchResults}) {
+function ConfigReport({state, dispatch, search, setSearch, searchResult}) {
 
     const { initialStore, StatesModals } = state;    
     const { storage } = initialStore? initialStore: {};
@@ -77,7 +77,7 @@ function ConfigReport({state, dispatch, search, setSearch, searchResults}) {
           <InputSearch
             state={search}
             setState={setSearch}
-            resultSearch={searchResults}
+            resultSearch={searchResult}
           />
 
           <DocStoreCardInfoUser state={state} dispatch={dispatch} />
