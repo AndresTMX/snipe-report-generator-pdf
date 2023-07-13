@@ -50,6 +50,7 @@ function Navigator() {
         top: "80px",
         height: "50px",
         alignItems: "center",
+        zIndex:'1'
       }}
     >
       <Container

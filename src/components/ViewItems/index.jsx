@@ -10,7 +10,7 @@ function ViewItems({ children }) {
         width: "fit-content",
         padding: "10px",
         borderRadius:'4px',
-        maxWidth:'90%'
+        maxWidth:'90%',
       }}
     >
       {children}

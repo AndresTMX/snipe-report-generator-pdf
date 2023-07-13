@@ -12,7 +12,6 @@ function useGetUsersSystems() {
         //obteniendo info de los usuarios del departamento de sistemas
         const fetchData = async () => {
             try {
-                await new Promise(resolve => setTimeout(resolve, 1000));
                 const usersSystems = await getUsersSystemsDepartment();
                 setDataUserSystems(usersSystems);
                 const data = await getManagerSystem();

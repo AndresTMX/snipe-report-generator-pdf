@@ -254,9 +254,8 @@ function UserCard({
 
       {modal3 && (
         <Modal>
-          <ViewItems>
+          
             <LicensesBox idUser={id} licencesNum={licences} closeBox={ButtongetMoreInfoUser} />
-          </ViewItems>
         </Modal>
       )}
     </>
