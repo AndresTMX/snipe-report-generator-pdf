@@ -12,7 +12,6 @@ function useGetAssetsUser(idUser) {
       //obteninedo activos del usuario
       const fetchAssetsUser = async () => {
         try {
-          await new Promise(resolve => setTimeout(resolve, 1000));
           const result = await getAssetsUser(idUser);
           setDataAssets(result);
           setLoading(true);
@@ -25,6 +24,6 @@ function useGetAssetsUser(idUser) {
     }
   }, [get, idUser]);
 
-  return { dataAssets, idUser, loading, get, SetGet };
+  return { dataAssets, idUser, loading, get, SetGet , error};
 }
 export { useGetAssetsUser };

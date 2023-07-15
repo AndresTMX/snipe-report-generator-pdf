@@ -11,12 +11,15 @@ import { ScrollContainer } from "../../Containers/ScrollContainer";
 //hooks 
 import { useGetAllMaintances } from "../../Hooks/useGettAllMaintances";
 import { useGetUsers } from "../../Hooks/useGetUsers";
+//helpers
+import { filterUsersActives } from "../../Helpers/filterUsers";
 
 function PageMaintenances() {
   // const { searchResults, pageRender, actionsPages, filterActions, filter } = usePagination(dataUsers, search, dispatch);
   
-  const {pageMaintances, loadingMaintances, errorMaintances} = useGetAllMaintances(0,10);
+  // const {pageMaintances, loadingMaintances, errorMaintances} = useGetAllMaintances(0,10);
   const { dataUsers, loading, error } = useGetUsers();
+  const dataUsersSlice = dataUsers? filterUsersActives(dataUsers).slice(0,10): [];
   const [section, setSection] = useState(0);
 
   const handleSection = (e, newValue) => {
@@ -49,24 +52,11 @@ function PageMaintenances() {
 
         <CustomTabPanel value={section} index={0}>
           <ScrollContainer>
-            {!loadingMaintances &&
-              pageMaintances &&
-              pageMaintances.map((maintance) => (
-                <CardViewMaintance
-                  key={maintance.id}
-                  idAsset={maintance.asset.id}
-                  asset={maintance.asset.name}
-                  tag={maintance.asset.asset_tag}
-                  model={maintance.model.name}
-                  title={maintance.title}
-                  location={maintance.location.name}
-                  notes={maintance.notes}
-                  provider={maintance.supplier.name}
-                  cost={maintance.cost}
-                  type={maintance.asset_maintenance_type}
-                  init={maintance.start_date.date}
-                  end={maintance.completion_date.date}
-                />
+            {!loading &&
+              dataUsers &&
+              dataUsersSlice &&
+              dataUsersSlice.map((user) => (
+                <CardViewMaintance key={user.id} IdUser={user.id} user={user.name} location={user.location?.name}/>
               ))}
           </ScrollContainer>
         </CustomTabPanel>
