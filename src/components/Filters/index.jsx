@@ -239,7 +239,7 @@ function Filters({actionsPages, filterActions, filter}) {
               alignItems: "center",
               height: "100%",
             }}>
-            Solo acivos
+            Solo activos
             <Radio
             onClick={()=> setActives()}
             value={filter.actives}

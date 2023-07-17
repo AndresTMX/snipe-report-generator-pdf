@@ -60,7 +60,7 @@ function DocStoreCardCheck({ state, dispatch }) {
   };
 
   return (
-    <FormGroup>
+    <FormGroup sx={{ display: "flex", flexDirection: "column" }}>
       <FormControlLabel
         control={
           <Switch

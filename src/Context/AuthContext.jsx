@@ -24,7 +24,7 @@ function AuthProvider({ children }) {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          navigate("/Reporteador");
+          navigate("/");
           resolve(user);
           initSession();
         })
@@ -38,7 +38,7 @@ function AuthProvider({ children }) {
     const auth = getAuth();
     signOut(auth)
       .then(() => {
-        navigate("/");
+        navigate("/login");
         finalSession();
       })
       .catch((error) => {
@@ -91,7 +91,7 @@ function AuthProtect(props) {
   }
 
   if (!session) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
 
   return props.children;

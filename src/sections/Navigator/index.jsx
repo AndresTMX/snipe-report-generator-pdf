@@ -33,7 +33,7 @@ function Navigator() {
   const settings = [{name:'Logout', function:auth.logOut}];
   const routes = [
     {
-      to: "/Reporteador",
+      to: "/",
       text: "Reporteador",
     },
     {

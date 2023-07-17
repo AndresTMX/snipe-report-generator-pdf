@@ -17,7 +17,6 @@ function CardViewMaintance({IdUser, user, location}) {
 
       <ITemMaintance IdUser={IdUser} />
 
-
     </Paper>
   );
 }

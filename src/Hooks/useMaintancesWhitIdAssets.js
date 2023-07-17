@@ -8,44 +8,52 @@ function useMaintancesWhitIdAssets(IdUser) {
   const [errorMaintance, setError] = useState(false);
   const [listIds, setList] = useState([]);
 
-  const { dataAssets, loading, error, SetGet, get } = useGetAssetsUser(IdUser);
+  const { dataAssets, loading, error, SetGet, get , setError:setErrorGetAssets, setLoading: setLoadingGetAssets } = useGetAssetsUser(IdUser);
 
+  // Este useEffect observa los cambios en dataAssets
   useEffect(() => {
-    SetGet(!get)
-    if (dataAssets) {
-      const AssetsFiltered = dataAssets.filter((asset) => {
-        const category = asset.category.name;
-        const allowedCategories = ['LAPTOP', 'GABINETE', 'MONITOR', 'TECLADO', 'MOUSE'];
-        return allowedCategories.includes(category);
-      });
-  
-      const filteredIds = AssetsFiltered.map((asset) => ({ id: asset.id }));
-      setList(filteredIds);
-    }
-  }, [dataAssets]);
-
-  useEffect(() => {
-    const fetchMaintances = async () => {
+    SetGet(true)
+    if (dataAssets && loading && !error) {
       try {
-        const promises = listIds.map((asset) => getMaintancesAsset(asset.id));
-        const results = await Promise.all(promises);
-        const mergedMaintances = [].concat(...results);
-        setMaintances(mergedMaintances);
-        setLoading(false);
+        const AssetsFiltered = dataAssets.filter((asset) => {
+          const category = asset.category.name;
+          const allowedCategories = ['LAPTOP', 'GABINETE', 'MONITOR', 'TECLADO', 'MOUSE'];
+          return allowedCategories.includes(category);
+        });
+
+        const filteredIds = AssetsFiltered.map((asset) => ({ id: asset.id }));
+        setList(filteredIds);
       } catch (error) {
-        setLoading(false);
-        setError(error);
+        setLoadingGetAssets(true)
+        setErrorGetAssets(error);
+        console.log(error)
       }
-    };
-
-    if (listIds.length > 0) {
-      fetchMaintances();
-    } else {
-      setLoading(false);
     }
-  }, [listIds]);
+  }, [dataAssets, loading, error]); // Dependencias de este useEffect
 
-  return { maintancesForUser, loadingMaitances, errorMaintance, loading };
+  useEffect(() => {
+    async function fetchMaintances() {
+      if (listIds.length > 0) {
+        try {
+          const promises = listIds.map((asset) => getMaintancesAsset(asset.id));
+          const results = await Promise.all(promises);
+          const mergedMaintances = results.flat();
+          setMaintances([...maintancesForUser, ...mergedMaintances]);
+          setLoading(false);
+        } catch (error) {
+          setLoading(false);
+          setError(error);
+        }
+      } else {
+        setLoading(false);
+      }
+    }
+
+    fetchMaintances();
+  }, [listIds]);  
+
+  return { maintancesForUser, loadingMaitances, errorMaintance };
 }
 
 export { useMaintancesWhitIdAssets };
+

@@ -1,10 +1,13 @@
 import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
-import { FormLabel, Select, MenuItem } from "@mui/material";
+import { Select, MenuItem, InputLabel, FormControl } from "@mui/material";
+import { useTitleDocument } from "../../Hooks/useTitleDocument";
 
 function DocStoreCardSelect({state, dispatch}) {
 
     const { initialStore, StatesModals } = state? state: {};
     const { storage } = initialStore? initialStore: {};
+
+    const {title} = useTitleDocument(storage?.typeDocument)
 
 
     const OnChangueOption = (e) => {
@@ -23,8 +26,8 @@ function DocStoreCardSelect({state, dispatch}) {
     }
 
     return (
-      <FormLabel>
-        Tipo de documento
+      <FormControl sx={{ display: "flex", flexDirection: "column" }}>
+        <InputLabel>Tipo de documento</InputLabel>
         <Select
           value={storage? storage.typeDocument:''}
           variant="standard"
@@ -37,7 +40,7 @@ function DocStoreCardSelect({state, dispatch}) {
           <MenuItem value={"VB"}>Baja de equipos</MenuItem>
           <MenuItem value={"CR"}>Carta responsiva</MenuItem>
         </Select>
-      </FormLabel>
+      </FormControl>
     );
 }
 

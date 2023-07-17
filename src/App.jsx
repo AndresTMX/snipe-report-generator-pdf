@@ -21,10 +21,11 @@ function App() {
         <AuthProvider>
           <DataProvider>
             <Routes>
-              <Route path="/" element={<Login />} />
+              
+              <Route path="/login" element={<Login />} />
 
               <Route
-                path="/Reporteador"
+                path="/"
                 element={
                   <AuthProtect>
                     <UI>

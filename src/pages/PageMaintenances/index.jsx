@@ -9,17 +9,16 @@ import { UserCardMaintenances } from "../../components/UserCardMaintenances";
 import { CustomTabPanel } from "../../sections/CustomPanel";
 import { ScrollContainer } from "../../Containers/ScrollContainer";
 //hooks 
-import { useGetAllMaintances } from "../../Hooks/useGettAllMaintances";
 import { useGetUsers } from "../../Hooks/useGetUsers";
 //helpers
 import { filterUsersActives } from "../../Helpers/filterUsers";
+//constructionState
+import { ConstructionState } from "../../sections/Construction";
 
 function PageMaintenances() {
-  // const { searchResults, pageRender, actionsPages, filterActions, filter } = usePagination(dataUsers, search, dispatch);
-  
-  // const {pageMaintances, loadingMaintances, errorMaintances} = useGetAllMaintances(0,10);
-  const { dataUsers, loading, error } = useGetUsers();
-  const dataUsersSlice = dataUsers? filterUsersActives(dataUsers).slice(0,10): [];
+
+  // const { dataUsers, loading, error } = useGetUsers();
+  // const dataUsersSlice = !loading? filterUsersActives(dataUsers).slice(0,10): [];
   const [section, setSection] = useState(0);
 
   const handleSection = (e, newValue) => {
@@ -37,7 +36,7 @@ function PageMaintenances() {
         height: "100vh",
       }}
     >
-      <Box sx={{ width: "100%" }}>
+      {/* <Box sx={{ width: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             centered
@@ -70,7 +69,10 @@ function PageMaintenances() {
               ))}
           </ScrollContainer>
         </CustomTabPanel>
-      </Box>
+      </Box> */}
+
+      <ConstructionState/>
+
     </Container>
   );
 }

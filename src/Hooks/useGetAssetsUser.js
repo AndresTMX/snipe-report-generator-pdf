@@ -24,6 +24,6 @@ function useGetAssetsUser(idUser) {
     }
   }, [get, idUser]);
 
-  return { dataAssets, idUser, loading, get, SetGet , error};
+  return { dataAssets, idUser, loading, get, SetGet , error, setError, setLoading};
 }
 export { useGetAssetsUser };

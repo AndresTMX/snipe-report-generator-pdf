@@ -11,7 +11,6 @@ function useGetUsers() {
         //obteniendo info del usuario
         const fetchInfoUser = async () => {
             try {
-                await new Promise(resolve => setTimeout(resolve, 1000));
                 const result = await getUsers();
                 setDataUser(result);
                 setLoading(false);
