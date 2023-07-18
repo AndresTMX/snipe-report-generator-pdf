@@ -131,23 +131,30 @@ function useItems({ idUser, user, company, location, manager, email, department,
     }
   }
 
-  const deleteAccessories = (index) => {
-    const newData = JSON.parse(localStorage.getItem(idUser))
+  const deleteAccessories = (accesorieIndex) => {
+    const newData = JSON.parse(localStorage.getItem(idUser));
+    
+    const stateAccessories = newData.accessories;
 
-    const newAccessories = storageState.accessories.filter(accessorie =>  accessorie.index != index );
+    let newStorage;
+
     const newCount = countAccessories - 1;
-    const newStorage = {
+
+    const newAccessories = stateAccessories.filter(
+      (accessorie, index) => accessorie.index != accesorieIndex
+    );
+
+    newStorage = {
       ...storageState,
-      accessories:[...newAccessories],
+      accessories: newAccessories,
       countAccessories: newCount,
       assets: newData?.assets,
-      countAssets:newData?.countAssets
-    }
+      countAssets: newData?.countAssets,
+    };
 
-    dispatch({ type: actionTypes.updateStorage, payload: newStorage })
+    dispatch({ type: actionTypes.updateStorage, payload: newStorage });
     saveItem(newStorage);
-
-  }
+  };
 
   const countAssets = storageState.assets ? storageState.assets.length : 0;
 

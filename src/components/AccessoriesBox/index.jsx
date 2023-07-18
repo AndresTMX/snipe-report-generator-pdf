@@ -58,8 +58,8 @@ function AccessoriesBox({
   const { storage } = initialStore;
   const dataRender = dataAccessories || [];
   const newDataRender = dataRender
-    ? dataRender.map((accessorie, index) => {
-        return { ...accessorie, index };
+    ? dataRender.map((accessorie, accesorieIndex) => {
+        return { ...accessorie, accesorieIndex };
       })
     : [];
   const AccessoriesList = storage?.accessories? storage.accessories.map((accessorie) => accessorie.index):[];
@@ -131,24 +131,11 @@ function AccessoriesBox({
   };
 
   const GenerateDocument = (typeDocument) => {
-    if (!storage?.typeDocument) {
-      dispatch({
-        type: actionTypesModals.setModalNotification,
-        payload: "Selecciona el tipo de documento que deseas generar",
-      });
-    }
 
-    if (storage?.assets.length == 0) {
-      dispatch({
-        type: actionTypesModals.setModalNotification,
-        payload: "Agrega activos para generar un documento",
-      });
-    }
-
-    if (storage.typeDocument && storage.assets.length > 0) {
+    if (typeDocument && storage.accessories.length > 0) {
       const document = {
         ...storage,
-        typeDocument: storage.typeDocument,
+        typeDocument: typeDocument,
         dateDay: storage.dateDay ? storage.dateDay : formattedDate,
         manager: storage?.manager,
         complete: true,
@@ -156,6 +143,21 @@ function AccessoriesBox({
 
       dispatch({ type: actionTypesDoc.updateStorage, payload: document });
     }
+
+    if (!storage?.typeDocument && !typeDocument) {
+      dispatch({
+        type: actionTypesModals.setModalNotification,
+        payload: "Selecciona el tipo de documento que deseas generar",
+      });
+    }
+
+    if (storage?.accessories.length == 0) {
+      dispatch({
+        type: actionTypesModals.setModalNotification,
+        payload: "Agrega accesorios para generar un documento",
+      });
+    }
+
   };
 
   return (
@@ -275,17 +277,17 @@ function AccessoriesBox({
 
                 {numAccessories > 0 && (
                   <TableBody>
-                    {newDataRender.map((accessorie, index) => (
+                    {newDataRender.map((accessorie, accesorieIndex) => (
                       <TableRow
                         sx={{
                           [`&.asset_included`]: { backgroundColor: "#d9d9d9" },
                         }}
                         className={`asset_${
-                          AccessoriesList.includes(accessorie.index)
+                          AccessoriesList.includes(accessorie.accesorieIndex)
                             ? "included"
                             : ""
                         }`}
-                        key={index}
+                        key={accesorieIndex}
                       >
                         <TableCell>{accessorie.id}</TableCell>
                         <TableCell>{accessorie.name}</TableCell>
@@ -293,7 +295,7 @@ function AccessoriesBox({
                         <TableCell>
                           <ButtonGroup>
                             <IconButton
-                              onClick={() => AddAccessorie(accessorie, index)}
+                              onClick={() => AddAccessorie(accessorie, accesorieIndex)}
                               className="button-add"
                             >
                               <MdAdd />
@@ -307,7 +309,7 @@ function AccessoriesBox({
                                   transitionDuration: "0.3s",
                                 },
                               }}
-                              onClick={() => DeleteAccessorie(index)}
+                              onClick={() => DeleteAccessorie(accesorieIndex)}
                               className="button-delete"
                             >
                               <FaTrashAlt />

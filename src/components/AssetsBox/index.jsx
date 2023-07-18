@@ -117,8 +117,6 @@ function AssetsBox({
 
   const GenerateDocument = (typeDocument) => {
 
-    // dispatch({ type: actionTypesDoc.updateStorage, payload: {...storage, typeDocument:typeDocument}});
-
     if(typeDocument && storage.assets.length>0){
       const document = {
           ...storage,
