@@ -120,7 +120,11 @@ function AssetsBox({
     const currentUser =  localStorage.getItem("currentUser");
     const managerSystems = localStorage.getItem("managerSystems");
 
-    if(typeDocument && storage.assets.length>0){
+    if(!currentUser || !managerSystems){
+      dispatch({ type:actionTypesModals.setModalNotification, payload:'Configura el usuario emisor'})
+    }
+
+    if(typeDocument && storage.assets.length>0 && currentUser && managerSystems){
       const document = {
           ...storage,
           typeDocument: typeDocument,

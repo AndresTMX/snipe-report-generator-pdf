@@ -41,7 +41,10 @@ function Navigator() {
       payload: !StatesModals.setModalConfig,
     });
   };
-  const settings = [{name:'Logout', function:auth.logOut},{ name:'User config', function: OpenUserConfig()}];
+  const settings = [
+    { name: "Logout", function: auth.logOut },
+    { name: "User config", function: OpenUserConfig },
+  ];
   const routes = [
     {
       to: "/",

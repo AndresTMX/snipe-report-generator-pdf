@@ -135,7 +135,11 @@ function AccessoriesBox({
     const currentUser =  localStorage.getItem("currentUser");
     const managerSystems = localStorage.getItem("managerSystems");
 
-    if (typeDocument && storage.accessories.length) {
+    if(!currentUser || !managerSystems){
+      dispatch({ type:actionTypesModals.setModalNotification, payload:'Configura el usuario emisor'})
+    }
+
+    if (typeDocument && storage.assets.length>0 && currentUser && managerSystems) {
       const document = {
         ...storage,
         typeDocument: typeDocument,
@@ -223,35 +227,35 @@ function AccessoriesBox({
           >
             <Button
               variant="contained"
-              onClick={() => GenerateDocument("MP")}
+              onClick={() => {GenerateDocument("MP")}}
               className="button-action"
             >
               Preventivo
             </Button>
             <Button
               variant="contained"
-              onClick={() => GenerateDocument("MC")}
+              onClick={() => {GenerateDocument("MC")}}
               className="button-action"
             >
               Correctivo
             </Button>
             <Button
               variant="contained"
-              onClick={() => GenerateDocument("VB")}
+              onClick={() => {GenerateDocument("VB")}}
               className="button-action"
             >
               Baja de equipos
             </Button>
             <Button
               variant="contained"
-              onClick={() => GenerateDocument("CL")}
+              onClick={() => {GenerateDocument("CL")}}
               className="button-action"
             >
               CheckList
             </Button>
             <Button
               variant="contained"
-              onClick={() => GenerateDocument("CR")}
+              onClick={() => {GenerateDocument("CR")}}
               className="button-action"
             >
               Carta responsiva

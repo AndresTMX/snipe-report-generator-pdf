@@ -21,10 +21,8 @@ function UserConfig({ state, dispatch }) {
     let newState = {
       ...storage,
       emisor: event.target.value,
-      managerSystems:managerSystems
     };
     const currentUser = event.target.value;
-    const managerSystems  = dataDepartment.manager.name;
     localStorage.setItem("currentUser", currentUser);
     dispatch({ type: actionTypesDocs.updateStorage, payload: newState });
   };
