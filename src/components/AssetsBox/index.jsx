@@ -117,12 +117,16 @@ function AssetsBox({
 
   const GenerateDocument = (typeDocument) => {
 
+    const currentUser =  localStorage.getItem("currentUser");
+    const managerSystems = localStorage.getItem("managerSystems");
+
     if(typeDocument && storage.assets.length>0){
       const document = {
           ...storage,
           typeDocument: typeDocument,
           dateDay: storage.dateDay ? storage.dateDay : formattedDate,
-          manager: storage?.manager,
+          emisor: currentUser,
+          managerSystems: managerSystems,
           complete: true
       };
     

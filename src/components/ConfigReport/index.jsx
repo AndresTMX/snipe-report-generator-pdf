@@ -146,6 +146,7 @@ function ConfigReport({ state, dispatch, search, setSearch, searchResult }) {
           </AccordionSummary>
           <AccordionDetails>
             <Box sx={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+              
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <IconButton
                   sx={{ display: "flex", position: "relative", width: "50px" }}

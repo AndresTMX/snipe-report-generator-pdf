@@ -23,17 +23,25 @@ import {
 import { useAuth } from "../../Context/AuthContext";
 //Hooks
 import { useRefreshCache } from "../../Hooks/useRefreshCache";
+//action Types
+import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
 
 function Navigator() {
   const auth = useAuth();
   const [state, dispatch] = useContext(DocContext);
   const { initialStore, StatesModals } = state;
   const { storage } = initialStore ? initialStore : {};
-  const [config, setConfig] = useState(false);
+  const [config, setConfig] = useState(null);
   const handleCloseUserMenu = () => {
     setConfig((prevConfig) => !prevConfig);
   };
-  const settings = [{name:'Logout', function:auth.logOut}];
+  function OpenUserConfig() {
+    dispatch({
+      type: actionTypesModals.setModalConfig,
+      payload: !StatesModals.setModalConfig,
+    });
+  };
+  const settings = [{name:'Logout', function:auth.logOut},{ name:'User config', function: OpenUserConfig()}];
   const routes = [
     {
       to: "/",

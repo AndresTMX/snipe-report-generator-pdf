@@ -3,7 +3,7 @@ import { actionTypes as actionTypesModals } from "../../Context/StatesModalsRedu
 import { ThreeDots } from "../../components/Loading/";
 import { useGetUsersSystems } from "../../Hooks/useGetUsersSystems";
 import { Modal } from "../../modals/modal";
-import { Box, Button, Container, Paper, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Box, Button, Paper, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 function UserConfig({ state, dispatch }) {
   const { initialStore, StatesModals } = state;
@@ -16,13 +16,16 @@ function UserConfig({ state, dispatch }) {
       }))
     : [];
 
-
   const onSelect = (event) => {
+
     let newState = {
       ...storage,
       emisor: event.target.value,
       managerSystems:managerSystems
     };
+    const currentUser = event.target.value;
+    const managerSystems  = dataDepartment.manager.name;
+    localStorage.setItem("currentUser", currentUser);
     dispatch({ type: actionTypesDocs.updateStorage, payload: newState });
   };
 

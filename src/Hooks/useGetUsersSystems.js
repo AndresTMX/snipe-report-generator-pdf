@@ -15,7 +15,8 @@ function useGetUsersSystems() {
                 const usersSystems = await getUsersSystemsDepartment();
                 setDataUserSystems(usersSystems);
                 const data = await getManagerSystem();
-                setDataDepartment(data)
+                setDataDepartment(data);
+                localStorage.setItem("managerSystems", data.manager.name);
                 setLoading(false);
             } catch (error) {
                 setError(error);
