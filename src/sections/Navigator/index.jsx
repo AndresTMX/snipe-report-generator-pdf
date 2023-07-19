@@ -1,6 +1,7 @@
 import "../../index.css";
 //icons
 import { FaUserCog } from "react-icons/fa";
+import { PiUserSwitch } from 'react-icons/pi';
 //context
 import { useState } from "react";
 import { useContext } from "react";
@@ -20,6 +21,8 @@ import {
 } from "@mui/material";
 //Auth
 import { useAuth } from "../../Context/AuthContext";
+//helpers
+import { clearCacheUser } from "../../Helpers/cache";
 
 function Navigator() {
   const auth = useAuth();
@@ -83,6 +86,15 @@ function Navigator() {
           marginRight: "5%",
         }}
       >
+
+          <IconButton 
+           title="Actualizar usuarios"
+           sx={{fontSize:'1.8rem'}}
+           onClick={() => {clearCacheUser}}
+          >
+            <PiUserSwitch/>
+          </IconButton>
+
         <Tooltip
           title="Open settings"
           sx={{ display: "flex", height: "100%", alignItems: "center" }}

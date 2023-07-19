@@ -44,6 +44,7 @@ function PageHome() {
   const { search, setSearch } = useSearcher();
   const { dataUsers, loading, error } = useGetUsers();  
   const { searchResults, pageRender, actionsPages, filterActions, filter } = usePagination(loading, dataUsers, search, dispatch);
+  console.log("🚀 ~ file: index.jsx:47 ~ PageHome ~ pageRender:", pageRender)
 
   return (
     <Container
@@ -131,7 +132,7 @@ function PageHome() {
                 </Box>
               )}
 
-              {!loading && !pageRender.length && (
+              {!pageRender.length === 0 && (
                 <NotResultUsers error={error} pageRender={pageRender} />
               )}
 

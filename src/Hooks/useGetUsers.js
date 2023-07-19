@@ -14,13 +14,22 @@ function useGetUsers() {
                 const result = await getUsers();
                 setDataUser(result);
                 setLoading(false);
-
+                localStorage.setItem("dataUsers", JSON.stringify(result));
             } catch (error) {
                 setError(error);
                 setLoading(false);
             }
         };
+
+    // Intentar recuperar los datos del almacenamiento local del navegador
+    const cachedData = localStorage.getItem("dataUsers");
+    if (cachedData) {
+      setDataUser(JSON.parse(cachedData));
+      setLoading(false);
+    } else {
         fetchInfoUser();
+    }
+
     }, []);
 
     return { dataUsers, loading, error };
