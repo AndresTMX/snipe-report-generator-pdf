@@ -21,8 +21,8 @@ import {
 } from "@mui/material";
 //Auth
 import { useAuth } from "../../Context/AuthContext";
-//helpers
-import { clearCacheUser } from "../../Helpers/cache";
+//Hooks
+import { useRefreshCache } from "../../Hooks/useRefreshCache";
 
 function Navigator() {
   const auth = useAuth();
@@ -44,6 +44,8 @@ function Navigator() {
       text: "Mantenimientos",
     },
   ];
+
+  const {clearCacheUser} = useRefreshCache(dispatch);
 
   return (
     <AppBar
@@ -90,7 +92,7 @@ function Navigator() {
           <IconButton 
            title="Actualizar usuarios"
            sx={{fontSize:'1.8rem'}}
-           onClick={() => {clearCacheUser}}
+           onClick={() => clearCacheUser()}
           >
             <PiUserSwitch/>
           </IconButton>
