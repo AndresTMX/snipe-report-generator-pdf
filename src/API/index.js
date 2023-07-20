@@ -146,5 +146,19 @@ export const getLicensesUser = async (idUser) => {
     }
 }
 
+export const getSearch = async (search, limit) => {
+    try {
+        const response = await axios.get(`${baseURL}hardware?limit=${limit}&search=${search}`,{
+            headers:{
+                accept:'application/json',
+                Authorization: Authorization,
+            }
+        });
+        return response.data.rows;
+    } catch (error) {
+        throw new Error('Error al intentar realizar la busqueda')
+
+    }
+}
 
 

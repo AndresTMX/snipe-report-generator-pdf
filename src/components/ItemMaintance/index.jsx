@@ -1,33 +1,46 @@
-import { useMaintancesWhitIdAssets } from "../../Hooks/useMaintancesWhitIdAssets";
-import { Paper } from "@mui/material";
+//material ui
+import { IconButton} from "@mui/material"
+//icons
+import {AiOutlineLaptop} from 'react-icons/ai' //lap
+import {BsKeyboard} from 'react-icons/bs'  //teclado
+import {BsMouse3} from 'react-icons/bs'  //mouse
+import {FiMonitor} from 'react-icons/fi' //monitor
+import {PiDesktopTowerDuotone} from 'react-icons/pi' //gabinete
 
-function ITemMaintance({ IdUser }) {
-  const { maintancesForUser, loadingMaitances, errorMaintance } = useMaintancesWhitIdAssets(IdUser);
-  // console.log("🚀 ~ file: index.jsx:6 ~ ITemMaintance ~ maintancesForUser:", maintancesForUser)
+function ITemMaintance({category, tag, id}) {
+
+  function renderIcon(category) {
+
+    if(category === 'LAPTOP'){
+      return <AiOutlineLaptop/>
+    }
+
+    if(category === 'GABINETE'){
+      return <PiDesktopTowerDuotone/>
+    }
+
+    if(category === 'MONITOR'){
+      return <FiMonitor/>
+    }
+
+    if(category === 'TECLADO'){
+      return <BsKeyboard/>
+    }
+
+    if(category === 'MOUSE'){
+      return <BsMouse3/>
+    }
+
+  }
 
   return (
-    <>
-    
-    {(loadingMaitances) && (
-      <Paper elevation={4}>Cargando...</Paper>
-    )}
-{/* 
-    {(errorMaintance && !loadingMaitances) && (
-      <Paper elevation={4}>{errorMaintance.message}</Paper>
-    )} */}
+    <IconButton>
 
-    {(!errorMaintance && !loadingMaitances && maintancesForUser.length === 0) && (
-      <Paper elevation={4}>Sin mantenimientos registrados</Paper>
-    )}
+      {renderIcon()}
 
-    {(!loadingMaitances && maintancesForUser) && (
-      maintancesForUser.map((item) => (
-        <Paper elevation={4} key={item.id}>
-          {item.id}
-        </Paper>))
-    )}
+      <strong>{tag}</strong>
 
-    </>
+    </IconButton>
   );
 }
 

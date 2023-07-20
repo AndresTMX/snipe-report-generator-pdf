@@ -112,6 +112,8 @@ function ConfigReport({ state, dispatch, search, setSearch, searchResult }) {
           state={search}
           setState={setSearch}
           resultSearch={searchResult}
+          placeholder={'Buscar usuarios'}
+          width={'100%'}
         />
 
         <DocStoreCardInfoUser state={state} dispatch={dispatch} />

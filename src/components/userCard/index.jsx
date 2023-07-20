@@ -89,10 +89,6 @@ function UserCard({
   const ButtongetMoreInfoUser = () => {
     setModal3(!modal3)
   };
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
   
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -104,6 +100,10 @@ function UserCard({
       duration: theme.transitions.duration.shortest,
     }),
   }));
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
   return (
     <>
@@ -195,7 +195,6 @@ function UserCard({
               </Box>
 
             </CardContent>
-
 
             </Collapse>
 

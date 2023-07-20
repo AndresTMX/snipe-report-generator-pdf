@@ -38,7 +38,7 @@ function useGetUsers() {
         fetchInfoUser();   
     }
 
-    }, [dataUsers, cache]);
+    }, [cache]);
 
     return { dataUsers, loading, error };
 }
