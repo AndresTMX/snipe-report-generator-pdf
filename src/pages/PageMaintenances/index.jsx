@@ -1,15 +1,20 @@
-import { useState } from "react";
+import { useState, useContext,  } from "react";
 //Material ui
-import {Box, Container, FormControl, IconButton, Select, InputLabel,  MenuItem} from "@mui/material";
+import {Box, Container, FormControl, IconButton, Select, InputLabel,  MenuItem, Button, Paper} from "@mui/material";
+//context
+import { MaintanceContext } from "../../Context/MaintanceContext";
 //components
 import { ItemSearch } from "../../components/ItemSearch";
 import { UserCardMaintenances } from "../../components/UserCardMaintenances";
+import { FormMaintance } from "../../components/FormMaintance";
+import {Modal} from '../../modals/modal';
+import {Notification} from '../../modals/notification';
 // import { CustomTabPanel } from "../../sections/CustomPanel";
 import { ScrollContainer } from "../../Containers/ScrollContainer";
 //hooks 
 import { useSearcher } from "../../components/Searcher/useSearcher";
 //helpers
-
+import { actionTypes } from "../../Context/MaintanceReducer";
 //constructionState
 import { ConstructionState } from "../../sections/Construction";
 import { InputSearch } from "../../components/Searcher";
@@ -17,22 +22,19 @@ import { useGetSearch } from "../../Hooks/useGetSearch";
 import {ThreeDots} from '../../components/Loading';
 //icons
 import { FaTrashAlt } from "react-icons/fa";
+//helpers actions
+import { switchForm } from "../../Helpers/actionsMaintance";
+import { switchNotification } from "../../Helpers/actionsMaintance";
 
 function PageMaintenances() {
-
-  const [select, setSelect] = useState()
+  const [state, dispatch] = useContext(MaintanceContext);
+  const [select, setSelect] = useState(10)
   const {search, setSearch} = useSearcher()  
   const {results, loading, error, input, Search, ClearSearch, Enter} = useGetSearch(search, select)
 
   const OnSelect = (e) =>{
     setSelect(e.target.value)
   }
-
-  // const [section, setSection] = useState(0);
-
-  // const handleSection = (e, newValue) => {
-  //   setSection(newValue)
-  // }
 
   return (
     <Container
@@ -77,6 +79,7 @@ function PageMaintenances() {
             <MenuItem value={100}>100</MenuItem>
             </Select>
           </FormControl>
+          <Button variant='contained' onClick={() => switchForm(dispatch,  true)}>Mantenimientos</Button>
           </Box>
 
         </Container>
@@ -109,40 +112,30 @@ function PageMaintenances() {
 
         </ScrollContainer>
 
+        {
+          state.form && (
+            <Modal>
+              <FormMaintance state={state} dispatch={dispatch}/>
+            </Modal>
+          )
+        }
 
-
-      {/* <Box sx={{ width: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            centered
-            value={section}
-            onChange={handleSection}
-            aria-label="basic tabs example"
-          >
-            <Tab label="Ver Mantenimientos" />
-            <Tab label="Crear Mantenimientos" />
-          </Tabs>
-        </Box>
-
-        <CustomTabPanel value={section} index={0}>
-          <ScrollContainer>
-            {!loading &&
-              dataUsersSlice &&
-              dataUsersSlice.map((user) => (
-                <CardViewMaintance key={user.id} IdUser={user.id} user={user.name} location={user.location?.name}/>
-              ))}
-          </ScrollContainer>
-        </CustomTabPanel>
-
-        <CustomTabPanel value={section} index={1}>
-          <ScrollContainer>
-            {!loading &&
-              dataUsers.map((user) => (
-                <UserCardMaintenances key={user.id} username={user.name} idUser={user.id} />
-              ))}
-          </ScrollContainer>
-        </CustomTabPanel>
-      </Box> */}
+        {
+          state.notification && (
+            <Notification>
+              <Paper 
+              elevation={4}
+              sx={{backgroundColor:'white', display:'flex', flexDirection:'column', padding:'20px', gap:'15px'}}
+              >
+                <strong>{state.notification}</strong>
+                <Button 
+                variant="container"
+                onClick={() => switchNotification(dispatch, false)}
+                >Ok</Button>
+              </Paper>
+            </Notification>
+          )
+        }
 
       {/* <ConstructionState/> */}
 

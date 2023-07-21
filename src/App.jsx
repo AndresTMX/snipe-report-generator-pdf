@@ -6,6 +6,7 @@ import "@fontsource/roboto/700.css";
 //components and pages
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { DataProvider } from "./Context/DocContext";
+import { MaintanceProvider } from "./Context/MaintanceContext";
 import { Login } from "../src/pages/Login";
 import { PageHome } from "../src/pages/home/";
 import { PageMaintenances } from "./pages/PageMaintenances";
@@ -39,9 +40,11 @@ function App() {
                 path="/Mantenimientos"
                 element={
                   <AuthProtect>
-                    <UI>
-                      <PageMaintenances/>
-                    </UI>
+                    <MaintanceProvider>
+                      <UI>
+                        <PageMaintenances/>
+                      </UI>
+                    </MaintanceProvider>
                   </AuthProtect>
                 }
               />
