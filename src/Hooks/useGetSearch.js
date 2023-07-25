@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getSearch } from "../API";
 
-function useGetSearch(search, limit) {
+function useGetSearch(search, limit, setSearch) {
 
     const [input, setInput] = useState('')    
     const [results, setResults] = useState(null);
@@ -40,6 +40,7 @@ function useGetSearch(search, limit) {
  
     const ClearSearch = () => {
         setResults(null);
+        setSearch("");
     }
     
     return {results, loading, error, input, Search, ClearSearch, Enter}

@@ -30,7 +30,7 @@ function PageMaintenances() {
   const [state, dispatch] = useContext(MaintanceContext);
   const [select, setSelect] = useState(10)
   const {search, setSearch} = useSearcher()  
-  const {results, loading, error, input, Search, ClearSearch, Enter} = useGetSearch(search, select)
+  const {results, loading, error, input, Search, ClearSearch, Enter} = useGetSearch(search, select, setSearch)
 
   const OnSelect = (e) =>{
     setSelect(e.target.value)
@@ -94,6 +94,7 @@ function PageMaintenances() {
            results.map((result) => (
             <ItemSearch
             key={result.id}
+            id={result.id}
             name={result.name}
             tag={result.asset_tag}
             serial={result?.serial}

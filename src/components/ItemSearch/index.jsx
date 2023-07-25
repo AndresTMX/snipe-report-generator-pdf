@@ -12,13 +12,13 @@ import { MaintanceContext } from "../../Context/MaintanceContext";
 //helpers actions
 import { AddTag, validateRepeat } from "../../Helpers/actionsMaintance";
 
-function ItemSearch({name, tag, serial, model, status, category, brand, location, userData}) {
+function ItemSearch({id, name, tag, serial, model, status, category, brand, location, userData}) {
 
   const [state, dispatch] = useContext(MaintanceContext);
 
   const {listTags} = state;
 
-  const renderButton = validateRepeat(listTags, tag);
+  const renderButton = validateRepeat(listTags, {tag , id, category});
   const variant = renderButton? 'contained':'contained';
   const color = renderButton? 'primary' : 'success';
   
@@ -41,7 +41,7 @@ function ItemSearch({name, tag, serial, model, status, category, brand, location
 
         <Button variant='contained'>Ver mantenimientos</Button>
 
-        <Button variant={variant} color={color}  onClick={() => AddTag(listTags, dispatch, tag)}>Agregar mantenimiento</Button>
+        <Button variant={variant} color={color}  onClick={() => AddTag(listTags, dispatch, {tag, id, category})}>Agregar mantenimiento</Button>
 
         <Button  variant='contained'>Añadir a reporte</Button>
       

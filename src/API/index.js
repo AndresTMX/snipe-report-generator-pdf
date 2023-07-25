@@ -161,4 +161,20 @@ export const getSearch = async (search, limit) => {
     }
 }
 
+export const SendMaintance = async(maintance) => {
+    try {
+        const response = await axios.post(`${baseURL}maintenances`,{
+            headers:{
+            accept:'application/json',
+            Authorization:Authorization,
+            },
+            body: JSON.stringify(maintance),
+        });
+        return response
+    } catch (error) {
+        throw new Error('Error al enviar el mantenimiento con id:' + maintance.asset_id)
+    }   
+}
+
+
 
