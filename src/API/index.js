@@ -160,22 +160,22 @@ export const getSearch = async (search, limit) => {
 
     }
 }
+export const SendMaintance = async (data) => {
 
-export const SendMaintance = async(maintance) => {
     try {
-        const response = await axios.post(`${baseURL}maintenances`,{
-            headers:{
-                Authorization:Authorization,
-                accept:'application/json',
-                "Content-Type": "application/json",
-            },
-            data:maintance,
+        const response = await axios.post(`${baseURL}maintenances`, data, {
+            headers: {
+                Authorization: Authorization,
+                accept: 'application/json',
+                'Content-Type': 'application/json',
+            }
         });
-        return response.data
+        
+        return response;
     } catch (error) {
-        throw new Error('Error al enviar el mantenimiento con id:' + maintance.asset_id)
-    }   
-}
+        throw new Error('Error al enviar el mantenimiento con id: ' + maintance.asset_id);
+    }
+};
 
 
 

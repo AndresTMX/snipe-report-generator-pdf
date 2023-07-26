@@ -9,7 +9,16 @@ function useSendMaintances() {
     const postMaintenance = async (arrayMaintances) => {
         try {
           for (const item of arrayMaintances) {
-            const response = await SendMaintance(item);
+            const data = {
+              title:item.title,
+              asset_id:item.asset_id,
+              asset_maintenance_type:item.asset_maintenance_type,
+              supplier_id:item.supplier_id,
+              start_date:item.start_date,
+              completion_date:item.completion_date
+              }
+            const response = await SendMaintance(data);
+            console.log(response)
             setError(false);
             setMaintance(response);
             setLoading(false);
@@ -18,7 +27,7 @@ function useSendMaintances() {
         } catch (error) {
           setError(error);
           setLoading(false);
-        //   throw new Error('Error de useState' + error.message);
+          throw new Error('Error de useState' + error.message);
         }
       };
 

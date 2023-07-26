@@ -100,12 +100,14 @@ function FormMaintance({state, dispatch}) {
 
   }
 
-  const SendMaintenance = async () => {
+  const SendMaintenance = async (e) => {
+
+    e.preventDefault();
     
     const dataMaintances = {
       title:titleMaintance,
       data:listTags,
-      type:type,
+      type:typeMaintance,
       supplier_id:parseInt(providerMaintenance),
       start_date:transformDate(date.init),
       completion_date:transformDate(date.end),
@@ -114,7 +116,8 @@ function FormMaintance({state, dispatch}) {
     const maintances = builderMaintance(dataMaintances)
 
     const response = await postMaintenance(maintances)
-    
+
+    return response    
   }
 
   return (
@@ -188,8 +191,8 @@ function FormMaintance({state, dispatch}) {
           label={"Tipo de mantenimiento"}
           onChange={handleChangue(setMaintance)}
         >
-          <MenuItem value={"Maintenance"}>Preventivo</MenuItem>
-          <MenuItem value={"Repair"}>Correctivo</MenuItem>
+          <MenuItem value={"Mantenimiento"}>Preventivo</MenuItem>
+          <MenuItem value={"Correctivo"}>Correctivo</MenuItem>
         </Select>
       </FormControl>
 
