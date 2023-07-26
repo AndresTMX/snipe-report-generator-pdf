@@ -165,12 +165,13 @@ export const SendMaintance = async(maintance) => {
     try {
         const response = await axios.post(`${baseURL}maintenances`,{
             headers:{
-            accept:'application/json',
-            Authorization:Authorization,
+                Authorization:Authorization,
+                accept:'application/json',
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(maintance),
+            data:maintance,
         });
-        return response
+        return response.data
     } catch (error) {
         throw new Error('Error al enviar el mantenimiento con id:' + maintance.asset_id)
     }   

@@ -1,6 +1,7 @@
 //utilities
 import { useEffect, useState } from "react"
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 //material ui
 import { IconButton, FormControl, InputLabel, Select, MenuItem, Box, InputBase, TextField, Button, InputAdornment } from "@mui/material"
 import { ContainerDate } from "../ContainerDateDays";
@@ -9,7 +10,7 @@ import { actionTypes } from "../../Context/MaintanceReducer";
 import { IoIosCloseCircle } from "react-icons/io";
 import { DatePicker } from "@mui/x-date-pickers";
 //helpers
-import { RemoveTag, builderMaintance, costMaintance } from "../../Helpers/actionsMaintance";
+import { RemoveTag, builderMaintance, costMaintance, transformDate } from "../../Helpers/actionsMaintance";
 //Hooks
 import { useSendMaintances } from "../../Hooks/useSendMaintances";
 //.emv Maintenances provider
@@ -35,7 +36,7 @@ function FormMaintance({state, dispatch}) {
 
   const {postMaintenance, maintance, loading, error} = useSendMaintances();
   
-  const dateNow = dayjs()
+  const dateNow = dayjs()   
 
   const allMonths = [
     "Enero",
@@ -100,22 +101,20 @@ function FormMaintance({state, dispatch}) {
   }
 
   const SendMaintenance = async () => {
-
+    
     const dataMaintances = {
       title:titleMaintance,
       data:listTags,
-      supplier_id:providerMaintenance,
-      start_date:date.init.$d,
-      completion_date:date.end.$d,
+      type:type,
+      supplier_id:parseInt(providerMaintenance),
+      start_date:transformDate(date.init),
+      completion_date:transformDate(date.end),
     }
 
     const maintances = builderMaintance(dataMaintances)
-    console.log("🚀 ~ file: index.jsx:113 ~ SendMaintenance ~ maintances:", maintances)
 
     const response = await postMaintenance(maintances)
     
-    return response;
-
   }
 
   return (

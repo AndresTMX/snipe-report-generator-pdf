@@ -27,6 +27,7 @@ function ItemSearch({id, name, tag, serial, model, status, category, brand, loca
 
       <Typography variant='h4' fontWeight={500}>
        {name}
+       {id}
       </Typography>
 
       <Typography variant='h6' fontWeight={500}>

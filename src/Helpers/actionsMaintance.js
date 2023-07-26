@@ -1,5 +1,10 @@
 import { actionTypes } from "../Context/MaintanceReducer";
 
+export function filterResults (results){
+   const categories = ["LAPTOP", "GABINETE", "MONITOR", "TECLADO", "MOUSE"]
+   return results.filter((result) => categories.includes(result.category.name));
+}
+
 export function switchForm (dispatch, payload){
     dispatch({type:actionTypes.setForm, payload: payload})
 }
@@ -66,13 +71,23 @@ export function costMaintance(item){
     return cost
 }
 
+export  function transformDate(date) {
+
+    const fechaFormateada = date.format('YYYY-MM-DD');
+    const horaFormateada = date.format('HH:mm:ss'); 
+    return `${fechaFormateada} ${horaFormateada}`;
+
+}
+
 export function builderMaintance(dataMaintances) {
     
-    const { title, data, supplier_id, start_date, completion_date} = dataMaintances;
+    const { title, data, type , supplier_id, start_date, completion_date} = dataMaintances;
 
     const maintances = data.map((asset) => ({
         title:title,
         asset_id:asset.id,
+        cost: costMaintance(asset),
+        asset_maintenance_type: type,
         supplier_id:supplier_id,
         start_date:start_date,
         completion_date:completion_date,

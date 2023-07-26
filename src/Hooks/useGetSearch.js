@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSearch } from "../API";
+import { filterResults } from "../Helpers/actionsMaintance";
 
 function useGetSearch(search, limit, setSearch) {
 
@@ -21,7 +22,8 @@ function useGetSearch(search, limit, setSearch) {
         const fetchSearch = async () => {
             try {
                 const results = await getSearch(input, limit);
-                setResults(results);
+                const resultsFiltered = filterResults(results);                
+                setResults(resultsFiltered);
                 setLoading(false);
             } catch (error) {
                 setLoading(false)
