@@ -76,30 +76,6 @@ function FormMaintance({state, dispatch}) {
     })
   }
 
-  function renderIcon(category) {
-
-    if(category === 'LAPTOP'){
-      return <AiOutlineLaptop/>
-    }
-
-    if(category === 'GABINETE'){
-      return <PiDesktopTowerDuotone/>
-    }
-
-    if(category === 'MONITOR'){
-      return <FiMonitor/>
-    }
-
-    if(category === 'TECLADO'){
-      return <BsKeyboard/>
-    }
-
-    if(category === 'MOUSE'){
-      return <BsMouse3/>
-    }
-
-  }
-
   const SendMaintenance = async (e) => {
 
     e.preventDefault();

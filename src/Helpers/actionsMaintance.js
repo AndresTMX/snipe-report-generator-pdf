@@ -12,33 +12,35 @@ export function switchForm (dispatch, payload){
 export function validateRepeat(array, index){
    const newList = array.length > 0 ? [...array, index]:[index];
    const validate =  newList.filter(element => element.tag === index.tag);
-   if(validate.length  > 1){
-    return false
-   }else{
+   if(validate.length > 1){
     return true
+   }else{
+    return false
    }
 }
 
 export function AddTag(listTag, dispatch, payload){
-    const validate = validateRepeat(listTag, payload)
     const newList = listTag.length > 0 ? [...listTag, payload]:[payload];
-
-    if(!validate){
-        dispatch({type:actionTypes.setNotification, payload:'Ya agregaste este activo'})
-    }else{
-        dispatch({type:actionTypes.addTag, payload: newList})
-    }
+    dispatch({type:actionTypes.addTag, payload: newList})
+    
 }
 
 export function RemoveTag(listTag, dispatch, payload){
+    const newList = listTag.filter(element => element.tag !=  payload.tag);
+    dispatch({type:actionTypes.addTag, payload: newList})
+    
+}
+
+export function ToggleItem(listTag, dispatch, payload){
+
     const validate = validateRepeat(listTag, payload)
 
-    if(validate != ""){
-        dispatch({type:actionTypes.setNotification, payload:'Aun no has agregado este activo'})
+    if(!validate){
+        AddTag(listTag, dispatch, payload)
     }else{
-        const newList = listTag.filter(element => element.tag !=  payload.tag);
-        dispatch({type:actionTypes.addTag, payload: newList})
+        RemoveTag(listTag, dispatch, payload)
     }
+
 }
 
 export function switchNotification(dispatch, payload){

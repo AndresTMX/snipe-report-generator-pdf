@@ -98,8 +98,8 @@ function PageMaintenances() {
             name={result.name}
             tag={result.asset_tag}
             serial={result?.serial}
-            model={result.model}
-            status={result.status_label}
+            model={result.model?.name}
+            status={result.status_label?.name}
             category={result.category?.name}
             brand={result.manufacturer?.name}
             location={result.location?.name}
@@ -113,16 +113,13 @@ function PageMaintenances() {
 
         </ScrollContainer>
 
-        {
-          state.form && (
+        {state.form && (
             <Modal>
               <FormMaintance state={state} dispatch={dispatch}/>
             </Modal>
-          )
-        }
+        )}
 
-        {
-          state.notification && (
+        {state.notification && (
             <Notification>
               <Paper 
               elevation={4}
@@ -135,8 +132,7 @@ function PageMaintenances() {
                 >Ok</Button>
               </Paper>
             </Notification>
-          )
-        }
+          )}
 
       {/* <ConstructionState/> */}
 

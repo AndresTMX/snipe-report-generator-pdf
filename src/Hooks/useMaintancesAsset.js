@@ -1,28 +1,30 @@
 import { getMaintancesAsset } from "../API/index";
 import { useState, useEffect } from "react";
 
-function useMaintancesAssets() {
+function useMaintancesAssets(idAsset) {
 
-  const [idAsset, setidAsset] = useState(null)  
   const [dataMaintances, setDataMaintances] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  
-  const getMaintenancesForAsset = async (id) => {
-    setLoading(true);
-    const data = await getMaintancesAsset(id);
-    setDataMaintances(data);
-    setLoading(false);
-  };
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (idAsset !== null) {
-      getMaintenancesForAsset(idAsset);
+
+    const getMaintances = async () => {
+      try {
+        const maintance = await getMaintancesAsset(idAsset);
+        setDataMaintances(maintance);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
     }
+
+    getMaintances();
+
   }, [idAsset]);
 
-  const Maintances = dataMaintances || [];
 
-  return { Maintances, dataMaintances, loading, idAsset, setidAsset };
+  return { dataMaintances, loading, error };
 }
 export { useMaintancesAssets };
