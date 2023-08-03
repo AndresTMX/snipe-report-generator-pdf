@@ -115,8 +115,7 @@ function ItemSearch({
       {modal && (
         <Modal>
           <ViewMaintances modal={modal} setModal={setModal} idAsset={id} />
-        </Modal>
-      )}
+        </Modal>)}
 
     </>
   );

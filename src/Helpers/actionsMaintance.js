@@ -43,6 +43,10 @@ export function ToggleItem(listTag, dispatch, payload){
 
 }
 
+export function ClearListTags(dispatch){
+    dispatch({type: actionTypes.addTag, payload: []})
+}
+
 export function switchNotification(dispatch, payload){
     dispatch({
         type:actionTypes.setNotification,
@@ -96,5 +100,20 @@ export function builderMaintance(dataMaintances) {
     }))
 
     return maintances
+
+}
+
+export function addMaintance( dispatch, listMaintances){
+
+    dispatch({type:actionTypes.setMaintances, payload: listMaintances})
+}
+
+export function okMaintance(dispatch,  listMaincances, maintance){
+
+    const arraySends = listMaincances.filter(item => item.data.payload.asset_id != maintance.data.payload.asset_id );
+
+    const newState = arraySends.length > 0 ? arraySends : [];
+
+    dispatch({type:actionTypes.setMaintances, payload:newState})
 
 }

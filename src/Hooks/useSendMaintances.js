@@ -1,37 +1,26 @@
 import { useState } from "react";
 import { SendMaintance } from "../API";
+import { addMaintance } from "../Helpers/actionsMaintance";
 
-function useSendMaintances() {
-    const [maintance, setMaintance] = useState()
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState()
+function useSendMaintances( dispatch) {
+  
+    const [loading, setLoading] = useState(null)
+    const [error, setError] = useState(null)
 
     const postMaintenance = async (arrayMaintances) => {
         try {
-          for (const item of arrayMaintances) {
-            const data = {
-              title:item.title,
-              asset_id:item.asset_id,
-              asset_maintenance_type:item.asset_maintenance_type,
-              supplier_id:item.supplier_id,
-              start_date:item.start_date,
-              completion_date:item.completion_date
-              }
-            const response = await SendMaintance(data);
-            console.log(response)
-            setError(false);
-            setMaintance(response);
-            setLoading(false);
-          }
-          console.log('Mantenimientos enviados con éxito');
+          setLoading(true)
+          const responses = await Promise.all(arrayMaintances.map(maintance => SendMaintance(maintance)));
+          addMaintance(dispatch, responses)
+          setLoading(false)
         } catch (error) {
           setError(error);
           setLoading(false);
-          throw new Error('Error de useState' + error.message);
+          throw new Error('Error del post ' + error.message);
         }
       };
 
-    return {postMaintenance, maintance, loading, error}
+    return {postMaintenance, loading, error}
 
 
 }

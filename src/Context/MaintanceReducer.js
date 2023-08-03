@@ -6,6 +6,7 @@ const initialState = {
     dateEnd: '',
     title:'',
     notification:false,
+    maintances:[]
 };
 
 //Use reducer que valida los objetos
@@ -20,7 +21,8 @@ const initialState = {
 const actionTypes = {
     setForm: 'SET_FORM',
     addTag: 'ADD_TAG',
-    setNotification:'SET_NOTIFICATION'
+    setNotification:'SET_NOTIFICATION',
+    setMaintances:'SET_MAINTANCES',
   
 }
 
@@ -38,6 +40,10 @@ const reducerObject = (state, payload) => ({
     [actionTypes.setNotification]:{
         ...state,
         notification:payload
+    },
+    [actionTypes.setMaintances]:{
+        ...state,
+        maintances:payload
     }
 
 });

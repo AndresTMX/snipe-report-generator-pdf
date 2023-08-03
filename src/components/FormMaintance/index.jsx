@@ -1,26 +1,22 @@
 //utilities
 import { useEffect, useState } from "react"
 import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
 //material ui
-import { IconButton, FormControl, InputLabel, Select, MenuItem, Box, InputBase, TextField, Button, InputAdornment } from "@mui/material"
+import { IconButton, FormControl, InputLabel, Select, MenuItem, Box, TextField, Button, InputAdornment } from "@mui/material"
 import { ContainerDate } from "../ContainerDateDays";
 import { actionTypes } from "../../Context/MaintanceReducer";
 //icons
 import { IoIosCloseCircle } from "react-icons/io";
 import { DatePicker } from "@mui/x-date-pickers";
 //helpers
-import { RemoveTag, builderMaintance, costMaintance, transformDate } from "../../Helpers/actionsMaintance";
-//Hooks
-import { useSendMaintances } from "../../Hooks/useSendMaintances";
+import { RemoveTag, builderMaintance, switchForm, transformDate, ClearListTags } from "../../Helpers/actionsMaintance";
 //.emv Maintenances provider
 const providerMaintenance = import.meta.env.VITE_PROVIDER_MAINTENANCES;
 
 
-function FormMaintance({state, dispatch}) {
-  
-  
-  const [typeMaintance, setMaintance] = useState('')
+function FormMaintance({state, dispatch, postMaintenance}) {
+
+  const [typeMaintance, setMaintance] = useState('Preventivo')
   const [provider, setProvider] = useState('')
   const [title, setTitle] = useState('')
   const [date, setDate] = useState({
@@ -33,8 +29,6 @@ function FormMaintance({state, dispatch}) {
     setDate({init: dateCurrent, end: dateCurrent})
     setProvider(providerMaintenance)
   },[])
-
-  const {postMaintenance, maintance, loading, error} = useSendMaintances();
   
   const dateNow = dayjs()   
 
@@ -61,9 +55,7 @@ function FormMaintance({state, dispatch}) {
 
   const {listTags} = state;
 
-  const type = typeMaintance != 'Repair'? 'Preventivo':'Correctivo';
-
-  const titleMaintance = `Mantenimiento ${type} ${Day} ${Month} ${Year}`
+  const titleMaintance = `Mantenimiento ${typeMaintance} ${Day} ${Month} ${Year}`
 
   const handleChangue = (setState) => (e) => {
     setState(e.target.value)
@@ -79,6 +71,8 @@ function FormMaintance({state, dispatch}) {
   const SendMaintenance = async (e) => {
 
     e.preventDefault();
+
+    switchForm(dispatch, false)
     
     const dataMaintances = {
       title:titleMaintance,
@@ -93,7 +87,9 @@ function FormMaintance({state, dispatch}) {
 
     const response = await postMaintenance(maintances)
 
-    return response    
+    ClearListTags(dispatch);
+
+    
   }
 
   return (
@@ -167,7 +163,7 @@ function FormMaintance({state, dispatch}) {
           label={"Tipo de mantenimiento"}
           onChange={handleChangue(setMaintance)}
         >
-          <MenuItem value={"Mantenimiento"}>Preventivo</MenuItem>
+          <MenuItem value={"Preventivo"}>Preventivo</MenuItem>
           <MenuItem value={"Correctivo"}>Correctivo</MenuItem>
         </Select>
       </FormControl>
