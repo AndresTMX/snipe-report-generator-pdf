@@ -6,6 +6,7 @@ import { MaintanceContext } from "../../Context/MaintanceContext";
 //components
 import { ItemSearch } from "../../components/ItemSearch";
 import { UserCardMaintenances } from "../../components/UserCardMaintenances";
+import { ViewDocumentMaintance } from "../../components/ViewDocumentMaintance";
 import { FormMaintance } from "../../components/FormMaintance";
 import {Modal} from '../../modals/modal';
 import {Notification} from '../../modals/notification';
@@ -25,15 +26,17 @@ import {ThreeDots} from '../../components/Loading';
 //icons
 import { FaTrashAlt } from "react-icons/fa";
 //helpers actions
-import { switchForm } from "../../Helpers/actionsMaintance";
+import { switchForm, switchDocument } from "../../Helpers/actionsMaintance";
 import { switchNotification } from "../../Helpers/actionsMaintance";
 
 function PageMaintenances() {
   const [state, dispatch] = useContext(MaintanceContext);
+
   const [select, setSelect] = useState(10)
   const {search, setSearch} = useSearcher()  
-  const {results, loading, error, input, Search, ClearSearch, Enter} = useGetSearch(search, select, setSearch);
+
   const {postMaintenance, loading: loadingMaintances, error: errorMaintance} = useSendMaintances(dispatch);
+  const {results, loading, error, input, Search, ClearSearch, Enter} = useGetSearch(search, select, setSearch);
 
   const OnSelect = (e) =>{
     setSelect(e.target.value)
@@ -82,11 +85,11 @@ function PageMaintenances() {
             <FaTrashAlt />
           </IconButton>
 
-          <FormControl sx={{ width: "140px" }}>
-            <InputLabel>Limite de resultados</InputLabel>
+          <FormControl sx={{ width: "80px" }}>
+            <InputLabel>Limite</InputLabel>
             <Select
               value={select}
-              label={"Limite de resultados"}
+              label={"Limite"}
               onChange={OnSelect}
               defaultValue={10}
             >
@@ -102,6 +105,12 @@ function PageMaintenances() {
             onClick={() => switchForm(dispatch, true)}
           >
             Mantenimientos
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => switchDocument(dispatch, true)}
+          >
+            Documento
           </Button>
         </Box>
       </Container>
@@ -136,6 +145,12 @@ function PageMaintenances() {
       {state.form && (
         <Modal>
           <FormMaintance state={state} dispatch={dispatch} postMaintenance={postMaintenance} />
+        </Modal>
+      )}
+
+      {state.document && (
+        <Modal>
+          <ViewDocumentMaintance state={state} dispatch={dispatch}/>
         </Modal>
       )}
 

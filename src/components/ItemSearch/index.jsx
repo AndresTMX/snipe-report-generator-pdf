@@ -10,8 +10,7 @@ import { useContext } from "react";
 import {UseModal} from '../../Hooks/useModal';
 import { MaintanceContext } from "../../Context/MaintanceContext";
 //helpers actions
-import { validateRepeat, ToggleItem } from "../../Helpers/actionsMaintance";
-import { actionTypes } from "../../Context/MaintanceReducer";
+import { validateRepeat, ToggleItem, updateUser } from "../../Helpers/actionsMaintance";
 //components
 import {Modal} from '../../modals/modal';
 import {ViewMaintances} from '../ViewMaintances';
@@ -30,7 +29,7 @@ function ItemSearch({
 }) {
   const [state, dispatch] = useContext(MaintanceContext);
   const {modal, setModal, modal2, setModal2, modal3, setModal3} = UseModal()
-  const { listTags } = state;
+  const { listTags, user } = state;
 
   const renderButton = validateRepeat(listTags, { tag, id, category });
   const variant = renderButton ? "outlined" : "contained";
@@ -56,6 +55,12 @@ function ItemSearch({
     if (category === "MOUSE") {
       return <BsMouse3 />;
     }
+  }
+
+  const toggleMaintance = () => {
+    updateUser(dispatch, userData.name);
+    ToggleItem(listTags, dispatch, { tag, id, category });
+
   }
 
   const nameUser = userData?.name ? userData.name : status;
@@ -96,6 +101,7 @@ function ItemSearch({
         </Box>
 
         <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
+
           <Button variant="contained" onClick={() => setModal(!modal)}>
             Ver mantenimientos
           </Button>
@@ -103,9 +109,7 @@ function ItemSearch({
           <Button
             variant={variant}
             color={color}
-            onClick={() =>
-              ToggleItem(listTags, dispatch, { tag, id, category })
-            }
+            onClick={toggleMaintance}
           >
             Agregar mantenimiento
           </Button>

@@ -1,12 +1,11 @@
 
 const initialState = {
     form: false,
+    document:false,
     listTags:[],
-    dateInit:'',
-    dateEnd: '',
-    title:'',
     notification:false,
-    maintances:[]
+    maintances:[],
+    user:'',
 };
 
 //Use reducer que valida los objetos
@@ -20,9 +19,11 @@ const initialState = {
 
 const actionTypes = {
     setForm: 'SET_FORM',
+    setDocument:'SET_DOCUMENT',
     addTag: 'ADD_TAG',
     setNotification:'SET_NOTIFICATION',
     setMaintances:'SET_MAINTANCES',
+    setUser:'SET_USER'
   
 }
 
@@ -32,6 +33,10 @@ const reducerObject = (state, payload) => ({
     [actionTypes.setForm]:{
         ...state,
         form: payload
+    },
+    [actionTypes.setDocument]:{
+        ...state,
+        document:payload
     },
     [actionTypes.addTag]:{
         ...state,
@@ -44,6 +49,10 @@ const reducerObject = (state, payload) => ({
     [actionTypes.setMaintances]:{
         ...state,
         maintances:payload
+    },
+    [actionTypes.setUser]:{
+        ...state,
+        user:payload
     }
 
 });

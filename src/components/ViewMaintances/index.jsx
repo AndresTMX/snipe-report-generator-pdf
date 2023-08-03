@@ -1,6 +1,6 @@
 //material UI
 import { Box, Button, IconButton, Container, Paper, Typography } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
 //Icons
 import { IoIosCloseCircle } from "react-icons/io";
 import {IoIosSad} from "react-icons/io";
@@ -8,12 +8,11 @@ import {IoIosSad} from "react-icons/io";
 import {useMaintancesAssets} from '../../Hooks/useMaintancesAsset';
 //components
 import { ThreeDots } from '../Loading';
+import { useState } from 'react';
 
 function ViewMaintances({modal, setModal, idAsset}) {
 
     const {dataMaintances, loading, error} = useMaintancesAssets(idAsset);
-
-    // const dataRender = dataMaintances || [];
 
     const columns = [
       { field: 'col', headerName: 'ID', width: 50 },
@@ -40,69 +39,133 @@ function ViewMaintances({modal, setModal, idAsset}) {
       col8:maintance?.cost,
     })):[];
 
-    return ( 
-        <Paper 
-        sx={{display:'flex',
-         flexDirection:'column',
-         gap:'10px', 
-         padding:'20px',
-         maxWidth:'700px',
-         maxHeight:'60vh', 
-         overflowX:'auto',
-         overflowY:'auto',
-         "&::-webkit-scrollbar": {
-          width: "8px",
-        },
-        "&::-webkit-scrollbar-thumb": {
-          backgroundColor: "lightgray",
-          borderRadius: "4px",
-        },
-        "&::-webkit-scrollbar-thumb:hover": {
-          backgroundColor: "gray",
-        },
-        }}>
+    const [columnVisibilityModel, setColumnVisibilityModel] = useState({
+      col1:false,
+      col5:false,
+      col6:false,
+      col8:false
+    });
 
-          <Box sx={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', gap:'50px'}}>
-            <Typography
-            variant='h5'
-            fontWeight='500'
-            >
-              Mantenimientos realizados
-            </Typography>
+    const [selectionModel, setSelectionModel] = useState([]);
 
-            <IconButton
-            onClick={() => setModal(!modal)}
-            >
-              <IoIosCloseCircle/>
-            </IconButton>
-          </Box>
+    const handleSelectionModelChange = (newSelection) => {
+      setSelectionModel(newSelection.map((id) => rows.find((row) => row.id === id)));
+    };
 
-          {loading && error === null && (
-            <Container 
-            sx={{display:'flex', justifyContent:'center',  alignItems:'center', margin:'auto'}}>
-              <ThreeDots/>
-            </Container>
-          )}
+    const CustomToolbar = () => {
+      return (
+        <GridToolbarContainer>
+          <GridToolbar/>
+          <Button variant='contained' size='small' onClick={() => console.log('click')}>Agregar a documento</Button>
+        </GridToolbarContainer>
+      );
+    };
 
-           {!loading && error === null && rows.length === 0 && (
-            <Container
-            sx={{display:'flex', justifyContent:'start',  alignItems:'center', margin:'auto', width:'100%', padding:'20px', flexDirection:'column', gap:'10px'}}>
+
+    return (
+      <Paper
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          padding: "20px",
+          maxWidth: "700px",
+          maxHeight: "60vh",
+          overflowX: "auto",
+          overflowY: "auto",
+          "&::-webkit-scrollbar": {
+            width: "8px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "lightgray",
+            borderRadius: "4px",
+          },
+          "&::-webkit-scrollbar-thumb:hover": {
+            backgroundColor: "gray",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: "50px",
+          }}
+        >
+          <Typography variant="h5" fontWeight="500">
+            Mantenimientos realizados
+          </Typography>
+
+          <IconButton onClick={() => setModal(!modal)}>
+            <IoIosCloseCircle />
+          </IconButton>
+        </Box>
+
+        {loading && error === null && (
+          <Container
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "auto",
+            }}
+          >
+            <ThreeDots />
+          </Container>
+        )}
+
+        {!loading && error === null && rows.length === 0 && (
+          <Container
+            sx={{
+              display: "flex",
+              justifyContent: "start",
+              alignItems: "center",
+              margin: "auto",
+              width: "100%",
+              padding: "20px",
+              flexDirection: "column",
+              gap: "10px",
+            }}
+          >
             <Typography variant="span" fontWeight="500">
               {"Sin mantenimientos registrados"}
             </Typography>
             <Typography variant="h2">
-              <IoIosSad/>
+              <IoIosSad />
             </Typography>
-            </Container>
-          )}
+          </Container>
+        )}
 
-          {!loading && error === null && rows.length > 0 && (
-            <DataGrid rows={rows} columns={columns}/>
-          )}
-
-
-        </Paper>
-     );
+        {!loading && error === null && rows.length > 0 && (
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            slots={{
+              toolbar: CustomToolbar
+            }}
+            columnVisibilityModel={columnVisibilityModel}
+            onColumnVisibilityModelChange={(newModel) =>
+              setColumnVisibilityModel(newModel)
+            }
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
+                },
+              },
+            }}
+            pageSizeOptions={[5]}
+            checkboxSelection={true}
+            onRowClick={(params) => console.log(params)}
+            selectionModel={selectionModel}
+            onRowSelectionModelChange={handleSelectionModelChange}
+            
+          />
+        )}
+      </Paper>
+    );
 }
 
 export {ViewMaintances};

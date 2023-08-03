@@ -9,6 +9,10 @@ export function switchForm (dispatch, payload){
     dispatch({type:actionTypes.setForm, payload: payload})
 }
 
+export function switchDocument (dispatch, payload){
+    dispatch({type:actionTypes.setDocument, payload:payload})
+}
+
 export function validateRepeat(array, index){
    const newList = array.length > 0 ? [...array, index]:[index];
    const validate =  newList.filter(element => element.tag === index.tag);
@@ -116,4 +120,15 @@ export function okMaintance(dispatch,  listMaincances, maintance){
 
     dispatch({type:actionTypes.setMaintances, payload:newState})
 
+}
+
+export function addDocument(dispatch, state, item){
+
+    const newList = state.length > 0 ? [...state, item]:[item];
+    dispatch({type:actionTypes.addDocument, payload: newList})
+
+}
+
+export function updateUser(dispatch, user){
+    dispatch({type:actionTypes.setUser,  payload:user});
 }
