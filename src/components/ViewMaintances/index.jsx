@@ -10,7 +10,7 @@ import {useMaintancesAssets} from '../../Hooks/useMaintancesAsset';
 import { ThreeDots } from '../Loading';
 import { useState } from 'react';
 
-function ViewMaintances({modal, setModal, idAsset}) {
+function ViewMaintances({modal, setModal, idAsset, nameUser, dispatch}) {
 
     const {dataMaintances, loading, error} = useMaintancesAssets(idAsset);
 
@@ -52,11 +52,30 @@ function ViewMaintances({modal, setModal, idAsset}) {
       setSelectionModel(newSelection.map((id) => rows.find((row) => row.id === id)));
     };
 
+    function addUserMaintance ( arrayMaintances, name ) {
+      return arrayMaintances.map((maintance) => ({
+        id:maintance.col,
+        user: name,
+        title:maintance.col1,
+        admin:maintance.col2,
+        init:maintance.col3,
+        end:maintance.col4,
+        provider:maintance.col6,
+        type:maintance.col7,
+        cost:maintance.col8
+      }))
+    }
+
+    const addMaintance = () => {
+     const newState = addUserMaintance(selectionModel, nameUser)
+     
+    }
+
     const CustomToolbar = () => {
       return (
         <GridToolbarContainer>
           <GridToolbar/>
-          <Button variant='contained' size='small' onClick={() => console.log('click')}>Agregar a documento</Button>
+          {/* <Button variant='contained' size='small' onClick={addMaintance}>Agregar a documento</Button> */}
         </GridToolbarContainer>
       );
     };
@@ -158,7 +177,6 @@ function ViewMaintances({modal, setModal, idAsset}) {
             }}
             pageSizeOptions={[5]}
             checkboxSelection={true}
-            onRowClick={(params) => console.log(params)}
             selectionModel={selectionModel}
             onRowSelectionModelChange={handleSelectionModelChange}
             

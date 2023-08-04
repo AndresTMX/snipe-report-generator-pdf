@@ -1,12 +1,14 @@
-import { Paper,  Container, Box, Button, IconButton, Typography } from "@mui/material";
+import { Paper,  Container, Box, Button, IconButton, Typography, Select, MenuItem, InputLabel } from "@mui/material";
 //icons
 import { IoIosCloseCircle } from "react-icons/io";
 //actions
 import { switchDocument } from "../../Helpers/actionsMaintance";
+//components
+import { UserItemMaintance } from "../UserItemMaintance";
 
 function ViewDocumentMaintance({ state, dispatch }) {
 
-    const {maintances, user} = state;
+    const {maintances, user, listTags} = state;
 
   return (
     <Container
@@ -42,9 +44,31 @@ function ViewDocumentMaintance({ state, dispatch }) {
           </IconButton>
         </Box>
 
-        
+        <Typography variant="span" >Activos por usuario</Typography>
+
+        <UserItemMaintance maintances={maintances} listTags={listTags}/>
+
+        <Typography variant="span">Mes en el que se realizo </Typography>
+
+        <Select
+        label="Mes"
+        value="Enero"
+        >
+          <MenuItem value='Enero' >Enero</MenuItem>
+          <MenuItem value='Febrero' >Febrero</MenuItem>
+        </Select>
+
+        <Typography variant="span">Emisor</Typography>
+        <Select
+        label="Emisor"
+        value="Oscar"
+        >
+          <MenuItem value='Oscar' >Oscar</MenuItem>
+          <MenuItem value='Andres' >Andres</MenuItem>
+        </Select>
 
 
+        <Button variant="contained">Generar documento</Button>
 
       </Paper>
     </Container>

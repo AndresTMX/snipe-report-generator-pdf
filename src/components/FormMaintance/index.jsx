@@ -8,6 +8,12 @@ import { actionTypes } from "../../Context/MaintanceReducer";
 //icons
 import { IoIosCloseCircle } from "react-icons/io";
 import { DatePicker } from "@mui/x-date-pickers";
+//icons
+import { AiOutlineLaptop } from "react-icons/ai"; //lap
+import { BsKeyboard } from "react-icons/bs"; //teclado
+import { BsMouse3 } from "react-icons/bs"; //mouse
+import { FiMonitor } from "react-icons/fi"; //monitor
+import { PiDesktopTowerDuotone } from "react-icons/pi"; //gabinete
 //helpers
 import { RemoveTag, builderMaintance, switchForm, transformDate, ClearListTags } from "../../Helpers/actionsMaintance";
 //.emv Maintenances provider
@@ -56,6 +62,28 @@ function FormMaintance({state, dispatch, postMaintenance}) {
   const {listTags} = state;
 
   const titleMaintance = `Mantenimiento ${typeMaintance} ${Day} ${Month} ${Year}`
+
+  function renderIcon(category) {
+    if (category === "LAPTOP") {
+      return <AiOutlineLaptop />;
+    }
+
+    if (category === "GABINETE") {
+      return <PiDesktopTowerDuotone />;
+    }
+
+    if (category === "MONITOR") {
+      return <FiMonitor />;
+    }
+
+    if (category === "TECLADO") {
+      return <BsKeyboard />;
+    }
+
+    if (category === "MOUSE") {
+      return <BsMouse3 />;
+    }
+  }
 
   const handleChangue = (setState) => (e) => {
     setState(e.target.value)
@@ -138,6 +166,8 @@ function FormMaintance({state, dispatch, postMaintenance}) {
               variant="outlined"
               color="error"
               key={item.tag}
+              size="small"
+              startIcon={renderIcon(item.category)}
             >
               {item.tag}
             </Button>

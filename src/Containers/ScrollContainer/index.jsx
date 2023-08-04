@@ -1,6 +1,9 @@
 import { Container } from "@mui/material";
 
-function ScrollContainer({ children }) {
+function ScrollContainer({ children, height }) {
+
+  const Heigth =  height? height : "60vh";
+
   return (
     <Container
       sx={{
@@ -8,7 +11,7 @@ function ScrollContainer({ children }) {
         flexDirection: "column",
         gap: "20px",
         overflowY: "scroll",
-        height: "60vh",
+        height: Heigth,
         paddingTop:'20px',
         paddingBottom:'20px',
         "&::-webkit-scrollbar": {
