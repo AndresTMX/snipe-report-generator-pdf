@@ -3,13 +3,14 @@ import { useState } from "react";
 import {Box, Tabs, Tab} from "@mui/material";
 //components
 import { CustomTabPanel } from "../../sections/CustomPanel";
+import { GetAllMaintances } from "../../sections/getAllMaintances";
 //CustomTabs
 import {SendMaintances} from '../../sections/SendMaintances'
 import {ConstructionState} from '../../sections/Construction';
 
 function PageMaintenances() {
 
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -33,19 +34,22 @@ function PageMaintenances() {
             aria-label="basic tabs example"
             centered
           >
+            <Tab label="Programar mantenimientos" />
             <Tab label="Subir mantenimientos" />
             <Tab label="Generar Programa" />
-            <Tab label="Programar mantenimientos" />
           </Tabs>
         </Box>
+
         <CustomTabPanel value={value} index={0}>
-          <SendMaintances/>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
         <ConstructionState/>
         </CustomTabPanel>
+
+        <CustomTabPanel value={value} index={1}>
+          <SendMaintances/>
+        </CustomTabPanel>
+
         <CustomTabPanel value={value} index={2}>
-          <ConstructionState/>
+          <GetAllMaintances/>
         </CustomTabPanel> 
       </Box>
 

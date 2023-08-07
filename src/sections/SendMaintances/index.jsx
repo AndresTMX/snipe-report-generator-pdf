@@ -75,13 +75,11 @@ function SendMaintances() {
               left: "10%",
             }}
           >
-            <IconButton onClick={ClearSearch}>
-              <FaTrashAlt />
-            </IconButton>
 
             <FormControl sx={{ width: "80px" }}>
               <InputLabel>Limite</InputLabel>
               <Select
+                size="small"
                 value={select}
                 label={"Limite"}
                 onChange={OnSelect}
@@ -100,23 +98,28 @@ function SendMaintances() {
             >
               Mantenimientos
             </Button>
-            <Button
+
+            <IconButton onClick={ClearSearch}>
+              <FaTrashAlt />
+            </IconButton>
+
+            {/* <Button
               variant="contained"
               onClick={() => switchDocument(dispatch, true)}
             >
               Documento
-            </Button>
+            </Button> */}
           </Box>
         </Container>
 
         <ScrollContainer>
-          {!loading && !input && !input.length && (
-            <h2>Busca activos por alguna de sus propiedades</h2>
+          {!loading && !input.length && !results && (
+            <Box sx={{display:'flex', justifyContent:'center'}}>
+              <span>Busca activos por alguna de sus propiedades</span>
+            </Box>
           )}
 
-          {!loading &&
-            !error &&
-            results &&
+          {!loading && !error && results &&
             results.map((result) => (
               <ItemSearch
                 key={result.id}
@@ -133,7 +136,13 @@ function SendMaintances() {
               />
             ))}
 
-          {loading && !error && input && <ThreeDots />}
+          {loading && !error && input && (
+             <Box
+             sx={{display:'flex', justifyContent:'center'}}
+             >
+              <ThreeDots />
+             </Box>
+          )}
         </ScrollContainer>
 
         {state.form && (
@@ -146,11 +155,11 @@ function SendMaintances() {
           </Modal>
         )}
 
-        {state.document && (
+        {/* {state.document && (
           <Modal>
             <ViewDocumentMaintance state={state} dispatch={dispatch} />
           </Modal>
-        )}
+        )} */}
 
         {state.notification && (
           <Notification>

@@ -75,9 +75,9 @@ export const getMaintancesAsset = async (assetId) => {
     }
 };
 
-export const getAllMaintances = async (offset,limit) => {
+export const getMaintancesForDate = async (year, month) => {
     try {
-        const response = await axios.get(`${baseURL}maintenances?limit=${limit}&offset=${offset}&sort=created_at`, {
+        const response = await axios.get(`${baseURL}maintenances?search=${year}-${month}&sort=created_at`, {
             headers: {
                 accept: 'application/json',
                 Authorization: Authorization,

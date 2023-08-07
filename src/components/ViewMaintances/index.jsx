@@ -66,21 +66,6 @@ function ViewMaintances({modal, setModal, idAsset, nameUser, dispatch}) {
       }))
     }
 
-    const addMaintance = () => {
-     const newState = addUserMaintance(selectionModel, nameUser)
-     
-    }
-
-    const CustomToolbar = () => {
-      return (
-        <GridToolbarContainer>
-          <GridToolbar/>
-          {/* <Button variant='contained' size='small' onClick={addMaintance}>Agregar a documento</Button> */}
-        </GridToolbarContainer>
-      );
-    };
-
-
     return (
       <Paper
         sx={{
@@ -162,7 +147,7 @@ function ViewMaintances({modal, setModal, idAsset, nameUser, dispatch}) {
             rows={rows}
             columns={columns}
             slots={{
-              toolbar: CustomToolbar
+              toolbar: GridToolbar
             }}
             columnVisibilityModel={columnVisibilityModel}
             onColumnVisibilityModelChange={(newModel) =>
