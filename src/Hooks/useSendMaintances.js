@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { SendMaintance } from "../API";
-import { addMaintance } from "../Helpers/actionsMaintance";
+import { useSendNotification } from "./useSendNotification";
 
-function useSendMaintances( dispatch) {
-  
-    const [loading, setLoading] = useState(null)
-    const [error, setError] = useState(null)
+function useSendMaintances() {
+    const {notifications, formatNotifications, setNotifications, closeNotification} = useSendNotification()  
+    const [loadingMaintances, setLoading] = useState(null)
+    const [errorMaintance, setError] = useState(null)
 
     const postMaintenance = async (arrayMaintances) => {
         try {
           setLoading(true)
-          const responses = await Promise.all(arrayMaintances.map(maintance => SendMaintance(maintance)));
-          addMaintance(dispatch, responses)
+          const responses = await Promise.all(arrayMaintances.map(maintance => SendMaintance(maintance)));          
+          setNotifications(formatNotifications(responses));
           setLoading(false)
         } catch (error) {
           setError(error);
@@ -20,7 +20,9 @@ function useSendMaintances( dispatch) {
         }
       };
 
-    return {postMaintenance, loading, error}
+      const statusMaintance = {loadingMaintances, errorMaintance, notifications}
+
+    return {postMaintenance, closeNotification, statusMaintance}
 
 
 }

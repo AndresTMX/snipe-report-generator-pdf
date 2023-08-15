@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { IconButton, FormControl, InputLabel, Select, MenuItem, Box, TextField, Button, InputAdornment } from "@mui/material"
 import { ContainerDate } from "../ContainerDateDays";
 import { actionTypes } from "../../Context/MaintanceReducer";
+import { UserItemMaintance } from "../UserItemMaintance";
 //icons
 import { IoIosCloseCircle } from "react-icons/io";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -15,7 +16,7 @@ import { BsMouse3 } from "react-icons/bs"; //mouse
 import { FiMonitor } from "react-icons/fi"; //monitor
 import { PiDesktopTowerDuotone } from "react-icons/pi"; //gabinete
 //helpers
-import { RemoveTag, builderMaintance, switchForm, transformDate, ClearListTags } from "../../Helpers/actionsMaintance";
+import { RemoveMaintances , builderMaintance, switchForm, transformDate, ClearMaintances } from "../../Helpers/actionsMaintance";
 //.emv Maintenances provider
 const providerMaintenance = import.meta.env.VITE_PROVIDER_MAINTENANCES;
 
@@ -59,7 +60,7 @@ function FormMaintance({state, dispatch, postMaintenance}) {
 
   const Day = dateNow.$D
 
-  const {listTags} = state;
+  const {maintances} = state;
 
   const titleMaintance = `Mantenimiento ${typeMaintance} ${Day} ${Month} ${Year}`
 
@@ -104,18 +105,18 @@ function FormMaintance({state, dispatch, postMaintenance}) {
     
     const dataMaintances = {
       title:titleMaintance,
-      data:listTags,
+      data:maintances,
       type:typeMaintance,
       supplier_id:parseInt(providerMaintenance),
       start_date:transformDate(date.init),
       completion_date:transformDate(date.end),
     }
 
-    const maintances = builderMaintance(dataMaintances)
+    const groupMaintances = builderMaintance(dataMaintances)
 
-    const response = await postMaintenance(maintances)
+    const response = await postMaintenance(groupMaintances)
 
-    ClearListTags(dispatch);
+    ClearMaintances(dispatch);
 
     
   }
@@ -143,7 +144,7 @@ function FormMaintance({state, dispatch, postMaintenance}) {
 
         <IconButton
           onClick={() => {
-            dispatch({ type: actionTypes.setForm, payload: false });
+            dispatch({ type: actionTypes.setformSendMaintances, payload: false });
           }}
         >
           <IoIosCloseCircle />
@@ -159,21 +160,11 @@ function FormMaintance({state, dispatch, postMaintenance}) {
           flexWrap: "wrap",
         }}
       >
-        {listTags.length > 0 &&
-          listTags.map((item) => (
-            <Button
-              onClick={() => RemoveTag(listTags, dispatch, item)}
-              variant="outlined"
-              color="error"
-              key={item.tag}
-              size="small"
-              startIcon={renderIcon(item.category)}
-            >
-              {item.tag}
-            </Button>
-          ))}
+        {maintances.length > 0 && (
+          <UserItemMaintance maintances={maintances} dispatch={dispatch}/>
+        )}
 
-        {listTags.length < 1 && <span>Sin OFCMI agregados</span>}
+        {maintances.length < 1 && <span>Sin OFCMI agregados</span>}
       </Box>
 
       <FormControl fullWidth>

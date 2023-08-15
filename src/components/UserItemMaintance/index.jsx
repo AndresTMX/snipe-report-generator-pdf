@@ -7,8 +7,10 @@ import { FiMonitor } from "react-icons/fi"; //monitor
 import { PiDesktopTowerDuotone } from "react-icons/pi"; //gabinete
 //scrolling
 import { ScrollContainer } from "../../Containers/ScrollContainer";
+//helpers
+import { ToggleItem } from "../../Helpers/actionsMaintance";
 
-function UserItemMaintance({maintances, listTags}) {
+function UserItemMaintance({maintances, dispatch}) {
 
     function assetsForUser (array, property) {
        const groups = {} 
@@ -45,16 +47,16 @@ function UserItemMaintance({maintances, listTags}) {
         }
     }
 
-    const TagsForUser = assetsForUser(listTags, 'nameUser')
+    const TagsForUser = assetsForUser(maintances, 'nameUser')
 
 
     return (
       <>
-        {listTags?.length === 0 && (
+        {maintances?.length === 0 && (
           <Typography variant="span">Sin activos agregados</Typography>
         )}
 
-        {listTags?.length > 0 && (
+        {maintances?.length > 0 && (
           <ScrollContainer height={"200px"}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
             {TagsForUser.map((assetUser, index) => (
@@ -78,6 +80,7 @@ function UserItemMaintance({maintances, listTags}) {
                       color="error"
                       size="small"
                       startIcon={renderIcon(asset.category)}
+                      onClick={() => ToggleItem(maintances, dispatch, asset )}
                     >
                       {asset.tag}
                     </Button>

@@ -4,7 +4,6 @@ import {Box, Container, FormControl, IconButton, Select, InputLabel,  MenuItem, 
 //context
 import { MaintanceContext } from "../../Context/MaintanceContext";
 //components
-import { ViewDocumentMaintance } from "../../components/ViewDocumentMaintance";
 import { LoadingMaintances } from "../../components/LoadingMaintances";
 import { ScrollContainer } from "../../Containers/ScrollContainer";
 import { FormMaintance } from "../../components/FormMaintance";
@@ -20,7 +19,7 @@ import { useGetSearch } from "../../Hooks/useGetSearch";
 //icons
 import { FaTrashAlt } from "react-icons/fa";
 //helpers actions
-import { switchForm, switchDocument, switchNotification } from "../../Helpers/actionsMaintance";
+import { switchForm, switchNotification } from "../../Helpers/actionsMaintance";
 
 
 function SendMaintances() {
@@ -30,11 +29,26 @@ function SendMaintances() {
     const [select, setSelect] = useState(10)
     const {search, setSearch} = useSearcher()  
   
-    const {postMaintenance, loading: loadingMaintances, error: errorMaintance} = useSendMaintances(dispatch);
-    const {results, loading, error, input, Search, ClearSearch, Enter} = useGetSearch(search, select, setSearch);
+    const {postMaintenance, closeNotification, statusMaintance} = useSendMaintances();
+    const {states, actions} = useGetSearch(search, select);
+
+    const { loadingMaintances, notifications } = statusMaintance;
+    const {results, loading, error, input} = states;
+    const {Search, setResults } = actions;
   
     const OnSelect = (e) =>{
       setSelect(e.target.value)
+    }
+
+    const Enter = (e) => {
+      if(e.key === "Enter"){
+          Search();
+      }
+  }
+
+    const ClearSearch = () => {
+      setResults(null);
+      setSearch("");
     }
 
     return ( 
@@ -103,12 +117,6 @@ function SendMaintances() {
               <FaTrashAlt />
             </IconButton>
 
-            {/* <Button
-              variant="contained"
-              onClick={() => switchDocument(dispatch, true)}
-            >
-              Documento
-            </Button> */}
           </Box>
         </Container>
 
@@ -145,7 +153,7 @@ function SendMaintances() {
           )}
         </ScrollContainer>
 
-        {state.form && (
+        {state.formSendMaintances && (
           <Modal>
             <FormMaintance
               state={state}
@@ -154,12 +162,6 @@ function SendMaintances() {
             />
           </Modal>
         )}
-
-        {/* {state.document && (
-          <Modal>
-            <ViewDocumentMaintance state={state} dispatch={dispatch} />
-          </Modal>
-        )} */}
 
         {state.notification && (
           <Notification>
@@ -184,11 +186,11 @@ function SendMaintances() {
           </Notification>
         )}
 
-        {state.maintances.length > 0 && (
+        {notifications.length > 0 && (
           <Modal>
             <LoadingMaintances
-              maintances={state.maintances}
-              dispatch={dispatch}
+              maintances={notifications}
+              action={closeNotification}
             />
           </Modal>
         )}

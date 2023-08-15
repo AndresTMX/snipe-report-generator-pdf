@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getSearch } from "../API";
 import { filterResults } from "../Helpers/actionsMaintance";
 
-function useGetSearch(search, limit, setSearch) {
+function useGetSearch(search, limit) {
 
     const [input, setInput] = useState('')    
     const [results, setResults] = useState(null);
@@ -34,18 +34,12 @@ function useGetSearch(search, limit, setSearch) {
         fetchSearch();
     }
 
-    const Enter = (e) => {
-        if(event.key === "Enter"){
-            Search();
-        }
-    }
+    const actions = {Search, setResults }
+
+    const states = {results, loading, error, input}
  
-    const ClearSearch = () => {
-        setResults(null);
-        setSearch("");
-    }
     
-    return {results, loading, error, input, Search, ClearSearch, Enter}
+    return {actions, states}
 }
 
 export {useGetSearch};

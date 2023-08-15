@@ -10,7 +10,7 @@ import { useContext } from "react";
 import {UseModal} from '../../Hooks/useModal';
 import { MaintanceContext } from "../../Context/MaintanceContext";
 //helpers actions
-import { validateRepeat, ToggleItem, updateUser } from "../../Helpers/actionsMaintance";
+import { validateRepeat, ToggleItem } from "../../Helpers/actionsMaintance";
 //components
 import {Modal} from '../../modals/modal';
 import {ViewMaintances} from '../ViewMaintances';
@@ -28,11 +28,11 @@ function ItemSearch({
   userData,
 }) {
   const [state, dispatch] = useContext(MaintanceContext);
-  const {modal, setModal, modal2, setModal2, modal3, setModal3} = UseModal()
-  const { listTags, user } = state;
+  const {modal, setModal} = UseModal()
+  const { maintances } = state;
   
   const nameUser = userData?.name ? userData.name : status;
-  const renderButton = validateRepeat(listTags, { tag, id, category, nameUser });
+  const renderButton = validateRepeat(maintances, { tag, id, category, nameUser });
   const variant = renderButton ? "outlined" : "contained";
   const color = renderButton ? "error" : "primary";
 
@@ -59,8 +59,7 @@ function ItemSearch({
   }
 
   const toggleMaintance = () => {
-    updateUser(dispatch, userData.name);
-    ToggleItem(listTags, dispatch, { tag, id, category, nameUser});
+    ToggleItem(maintances, dispatch, { tag, id, category, nameUser});
   }
 
 
@@ -117,7 +116,7 @@ function ItemSearch({
 
       {modal && (
         <Modal>
-          <ViewMaintances modal={modal} setModal={setModal} idAsset={id} nameUser={nameUser} dispatch={dispatch}/>
+          <ViewMaintances modal={modal} setModal={setModal} idAsset={id}/>
         </Modal>)}
 
     </>

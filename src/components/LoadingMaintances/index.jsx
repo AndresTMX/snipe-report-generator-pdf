@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-import { Paper, Button, Alert, AlertTitle } from "@mui/material";
-import { okMaintance } from "../../Helpers/actionsMaintance";
+import { Button, Alert } from "@mui/material";
 import { ScrollContainer } from "../../Containers/ScrollContainer";
 
-function LoadingMaintances({ maintances, dispatch }) {
+function LoadingMaintances({ maintances, action }) {
 
     return ( 
         <ScrollContainer>
@@ -11,13 +10,14 @@ function LoadingMaintances({ maintances, dispatch }) {
            maintances.map((maintance) => (
 
             <Alert
+            key={maintance.assetId}
             action={
-                <Button color="inherit" size="small" onClick={() => okMaintance(dispatch, maintances, maintance)}>
+                <Button color="inherit" size="small" onClick={() => action(maintance.assetId)}>
                     X
                 </Button>
             }>
 
-                <span>{maintance.data.messages}  <strong>{maintance.data.payload.asset_id}</strong> </span>
+                <span>{maintance.message}  <strong>{maintance.assetId}</strong> </span>
 
             </Alert>
             

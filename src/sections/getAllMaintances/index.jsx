@@ -1,10 +1,21 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { MaintanceContext } from "../../Context/MaintanceContext";
 import { Container, Box, FormControl, Select, MenuItem, InputLabel, Button } from "@mui/material";
+import { Modal } from "../../modals/modal";
 import { DataGrid, GridToolbar, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
 import { useGetMaintancesForDate } from "../../Hooks/useGetMaintancesForDate";
+import { ViewDocumentMaintance } from "../../components/ViewDocumentMaintance";
 import { ThreeDots } from "../../components/Loading";
 import {months, years, findMounth } from '../../Helpers/Date'
+import { switchDocument,  ToggleItem, AddMaintances } from "../../Helpers/actionsMaintance";
+import { actionTypes } from "../../Context/MaintanceReducer";
+
+
 function GetAllMaintances() {
+
+  const [state, dispatch] = useContext(MaintanceContext);
+
+  const {maintances: maintancesData} = state;
   
   const [date, setDate] = useState({
     month:'',
@@ -51,23 +62,23 @@ function GetAllMaintances() {
     setSelectionModel(newSelection.map((id) => rows.find((row) => row.id === id)));
   };
 
-  function addUserMaintance ( arrayMaintances, name ) {
-    return arrayMaintances.map((maintance) => ({
-      id:maintance.col,
-      user: name,
+  function addUserMaintance ( arrayMaintances ) {
+      return arrayMaintances.map((maintance) => ({
+      tag:maintance.col,
+      user: maintance.col5,
       title:maintance.col1,
       admin:maintance.col2,
       init:maintance.col3,
       end:maintance.col4,
       provider:maintance.col6,
       type:maintance.col7,
-      cost:maintance.col8
+      cost:maintance.col8 
     }))
   }
 
   const addMaintance = () => {
-   const newState = addUserMaintance(selectionModel, nameUser)
-   
+   const newState = addUserMaintance(selectionModel)    
+   dispatch({type:actionTypes.setMaintances,  payload: newState})
   }
 
   const CustomToolbar = () => {
@@ -132,6 +143,13 @@ function GetAllMaintances() {
             onClick={() => fetchMaintances()}
             >Consultar mantenimientos</Button>
 
+             <Button
+              variant="contained"
+              onClick={() => switchDocument(dispatch, true)}
+            >
+              Documento
+            </Button>
+
           </Box>
 
           <Box
@@ -180,6 +198,13 @@ function GetAllMaintances() {
             </Box>
 
         </Container>
+
+
+        {state.formGenerateDocument && (
+          <Modal>
+            <ViewDocumentMaintance state={state} dispatch={dispatch} />
+          </Modal>
+        )}
 
 
 

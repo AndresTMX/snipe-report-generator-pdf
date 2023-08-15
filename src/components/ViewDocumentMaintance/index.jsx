@@ -8,7 +8,7 @@ import { UserItemMaintance } from "../UserItemMaintance";
 
 function ViewDocumentMaintance({ state, dispatch }) {
 
-    const {maintances, user, listTags} = state;
+    const {maintances} = state;
 
   return (
     <Container
@@ -46,7 +46,7 @@ function ViewDocumentMaintance({ state, dispatch }) {
 
         <Typography variant="span" >Activos por usuario</Typography>
 
-        <UserItemMaintance maintances={maintances} listTags={listTags}/>
+        <UserItemMaintance maintances={maintances} dispatch={dispatch}/>
 
         <Typography variant="span">Mes en el que se realizo </Typography>
 

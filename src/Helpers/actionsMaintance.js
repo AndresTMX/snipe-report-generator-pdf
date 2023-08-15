@@ -6,11 +6,11 @@ export function filterResults (results){
 }
 
 export function switchForm (dispatch, payload){
-    dispatch({type:actionTypes.setForm, payload: payload})
+    dispatch({type:actionTypes.setformSendMaintances, payload: payload})
 }
 
 export function switchDocument (dispatch, payload){
-    dispatch({type:actionTypes.setDocument, payload:payload})
+    dispatch({type:actionTypes.setformGenerateDocument, payload:payload})
 }
 
 export function validateRepeat(array, index){
@@ -23,15 +23,15 @@ export function validateRepeat(array, index){
    }
 }
 
-export function AddTag(listTag, dispatch, payload){
+export function AddMaintances(listTag, dispatch, payload){
     const newList = listTag.length > 0 ? [...listTag, payload]:[payload];
-    dispatch({type:actionTypes.addTag, payload: newList})
+    dispatch({type:actionTypes.setMaintances, payload: newList})
     
 }
 
-export function RemoveTag(listTag, dispatch, payload){
+export function RemoveMaintances(listTag, dispatch, payload){
     const newList = listTag.filter(element => element.tag !=  payload.tag);
-    dispatch({type:actionTypes.addTag, payload: newList})
+    dispatch({type:actionTypes.setMaintances, payload: newList})
     
 }
 
@@ -40,15 +40,15 @@ export function ToggleItem(listTag, dispatch, payload){
     const validate = validateRepeat(listTag, payload)
 
     if(!validate){
-        AddTag(listTag, dispatch, payload)
+        AddMaintances(listTag, dispatch, payload)
     }else{
-        RemoveTag(listTag, dispatch, payload)
+        RemoveMaintances(listTag, dispatch, payload)
     }
 
 }
 
-export function ClearListTags(dispatch){
-    dispatch({type: actionTypes.addTag, payload: []})
+export function ClearMaintances(dispatch){
+    dispatch({type: actionTypes.setMaintances, payload: []})
 }
 
 export function switchNotification(dispatch, payload){
@@ -108,28 +108,15 @@ export function builderMaintance(dataMaintances) {
 
 }
 
-export function addMaintance( dispatch, listMaintances){
 
-    dispatch({type:actionTypes.setMaintances, payload: listMaintances})
-}
+// funcion de cerrado de notificacion despues de envio
+// export function okMaintance(dispatch,  listMaincances, maintance){
 
-export function okMaintance(dispatch,  listMaincances, maintance){
+//     const arraySends = listMaincances.filter(item => item.data.payload.asset_id != maintance.data.payload.asset_id );
 
-    const arraySends = listMaincances.filter(item => item.data.payload.asset_id != maintance.data.payload.asset_id );
+//     const newState = arraySends.length > 0 ? arraySends : [];
 
-    const newState = arraySends.length > 0 ? arraySends : [];
+//     dispatch({type:actionTypes.setMaintances, payload:newState})
 
-    dispatch({type:actionTypes.setMaintances, payload:newState})
+// }
 
-}
-
-export function addDocument(dispatch, state, item){
-
-    const newList = state.length > 0 ? [...state, item]:[item];
-    dispatch({type:actionTypes.addDocument, payload: newList})
-
-}
-
-export function updateUser(dispatch, user){
-    dispatch({type:actionTypes.setUser,  payload:user});
-}

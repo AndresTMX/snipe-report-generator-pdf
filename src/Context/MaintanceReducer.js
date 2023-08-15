@@ -1,11 +1,9 @@
 
 const initialState = {
-    form: false,
-    document:false,
-    listTags:[],
+    formSendMaintances: false,
+    formGenerateDocument:false,
     notification:false,
     maintances:[],
-    user:'',
 };
 
 //Use reducer que valida los objetos
@@ -18,29 +16,22 @@ const initialState = {
 }
 
 const actionTypes = {
-    setForm: 'SET_FORM',
-    setDocument:'SET_DOCUMENT',
-    addTag: 'ADD_TAG',
+    setformSendMaintances: 'SET_FORM_MAINTANCES',
+    setformGenerateDocument:'SET_FORM_GENERATE_DOCUMENT',
     setNotification:'SET_NOTIFICATION',
     setMaintances:'SET_MAINTANCES',
-    setUser:'SET_USER'
-  
 }
 
 //Use reducer con estrutura de objetos 
 const reducerObject = (state, payload) => ({
  
-    [actionTypes.setForm]:{
+    [actionTypes.setformSendMaintances]:{
         ...state,
-        form: payload
+        formSendMaintances: payload
     },
-    [actionTypes.setDocument]:{
+    [actionTypes.setformGenerateDocument]:{
         ...state,
-        document:payload
-    },
-    [actionTypes.addTag]:{
-        ...state,
-        listTags:payload
+        formGenerateDocument:payload
     },
     [actionTypes.setNotification]:{
         ...state,
@@ -50,11 +41,6 @@ const reducerObject = (state, payload) => ({
         ...state,
         maintances:payload
     },
-    [actionTypes.setUser]:{
-        ...state,
-        user:payload
-    }
-
 });
 
 export { initialState , reducer, actionTypes }

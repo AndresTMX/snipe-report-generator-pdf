@@ -1,6 +1,6 @@
 //material UI
 import { Box, Button, IconButton, Container, Paper, Typography } from '@mui/material';
-import { DataGrid, GridToolbar, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar} from '@mui/x-data-grid';
 //Icons
 import { IoIosCloseCircle } from "react-icons/io";
 import {IoIosSad} from "react-icons/io";
@@ -10,7 +10,7 @@ import {useMaintancesAssets} from '../../Hooks/useMaintancesAsset';
 import { ThreeDots } from '../Loading';
 import { useState } from 'react';
 
-function ViewMaintances({modal, setModal, idAsset, nameUser, dispatch}) {
+function ViewMaintances({modal, setModal, idAsset}) {
 
     const {dataMaintances, loading, error} = useMaintancesAssets(idAsset);
 
@@ -20,7 +20,7 @@ function ViewMaintances({modal, setModal, idAsset, nameUser, dispatch}) {
       { field: 'col2', headerName: 'Realizo', width: 250 },
       { field: 'col3', headerName: 'Inicio', width: 100 },
       { field: 'col4', headerName: 'Fin', width: 100 },
-      { field: 'col5', headerName: 'Notas', width: 300 },
+      { field: 'col5', headerName: 'Usuario', width: 300 },
       { field: 'col6', headerName: 'Proveedor', width: 200 },
       { field: 'col7', headerName: 'Tipo', width: 120 },
       { field: 'col8', headerName: 'Costo', width: 120 },
@@ -51,20 +51,6 @@ function ViewMaintances({modal, setModal, idAsset, nameUser, dispatch}) {
     const handleSelectionModelChange = (newSelection) => {
       setSelectionModel(newSelection.map((id) => rows.find((row) => row.id === id)));
     };
-
-    function addUserMaintance ( arrayMaintances, name ) {
-      return arrayMaintances.map((maintance) => ({
-        id:maintance.col,
-        user: name,
-        title:maintance.col1,
-        admin:maintance.col2,
-        init:maintance.col3,
-        end:maintance.col4,
-        provider:maintance.col6,
-        type:maintance.col7,
-        cost:maintance.col8
-      }))
-    }
 
     return (
       <Paper
