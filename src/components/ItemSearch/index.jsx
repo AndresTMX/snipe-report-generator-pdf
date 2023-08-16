@@ -22,7 +22,7 @@ function ItemSearch({
   serial,
   model,
   status,
-  category,
+  device,
   brand,
   location,
   userData,
@@ -31,35 +31,35 @@ function ItemSearch({
   const {modal, setModal} = UseModal()
   const { maintances } = state;
   
-  const nameUser = userData?.name ? userData.name : status;
-  const renderButton = validateRepeat(maintances, { tag, id, category, nameUser });
+  const user = userData?.name ? userData.name : status;
+  const renderButton = validateRepeat(maintances, { tag, id, device, user });
   const variant = renderButton ? "outlined" : "contained";
   const color = renderButton ? "error" : "primary";
 
-  function renderIcon(category) {
-    if (category === "LAPTOP") {
+  function renderIcon(device) {
+    if (device === "LAPTOP") {
       return <AiOutlineLaptop />;
     }
 
-    if (category === "GABINETE") {
+    if (device === "GABINETE") {
       return <PiDesktopTowerDuotone />;
     }
 
-    if (category === "MONITOR") {
+    if (device === "MONITOR") {
       return <FiMonitor />;
     }
 
-    if (category === "TECLADO") {
+    if (device === "TECLADO") {
       return <BsKeyboard />;
     }
 
-    if (category === "MOUSE") {
+    if (device === "MOUSE") {
       return <BsMouse3 />;
     }
   }
 
   const toggleMaintance = () => {
-    ToggleItem(maintances, dispatch, { tag, id, category, nameUser});
+    ToggleItem(maintances, dispatch, { tag, id, device, user});
   }
 
 
@@ -75,7 +75,7 @@ function ItemSearch({
         }}
       >
         <Typography variant="h5" fontWeight={500}>
-          {nameUser}
+          {user}
         </Typography>
 
         <Box sx={{ display: "flex", flexDirection: "row", gap: "20px" }}>
@@ -87,8 +87,8 @@ function ItemSearch({
               alignItems: "center",
             }}
           >
-            {renderIcon(category)}
-            {category}
+            {renderIcon(device)}
+            {device}
           </span>
 
           <span>{model}</span>

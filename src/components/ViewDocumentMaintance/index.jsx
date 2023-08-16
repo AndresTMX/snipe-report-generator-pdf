@@ -6,9 +6,9 @@ import { switchDocument } from "../../Helpers/actionsMaintance";
 //components
 import { UserItemMaintance } from "../UserItemMaintance";
 
-function ViewDocumentMaintance({ state, dispatch }) {
+function ViewDocumentMaintance({ state, dispatch,  updateSelection }) {
 
-    const {maintances} = state;
+  const {maintances} = state;
 
   return (
     <Container

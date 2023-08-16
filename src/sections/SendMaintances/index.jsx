@@ -1,4 +1,4 @@
-import { useState, useContext,  } from "react";
+import { useState, useContext, useEffect  } from "react";
 //Material ui
 import {Box, Container, FormControl, IconButton, Select, InputLabel,  MenuItem, Button, Paper, Tabs, Tab} from "@mui/material";
 //context
@@ -20,11 +20,19 @@ import { useGetSearch } from "../../Hooks/useGetSearch";
 import { FaTrashAlt } from "react-icons/fa";
 //helpers actions
 import { switchForm, switchNotification } from "../../Helpers/actionsMaintance";
+import { actionTypes } from "../../Context/MaintanceReducer";
 
 
 function SendMaintances() {
 
     const [state, dispatch] = useContext(MaintanceContext);
+
+    useEffect(() => {
+      dispatch({
+        type: actionTypes.setMaintances,
+        payload:[]
+      })
+    }, [])
 
     const [select, setSelect] = useState(10)
     const {search, setSearch} = useSearcher()  
@@ -137,7 +145,7 @@ function SendMaintances() {
                 serial={result?.serial}
                 model={result.model?.name}
                 status={result.status_label?.name}
-                category={result.category?.name}
+                device={result.category?.name}
                 brand={result.manufacturer?.name}
                 location={result.location?.name}
                 userData={result.assigned_to}

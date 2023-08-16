@@ -33,3 +33,19 @@ export const almacen = Symbol('ALMACEN')
 export const sistemas = Symbol('SISTEMAS INFORMATICOS')
 export const recursosH = Symbol('RECURSOS HUMANOS')
 
+export const arrayLocations = [
+    contabilidad,
+    tohCentro,
+    rh,
+    tohTlaxcala,
+    tohTejeria,
+    coatza,
+    matamoros,
+    corpo,
+    tejeria,
+    paraiso,
+    tuxtla,
+    salina,
+    ordaz,
+    norte
+]

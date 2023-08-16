@@ -26,10 +26,11 @@ function FormMaintance({state, dispatch, postMaintenance}) {
   const [typeMaintance, setMaintance] = useState('Preventivo')
   const [provider, setProvider] = useState('')
   const [title, setTitle] = useState('')
-  const [date, setDate] = useState({
+  const [dateDefault, setDate] = useState({
     init:'',
     end:''
   })
+  console.log("🚀 ~ file: index.jsx:33 ~ FormMaintance ~ dateDefault:", dateDefault)
   
   useEffect(() =>  {
     const dateCurrent = dayjs()
@@ -90,10 +91,17 @@ function FormMaintance({state, dispatch, postMaintenance}) {
     setState(e.target.value)
   }
 
-  const hanldeDate = (keyState) => (newDate) => {
+  const handleDateInit = (newValue) => {
     setDate({
-      ...date,
-      [keyState]: newDate.$d
+      ...dateDefault,
+      init: newValue
+    })
+  }
+
+  const handleDateEnd = (newValue) => {
+    setDate({
+      ...dateDefault,
+      end: newValue
     })
   }
 
@@ -108,8 +116,8 @@ function FormMaintance({state, dispatch, postMaintenance}) {
       data:maintances,
       type:typeMaintance,
       supplier_id:parseInt(providerMaintenance),
-      start_date:transformDate(date.init),
-      completion_date:transformDate(date.end),
+      start_date:transformDate(dateDefault.init),
+      completion_date:transformDate(dateDefault.end),
     }
 
     const groupMaintances = builderMaintance(dataMaintances)
@@ -170,8 +178,9 @@ function FormMaintance({state, dispatch, postMaintenance}) {
       <FormControl fullWidth>
         <ContainerDate title={"Fecha de inicio"}>
           <DatePicker 
-          value={date.init}
-          onChange={hanldeDate('init')}
+          format="DD/MM/YYYY"
+          value={dateDefault.init}
+          onChange={(newValue) => handleDateInit(newValue)}
           renderInput={(props) => <TextField {...props} />}
           />
         </ContainerDate>
@@ -195,9 +204,10 @@ function FormMaintance({state, dispatch, postMaintenance}) {
 
       <FormControl fullWidth>
         <ContainerDate title={"Fecha de fin"}>
-          <DatePicker 
-          value={date.end}
-          onChange={hanldeDate('end')}
+          <DatePicker
+          format="DD/MM/YYYY"
+          value={dateDefault.end}
+          onChange={(newValue) => handleDateEnd(newValue)}
           renderInput={(props) => <TextField {...props} />} 
           />
         </ContainerDate>

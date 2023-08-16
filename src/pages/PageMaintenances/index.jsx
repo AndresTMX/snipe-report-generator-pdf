@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState } from "react"
 //Material ui
-import {Box, Tabs, Tab} from "@mui/material";
+import {Box, Tabs, Tab} from "@mui/material"
 //components
-import { CustomTabPanel } from "../../sections/CustomPanel";
-import { GetAllMaintances } from "../../sections/getAllMaintances";
+import { CustomTabPanel } from "../../sections/CustomPanel"
+import { GetAllMaintances } from "../../sections/getAllMaintances"
 //CustomTabs
 import {SendMaintances} from '../../sections/SendMaintances'
-import {ConstructionState} from '../../sections/Construction';
+import {ConstructionState} from '../../sections/Construction'
+import { ProgramMaintances } from "../../sections/ProgramMaintances"
 
 function PageMaintenances() {
 
@@ -41,7 +42,7 @@ function PageMaintenances() {
         </Box>
 
         <CustomTabPanel value={value} index={0}>
-        <ConstructionState/>
+        <ProgramMaintances/>
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={1}>

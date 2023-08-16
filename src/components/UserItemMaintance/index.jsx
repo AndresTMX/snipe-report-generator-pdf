@@ -26,30 +26,29 @@ function UserItemMaintance({maintances, dispatch}) {
     }
 
     function renderIcon(category) {
-        if (category === "LAPTOP") {
+        if (category.toLowerCase().includes("laptop")) {
           return <AiOutlineLaptop />;
         }
     
-        if (category === "GABINETE") {
+        if (category.toLowerCase().includes("gabinete")) {
           return <PiDesktopTowerDuotone />;
         }
     
-        if (category === "MONITOR") {
+        if (category.toLowerCase().includes("monitor")) {
           return <FiMonitor />;
         }
     
-        if (category === "TECLADO") {
+        if (category.toLowerCase().includes("teclado")) {
           return <BsKeyboard />;
         }
     
-        if (category === "MOUSE") {
+        if (category.toLowerCase().includes("mouse")) {
           return <BsMouse3 />;
         }
     }
 
-    const TagsForUser = assetsForUser(maintances, 'nameUser')
-
-
+    const TagsForUser = assetsForUser(maintances, 'user')
+    
     return (
       <>
         {maintances?.length === 0 && (
@@ -64,7 +63,7 @@ function UserItemMaintance({maintances, dispatch}) {
                 key={index}
                 sx={{ display: "flex", flexDirection: "column", gap: "5px" }}
               >
-                <Typography variant="span">{assetUser[0].nameUser}</Typography>
+                <Typography variant="span">{assetUser[0].user}</Typography>
                 <Box
                   sx={{
                     display: "flex",
@@ -75,11 +74,11 @@ function UserItemMaintance({maintances, dispatch}) {
                 >
                   {assetUser.map((asset) => (
                     <Button
-                      key={asset.tag}
+                      key={asset.id}
                       variant="outlined"
                       color="error"
                       size="small"
-                      startIcon={renderIcon(asset.category)}
+                      startIcon={renderIcon(asset.device)}
                       onClick={() => ToggleItem(maintances, dispatch, asset )}
                     >
                       {asset.tag}
