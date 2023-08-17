@@ -1,10 +1,12 @@
-import { Paper,  Container, Box, Button, IconButton, Typography, Select, MenuItem, InputLabel } from "@mui/material";
-//icons
-import { IoIosCloseCircle } from "react-icons/io";
+import { Paper,  Container, Box, Button, Typography, IconButton } from "@mui/material";
 //actions
 import { switchDocument,  switchViewDocument } from "../../Helpers/actionsMaintance";
 //components
 import { UserItemMaintance } from "../UserItemMaintance";
+import { ChipProgramMaintance } from "../ChipProgramMaintance";
+// icons
+import { IoIosCloseCircle } from "react-icons/io";
+
 
 function ViewDocumentMaintance({ state, dispatch }) {
 
@@ -44,12 +46,15 @@ function ViewDocumentMaintance({ state, dispatch }) {
         >
           <Typography variant="h5">Configuracion de documento</Typography>
 
-          <IconButton onClick={() => switchDocument(dispatch, false)}>
-            <IoIosCloseCircle />
+          <IconButton variant="contained" onClick={() => switchDocument(dispatch, false)} >
+            <IoIosCloseCircle/>
           </IconButton>
+
         </Box>
 
         <UserItemMaintance maintances={maintances} dispatch={dispatch}/>
+
+       { maintances?.length > 0 &&( <ChipProgramMaintance maintances={maintances} />)}
 
         <Button
         onClick={GenerateDocument} 

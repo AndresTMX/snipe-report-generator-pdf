@@ -30,7 +30,6 @@ function FormMaintance({state, dispatch, postMaintenance}) {
     init:'',
     end:''
   })
-  console.log("🚀 ~ file: index.jsx:33 ~ FormMaintance ~ dateDefault:", dateDefault)
   
   useEffect(() =>  {
     const dateCurrent = dayjs()

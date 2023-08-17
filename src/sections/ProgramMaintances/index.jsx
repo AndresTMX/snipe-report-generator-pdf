@@ -1,6 +1,6 @@
 import { ItemSelectMonths } from "../../components/ItemSelectMonths";
 import { arrayLocations } from "../../Helpers/symbols";
-import { Paper, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import { ScrollContainer } from "../../Containers/ScrollContainer";
 
 function ProgramMaintances() {
@@ -15,13 +15,7 @@ function ProgramMaintances() {
             }}
             >
                 {arrayLocations.map((location) => (
-                    <Paper
-                        square={false}
-                        key={location.description}
-                        elevation={4}
-                    >
-                        <ItemSelectMonths location={location} />
-                    </Paper>
+                        <ItemSelectMonths location={location} key={location.description}/>
                 ))}
             </Container>
            </ScrollContainer>

@@ -225,24 +225,22 @@ function GetAllMaintances() {
         )}
 
 
-        {
-          state.documentComplete && (
-            <Modal>
-              <Paper
-              elevation={4} 
-              sx={{width:'80%', height:'80%', display:'flex', flexDirection:'column', alignItems:'flex-end',  padding:'10px', gap:'10px'}}>
+        {state.documentComplete && (
+          <Modal>
+            <Paper
+              elevation={4}
+              sx={{ width: '80%', height: '80%', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', padding: '10px', gap: '10px' }}>
               <Button
-              variant="contained"
-              color="error"
-               onClick={() => switchViewDocument(dispatch, false)}
-               >x</Button>
+                variant="contained"
+                color="error"
+                onClick={() => switchViewDocument(dispatch, false)}
+              >x</Button>
               <Viewer>
-                  <ProgramMaintances storage={state} />
-               </Viewer>
-              </Paper>
-            </Modal>
-          )
-        }
+                <ProgramMaintances storage={state} />
+              </Viewer>
+            </Paper>
+          </Modal>
+        )}
 
         </>
      );

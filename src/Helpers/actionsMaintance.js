@@ -139,3 +139,13 @@ export function extractNameCompany (maintances){
 
 }
 
+export function extractLocation (maintances){
+
+    const user = maintances[0]
+
+    const location = user.location
+    
+    return location
+
+}
+
