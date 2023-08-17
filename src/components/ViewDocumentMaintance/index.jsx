@@ -2,13 +2,18 @@ import { Paper,  Container, Box, Button, IconButton, Typography, Select, MenuIte
 //icons
 import { IoIosCloseCircle } from "react-icons/io";
 //actions
-import { switchDocument } from "../../Helpers/actionsMaintance";
+import { switchDocument,  switchViewDocument } from "../../Helpers/actionsMaintance";
 //components
 import { UserItemMaintance } from "../UserItemMaintance";
 
-function ViewDocumentMaintance({ state, dispatch,  updateSelection }) {
+function ViewDocumentMaintance({ state, dispatch }) {
 
   const {maintances} = state;
+
+  const GenerateDocument = () => {
+    switchDocument(dispatch, false)
+    switchViewDocument(dispatch, true)
+  }
 
   return (
     <Container
@@ -44,31 +49,13 @@ function ViewDocumentMaintance({ state, dispatch,  updateSelection }) {
           </IconButton>
         </Box>
 
-        <Typography variant="span" >Activos por usuario</Typography>
-
         <UserItemMaintance maintances={maintances} dispatch={dispatch}/>
 
-        <Typography variant="span">Mes en el que se realizo </Typography>
-
-        <Select
-        label="Mes"
-        value="Enero"
-        >
-          <MenuItem value='Enero' >Enero</MenuItem>
-          <MenuItem value='Febrero' >Febrero</MenuItem>
-        </Select>
-
-        <Typography variant="span">Emisor</Typography>
-        <Select
-        label="Emisor"
-        value="Oscar"
-        >
-          <MenuItem value='Oscar' >Oscar</MenuItem>
-          <MenuItem value='Andres' >Andres</MenuItem>
-        </Select>
-
-
-        <Button variant="contained">Generar documento</Button>
+        <Button
+        onClick={GenerateDocument} 
+        variant="contained">
+        Generar documento
+        </Button>
 
       </Paper>
     </Container>

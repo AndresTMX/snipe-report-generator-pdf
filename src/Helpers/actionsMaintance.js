@@ -1,4 +1,5 @@
 import { actionTypes } from "../Context/MaintanceReducer";
+import {transformText} from '../Helpers/textFormat'
 
 export function filterResults (results){
    const categories = ["LAPTOP", "GABINETE", "MONITOR", "TECLADO", "MOUSE"]
@@ -108,15 +109,33 @@ export function builderMaintance(dataMaintances) {
 
 }
 
+export function assetsForUser (array, property) {
+    const groups = {} 
+    array.forEach(obj => {
+     const propValue = obj[property];
+     if(!groups[propValue]){
+         groups[propValue] = []
+     }
+     groups[propValue].push(obj)
+    })
 
-// funcion de cerrado de notificacion despues de envio
-// export function okMaintance(dispatch,  listMaincances, maintance){
+    return Object.values(groups);
+ }
 
-//     const arraySends = listMaincances.filter(item => item.data.payload.asset_id != maintance.data.payload.asset_id );
+export function switchViewDocument (dispatch, payload) {
+    dispatch({
+        type:actionTypes.setDocument,
+        payload
+    })
+}
 
-//     const newState = arraySends.length > 0 ? arraySends : [];
+export function extractNameCompany (maintances){
 
-//     dispatch({type:actionTypes.setMaintances, payload:newState})
+    const user = maintances[0]
 
-// }
+    const company = user.company
+    
+    return transformText(company)
+
+}
 

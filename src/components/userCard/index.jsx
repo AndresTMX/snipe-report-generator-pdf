@@ -14,7 +14,7 @@ import {ImKey} from 'react-icons/im';
 import { MdLocationPin } from 'react-icons/md';
 import {IoIosArrowDown} from 'react-icons/io';
 //helper
-import transfromValues from "../../Helpers/textFormat";
+import {transfromValues} from "../../Helpers/textFormat";
 //hooks
 import {useImagePDF} from '../../Hooks/useImagePDF';
 import { usegetAccesoriesUser } from "../../Hooks/useAccesoriesUser";

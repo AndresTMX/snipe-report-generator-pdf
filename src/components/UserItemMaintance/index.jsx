@@ -8,22 +8,9 @@ import { PiDesktopTowerDuotone } from "react-icons/pi"; //gabinete
 //scrolling
 import { ScrollContainer } from "../../Containers/ScrollContainer";
 //helpers
-import { ToggleItem } from "../../Helpers/actionsMaintance";
+import { ToggleItem , assetsForUser } from "../../Helpers/actionsMaintance";
 
 function UserItemMaintance({maintances, dispatch}) {
-
-    function assetsForUser (array, property) {
-       const groups = {} 
-       array.forEach(obj => {
-        const propValue = obj[property];
-        if(!groups[propValue]){
-            groups[propValue] = []
-        }
-        groups[propValue].push(obj)
-       })
-
-       return Object.values(groups);
-    }
 
     function renderIcon(category) {
         if (category.toLowerCase().includes("laptop")) {
@@ -63,7 +50,7 @@ function UserItemMaintance({maintances, dispatch}) {
                 key={index}
                 sx={{ display: "flex", flexDirection: "column", gap: "5px" }}
               >
-                <Typography variant="span">{assetUser[0].user}</Typography>
+                <Typography variant="span">{assetUser[0].user? assetUser[0].user : 'NO ASIGNADO'}</Typography>
                 <Box
                   sx={{
                     display: "flex",

@@ -4,6 +4,7 @@ const initialState = {
     formGenerateDocument:false,
     notification:false,
     maintances:[],
+    documentComplete:false
 };
 
 //Use reducer que valida los objetos
@@ -20,6 +21,7 @@ const actionTypes = {
     setformGenerateDocument:'SET_FORM_GENERATE_DOCUMENT',
     setNotification:'SET_NOTIFICATION',
     setMaintances:'SET_MAINTANCES',
+    setDocument: 'SET_DOCUMENT'
 }
 
 //Use reducer con estrutura de objetos 
@@ -41,6 +43,10 @@ const reducerObject = (state, payload) => ({
         ...state,
         maintances:payload
     },
+    [actionTypes.setDocument]:{
+        ...state,
+        documentComplete:payload
+    }
 });
 
 export { initialState , reducer, actionTypes }

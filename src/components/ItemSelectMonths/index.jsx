@@ -5,7 +5,7 @@ import { FormControl, InputLabel, Select, MenuItem, Typography, Container, Box, 
 
 function ItemSelectMonths({location}) {
 
-    const { configState, configuration, saveConfig, setConfig } = useProgramMaintances(location)
+    const { configState, saveConfig, setConfig } = useProgramMaintances(location)
 
     return ( 
         <>

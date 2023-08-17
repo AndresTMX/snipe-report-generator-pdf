@@ -1,11 +1,11 @@
 //Funcion transformadora de texto, lo formatea a mayusculas y minusculas 
 
-function transformText (text) {
+export function transformText (text) {
     const formattedText = text.toLowerCase().replace(/(^|\s)\S/g, (match) => match.toUpperCase());
     return formattedText;
   }
 
-export default function transfromValues (user, company, department, location, manager, jobtitle ) {
+export function transfromValues (user, company, department, location, manager, jobtitle ) {
 
     const textDefault = "No asignado";
     const nameUser = user? transformText(user): textDefault;

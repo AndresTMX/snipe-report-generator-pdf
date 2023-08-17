@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function useProgramMaintances(location) {
 
-    const configuration = localStorage.getItem(location.value);
+    const configuration = localStorage.getItem(location.description);
 
-    const [configState, setConfig] = useState({
+    const defaultState = {
         monthOne:'',
         monthTwo: '',
         monthThre: ''
-    })
+    }
+
+    const [configState, setConfig] = useState(defaultState)
+
+    useEffect(() => {
+        if(configuration){
+            setConfig(JSON.parse(configuration))
+        }
+    }, [])
 
 
     const saveConfig = () => {
@@ -18,17 +26,17 @@ function useProgramMaintances(location) {
                 ...oldConfig,
                 ...configState
             }
-            // localStorage.setItem(location.description, JSON.stringify(newConfig))
+            localStorage.setItem(location.description, JSON.stringify(newConfig))
             console.log('ya habia  configuracion, configuracion modificada:')
             console.log(newConfig)
         }else{
-            // localStorage.setItem(location.description, JSON.stringify(config))
+            localStorage.setItem(location.description, JSON.stringify(configState))
             console.log('no habia configuracion')
             console.log(configState)
         }
     }
 
-    return { configState, configuration, saveConfig, setConfig}
+    return { configState, saveConfig, setConfig}
 }
 
 export {useProgramMaintances};
