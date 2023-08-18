@@ -1,8 +1,9 @@
 import { Document,Page, Text, View, StyleSheet} from "@react-pdf/renderer";
+import { useProgramMaintances } from "../../Hooks/useProgramMaintances";
 import { HeaderTableMaintance } from "./HeaderTableMaintance";
 import { ItemTableMaintance } from "./ItemTableMaintance";
-import { extractNameCompany } from "../../Helpers/actionsMaintance";
 import {useImagePDF} from '../../Hooks/useImagePDF';
+import { CircularProgress, Box } from "@mui/material";
 
 const Styles = StyleSheet.create({
 
@@ -33,16 +34,23 @@ const Styles = StyleSheet.create({
     }
 })
 
-function ProgramMaintances({ storage }) {
+function ProgramMaintances({ company, dataUsers }) {
 
-    const {maintances} = storage;
-
-    // const company = extractNameCompany(maintances)
-
-    const {image} = useImagePDF('Conexiones Y Mangueras Industriales De Minatitlan')
+    const {image} = useImagePDF(company)
+    const { configState, loading, updateMonthComplete } = useProgramMaintances(company)
 
     return (
-        <Document>
+        <>
+
+
+        {loading && (
+           <Box sx={{ display: 'flex', height:'100%', width:'100%', backgroundColor:'gray' }}>
+           <CircularProgress />
+         </Box>
+        )}
+
+        {loading === false &&(
+            <Document>
 
             <Page size="LETTER" style={Styles.document}>
 
@@ -53,7 +61,7 @@ function ProgramMaintances({ storage }) {
 
                     <View style={Styles.SectionItemMaintance}>
 
-                    <ItemTableMaintance userData={''} />
+                    <ItemTableMaintance dataUsers={dataUsers} />
                         
                     </View>
                 </View>
@@ -61,9 +69,11 @@ function ProgramMaintances({ storage }) {
 
             </Page>
 
-
-
         </Document>
+        )}
+
+
+        </>
     );
 }
 

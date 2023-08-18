@@ -79,7 +79,7 @@ function ItemSelectMonths({location}) {
                                 <InputLabel>{`${index + 1} Mantenimiento`}</InputLabel>
                                 <Select
                                     key={index}
-                                    value={item.month}
+                                    value={item.monthProgram}
                                     label={`${index + 1} Mantenimiento`}
                                     onChange={(e) => handleMonthChange(index, e.target.value)}
                                 >

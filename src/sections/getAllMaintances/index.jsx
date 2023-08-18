@@ -1,16 +1,15 @@
 import { useState, useContext, useEffect } from "react";
 import { MaintanceContext } from "../../Context/MaintanceContext";
-import { Container, Box, FormControl, Select, MenuItem, InputLabel, Button, Paper } from "@mui/material";
+import { Container, Box, FormControl, Select, MenuItem, InputLabel, Button } from "@mui/material";
 import { Modal } from "../../modals/modal";
 import { DataGrid, GridToolbar, GridToolbarContainer } from '@mui/x-data-grid';
 import { useGetMaintancesForDate } from "../../Hooks/useGetMaintancesForDate";
 import { ViewDocumentMaintance } from "../../components/ViewDocumentMaintance";
 import { ThreeDots } from "../../components/Loading";
 import {months, years, findMounth } from '../../Helpers/Date'
-import { switchDocument,  ToggleItem, AddMaintances, switchViewDocument } from "../../Helpers/actionsMaintance";
+import { switchDocument } from "../../Helpers/actionsMaintance";
 import { actionTypes } from "../../Context/MaintanceReducer";
-import { Viewer } from "../../components/PDFViewer"
-import { ProgramMaintances } from "../../PDF/ProgramMaintances";
+import { PreviewProgramMaintances } from "../../components/PreviewProgramMaintances";
 
 
 function GetAllMaintances() {
@@ -227,18 +226,7 @@ function GetAllMaintances() {
 
         {state.documentComplete && (
           <Modal>
-            <Paper
-              elevation={4}
-              sx={{ width: '80%', height: '80%', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', padding: '10px', gap: '10px' }}>
-              <Button
-                variant="contained"
-                color="error"
-                onClick={() => switchViewDocument(dispatch, false)}
-              >x</Button>
-              <Viewer>
-                <ProgramMaintances storage={state} />
-              </Viewer>
-            </Paper>
+           <PreviewProgramMaintances state={state}  dispatch={dispatch}/>
           </Modal>
         )}
 

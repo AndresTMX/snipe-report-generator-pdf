@@ -31,7 +31,7 @@ function ChipProgramMaintance({maintances}) {
                                 <Chip
                                     key={index}
                                     size="medium"
-                                    label={item.month? item.month : 'Sin programar'}
+                                    label={item.monthProgram? item.monthProgram : 'Sin programar'}
                                     color={item.status ? 'success' : 'warning'}
                                     onClick={() => ToggleStatus(index, !item.status)}
                                     icon={

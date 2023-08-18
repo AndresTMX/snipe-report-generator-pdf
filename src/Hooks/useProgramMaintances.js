@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
+import { months } from "../Helpers/Date";
 
 function useProgramMaintances(location) {
 
     const configuration = localStorage.getItem(location);
 
     const defaultState = [
-       {month:'',  status:false},
-       {month:'',  status:false},
-       {month:'',  status:false}
+       {monthProgram:'',  status:false, monthComplete:''},
+       {monthProgram:'',  status:false, monthComplete:''},
+       {monthProgram:'',  status:false, monthComplete:''}
     ]
 
     const [configState, setConfig] = useState(defaultState)
@@ -25,12 +26,12 @@ function useProgramMaintances(location) {
 
     const saveConfig = () => {
             const newConfig = [...configState]
-            localStorage.setItem(location.description, JSON.stringify(newConfig))
+            localStorage.setItem(location, JSON.stringify(newConfig))
     }
 
     const handleMonthChange = (index, selectedMonth) => {
         const updatedConfig = [...configState];
-        updatedConfig[index].month = selectedMonth;
+        updatedConfig[index].monthProgram = selectedMonth;
         setConfig(updatedConfig);
         saveConfig()
       };
@@ -42,7 +43,15 @@ function useProgramMaintances(location) {
         saveConfig()
     }
 
-    return { configState, loading, saveConfig, handleMonthChange, ToggleStatus}
+    const updateMonthComplete = (index, numMonth) => {
+        const updatedConfig = [...configState];
+        const dataMonth = months.find((item) => item.num === numMonth)
+        updatedConfig[index].monthComplete = dataMonth.month;
+        setConfig(updatedConfig);
+        saveConfig()
+    }
+
+    return { configState, loading, saveConfig, handleMonthChange, ToggleStatus, updateMonthComplete}
 }
 
 export {useProgramMaintances};

@@ -1,5 +1,4 @@
-import { Document,Page, Text, View, StyleSheet} from "@react-pdf/renderer";
-import { config } from "localforage";
+import { Text, View, StyleSheet} from "@react-pdf/renderer";
 
 const Style = StyleSheet.create({
     sectionItem:{
@@ -18,7 +17,7 @@ const Style = StyleSheet.create({
     }
 })
 
-function ItemTableMaintance({userData}) {
+function ItemTableMaintance({dataUsers}) {
     return ( 
         <View style={Style.sectionItem}>
             // headerTable
@@ -56,14 +55,13 @@ function ItemTableMaintance({userData}) {
 
                 //Programado vs Realizo
                 <View>
-                    P/R
+                    Programado/Realizado
                 </View>
 
-                {/* {config.map((month)=> (
-                    <View key={month}>
-                       <Text>{month}</Text>
-                    </View>
-                ))} */}
+                //Programacion 
+                <View>
+                    Programado/Realizado
+                </View>
 
 
             </View>

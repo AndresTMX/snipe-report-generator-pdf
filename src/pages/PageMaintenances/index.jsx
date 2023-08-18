@@ -3,10 +3,9 @@ import { useState } from "react"
 import {Box, Tabs, Tab} from "@mui/material"
 //components
 import { CustomTabPanel } from "../../sections/CustomPanel"
-import { GetAllMaintances } from "../../sections/getAllMaintances"
 //CustomTabs
 import {SendMaintances} from '../../sections/SendMaintances'
-import {ConstructionState} from '../../sections/Construction'
+import { GetAllMaintances } from "../../sections/getAllMaintances"
 import { ProgramMaintances } from "../../sections/ProgramMaintances"
 
 function PageMaintenances() {

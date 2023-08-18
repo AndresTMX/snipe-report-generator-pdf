@@ -14,8 +14,8 @@ function ProgramMaintances() {
                 gap:'20px'
             }}
             >
-                {arrayLocations.map((location) => (
-                        <ItemSelectMonths location={location} key={location.description}/>
+                {arrayLocations.map((location, index) => (
+                        <ItemSelectMonths location={location} key={index}/>
                 ))}
             </Container>
            </ScrollContainer>
