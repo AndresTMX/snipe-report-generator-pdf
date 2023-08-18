@@ -3,11 +3,12 @@ import { Paper, IconButton } from "@mui/material";
 import { Viewer } from "../PDFViewer";
 import { IoIosCloseCircle } from "react-icons/io";
 import { ProgramMaintances } from "../../PDF/ProgramMaintances";
-import { switchViewDocument, assetsForUser , extractNameCompany} from "../../Helpers/actionsMaintance";
+import { switchViewDocument, assetsForUser , extractLocation, extractNameCompany} from "../../Helpers/actionsMaintance";
 
 function PreviewProgramMaintances({state, dispatch}) {
 
     const {maintances} = state;
+    const location = extractLocation(maintances)
     const company = extractNameCompany(maintances)
     const dataUsers = assetsForUser(maintances, 'user')
 
@@ -31,7 +32,7 @@ function PreviewProgramMaintances({state, dispatch}) {
             <IoIosCloseCircle/>
         </IconButton>
         <Viewer>
-          <ProgramMaintances company={company} storage={dataUsers}/>
+          <ProgramMaintances location={location} company={company} dataUsers={dataUsers}/>
         </Viewer>
       </Paper>
      );

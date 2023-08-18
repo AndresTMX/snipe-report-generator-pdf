@@ -1,4 +1,4 @@
-import { Document,Page, Text, View, StyleSheet} from "@react-pdf/renderer";
+import { Document,Page, View, StyleSheet} from "@react-pdf/renderer";
 import { useProgramMaintances } from "../../Hooks/useProgramMaintances";
 import { HeaderTableMaintance } from "./HeaderTableMaintance";
 import { ItemTableMaintance } from "./ItemTableMaintance";
@@ -34,24 +34,22 @@ const Styles = StyleSheet.create({
     }
 })
 
-function ProgramMaintances({ company, dataUsers }) {
+function ProgramMaintances({ location, dataUsers, company }) {
 
     const {image} = useImagePDF(company)
-    const { configState, loading, updateMonthComplete } = useProgramMaintances(company)
+    const { configState, loading, updateMonthComplete } = useProgramMaintances(location)
 
     return (
-        <>
+        <Document>
 
 
-        {loading && (
+        {/* {loading && (
            <Box sx={{ display: 'flex', height:'100%', width:'100%', backgroundColor:'gray' }}>
            <CircularProgress />
          </Box>
-        )}
+        )} */}
 
-        {loading === false &&(
-            <Document>
-
+       
             <Page size="LETTER" style={Styles.document}>
 
                 <View style={Styles.page}>
@@ -65,25 +63,10 @@ function ProgramMaintances({ company, dataUsers }) {
                         
                     </View>
                 </View>
-
-
             </Page>
 
         </Document>
-        )}
-
-
-        </>
     );
 }
 
 export { ProgramMaintances };
-
-{/* {storage.documentGenerate && (
-    const data = maitnancesForUser(maintannces, 'user');
-
-    data.map((userData, index) => (
-        <ItemTableMaintance userData={userData} />
-    ))
-    
-)} */}
