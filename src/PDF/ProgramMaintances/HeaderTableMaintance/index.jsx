@@ -86,7 +86,6 @@ function HeaderTableMaintance({image}) {
             <View style={Styles.sectionImage}>
                 <View style={Styles.boxImage}>
                     <Image
-                    style={''}
                     src={image? image : 'image.png'}
                     alt="image"
                     />

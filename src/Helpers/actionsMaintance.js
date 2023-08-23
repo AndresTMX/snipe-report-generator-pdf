@@ -63,19 +63,19 @@ export function costMaintance(item){
 
     let cost
 
-    if(item.category === "LAPTOP"){
+    if(item.device === "LAPTOP"){
         cost = 300
     }
 
-    if(item.category === "GABINETE"){
+    if(item.device === "GABINETE"){
         cost = 250
     }
 
-    if(item.category === "MONITOR"){
+    if(item.device === "MONITOR"){
         cost = 50
     }
 
-    if(item.category === "TECLADO" ||  item.category === "MOUSE"){
+    if(item.device === "TECLADO" ||  item.device === "MOUSE"){
         cost = 25
     }
 

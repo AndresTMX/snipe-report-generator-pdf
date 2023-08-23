@@ -4,7 +4,7 @@ const Style = StyleSheet.create({
     sectionItem:{
         display:'flex',
         flexDirection:'row',
-        width:'90%',
+        width:'98%',
         margin:'auto',
         height:'auto',
         border:'1'
@@ -13,56 +13,112 @@ const Style = StyleSheet.create({
         display:'flex',
         flexDirection:'row',
         width:'100%',
-        
+        fontSize:'9px'
+    },
+    counterCol:{
+        width:'5%',
+        backgroundColor:'#1976d2',
+    },
+    idCol:{
+        width:'15%',
+        color:'white',
+        textAlign:'center',
+        backgroundColor:'#1976d2',
+    },
+    descriptionCol:{
+        width:'20%',
+        color:'white',
+        textAlign:'center',
+        backgroundColor:'#1976d2',
+    },
+    locationCol:{
+        width:'15%',
+        color:'white',
+        textAlign:'center',
+        backgroundColor:'#1976d2',
+    },
+    actionCol:{
+        width:'15%',
+        color:'white',
+        textAlign:'center',
+        backgroundColor:'#1976d2',
+    },
+    monthCol:{
+        width:'10%',
+        color:'white',
+        textAlign:'center',
+        backgroundColor:'#1976d2',
+    },
+    nameCol:{
+        width:'20%',
+        color:'white',
+        textAlign:'center',
+        backgroundColor:'#1976d2',
     }
+
 })
 
-function ItemTableMaintance({dataUsers}) {
+function ItemTableMaintance({dataUsers, configState}) {
     return ( 
         <View style={Style.sectionItem}>
             // headerTable
             <View style={Style.sectionItemHeader}>
                 //counter
-                <View>
+                <View style={Style.counterCol}>
                     
                 </View>
 
                 //Tags
-                <View>
+                <View style={Style.idCol}>
                     <Text>ID</Text>
                 </View>
 
                 //Description
-                <View>
+                <View style={Style.descriptionCol}>
                     <Text>
                         Descripción
                     </Text>
                 </View>
 
                 //Ubicacion
-                <View>
+                <View style={Style.locationCol}>
                     <Text>
                         Ubicación
                     </Text>
                 </View>
                 
                 //Acción
-                <View>
+                <View style={Style.actionCol}>
                     <Text>
-                        Mantenimiento
+                        Acción
                     </Text>
                 </View>
 
                 //Programado vs Realizo
-                <View>
-                    Programado/Realizado
+                <View style={Style.monthCol}>
+                    <Text>
+                        {configState[0].monthProgram}
+                    </Text>
                 </View>
 
-                //Programacion 
-                <View>
-                    Programado/Realizado
+                <View style={Style.monthCol}>
+                    <Text>
+                        {configState[1].monthProgram}
+                    </Text>
                 </View>
 
+                <View style={Style.monthCol}>
+                    <Text>
+                        {configState[2].monthProgram}
+                    </Text>
+                </View>
+
+                <View style={Style.nameCol}>
+                    <Text>
+                        Responsable
+                    </Text>
+                </View>
+                
 
             </View>
         </View>

@@ -226,7 +226,7 @@ function GetAllMaintances() {
 
         {state.documentComplete && (
           <Modal>
-           <PreviewProgramMaintances state={state}  dispatch={dispatch}/>
+           <PreviewProgramMaintances state={state} dispatch={dispatch}/>
           </Modal>
         )}
 

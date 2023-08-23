@@ -1,9 +1,6 @@
 import { Document,Page, View, StyleSheet} from "@react-pdf/renderer";
-import { useProgramMaintances } from "../../Hooks/useProgramMaintances";
 import { HeaderTableMaintance } from "./HeaderTableMaintance";
 import { ItemTableMaintance } from "./ItemTableMaintance";
-import {useImagePDF} from '../../Hooks/useImagePDF';
-import { CircularProgress, Box } from "@mui/material";
 
 const Styles = StyleSheet.create({
 
@@ -34,32 +31,20 @@ const Styles = StyleSheet.create({
     }
 })
 
-function ProgramMaintances({ location, dataUsers, company }) {
-
-    const {image} = useImagePDF(company)
-    const { configState, loading, updateMonthComplete } = useProgramMaintances(location)
+function ProgramMaintances({ dataUsers, image, configState }) {
 
     return (
         <Document>
-
-
-        {/* {loading && (
-           <Box sx={{ display: 'flex', height:'100%', width:'100%', backgroundColor:'gray' }}>
-           <CircularProgress />
-         </Box>
-        )} */}
-
        
             <Page size="LETTER" style={Styles.document}>
 
                 <View style={Styles.page}>
 
-
                     <HeaderTableMaintance image={image} />
 
                     <View style={Styles.SectionItemMaintance}>
 
-                    <ItemTableMaintance dataUsers={dataUsers} />
+                    <ItemTableMaintance dataUsers={dataUsers} configState={configState} />
                         
                     </View>
                 </View>
