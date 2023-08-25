@@ -25,11 +25,11 @@ const Styles = StyleSheet.create({
         width:'100%',
         justifyContent:'center',
         alignItems:'center',
-        padding:'10px'
+        padding:'5px'
     },
     logo:{
-        width: "90%",
-        height: "90%",
+        width: "100%",
+        height: "100%",
         objectFit: "contain",
     },
     sectionTitle:{
@@ -82,7 +82,6 @@ function HeaderTableMaintance({image}) {
     return ( 
         <>
         <View style={Styles.container}>
-            // Brand company
             <View style={Styles.sectionImage}>
                 <View style={Styles.boxImage}>
                     <Image
@@ -92,14 +91,12 @@ function HeaderTableMaintance({image}) {
                 </View>
             </View>
 
-            // Title Document
             <View style={Styles.sectionTitle}>
                 <Text>
                     {'PROGRAMA DE MANTENIMIENTO PREVENTIVO \n A EQUIPOS DE COMPUTO'}
                 </Text>
             </View>
 
-            // Data Document
             <View style={Styles.sectionDataDocument}>
                 <View style={Styles.boxDataBottom}>
                     <Text>Version 3</Text>

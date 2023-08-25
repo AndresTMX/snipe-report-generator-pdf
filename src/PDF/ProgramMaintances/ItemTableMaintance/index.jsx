@@ -1,9 +1,10 @@
-import { Text, View, StyleSheet} from "@react-pdf/renderer";
+import { Text, View, StyleSheet, Font} from "@react-pdf/renderer";
+import { extractTags, extractDevices } from "../../../Helpers/extractProperties";
 
 const Style = StyleSheet.create({
     sectionItem:{
         display:'flex',
-        flexDirection:'row',
+        flexDirection:'column',
         width:'98%',
         margin:'auto',
         height:'auto',
@@ -13,109 +14,189 @@ const Style = StyleSheet.create({
         display:'flex',
         flexDirection:'row',
         width:'100%',
-        fontSize:'9px'
+        fontSize:'9px',
+        height:'20px',
+        color:'white',
+        backgroundColor:'#1976d2'
+    },
+    sectionItemBody:{
+        display:'flex',
+        flexDirection:'row',
+        width:'100%',
+        fontSize:'9px',
+        height:'auto',
     },
     counterCol:{
+        display:'flex',
         width:'5%',
-        backgroundColor:'#1976d2',
+        textAlign:'center',
+        justifyContent:'center',
     },
     idCol:{
+        display:'flex',
         width:'15%',
-        color:'white',
         textAlign:'center',
-        backgroundColor:'#1976d2',
+        justifyContent:'center',
     },
     descriptionCol:{
-        width:'20%',
-        color:'white',
+        display:'flex',
+        width:'14%',
         textAlign:'center',
-        backgroundColor:'#1976d2',
+        justifyContent:'center',
     },
     locationCol:{
+        display:'flex',
         width:'15%',
-        color:'white',
         textAlign:'center',
-        backgroundColor:'#1976d2',
+        justifyContent:'center',
     },
     actionCol:{
+        display:'flex',
         width:'15%',
-        color:'white',
         textAlign:'center',
-        backgroundColor:'#1976d2',
+        justifyContent:'center',
     },
     monthCol:{
+        display:'flex',
         width:'10%',
-        color:'white',
         textAlign:'center',
-        backgroundColor:'#1976d2',
+        justifyContent:'center',
+        textTransform:'uppercase'
     },
     nameCol:{
-        width:'20%',
-        color:'white',
+        display:'flex',
+        width:'26%',
         textAlign:'center',
-        backgroundColor:'#1976d2',
+        justifyContent:'center',
+    },
+    boxText:{
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center',
+        paddingTop:'2px',
+        paddingBottom:'2px'
     }
 
 })
 
-function ItemTableMaintance({dataUsers, configState}) {
+function ItemTableMaintance({user, count, configState}) {
+    const newCount = (count + 1).toString()
+    const listTags = extractTags(user)
+    const listDevices = extractDevices(user)
+
     return ( 
         <View style={Style.sectionItem}>
-            // headerTable
+
             <View style={Style.sectionItemHeader}>
-                //counter
                 <View style={Style.counterCol}>
-                    
-                </View>
-
-                //Tags
-                <View style={Style.idCol}>
-                    <Text>ID</Text>
-                </View>
-
-                //Description
-                <View style={Style.descriptionCol}>
-                    <Text>
-                        Descripción
+                    <Text style={Style.boxText}>
+                       N°
                     </Text>
                 </View>
 
-                //Ubicacion
+                <View style={Style.idCol}>
+                    <Text style={Style.boxText}>
+                        IDs
+                    </Text>
+                </View>
+
+                <View style={Style.descriptionCol}>
+                    <Text style={Style.boxText}>
+                        DESCRIPCIÓN
+                    </Text>
+                </View>
+
                 <View style={Style.locationCol}>
-                    <Text>
-                        Ubicación
+                    <Text style={Style.boxText}>
+                        UBICACIÓN
                     </Text>
                 </View>
                 
-                //Acción
                 <View style={Style.actionCol}>
-                    <Text>
-                        Acción
+                    <Text style={Style.boxText}>
+                        ACCIÓN
                     </Text>
                 </View>
 
-                //Programado vs Realizo
                 <View style={Style.monthCol}>
-                    <Text>
+                    <Text style={Style.boxText}>
                         {configState[0].monthProgram}
                     </Text>
                 </View>
 
                 <View style={Style.monthCol}>
-                    <Text>
+                    <Text style={Style.boxText}>
                         {configState[1].monthProgram}
                     </Text>
                 </View>
 
                 <View style={Style.monthCol}>
-                    <Text>
+                    <Text style={Style.boxText}>
                         {configState[2].monthProgram}
                     </Text>
                 </View>
 
                 <View style={Style.nameCol}>
-                    <Text>
-                        Responsable
+                    <Text style={Style.boxText}>
+                        RESPONSABLE
+                    </Text>
+                </View>
+                
+
+            </View>
+
+            <View style={Style.sectionItemBody}>
+                <View style={Style.counterCol}>
+                    <Text style={Style.boxText}>{newCount}</Text>
+                </View>
+
+                <View style={Style.idCol}>
+                    {listTags.map((tag) => (
+                        <Text style={Style.boxText}>{tag}</Text>
+                    ))}
+                </View>
+
+                <View style={Style.descriptionCol}>
+                    {listDevices.map((device) => (
+                        <Text style={Style.boxText}>
+                        {device}
+                        </Text>
+                    ))}
+                </View>
+
+                <View style={Style.locationCol}>
+                    <Text style={Style.boxText}>
+                        {user[0].location}
+                    </Text>
+                </View>
+                
+                <View style={Style.actionCol}>
+                    <Text style={Style.boxText}>
+                        {user[0].type}
+                    </Text>
+                </View>
+
+                <View style={Style.monthCol}>
+                    <Text style={Style.boxText}>
+                    check
+                    </Text>
+                </View>
+
+                <View style={Style.monthCol}>
+                    <Text style={Style.boxText}>
+                        {configState[1].monthComplete}
+                    </Text>
+                </View>
+
+                <View style={Style.monthCol}>
+                    <Text style={Style.boxText}>
+                        {configState[2].monthComplete}
+                    </Text>
+                </View>
+
+                <View style={Style.nameCol}>
+                    <Text style={Style.boxText}>
+                    {user[0].user}
                     </Text>
                 </View>
                 

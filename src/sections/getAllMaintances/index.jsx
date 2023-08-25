@@ -130,6 +130,7 @@ function GetAllMaintances() {
             <InputLabel>Selecciona el mes</InputLabel>
               <Select 
               fullWidth
+              defaultValue={months[0].num}
               label={'Selecciona el mes'}
               onChange={(e) => setDate({...date, month: e.target.value})}
               >
@@ -145,6 +146,7 @@ function GetAllMaintances() {
             >
             <InputLabel>Selecciona el año</InputLabel>
               <Select 
+              defaultValue={years[0]}
               fullWidth
               label={'Selecciona el año'}
               onChange={(e) => setDate({...date, year: e.target.value})}

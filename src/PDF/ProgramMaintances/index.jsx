@@ -17,8 +17,8 @@ const Styles = StyleSheet.create({
         flexDirection:'column',
         margin:'auto',  
         gap:'10px',
-        height:'95%',
-        width:'95%',
+        height:'98%',
+        width:'98%',
         border:'1',
         borderStyle:'solid',    
     },
@@ -35,8 +35,11 @@ function ProgramMaintances({ dataUsers, image, configState }) {
 
     return (
         <Document>
-       
-            <Page size="LETTER" style={Styles.document}>
+    
+            <Page 
+            size="LETTER" 
+            orientation="landscape"
+            style={Styles.document}>
 
                 <View style={Styles.page}>
 
@@ -44,7 +47,13 @@ function ProgramMaintances({ dataUsers, image, configState }) {
 
                     <View style={Styles.SectionItemMaintance}>
 
-                    <ItemTableMaintance dataUsers={dataUsers} configState={configState} />
+                    {
+                        dataUsers?.length>0 && (
+                            dataUsers.map((user, index) => (
+                                <ItemTableMaintance key={index} count={index} user={user} configState={configState} />
+                            ))
+                        )
+                    }
                         
                     </View>
                 </View>
