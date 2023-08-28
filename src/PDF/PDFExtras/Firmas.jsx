@@ -79,7 +79,7 @@ function Firmas({ storage }) {
         {becario && (
           <View style={styles.boxFirma}>
             <View style={styles.spaceFirm}>
-              <Text>{user}</Text>
+              <Text>{manager}</Text>
             </View>
 
             <View style={styles.nameFirma}>
