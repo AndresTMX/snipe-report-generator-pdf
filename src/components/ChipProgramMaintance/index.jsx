@@ -7,7 +7,7 @@ function ChipProgramMaintance({maintances}) {
 
     const location = extractLocation(maintances)
     
-    const {  configState, loading, handleMonthChange, ToggleStatus } = useProgramMaintances(location)
+    const {  configState, loading, updateMonthComplete, ToggleStatus } = useProgramMaintances(location)
 
     return ( 
         <>
@@ -29,11 +29,12 @@ function ChipProgramMaintance({maintances}) {
                         >
                             {configState.map((item, index) => (
                                 <Chip
+                                    disabled={item.monthComplete? true:false}
                                     key={index}
                                     size="medium"
                                     label={item.monthProgram? item.monthProgram : 'Sin programar'}
                                     color={item.status ? 'success' : 'warning'}
-                                    onClick={() => ToggleStatus(index, !item.status)}
+                                    onClick={() => updateMonthComplete(index)}
                                     icon={
                                         item.status ?
                                             <IoIosCheckmarkCircle /> : <IoIosCloseCircle />

@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Font} from "@react-pdf/renderer";
+import { Text, View, StyleSheet} from "@react-pdf/renderer";
 import { extractTags, extractDevices } from "../../../Helpers/extractProperties";
 
 const Style = StyleSheet.create({
@@ -34,48 +34,61 @@ const Style = StyleSheet.create({
     },
     idCol:{
         display:'flex',
-        width:'15%',
+        width:'10%',
         textAlign:'center',
         justifyContent:'center',
+        borderLeft:'1',
+        borderColor:'black'
     },
     descriptionCol:{
         display:'flex',
         width:'14%',
         textAlign:'center',
         justifyContent:'center',
+        borderLeft:'1',
+        borderColor:'black'
     },
     locationCol:{
         display:'flex',
         width:'15%',
         textAlign:'center',
         justifyContent:'center',
+         borderLeft:'1',
+        borderColor:'black'
     },
     actionCol:{
-        display:'flex',
-        width:'15%',
-        textAlign:'center',
-        justifyContent:'center',
-    },
-    monthCol:{
         display:'flex',
         width:'10%',
         textAlign:'center',
         justifyContent:'center',
-        textTransform:'uppercase'
+         borderLeft:'1',
+        borderColor:'black'
+    },
+    monthCol:{
+        display:'flex',
+        width:'12%',
+        textAlign:'center',
+        justifyContent:'center',
+        textTransform:'uppercase',
+        borderLeft:'1',
+        borderColor:'black'
     },
     nameCol:{
         display:'flex',
-        width:'26%',
+        width:'28%',
         textAlign:'center',
         justifyContent:'center',
+         borderLeft:'1',
+        borderColor:'black'
     },
     boxText:{
         display:'flex',
         justifyContent:'center',
         alignItems:'center',
         paddingTop:'2px',
-        paddingBottom:'2px'
-    }
+        paddingBottom:'2px',
+
+    },
 
 })
 
@@ -120,19 +133,19 @@ function ItemTableMaintance({user, count, configState}) {
 
                 <View style={Style.monthCol}>
                     <Text style={Style.boxText}>
-                        {configState[0].monthProgram}
+                    {configState[0].monthProgram === '' ?'PENDIENTE' : configState[0].monthProgram}
                     </Text>
                 </View>
 
                 <View style={Style.monthCol}>
                     <Text style={Style.boxText}>
-                        {configState[1].monthProgram}
+                    {configState[1].monthProgram === '' ?'PENDIENTE' : configState[1].monthProgram}
                     </Text>
                 </View>
 
                 <View style={Style.monthCol}>
                     <Text style={Style.boxText}>
-                        {configState[2].monthProgram}
+                    {configState[2].monthProgram === '' ?'PENDIENTE' : configState[2].monthProgram}
                     </Text>
                 </View>
 
@@ -176,21 +189,21 @@ function ItemTableMaintance({user, count, configState}) {
                     </Text>
                 </View>
 
-                <View style={Style.monthCol}>
-                    <Text style={Style.boxText}>
-                    check
+                <View style={{...Style.monthCol }}>
+                    <Text style={{ ...Style.boxText}}>
+                    {configState[0].status === false ?'PENDIENTE' : configState[0].monthComplete}
                     </Text>
                 </View>
 
-                <View style={Style.monthCol}>
-                    <Text style={Style.boxText}>
-                        {configState[1].monthComplete}
+                <View style={{...Style.monthCol }}>
+                    <Text style={{ ...Style.boxText}}>
+                        {configState[1].status === false ?'PENDIENTE' : configState[1].monthComplete}
                     </Text>
                 </View>
 
-                <View style={Style.monthCol}>
-                    <Text style={Style.boxText}>
-                        {configState[2].monthComplete}
+                <View style={{...Style.monthCol }}>
+                    <Text style={{...Style.boxText}}>
+                        {configState[2].status === false ?'PENDIENTE' : configState[2].monthComplete}
                     </Text>
                 </View>
 

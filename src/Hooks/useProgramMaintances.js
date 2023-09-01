@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { months } from "../Helpers/Date";
+import { months, currentDate } from "../Helpers/Date";
+console.log("🚀 ~ file: useProgramMaintances.js:3 ~ currentDate:", currentDate)
 
 function useProgramMaintances(location) {
 
@@ -23,6 +24,17 @@ function useProgramMaintances(location) {
         },1000)
     }, [])
 
+    const lastMaitanceIndex = () => {
+        const maped = configState.map((config, index) => ({
+            index,
+            monthProgram:config.monthProgram,
+            status:config.status,
+            monthComplete:config.monthComplete
+        }))
+        const maintancesCompleted = maped.filter(item.monthComplete === '')
+
+        return maintancesCompleted[0].index;
+    }
 
     const saveConfig = () => {
             const newConfig = [...configState]
@@ -43,10 +55,11 @@ function useProgramMaintances(location) {
         saveConfig()
     }
 
-    const updateMonthComplete = (index, numMonth) => {
+    const updateMonthComplete = (indexConfig) => {
         const updatedConfig = [...configState];
-        const dataMonth = months.find((item) => item.num === numMonth)
-        updatedConfig[index].monthComplete = dataMonth.month;
+        const dataMonth = months.find((item, index) => index === currentDate.$M )
+        updatedConfig[indexConfig].monthComplete = dataMonth.month;
+        updatedConfig[indexConfig].status = true
         setConfig(updatedConfig);
         saveConfig()
     }
