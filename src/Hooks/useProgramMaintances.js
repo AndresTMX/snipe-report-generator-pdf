@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { months, currentDate } from "../Helpers/Date";
-console.log("🚀 ~ file: useProgramMaintances.js:3 ~ currentDate:", currentDate)
 
 function useProgramMaintances(location) {
 

@@ -10,9 +10,9 @@ import { useProgramMaintances } from "../../Hooks/useProgramMaintances";
 function PreviewProgramMaintances({state, dispatch}) {
 
     const {maintances} = state;
-    const location = extractLocation(maintances)
-    const company = extractNameCompany(maintances)
-    const dataUsers = assetsForUser(maintances, 'user')
+    const location = maintances?.length>0? extractLocation(maintances):"";
+    const company = maintances?.length>0? extractNameCompany(maintances):"";
+    const dataUsers = maintances?.length>0? assetsForUser(maintances, 'user'):"";
 
     const {image} = useImagePDF(company)
     const { configState, loading, updateMonthComplete } = useProgramMaintances(location)
@@ -36,7 +36,8 @@ function PreviewProgramMaintances({state, dispatch}) {
         >
             <IoIosCloseCircle/>
         </IconButton>
-        {loading === false && (<Viewer>
+
+        {!loading && maintances?.length > 0 && (<Viewer>
           <ProgramMaintances dataUsers={dataUsers} image={image} configState={configState} />
         </Viewer>)}
 

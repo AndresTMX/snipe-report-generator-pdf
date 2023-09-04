@@ -33,31 +33,37 @@ const Styles = StyleSheet.create({
 
 function ProgramMaintances({ dataUsers, image, configState }) {
 
+     // Divide dataUsers en grupos de 6
+  const groupsOFive = [];
+  for (let i = 0; i < dataUsers.length; i += 5) {
+    groupsOFive.push(dataUsers.slice(i, i + 5));
+  }
+
     return (
         <Document>
-    
-            <Page 
-            size="LETTER" 
-            orientation="landscape"
-            style={Styles.document}>
 
-                <View style={Styles.page}>
-
-                    <HeaderTableMaintance image={image} />
-
-                    <View style={Styles.SectionItemMaintance}>
-
-                    {
-                        dataUsers?.length>0 && (
-                            dataUsers.map((user, index) => (
-                                <ItemTableMaintance key={index} count={index} user={user} configState={configState} />
-                            ))
-                        )
-                    }
-                        
+            {groupsOFive.map((group, pageIndex) => (
+                <Page
+                    key={pageIndex}
+                    size="LETTER"
+                    orientation="landscape"
+                    style={Styles.document}
+                >
+                    <View style={Styles.page}>
+                        <HeaderTableMaintance image={image} />
+                        <View style={Styles.SectionItemMaintance}>
+                            {group.map((user, index) => (
+                                <ItemTableMaintance
+                                    key={index}
+                                    count={index}
+                                    user={user}
+                                    configState={configState}
+                                />
+                            ))}
+                        </View>
                     </View>
-                </View>
-            </Page>
+                </Page>
+            ))}
 
         </Document>
     );

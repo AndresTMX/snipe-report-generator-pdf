@@ -1,13 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 import { MaintanceContext } from "../../Context/MaintanceContext";
-import { Container, Box, FormControl, Select, MenuItem, InputLabel, Button } from "@mui/material";
+import { Container, Box, FormControl, Select, MenuItem, InputLabel, Button, Paper, Typography } from "@mui/material";
 import { Modal } from "../../modals/modal";
+import {Notification} from "../../modals/notification";
 import { DataGrid, GridToolbar, GridToolbarContainer } from '@mui/x-data-grid';
 import { useGetMaintancesForDate } from "../../Hooks/useGetMaintancesForDate";
 import { ViewDocumentMaintance } from "../../components/ViewDocumentMaintance";
 import { ThreeDots } from "../../components/Loading";
 import {months, years, findMounth } from '../../Helpers/Date'
-import { switchDocument } from "../../Helpers/actionsMaintance";
+import { switchDocument, switchNotification } from "../../Helpers/actionsMaintance";
 import { actionTypes } from "../../Context/MaintanceReducer";
 import { PreviewProgramMaintances } from "../../components/PreviewProgramMaintances";
 
@@ -225,11 +226,30 @@ function GetAllMaintances() {
           </Modal>
         )}
 
-
         {state.documentComplete && (
           <Modal>
            <PreviewProgramMaintances state={state} dispatch={dispatch}/>
           </Modal>
+        )}
+
+        {state.notification && (
+          <Notification>
+            <Paper
+            sx={{
+              display:'flex',
+              flexDirection:'column',
+              padding:'20px',
+              gap:'10px'
+            }}
+            >
+              <Typography variant="span" >{state.notification}</Typography>
+              <Button 
+              variant="contained"
+              onClick={() => switchNotification(dispatch, false)}
+              >
+              Ok</Button>
+            </Paper>
+          </Notification>
         )}
 
         </>

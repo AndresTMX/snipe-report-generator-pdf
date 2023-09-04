@@ -6,15 +6,28 @@ import { UserItemMaintance } from "../UserItemMaintance";
 import { ChipProgramMaintance } from "../ChipProgramMaintance";
 // icons
 import { IoIosCloseCircle } from "react-icons/io";
+//hooks
+import { useProgramMaintances } from "../../Hooks/useProgramMaintances";
+import { extractLocation, switchNotification } from "../../Helpers/actionsMaintance";
 
 
 function ViewDocumentMaintance({ state, dispatch }) {
 
   const {maintances} = state;
 
+  const location = maintances?.length > 0? extractLocation(maintances):"";
+    
+  const { configState, loading, updateMonthComplete } = useProgramMaintances(location)
+
   const GenerateDocument = () => {
-    switchDocument(dispatch, false)
-    switchViewDocument(dispatch, true)
+    if(maintances?.length > 0){
+      switchDocument(dispatch, false)
+      switchViewDocument(dispatch, true)
+    }else{
+      switchDocument(dispatch, false)
+      switchNotification(dispatch, "Aún no haz agregado mantenimientos a la lista")
+    }
+    
   }
 
   return (
@@ -54,7 +67,10 @@ function ViewDocumentMaintance({ state, dispatch }) {
 
         <UserItemMaintance maintances={maintances} dispatch={dispatch}/>
 
-       { maintances?.length > 0 &&( <ChipProgramMaintance maintances={maintances} />)}
+        {maintances?.length > 0 && <ChipProgramMaintance 
+        configState={configState} 
+        loading={loading} 
+        updateMonthComplete={updateMonthComplete} />}
 
         <Button
         onClick={GenerateDocument} 
