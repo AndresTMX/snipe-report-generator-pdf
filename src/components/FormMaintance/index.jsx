@@ -20,22 +20,24 @@ import { RemoveMaintances , builderMaintance, switchForm, transformDate, ClearMa
 //.emv Maintenances provider
 const providerMaintenance = import.meta.env.VITE_PROVIDER_MAINTENANCES;
 
-
 function FormMaintance({state, dispatch, postMaintenance}) {
 
-  const [typeMaintance, setMaintance] = useState('Preventivo')
+  const [edit, setEdit] = useState(false)
   const [provider, setProvider] = useState('')
+  const [typeMaintance, setMaintance] = useState('')
   const [title, setTitle] = useState('')
   const [dateDefault, setDate] = useState({
     init:'',
     end:''
-  })
+  });
   
   useEffect(() =>  {
     const dateCurrent = dayjs()
     setDate({init: dateCurrent, end: dateCurrent})
     setProvider(providerMaintenance)
-  },[])
+    setMaintance('Preventivo')
+    console.log('ejecucuon de reset de fechas')
+  },[edit])
   
   const dateNow = dayjs()   
 
@@ -64,26 +66,10 @@ function FormMaintance({state, dispatch, postMaintenance}) {
 
   const titleMaintance = `Mantenimiento ${typeMaintance} ${Day} ${Month} ${Year}`
 
-  function renderIcon(category) {
-    if (category === "LAPTOP") {
-      return <AiOutlineLaptop />;
-    }
-
-    if (category === "GABINETE") {
-      return <PiDesktopTowerDuotone />;
-    }
-
-    if (category === "MONITOR") {
-      return <FiMonitor />;
-    }
-
-    if (category === "TECLADO") {
-      return <BsKeyboard />;
-    }
-
-    if (category === "MOUSE") {
-      return <BsMouse3 />;
-    }
+  const updateStatesForAsset = (title, type, dateInit, dateEnd ) => {
+      setTitle(title)
+      setMaintance(type)
+      setDate({init:dateInit,end:dateEnd})
   }
 
   const handleChangue = (setState) => (e) => {
@@ -168,15 +154,29 @@ function FormMaintance({state, dispatch, postMaintenance}) {
         }}
       >
         {maintances.length > 0 && (
-          <UserItemMaintance maintances={maintances} dispatch={dispatch}/>
+          <UserItemMaintance 
+          maintances={maintances}
+          title={titleMaintance}
+          type={typeMaintance}
+          date={dateDefault} 
+          setEdit={setEdit}
+          updateStates={updateStatesForAsset}
+          dispatch={dispatch}/>
         )}
 
         {maintances.length < 1 && <span>Sin OFCMI agregados</span>}
       </Box>
 
-      <FormControl fullWidth>
-        <ContainerDate title={"Fecha de inicio"}>
+      <FormControl 
+      fullWidth>
+        <ContainerDate title={"Fecha de inicio"} >
           <DatePicker 
+          sx={{
+            border:'1px',
+            borderStyle:'solid',
+            borderColor:`${edit? 'red': 'transparent'}`,
+            borderRadius:'4px'
+          }}
           format="DD/MM/YYYY"
           value={dateDefault.init}
           onChange={(newValue) => handleDateInit(newValue)}
@@ -185,9 +185,12 @@ function FormMaintance({state, dispatch, postMaintenance}) {
         </ContainerDate>
       </FormControl>
 
-      <FormControl fullWidth>
+      <FormControl
+      error={edit? true:false} 
+      fullWidth>
         <InputLabel>Tipo de mantenimiento</InputLabel>
         <Select
+          defaultValue="Preventivo"
           value={typeMaintance}
           label={"Tipo de mantenimiento"}
           onChange={handleChangue(setMaintance)}
@@ -198,12 +201,22 @@ function FormMaintance({state, dispatch, postMaintenance}) {
       </FormControl>
 
       <FormControl fullWidth>
-        <TextField label='Titulo del mantenimiento' value={titleMaintance}/>
+        <TextField 
+        label='Titulo del mantenimiento' 
+        value={titleMaintance}
+        error={edit? true:false}
+        />
       </FormControl>
 
       <FormControl fullWidth>
         <ContainerDate title={"Fecha de fin"}>
           <DatePicker
+          sx={{
+            border:'1px',
+            borderStyle:'solid',
+            borderColor:`${edit? 'red': 'transparent'}`,
+            borderRadius:'4px'
+          }}
           format="DD/MM/YYYY"
           value={dateDefault.end}
           onChange={(newValue) => handleDateEnd(newValue)}

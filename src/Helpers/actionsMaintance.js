@@ -36,6 +36,13 @@ export function RemoveMaintances(listTag, dispatch, payload){
     
 }
 
+export function editMaintances(listTag, dispatch, payload){
+    const indexMaintance =  listTag.findIndex((item) => item.tag === payload.tag)
+    const newState = [...listTag]
+    newState[indexMaintance] = payload;
+    dispatch({type: actionTypes.setMaintances, payload: newState});
+}
+
 export function ToggleItem(listTag, dispatch, payload){
 
     const validate = validateRepeat(listTag, payload)
@@ -95,14 +102,14 @@ export function builderMaintance(dataMaintances) {
     const { title, data, type , supplier_id, start_date, completion_date} = dataMaintances;
 
     const maintances = data.map((asset) => ({
-        title:title,
+        title:!asset?.title? title: asset.title,
         asset_id:asset.id,
         cost: costMaintance(asset),
         notes:asset.user,
-        asset_maintenance_type: type,
+        asset_maintenance_type: !asset?.type? type: asset.type,
         supplier_id:supplier_id,
-        start_date:start_date,
-        completion_date:completion_date,
+        start_date: !asset?.start_date? start_date: asset.start_date,
+        completion_date:!asset?.completion_date? completion_date: asset.completion_date,
     }))
 
     return maintances
