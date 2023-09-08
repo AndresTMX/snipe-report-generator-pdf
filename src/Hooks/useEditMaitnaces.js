@@ -3,17 +3,13 @@ import { actionTypes } from "../Context/MaintanceReducer";
 import {months, currentDate} from '../Helpers/Date'
 const providerMaintenance = import.meta.env.VITE_PROVIDER_MAINTENANCES;
 
-function useEditMaintances(maintances, dispatch) {
+function useEditMaintances(maintances, dispatch, typeItem) {
 
     const [selectUser, setSelectUser] = useState(null)
-    const [selectItem, setSelectItem] = useState(null)
-    const assetsForUser = maintances?.length > 0? maintances.filter((item) => item.notes === selectUser): [];
-    const [assetsUser, setAssetsUser] = useState(assetsForUser)
-   
     const titleMaintance = `Mantenimiento Preventivo ${currentDate.$D} ${months[(currentDate.$M)].month} ${currentDate.$y}`
 
     useEffect(() => {
-        if(maintances?.length>0){
+        if(maintances?.length > 0 && typeItem){
            const datadfault =  maintances.map((item) => ({
                 ...item,
                 item_id:item.id,
@@ -28,22 +24,24 @@ function useEditMaintances(maintances, dispatch) {
         }
     },[])
     
-    const updateMaintance = (index, newData) => {
-        const maintance = data[index]
-        const newMaintance = [
-            ...maintance,
-            ...newData
-        ]
-        setData([...data, newMaintance])
-    } 
-
-    const deleteMaintance = (tag) => {
-        const newData = data.filter(item.tag != tag)
-        setData(newData)
+    const updateMaintance = (index, tagItem, newData,) => {
+        const maintance = maintances.find((item) => item.tag === tagItem)
+        const maintanceIndex = maintances.findIndex((item) => item.tag === tagItem)
+        const {title, item_maintenance_type, start_date, completion_date} = newData
+        const item = {
+            title,
+            item_maintenance_type,
+            start_date,
+            completion_date
+        }
+        const newState = [...maintances]
+        newState[maintanceIndex] = {...maintance,...item}
+        dispatch({type: actionTypes.setMaintances, payload: newState })
+        
     }
 
-    const states = { selectUser, selectItem, assetsUser }
-    const actions = { updateMaintance, deleteMaintance, setSelectItem, setSelectUser }
+    const states = { selectUser, typeItem }
+    const actions = { updateMaintance, setSelectUser }
 
     return { states, actions }
 }

@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet} from "@react-pdf/renderer";
-import { extractTags, extractDevices } from "../../../Helpers/extractProperties";
+import { extractTags, extractDevices, extractTypesMaintances } from "../../../Helpers/extractProperties";
 
 const Style = StyleSheet.create({
     sectionItem:{
@@ -92,10 +92,11 @@ const Style = StyleSheet.create({
 
 })
 
-function ItemTableMaintance({user, count, configState}) {
+function ItemTableMaintance({user, count, configState}) {    
     const newCount = (count + 1).toString()
     const listTags = extractTags(user)
     const listDevices = extractDevices(user)
+    const listTypes = extractTypesMaintances(user)
 
     return ( 
         <View style={Style.sectionItem}>
@@ -164,14 +165,14 @@ function ItemTableMaintance({user, count, configState}) {
                 </View>
 
                 <View style={Style.idCol}>
-                    {listTags.map((tag) => (
-                        <Text style={Style.boxText}>{tag}</Text>
+                    {listTags.map((tag, index) => (
+                        <Text  key={index} style={Style.boxText}>{tag}</Text>
                     ))}
                 </View>
 
                 <View style={Style.descriptionCol}>
-                    {listDevices.map((device) => (
-                        <Text style={Style.boxText}>
+                    {listDevices.map((device, index) => (
+                        <Text  key={index} style={Style.boxText}>
                         {device}
                         </Text>
                     ))}
@@ -184,9 +185,11 @@ function ItemTableMaintance({user, count, configState}) {
                 </View>
                 
                 <View style={Style.actionCol}>
-                    <Text style={Style.boxText}>
-                        {user[0].type}
-                    </Text>
+                    {listTypes.map((type, index) => (
+                        <Text key={index}  style={Style.boxText}>
+                        {type}
+                        </Text>
+                    ))}
                 </View>
 
                 <View style={{...Style.monthCol }}>

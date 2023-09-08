@@ -3,10 +3,7 @@ import {BiSearchAlt2} from 'react-icons/bi'
 import InputBase from '@mui/material/InputBase';
 
 
-function InputSearch({state, setState, resultSearch, placeholder, action, width, onKey}) {
-
-    const result = resultSearch? resultSearch: 0;
-
+function InputSearch({state, setState, placeholder, action, width, onKey}) {
     
     const onSearchValueChangue = (event) => {
         setState(event.target.value.toLowerCase());
@@ -23,7 +20,6 @@ function InputSearch({state, setState, resultSearch, placeholder, action, width,
                   <BiSearchAlt2/>
                 </IconButton> 
             </InputAdornment>
-            {/* <span>Resultados : {result}</span> */}
         </Paper>
      );
 }

@@ -6,14 +6,8 @@ import { UserItemMaintance } from "../UserItemMaintance";
 import { useEditMaintances } from "../../Hooks/useEditMaitnaces";
 //icons
 import { IoIosCloseCircle } from "react-icons/io";
-//icons
-import { AiOutlineLaptop } from "react-icons/ai"; //lap
-import { BsKeyboard } from "react-icons/bs"; //teclado
-import { BsMouse3 } from "react-icons/bs"; //mouse
-import { FiMonitor } from "react-icons/fi"; //monitor
-import { PiDesktopTowerDuotone } from "react-icons/pi"; //gabinete
 //helpers
-import { RemoveMaintances , builderMaintance, switchForm, transformDate, ClearMaintances } from "../../Helpers/actionsMaintance";
+import { builderMaintance, switchForm, transformDate, ClearMaintances } from "../../Helpers/actionsMaintance";
 import { FormEditMaintances } from "../FormEditMaintances";
 //.emv Maintenances provider
 const providerMaintenance = import.meta.env.VITE_PROVIDER_MAINTENANCES;
@@ -22,10 +16,9 @@ function FormMaintance({state, dispatch, postMaintenance}) {
 
   const { maintances } = state
 
-  const {states, actions} = useEditMaintances(maintances, dispatch)
-
-  const { selectUser, selectItem, assetsUser }= states 
-  const { updateMaintance, deleteMaintance, setSelectItem, setSelectUser } = actions
+  const {states, actions} = useEditMaintances(maintances, dispatch, true)
+  const { selectUser, typeItem }= states 
+  const { updateMaintance, setSelectUser } = actions
 
   const SendMaintenance = async (e) => {
 
@@ -92,36 +85,28 @@ function FormMaintance({state, dispatch, postMaintenance}) {
           Sin activos agregados
         </Typography>
       )}
-
-
-      {selectUser && (
-        <UserItemMaintance
-          maintances={assetsUser}
-          setSelectItem={setSelectItem}
-          setSelectUser={setSelectUser}
-          selectUser={selectUser}
-          selectItem={selectItem}
-          dispatch={dispatch} />
-      )}
       
       {maintances.length > 0 && !selectUser &&(
         <UserItemMaintance
           maintances={maintances}
-          setSelectItem={setSelectItem}
           setSelectUser={setSelectUser}
           selectUser={selectUser}
-          selectItem={selectItem}
+          typeItem={typeItem}
           dispatch={dispatch} />
       )}
 
       {selectUser && (
         <FormEditMaintances
         selectUser={selectUser}
-        selectItem={selectItem}
-        setSelectItem={setSelectItem}
         setSelectUser={setSelectUser}
+        update={updateMaintance}
         />
       )}
+
+        {!selectUser && maintances.length > 0 && (<Button
+          variant="outlined">
+          Editar todos
+        </Button>)}
 
       {!selectUser && maintances.length > 0 && (
         <Button

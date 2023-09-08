@@ -33,7 +33,7 @@ const Styles = StyleSheet.create({
 
 function ProgramMaintances({ dataUsers, image, configState }) {
 
-     // Divide dataUsers en grupos de 6
+  // Divide dataUsers en grupos de 6
   const groupsOFive = [];
   for (let i = 0; i < dataUsers.length; i += 5) {
     groupsOFive.push(dataUsers.slice(i, i + 5));

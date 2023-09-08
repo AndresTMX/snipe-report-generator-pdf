@@ -13,11 +13,9 @@ import { Typography, Box, IconButton, Button, Paper,  Stack} from "@mui/material
 //helpers
 import { ToggleItem , assetsForUser } from "../../Helpers/actionsMaintance";
 
-function UserItemMaintance({maintances, selectUser, selectItem, setSelectItem, setSelectUser, dispatch}) {
-  console.log("🚀 ~ file: index.jsx:17 ~ UserItemMaintance ~ selectUser:", selectUser)
+function UserItemMaintance({maintances, selectUser, setSelectUser, dispatch, typeItem}) {
   
   const assetsGroup = assetsForUser(maintances, 'user')
-  const [colorButton,setColorButton] = useState("error");
   
   function renderIcon(category) {
     if (category.toLowerCase().includes("laptop")) {
@@ -43,21 +41,10 @@ function UserItemMaintance({maintances, selectUser, selectItem, setSelectItem, s
   
   const toggleUser = (nameUser) => {    
     const selected = maintances.filter((item) => item.notes === nameUser)
-    setSelectItem(null)
     if(selectUser === selected){
       setSelectUser(null)
-      setColorButton('error')
     }else{
       setSelectUser(selected)
-      setColorButton('primary')
-    }
-  }
-
-  const changueColorBotton = (indexAsset) => {
-    if(selectItem != indexAsset){
-      return colorButton
-    }else{
-      return 'warning'
     }
   }
 
@@ -65,7 +52,7 @@ function UserItemMaintance({maintances, selectUser, selectItem, setSelectItem, s
     <>
 
         {maintances?.length > 0 && (
-          <ScrollContainer height={"200px"}>
+          <ScrollContainer height={"250px"}>
             <Box sx={{ display: "flex", flexDirection: "column", gap:'10px' }}>
             {assetsGroup.map((assetUser, index) => (
               <Paper
@@ -75,11 +62,12 @@ function UserItemMaintance({maintances, selectUser, selectItem, setSelectItem, s
               >
                 <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} >
                   <Typography variant="span">{assetUser[0].user ? assetUser[0].user : 'NO ASIGNADO'}</Typography>
+                  {typeItem === true && (
                   <IconButton
                    onClick={() =>  toggleUser(assetUser[0].user)}
                   >
                      <MdModeEditOutline />
-                  </IconButton>
+                  </IconButton>)}
                 </Stack>
                 <Box
                   sx={{
@@ -93,10 +81,10 @@ function UserItemMaintance({maintances, selectUser, selectItem, setSelectItem, s
                     <Button
                       key={asset.id}
                       variant="outlined"
-                      color={selectItem === index? changueColorBotton(indexAsset): 'error'}
+                      color={'error'}
                       size="small"
                       startIcon={renderIcon(asset.device)}
-                      onClick={() => select === index? saveConfig(indexAsset) : ToggleItem(maintances, dispatch, asset )}
+                      onClick={() => ToggleItem(maintances, dispatch, asset )}
                     >
                       {asset.tag}
                     </Button>
