@@ -1,14 +1,11 @@
 //utilities
 import { useEffect, useState } from "react"
-import dayjs from 'dayjs';
 //material ui
-import { IconButton, FormControl, InputLabel, Select, MenuItem, Box, TextField, Button, InputAdornment } from "@mui/material"
-import { ContainerDate } from "../ContainerDateDays";
-import { actionTypes } from "../../Context/MaintanceReducer";
+import { Button, IconButton, Typography, Box } from "@mui/material"
 import { UserItemMaintance } from "../UserItemMaintance";
+import { useEditMaintances } from "../../Hooks/useEditMaitnaces";
 //icons
 import { IoIosCloseCircle } from "react-icons/io";
-import { DatePicker } from "@mui/x-date-pickers";
 //icons
 import { AiOutlineLaptop } from "react-icons/ai"; //lap
 import { BsKeyboard } from "react-icons/bs"; //teclado
@@ -17,78 +14,18 @@ import { FiMonitor } from "react-icons/fi"; //monitor
 import { PiDesktopTowerDuotone } from "react-icons/pi"; //gabinete
 //helpers
 import { RemoveMaintances , builderMaintance, switchForm, transformDate, ClearMaintances } from "../../Helpers/actionsMaintance";
+import { FormEditMaintances } from "../FormEditMaintances";
 //.emv Maintenances provider
 const providerMaintenance = import.meta.env.VITE_PROVIDER_MAINTENANCES;
 
 function FormMaintance({state, dispatch, postMaintenance}) {
 
-  const [edit, setEdit] = useState(false)
-  const [provider, setProvider] = useState('')
-  const [typeMaintance, setMaintance] = useState('')
-  const [title, setTitle] = useState('')
-  const [dateDefault, setDate] = useState({
-    init:'',
-    end:''
-  });
-  
-  useEffect(() =>  {
-    const dateCurrent = dayjs()
-    setDate({init: dateCurrent, end: dateCurrent})
-    setProvider(providerMaintenance)
-    setMaintance('Preventivo')
-    console.log('ejecucuon de reset de fechas')
-  },[edit])
-  
-  const dateNow = dayjs()   
+  const { maintances } = state
 
-  const allMonths = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre"
-  ]
+  const {states, actions} = useEditMaintances(maintances, dispatch)
 
-  const Year = dateNow.$y
-
-  const Month = allMonths[dateNow.$M]
-
-  const Day = dateNow.$D
-
-  const {maintances} = state;
-
-  const titleMaintance = `Mantenimiento ${typeMaintance} ${Day} ${Month} ${Year}`
-
-  const updateStatesForAsset = (title, type, dateInit, dateEnd ) => {
-      setTitle(title)
-      setMaintance(type)
-      setDate({init:dateInit,end:dateEnd})
-  }
-
-  const handleChangue = (setState) => (e) => {
-    setState(e.target.value)
-  }
-
-  const handleDateInit = (newValue) => {
-    setDate({
-      ...dateDefault,
-      init: newValue
-    })
-  }
-
-  const handleDateEnd = (newValue) => {
-    setDate({
-      ...dateDefault,
-      end: newValue
-    })
-  }
+  const { selectUser, selectItem, assetsUser }= states 
+  const { updateMaintance, deleteMaintance, setSelectItem, setSelectUser } = actions
 
   const SendMaintenance = async (e) => {
 
@@ -125,109 +62,78 @@ function FormMaintance({state, dispatch, postMaintenance}) {
         width: "500px",
       }}
     >
+
       <Box
-        sx={{
-          display: "flex",
-          width: "100%",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
+      sx={{
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'space-between'
+      }}
       >
-        <h2>Mantenimientos</h2>
+         <Typography
+        variant="h3"
+        fontSize="1.5rem"
+        >
+        Mantenimientos
+        </Typography>
 
         <IconButton
-          onClick={() => {
-            dispatch({ type: actionTypes.setformSendMaintances, payload: false });
-          }}
+        color="error"
+        onClick={() => switchForm(dispatch, false)}
         >
-          <IoIosCloseCircle />
+          <IoIosCloseCircle/>
         </IconButton>
       </Box>
 
-      <strong>OFCMI de activos selectionados</strong>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "4px",
-          flexWrap: "wrap",
-        }}
-      >
-        {maintances.length > 0 && (
-          <UserItemMaintance 
-          maintances={maintances}
-          title={titleMaintance}
-          type={typeMaintance}
-          date={dateDefault} 
-          setEdit={setEdit}
-          updateStates={updateStatesForAsset}
-          dispatch={dispatch}/>
-        )}
-
-        {maintances.length < 1 && <span>Sin OFCMI agregados</span>}
-      </Box>
-
-      <FormControl 
-      fullWidth>
-        <ContainerDate title={"Fecha de inicio"} >
-          <DatePicker 
-          sx={{
-            border:'1px',
-            borderStyle:'solid',
-            borderColor:`${edit? 'red': 'transparent'}`,
-            borderRadius:'4px'
-          }}
-          format="DD/MM/YYYY"
-          value={dateDefault.init}
-          onChange={(newValue) => handleDateInit(newValue)}
-          renderInput={(props) => <TextField {...props} />}
-          />
-        </ContainerDate>
-      </FormControl>
-
-      <FormControl
-      error={edit? true:false} 
-      fullWidth>
-        <InputLabel>Tipo de mantenimiento</InputLabel>
-        <Select
-          defaultValue="Preventivo"
-          value={typeMaintance}
-          label={"Tipo de mantenimiento"}
-          onChange={handleChangue(setMaintance)}
+      {maintances?.length === 0 &&(
+        <Typography
+        variant="span"
         >
-          <MenuItem value={"Preventivo"}>Preventivo</MenuItem>
-          <MenuItem value={"Correctivo"}>Correctivo</MenuItem>
-        </Select>
-      </FormControl>
+          Sin activos agregados
+        </Typography>
+      )}
 
-      <FormControl fullWidth>
-        <TextField 
-        label='Titulo del mantenimiento' 
-        value={titleMaintance}
-        error={edit? true:false}
+
+      {selectUser && (
+        <UserItemMaintance
+          maintances={assetsUser}
+          setSelectItem={setSelectItem}
+          setSelectUser={setSelectUser}
+          selectUser={selectUser}
+          selectItem={selectItem}
+          dispatch={dispatch} />
+      )}
+      
+      {maintances.length > 0 && !selectUser &&(
+        <UserItemMaintance
+          maintances={maintances}
+          setSelectItem={setSelectItem}
+          setSelectUser={setSelectUser}
+          selectUser={selectUser}
+          selectItem={selectItem}
+          dispatch={dispatch} />
+      )}
+
+      {selectUser && (
+        <FormEditMaintances
+        selectUser={selectUser}
+        selectItem={selectItem}
+        setSelectItem={setSelectItem}
+        setSelectUser={setSelectUser}
         />
-      </FormControl>
+      )}
 
-      <FormControl fullWidth>
-        <ContainerDate title={"Fecha de fin"}>
-          <DatePicker
-          sx={{
-            border:'1px',
-            borderStyle:'solid',
-            borderColor:`${edit? 'red': 'transparent'}`,
-            borderRadius:'4px'
-          }}
-          format="DD/MM/YYYY"
-          value={dateDefault.end}
-          onChange={(newValue) => handleDateEnd(newValue)}
-          renderInput={(props) => <TextField {...props} />} 
-          />
-        </ContainerDate>
-      </FormControl>
+      {!selectUser && maintances.length > 0 && (
+        <Button
+          type="submit"
+          variant="contained">
+          Subir mantenimientos
+        </Button>)}
 
-      <Button type="submit" variant="contained">Subir mantenimientos</Button>
+
     </form>
   );
 }
 
 export { FormMaintance };
+
