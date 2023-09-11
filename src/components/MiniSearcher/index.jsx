@@ -11,7 +11,7 @@ import { FiMonitor } from "react-icons/fi"; //monitor
 import { BsMouse3 } from "react-icons/bs"; //mouse
 
 
-function MiniSearcher({limit, Toggle}) {
+function MiniSearcher({limit, Toggle, maintances}) {
 
     const {search, setSearch} = useSearcher()
 
@@ -61,11 +61,23 @@ function MiniSearcher({limit, Toggle}) {
         return name
     }
 
+    const validateItem = (tagItem) => {
+        let variant
+        const validate = maintances.find((item) => item.tag === tagItem)
+        
+        if(!validate){
+            variant = "outlined"
+        }else{
+            variant = "contained"
+        }
+        return variant
 
+    }
 
     return ( 
         <>
             <Box
+                onClick={() => setResults([])}
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -91,7 +103,6 @@ function MiniSearcher({limit, Toggle}) {
             height={results?.length > 0? '120px' : 'auto' }
             >
                 <Stack 
-                onClick={() => setResults([])}
                 direction='column'
                 gap='5px'>
                     <>
@@ -107,20 +118,20 @@ function MiniSearcher({limit, Toggle}) {
                         {!loading && !error && results?.length>0 &&(
                             results.map((result, index) => (
                                <Box 
+                               key={index}
                                sx={{
                                 display:'flex',
                                 alignItems:'center',
                                 justifyContent:'space-between'
                                }}
-                               key={index}>
+                               >
                                <Typography variant="subtitle2">
                                 {extractNameUser(result)}
                                </Typography>
 
                                <Button
-                                    label={result.asset_tag}
                                     onClick={() => Toggle(result)}
-                                    variant="outlined"
+                                    variant={validateItem(result.asset_tag)}
                                     size="small"
                                     startIcon={renderIcon(result.category?.name)}
                                     color="primary" 

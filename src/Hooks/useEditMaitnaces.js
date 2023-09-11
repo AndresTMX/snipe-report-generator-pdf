@@ -5,7 +5,8 @@ import { ToggleItem } from "../Helpers/actionsMaintance";
 const providerMaintenance = import.meta.env.VITE_PROVIDER_MAINTENANCES;
 
 function useEditMaintances(maintances, dispatch, typeItem) {
-
+  console.log("🚀 ~ file: useEditMaitnaces.js:8 ~ useEditMaintances ~ maintances:", maintances)
+  
     const [update,setUpdate] = useState(false)
     const [selectUser, setSelectUser] = useState(null)
     const titleMaintance = `Mantenimiento Preventivo ${currentDate.$D} ${months[(currentDate.$M)].month} ${currentDate.$y}`
@@ -17,19 +18,18 @@ function useEditMaintances(maintances, dispatch, typeItem) {
 
         if(maintances?.length > 0 ){
             
-            const datadfault =  maintances.map((item) => ({
+            const datadfault =  maintances.map((item, index) => ({
                 ...item,
-                item_id:item.id,
+                id:item.id,
                 notes:item.user,
                 supplier_id:parseInt(providerMaintenance),
                 title:!item?.title? titleMaintance: item.title,
                 start_date:!item?.start_date? currentDate: item.start_date,
-                item_maintenance_type: !item?.type? 'Preventivo': item.type,
+                asset_maintenance_type: !item.item_maintenance_type? 'Preventivo': item.item_maintenance_type,
                 completion_date:!item?.completion_date? currentDate: item.completion_date,
                 editable: item.editable? item.editable:editable
             }))
             dispatch({type: actionTypes.setMaintances, payload: datadfault})
-            console.log("Ejecutando use Effect")
         }
 
         
@@ -55,7 +55,7 @@ function useEditMaintances(maintances, dispatch, typeItem) {
 
         const item = {
             tag:newItem.asset_tag,
-            item_id:newItem.id,
+            id:newItem.id,
             device:newItem.category.name,
             user:newItem?.assigned_to?.name,
             supplier_id:parseInt(providerMaintenance),
@@ -63,6 +63,9 @@ function useEditMaintances(maintances, dispatch, typeItem) {
             start_date:currentDate,
             item_maintenance_type:"Pendiente",
             completion_date:currentDate,
+            company:newItem.company.name,
+            location:newItem.location.name,
+            cost:0,
             editable:true,
         }
 

@@ -92,8 +92,9 @@ const Style = StyleSheet.create({
 
 })
 
-function ItemTableMaintance({user, count, configState}) {    
-    const newCount = (count + 1).toString()
+function ItemTableMaintance({user, index, page, configState}) {   
+
+    const newCount = page === 0 ? index + 1 : page * 5 + index + 1;
     const listTags = extractTags(user)
     const listDevices = extractDevices(user)
     const listTypes = extractTypesMaintances(user)

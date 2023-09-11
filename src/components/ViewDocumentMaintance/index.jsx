@@ -93,6 +93,7 @@ function ViewDocumentMaintance({ state, dispatch }) {
 
        {!selectUser && 
        <MiniSearcher 
+       maintances={maintances}
        limit={10}
        Toggle={Toggle}
        />}

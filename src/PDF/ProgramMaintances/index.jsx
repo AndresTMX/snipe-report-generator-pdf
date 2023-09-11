@@ -52,10 +52,11 @@ function ProgramMaintances({ dataUsers, image, configState }) {
                     <View style={Styles.page}>
                         <HeaderTableMaintance image={image} />
                         <View style={Styles.SectionItemMaintance}>
-                            {group.map((user, index) => (
+                            {group.map((user,index) => (
                                 <ItemTableMaintance
                                     key={index}
-                                    count={index}
+                                    index={index}
+                                    page={pageIndex}
                                     user={user}
                                     configState={configState}
                                 />
