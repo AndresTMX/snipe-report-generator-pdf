@@ -21,7 +21,7 @@ function useGetSearch(search, limit) {
         setLoading(true)
         const fetchSearch = async () => {
             try {
-                const results = await getSearch(input, limit);
+                const results = await getSearch(input, limit);                
                 const resultsFiltered = filterResults(results);                
                 setResults(resultsFiltered);
                 setLoading(false);

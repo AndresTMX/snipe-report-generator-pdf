@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DatePicker } from "@mui/x-date-pickers"
 import { ContainerDate } from "../ContainerDateDays"
 import { CustomTabPanel } from "../../sections/CustomPanel"
-import { months } from "../../Helpers/Date";
+import { months, especificDate } from "../../Helpers/Date";
 import {  FormControl, InputLabel, Select, MenuItem, Box, TextField, Button} from "@mui/material"
 
 function FormsMaintancesItem({item, index, value, setSelectUser, update}) {
@@ -45,7 +45,9 @@ function FormsMaintancesItem({item, index, value, setSelectUser, update}) {
             setEdit(false)
       }
 
-      const titleDinamic = `Mantenimiento ${typeMaintance} ${dateDefault.init.$D} ${months[dateDefault.init.$M].month} ${dateDefault.init.$y}`
+      const titleDinamic = item.edtiable? 
+      `Mantenimiento ${typeMaintance} ${dateDefault.init.$D} ${months[dateDefault.init.$M].month} ${dateDefault.init.$y}`:
+      `Mantenimiento ${typeMaintance} ${especificDate(dateDefault.init).$D} ${months[especificDate(dateDefault.init).$M].month} ${especificDate(dateDefault.init).$y}`
 
     return ( 
         <CustomTabPanel key={item.id} value={value} index={index}>
@@ -55,7 +57,7 @@ function FormsMaintancesItem({item, index, value, setSelectUser, update}) {
               gap:'15px'
               }}>
 
-            <Box 
+            {item.editable && (<Box 
             sx={{
                 display:'flex',
                 gap:'10px'
@@ -94,7 +96,7 @@ function FormsMaintancesItem({item, index, value, setSelectUser, update}) {
                     />
                 </ContainerDate>
                 </FormControl>
-            </Box>
+            </Box>)}
             
 
             <FormControl
@@ -102,12 +104,14 @@ function FormsMaintancesItem({item, index, value, setSelectUser, update}) {
                 fullWidth>
                 <InputLabel>Tipo de mantenimiento</InputLabel>
                 <Select
+                    disabled={!item.editable? true: false }
                     value={typeMaintance}
                     label={"Tipo de mantenimiento"}
                     onChange={(e) => handleType(e.target.value)}
                 >
                     <MenuItem value={"Preventivo"}>Preventivo</MenuItem>
                     <MenuItem value={"Correctivo"}>Correctivo</MenuItem>
+                    <MenuItem value={"Pendiente"}>Pendiente</MenuItem>
                 </Select>
             </FormControl>
 
@@ -119,11 +123,20 @@ function FormsMaintancesItem({item, index, value, setSelectUser, update}) {
                 />
             </FormControl>
 
-            <Button color="error" variant="contained" onClick={() => setSelectUser(null)}>Descartar cambios</Button>
-            <Button color="primary" variant="contained"
+            <Button 
+            color="error" 
+            variant="contained"
+            onClick={() => setSelectUser(null)}>
+             {edit? 'Descartar cambios' : 'Cerrar'}
+            </Button>
+
+            {item.editable && (
+            <Button 
+            color="primary" 
+            variant="contained"
             onClick={() => save(index)}
             >Guardar cambios
-            </Button>
+            </Button>)}
 
              </Box>
           </CustomTabPanel>

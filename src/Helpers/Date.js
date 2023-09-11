@@ -1,6 +1,9 @@
 import dayjs from "dayjs";
 
 export const currentDate = dayjs();
+export const especificDate = (date) => {
+  return dayjs(date)
+} 
 export const year = currentDate.$y
 export const months = [
     { month: "Enero", num: "01" },

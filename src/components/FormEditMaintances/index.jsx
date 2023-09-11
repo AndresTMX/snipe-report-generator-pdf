@@ -57,13 +57,24 @@ function FormEditMaintances({dispatch, selectUser, setSelectUser, update}) {
 
           >
             {selectUser.map((item) => (
-              <Tab key={item.id} label={item.tag} icon={renderIcon(item.device)} iconPosition="start" />
+              <Tab key={item.id}
+              label={item.tag}
+              icon={renderIcon(item.device)} 
+              iconPosition="start"
+              disabled={!item.editable? true : false }
+              />
             ))}
           </Tabs>
         </Box>
 
         {selectUser.map((item, index) => (
-          <FormsMaintancesItem key={index} item={item} index={index} value={value} setSelectUser={setSelectUser} update={update} />
+          <FormsMaintancesItem 
+          key={index}
+          item={item}
+          index={index}
+          value={value} 
+          setSelectUser={setSelectUser}
+          update={update}/>
         ))}
 
       </Box>

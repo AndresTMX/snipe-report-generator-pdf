@@ -1,11 +1,11 @@
-import { Paper,  Container, Box, Button, Typography, IconButton, FormControl, TextField, Stack, Chip } from "@mui/material";
+import { Paper,  Container, Box, Button, Typography, IconButton} from "@mui/material";
 //actions
 import { switchDocument,  switchViewDocument } from "../../Helpers/actionsMaintance";
 //components
 import { UserItemMaintance } from "../UserItemMaintance";
 import { ChipProgramMaintance } from "../ChipProgramMaintance";
 import { FormEditMaintances } from "../FormEditMaintances";
-import { InputSearch } from "../Searcher";
+import { MiniSearcher } from "../MiniSearcher";
 // icons
 import { IoIosCloseCircle } from "react-icons/io";
 //hooks
@@ -22,7 +22,7 @@ function ViewDocumentMaintance({ state, dispatch }) {
   const {search, setSearch} = useSearcher()
   const {states, actions} = useEditMaintances(maintances, dispatch, false)
   const { selectUser, typeItem }= states 
-  const { updateMaintance, setSelectUser } = actions
+  const { updateMaintance, setSelectUser, Toggle } = actions
 
   const location = maintances?.length > 0? extractLocation(maintances):"";
     
@@ -91,46 +91,11 @@ function ViewDocumentMaintance({ state, dispatch }) {
         />
       )}
 
-      <Box
-      sx={{
-        display:'flex',
-        flexDirection:'column',
-        gap:'15px',
-        width:'90%',
-        margin:'auto'
-      }}
-      >
-        <Typography variant="subtitle2">
-          Agrega activos buscandolos por su usuario
-        </Typography>
-        <InputSearch
-        state={search}
-        setState={setSearch}
-        placeholder={'miguel duran'}
-        action={() => {}}
-        width={'100%'}
-        onKey={() => {}}
-        />
-      </Box>
-
-      <Paper 
-      elevation="2"
-      sx={{
-        display:'flex',
-        flexDirection:'column',
-        gap:'15px',
-        width:'90%',
-        margin:'auto',
-        padding:'10px'
-      }}>
-        <Stack direction='row' flexWrap='wrap' gap='5px'>
-          <Chip label='OFCMI-234' variant="outlined" onClick={() => {}} color="primary"/>
-          <Chip label='OFCMI-234' variant="outlined" onClick={() => {}} color="primary"/>
-          <Chip label='OFCMI-234' variant="outlined" onClick={() => {}} color="primary"/>
-          <Chip label='OFCMI-234' variant="outlined" onClick={() => {}} color="primary"/>
-          <Chip label='OFCMI-234' variant="outlined" onClick={() => {}} color="primary"/>
-        </Stack>
-      </Paper>
+       {!selectUser && 
+       <MiniSearcher 
+       limit={10}
+       Toggle={Toggle}
+       />}
 
         {maintances?.length > 0 && !selectUser && 
         (<ChipProgramMaintance 

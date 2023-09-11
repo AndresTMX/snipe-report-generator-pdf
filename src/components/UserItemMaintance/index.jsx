@@ -13,7 +13,7 @@ import { Typography, Box, IconButton, Button, Paper,  Stack} from "@mui/material
 //helpers
 import { ToggleItem , assetsForUser } from "../../Helpers/actionsMaintance";
 
-function UserItemMaintance({maintances, selectUser, setSelectUser, dispatch, typeItem}) {
+function UserItemMaintance({maintances, selectUser, setSelectUser, dispatch}) {
   
   const assetsGroup = assetsForUser(maintances, 'user')
   
@@ -62,12 +62,11 @@ function UserItemMaintance({maintances, selectUser, setSelectUser, dispatch, typ
               >
                 <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} >
                   <Typography variant="span">{assetUser[0].user ? assetUser[0].user : 'NO ASIGNADO'}</Typography>
-                  {typeItem === true && (
                   <IconButton
                    onClick={() =>  toggleUser(assetUser[0].user)}
                   >
                      <MdModeEditOutline />
-                  </IconButton>)}
+                  </IconButton>
                 </Stack>
                 <Box
                   sx={{
@@ -77,7 +76,7 @@ function UserItemMaintance({maintances, selectUser, setSelectUser, dispatch, typ
                     flexWrap: "wrap",
                   }}
                 >
-                  {assetUser.map((asset, indexAsset) => (
+                  {assetUser.map((asset) => (
                     <Button
                       key={asset.id}
                       variant="outlined"
