@@ -5,7 +5,6 @@ import { ToggleItem } from "../Helpers/actionsMaintance";
 const providerMaintenance = import.meta.env.VITE_PROVIDER_MAINTENANCES;
 
 function useEditMaintances(maintances, dispatch, typeItem) {
-  console.log("🚀 ~ file: useEditMaitnaces.js:8 ~ useEditMaintances ~ maintances:", maintances)
   
     const [update,setUpdate] = useState(false)
     const [selectUser, setSelectUser] = useState(null)

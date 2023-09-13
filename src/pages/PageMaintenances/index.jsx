@@ -3,14 +3,21 @@ import { useState } from "react"
 import {Box, Tabs, Tab} from "@mui/material"
 //components
 import { CustomTabPanel } from "../../sections/CustomPanel"
+import {UserConfig} from '../../components/UserConfig'
 //CustomTabs
 import {SendMaintances} from '../../sections/SendMaintances'
 import { GetAllMaintances } from "../../sections/getAllMaintances"
 import { ProgramMaintances } from "../../sections/ProgramMaintances"
+import { useContext } from "react"
+import { DocContext } from "../../Context/DocContext"
 
 function PageMaintenances() {
 
   const [value, setValue] = useState(1);
+  //hook del contexto
+  const [state, dispatch] = useContext(DocContext);
+  //Destructuracion de los estados del contexto
+  const { StatesModals } = state;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -52,6 +59,10 @@ function PageMaintenances() {
           <GetAllMaintances/>
         </CustomTabPanel> 
       </Box>
+
+      {StatesModals.modalConfig && (
+        <UserConfig state={state} dispatch={dispatch}/>
+      )}
 
     </>
   );

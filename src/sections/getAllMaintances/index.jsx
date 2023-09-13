@@ -108,6 +108,9 @@ function GetAllMaintances() {
     );
   };
 
+  const managerSystems = localStorage.getItem("managerSystems");
+  const userCurrent =  localStorage.getItem("currentUser");
+
     return ( 
         <>
 
@@ -222,13 +225,23 @@ function GetAllMaintances() {
 
         {state.formGenerateDocument && (
           <Modal>
-            <ViewDocumentMaintance state={state} dispatch={dispatch}/>
+            <ViewDocumentMaintance 
+            state={state} 
+            dispatch={dispatch}
+            managerSystems={managerSystems}
+            userCurrent={userCurrent}
+            />
           </Modal>
         )}
 
         {state.documentComplete && (
           <Modal>
-           <PreviewProgramMaintances state={state} dispatch={dispatch}/>
+           <PreviewProgramMaintances 
+           state={state} 
+           dispatch={dispatch}
+           managerSystems={managerSystems}
+           userCurrent={userCurrent}
+           />
           </Modal>
         )}
 

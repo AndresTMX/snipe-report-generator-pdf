@@ -1,6 +1,8 @@
-import { Document,Page, View, StyleSheet} from "@react-pdf/renderer";
-import { HeaderTableMaintance } from "./HeaderTableMaintance";
+import { Document,Page, View,Text, StyleSheet} from "@react-pdf/renderer";
+import { HeaderTableMaintance } from "./HeaderTableMaintance"
+import { DataHeader } from '../../PDF/ProgramMaintances/DataHeader';
 import { ItemTableMaintance } from "./ItemTableMaintance";
+import { Firmas } from "./Firmas";
 
 const Styles = StyleSheet.create({
 
@@ -28,16 +30,28 @@ const Styles = StyleSheet.create({
         width:'100%',
         height:'auto',
         gap:'10px'
+    },
+    Pagination:{
+        display:'flex',
+        width:'95%',
+        margin:'auto',
+        height:'20px',
+        fontSize:'10px',
+        alignItems:'flex-end',
+        position:'absolute',
+        bottom:'5px'
     }
 })
 
-function ProgramMaintances({ dataUsers, image, configState }) {
+function ProgramMaintances({ dataUsers, image, configState, managerSystems, userCurrent }) {
 
-  // Divide dataUsers en grupos de 6
+  // Divide dataUsers en grupos de 5
   const groupsOFive = [];
   for (let i = 0; i < dataUsers.length; i += 5) {
     groupsOFive.push(dataUsers.slice(i, i + 5));
   }
+
+  const endPage = groupsOFive?.length;
 
     return (
         <Document>
@@ -50,18 +64,25 @@ function ProgramMaintances({ dataUsers, image, configState }) {
                     style={Styles.document}
                 >
                     <View style={Styles.page}>
-                        <HeaderTableMaintance image={image} />
+                        {pageIndex === 0 && <HeaderTableMaintance image={image} />}
+                        {pageIndex === 0 && <DataHeader sucursal={dataUsers[0][0].location} title={dataUsers[0][0].title} />}
                         <View style={Styles.SectionItemMaintance}>
                             {group.map((user,index) => (
                                 <ItemTableMaintance
                                     key={index}
+                                    user={user}
                                     index={index}
                                     page={pageIndex}
-                                    user={user}
                                     configState={configState}
                                 />
                             ))}
                         </View>
+                        <View style={Styles.Pagination}>
+                            <Text>{` Pagina ${pageIndex + 1} / ${endPage}`}</Text>
+                        </View>
+                        {pageIndex === endPage - 1 && (
+                            <Firmas Manager={managerSystems} userSystems={userCurrent}/>
+                        )}
                     </View>
                 </Page>
             ))}

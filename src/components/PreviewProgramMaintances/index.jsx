@@ -7,7 +7,7 @@ import { switchViewDocument, assetsForUser , extractLocation, extractNameCompany
 import { useImagePDF } from "../../Hooks/useImagePDF";
 import { useProgramMaintances } from "../../Hooks/useProgramMaintances";
 
-function PreviewProgramMaintances({state, dispatch}) {
+function PreviewProgramMaintances({state, dispatch, managerSystems, userCurrent}) {
 
     const {maintances} = state;
     const location = maintances?.length>0? extractLocation(maintances):"";
@@ -38,7 +38,13 @@ function PreviewProgramMaintances({state, dispatch}) {
         </IconButton>
 
         {!loading && maintances?.length > 0 && (<Viewer>
-          <ProgramMaintances dataUsers={dataUsers} image={image} configState={configState} />
+          <ProgramMaintances 
+            dataUsers={dataUsers} 
+            image={image} 
+            configState={configState}
+            managerSystems={managerSystems}
+            userCurrent={userCurrent}
+            />
         </Viewer>)}
 
         {loading && (<Container

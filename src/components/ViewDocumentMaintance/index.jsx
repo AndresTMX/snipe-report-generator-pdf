@@ -15,7 +15,7 @@ import { extractLocation, switchNotification } from "../../Helpers/actionsMainta
 import { useEditMaintances } from "../../Hooks/useEditMaitnaces";
 
 
-function ViewDocumentMaintance({ state, dispatch }) {
+function ViewDocumentMaintance({ state, dispatch, managerSystems, userCurrent}) {
 
   const {maintances} = state;
   
@@ -23,18 +23,19 @@ function ViewDocumentMaintance({ state, dispatch }) {
   const {states, actions} = useEditMaintances(maintances, dispatch, false)
   const { selectUser, typeItem }= states 
   const { updateMaintance, setSelectUser, Toggle } = actions
-
   const location = maintances?.length > 0? extractLocation(maintances):"";
-    
   const { configState, loading, updateMonthComplete } = useProgramMaintances(location)
 
   const GenerateDocument = () => {
-    if(maintances?.length > 0){
+    const message = maintances?.length === 0 ?
+     "Aún no haz agregado mantenimientos a la lista" 
+     : "Configura el usuario emisor"
+    if(maintances?.length > 0 && managerSystems && userCurrent){
       switchDocument(dispatch, false)
       switchViewDocument(dispatch, true)
     }else{
       switchDocument(dispatch, false)
-      switchNotification(dispatch, "Aún no haz agregado mantenimientos a la lista")
+      switchNotification(dispatch, message)
     }
     
   }
@@ -68,11 +69,18 @@ function ViewDocumentMaintance({ state, dispatch }) {
         >
           <Typography variant="h5">Configuracion de documento</Typography>
 
-          <IconButton variant="contained" onClick={() => switchDocument(dispatch, false)} >
+          <IconButton 
+          variant="contained" 
+          color="error"
+          onClick={() => switchDocument(dispatch, false)} >
             <IoIosCloseCircle/>
           </IconButton>
 
         </Box>
+
+        {maintances?.length === 0 && (
+          <Typography variant="span">Sin activos agregados</Typography>
+        )}
 
         {maintances.length > 0 && !selectUser &&(
         <UserItemMaintance
@@ -91,7 +99,7 @@ function ViewDocumentMaintance({ state, dispatch }) {
         />
       )}
 
-       {!selectUser && 
+       {!selectUser && maintances?.length > 0 &&
        <MiniSearcher 
        maintances={maintances}
        limit={10}
