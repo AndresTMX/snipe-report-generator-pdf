@@ -3,6 +3,8 @@ import { HeaderTableMaintance } from "./HeaderTableMaintance"
 import { DataHeader } from '../../PDF/ProgramMaintances/DataHeader';
 import { ItemTableMaintance } from "./ItemTableMaintance";
 import { Firmas } from "./Firmas";
+import { currentMonth , extractMonth} from '../../Helpers/Date'
+
 
 const Styles = StyleSheet.create({
 
@@ -73,6 +75,8 @@ function ProgramMaintances({ dataUsers, image, configState, managerSystems, user
                                     user={user}
                                     index={index}
                                     page={pageIndex}
+                                    currentMonth={currentMonth}
+                                    extractMonth={extractMonth}
                                     configState={configState}
                                 />
                             ))}

@@ -24,7 +24,7 @@ function useEditMaintances(maintances, dispatch, typeItem) {
                 supplier_id:parseInt(providerMaintenance),
                 title:!item?.title? titleMaintance: item.title,
                 start_date:!item?.start_date? currentDate: item.start_date,
-                asset_maintenance_type: !item.item_maintenance_type? 'Preventivo': item.item_maintenance_type,
+                asset_maintenance_type: !item.asset_maintenance_type? 'Preventivo': item.asset_maintenance_type,
                 completion_date:!item?.completion_date? currentDate: item.completion_date,
                 editable: item.editable? item.editable:editable
             }))
@@ -37,10 +37,10 @@ function useEditMaintances(maintances, dispatch, typeItem) {
     const updateMaintance = (index, tagItem, newData,) => {
         const maintance = maintances.find((item) => item.tag === tagItem)
         const maintanceIndex = maintances.findIndex((item) => item.tag === tagItem)
-        const {title, item_maintenance_type, start_date, completion_date} = newData
+        const {title, asset_maintenance_type, start_date, completion_date} = newData
         const item = {
             title,
-            item_maintenance_type,
+            asset_maintenance_type,
             start_date,
             completion_date
         }
@@ -73,7 +73,7 @@ function useEditMaintances(maintances, dispatch, typeItem) {
 
     }
 
-    const states = { selectUser, typeItem }
+    const states = { selectUser, typeItem,  titleMaintance, currentDate }
     const actions = { updateMaintance, setSelectUser, Toggle }
 
     return { states, actions }

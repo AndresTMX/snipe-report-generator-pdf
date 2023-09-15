@@ -8,7 +8,7 @@ import {  FormControl, InputLabel, Select, MenuItem, Box, TextField, Button} fro
 function FormsMaintancesItem({item, index, value, setSelectUser, update}) {
 
     const [title, setTitle] = useState(item.title)
-    const [typeMaintance, setMaintance] = useState(item.item_maintenance_type)
+    const [typeMaintance, setMaintance] = useState(item.asset_maintenance_type)
     const [dateDefault, setDate] = useState({init:item.start_date, end:item.completion_date});
     const [edit, setEdit] = useState(false)
   
@@ -38,7 +38,7 @@ function FormsMaintancesItem({item, index, value, setSelectUser, update}) {
       const save = (index) => {
         update(index, item.tag, 
             {title:titleDinamic, 
-            item_maintenance_type:typeMaintance,
+            asset_maintenance_type:typeMaintance,
             start_date:dateDefault.init,
             completion_date:dateDefault.end 
             })

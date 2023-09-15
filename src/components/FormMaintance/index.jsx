@@ -1,5 +1,3 @@
-//utilities
-import { useEffect, useState } from "react"
 //material ui
 import { Button, IconButton, Typography, Box } from "@mui/material"
 import { UserItemMaintance } from "../UserItemMaintance";
@@ -17,7 +15,7 @@ function FormMaintance({state, dispatch, postMaintenance}) {
   const { maintances } = state
 
   const {states, actions} = useEditMaintances(maintances, dispatch, true)
-  const { selectUser, typeItem }= states 
+  const { selectUser, typeItem, titleMaintance, currentDate }= states 
   const { updateMaintance, setSelectUser } = actions
 
   const SendMaintenance = async (e) => {
@@ -29,10 +27,10 @@ function FormMaintance({state, dispatch, postMaintenance}) {
     const dataMaintances = {
       title:titleMaintance,
       data:maintances,
-      type:typeMaintance,
+      type:'Preventivo',
       supplier_id:parseInt(providerMaintenance),
-      start_date:transformDate(dateDefault.init),
-      completion_date:transformDate(dateDefault.end),
+      start_date:transformDate(currentDate),
+      completion_date:transformDate(currentDate),
     }
 
     const groupMaintances = builderMaintance(dataMaintances)

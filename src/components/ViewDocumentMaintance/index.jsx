@@ -14,7 +14,6 @@ import { useProgramMaintances } from "../../Hooks/useProgramMaintances";
 import { extractLocation, switchNotification } from "../../Helpers/actionsMaintance";
 import { useEditMaintances } from "../../Hooks/useEditMaitnaces";
 
-
 function ViewDocumentMaintance({ state, dispatch, managerSystems, userCurrent}) {
 
   const {maintances} = state;
@@ -27,6 +26,7 @@ function ViewDocumentMaintance({ state, dispatch, managerSystems, userCurrent}) 
   const { configState, loading, updateMonthComplete } = useProgramMaintances(location)
 
   const GenerateDocument = () => {
+
     const message = maintances?.length === 0 ?
      "Aún no haz agregado mantenimientos a la lista" 
      : "Configura el usuario emisor"

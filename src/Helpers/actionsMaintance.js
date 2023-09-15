@@ -106,7 +106,7 @@ export function builderMaintance(dataMaintances) {
         asset_id:asset.id,
         cost: costMaintance(asset),
         notes:asset.user,
-        asset_maintenance_type: !asset?.type? type: asset.type,
+        asset_maintenance_type: !asset?.asset_maintenance_type? type: asset.asset_maintenance_type,
         supplier_id:supplier_id,
         start_date: !asset?.start_date? start_date: asset.start_date,
         completion_date:!asset?.completion_date? completion_date: asset.completion_date,

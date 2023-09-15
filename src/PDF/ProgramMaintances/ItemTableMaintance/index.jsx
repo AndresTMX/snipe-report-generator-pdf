@@ -71,7 +71,7 @@ const Style = StyleSheet.create({
         justifyContent:'center',
         textTransform:'uppercase',
         borderLeft:'1',
-        borderColor:'black'
+        borderColor:'black',
     },
     nameCol:{
         display:'flex',
@@ -87,17 +87,17 @@ const Style = StyleSheet.create({
         alignItems:'center',
         paddingTop:'2px',
         paddingBottom:'2px',
-
     },
 
 })
 
-function ItemTableMaintance({user, index, page, configState}) {   
+function ItemTableMaintance({user, index, page, currentMonth, extractMonth, configState}) {   
 
     const newCount = page === 0 ? index + 1 : page * 5 + index + 1;
     const listTags = extractTags(user)
     const listDevices = extractDevices(user)
     const listTypes = extractTypesMaintances(user)
+    const compareMonths = extractMonth(user[0].start_date) === currentMonth? true: false;
 
     return ( 
         <View style={Style.sectionItem}>
@@ -133,21 +133,27 @@ function ItemTableMaintance({user, index, page, configState}) {
                     </Text>
                 </View>
 
-                <View style={Style.monthCol}>
+                <View style={{...Style.monthCol, 
+                backgroundColor:`${configState[0].monthProgram != "" ? "red": "#1976d2"}`,
+                }}>
                     <Text style={Style.boxText}>
-                    {configState[0].monthProgram === '' ?'PENDIENTE' : configState[0].monthProgram}
+                    {configState[0].monthProgram === '' ?'SIN PROGRAMAR' : configState[0].monthProgram}
+                    </Text>
+                </View>
+
+                <View style={{...Style.monthCol,
+                 backgroundColor:`${configState[1].monthProgram != "" ? "red": "#1976d2"}`,
+                }}>
+                    <Text style={Style.boxText}>
+                    {configState[1].monthProgram === '' ?'SIN PROGRAMAR' : configState[1].monthProgram}
                     </Text>
                 </View>
 
                 <View style={Style.monthCol}>
-                    <Text style={Style.boxText}>
-                    {configState[1].monthProgram === '' ?'PENDIENTE' : configState[1].monthProgram}
-                    </Text>
-                </View>
-
-                <View style={Style.monthCol}>
-                    <Text style={Style.boxText}>
-                    {configState[2].monthProgram === '' ?'PENDIENTE' : configState[2].monthProgram}
+                    <Text style={{...Style.boxText,
+                    backgroundColor:`${configState[2].monthProgram != "" ? "red": "#1976d2"}`,
+                    }}>
+                    {configState[2].monthProgram === '' ?'SIN PROGRAMAR' : configState[2].monthProgram}
                     </Text>
                 </View>
 
@@ -193,21 +199,24 @@ function ItemTableMaintance({user, index, page, configState}) {
                     ))}
                 </View>
 
-                <View style={{...Style.monthCol }}>
+                <View style={{...Style.monthCol,
+                    backgroundColor:`${configState[0].monthComplete != ""? "green": "white"}`,
+                    color:`${configState[0].monthComplete != ""? "white": "black"}`
+                    }}>
                     <Text style={{ ...Style.boxText}}>
-                    {configState[0].status === false ?'PENDIENTE' : configState[0].monthComplete}
+                    {configState[0].monthComplete === "" ?'PENDIENTE' : configState[0].monthComplete}
                     </Text>
                 </View>
 
                 <View style={{...Style.monthCol }}>
                     <Text style={{ ...Style.boxText}}>
-                        {configState[1].status === false ?'PENDIENTE' : configState[1].monthComplete}
+                        {configState[1].monthComplete === "" ?'PENDIENTE' : configState[1].monthComplete}
                     </Text>
                 </View>
 
                 <View style={{...Style.monthCol }}>
                     <Text style={{...Style.boxText}}>
-                        {configState[2].status === false ?'PENDIENTE' : configState[2].monthComplete}
+                        {configState[2].monthComplete === "" ?'PENDIENTE' : configState[2].monthComplete}
                     </Text>
                 </View>
 

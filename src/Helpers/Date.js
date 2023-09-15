@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 
 export const currentDate = dayjs();
+
 export const especificDate = (date) => {
   return dayjs(date)
 } 
@@ -28,4 +29,11 @@ for (let i = 0; i < 12; i++) {
 export function findMounth(num){
  const result = months.find((month) => month.num === num )
  return result.month
+}
+
+export const currentMonth = months[currentDate.$M].month
+
+
+export const extractMonth = (date) => {
+  return months[especificDate(date).$M].month
 }
