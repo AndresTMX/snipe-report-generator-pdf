@@ -60,7 +60,7 @@ function useEditMaintances(maintances, dispatch, typeItem) {
             supplier_id:parseInt(providerMaintenance),
             title:titleMaintancePendent,
             start_date:currentDate,
-            item_maintenance_type:"Pendiente",
+            asset_maintenance_type:"Pendiente",
             completion_date:currentDate,
             company:newItem.company.name,
             location:newItem.location.name,

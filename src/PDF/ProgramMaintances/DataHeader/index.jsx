@@ -1,16 +1,30 @@
 import { View,Text, StyleSheet } from "@react-pdf/renderer";
+import { ColorsCode } from '../ColorsCode'
 
 const Styles = StyleSheet.create({
-    Container:{
+
+    Section:{
         display:'flex',
+        flexDirection:'row',
+        alignItems:'center',
+        width:'95%',
         marginTop:'0px',
         marginBottom:'0px',
         marginLeft:'auto',
         marginRight:'auto',
-        width:'95%',
+
+    },
+    Container:{
+        display:'flex',
+        width:'60%',
         flexDirection:'column',
         borderStyle:'solid',    
         border:'1',
+    },
+    Container2:{
+        display:'flex',
+        width:'40%',
+        flexDirection:'column',
     },
     ItemTop:{
         display:'flex',
@@ -51,38 +65,46 @@ const Styles = StyleSheet.create({
 
 function DataHeader({ sucursal, title, }) {
     return ( 
-        <View style={Styles.Container}>
-            <View style={Styles.ItemTop}>
+        <View style={Styles.Section}>
 
-                <View style={Styles.BoxTitle}>
-                    <Text style={Styles.Texto}>
-                        Periodo
-                    </Text>
+            <View style={Styles.Container}>
+                <View style={Styles.ItemTop}>
+
+                    <View style={Styles.BoxTitle}>
+                        <Text style={Styles.Texto}>
+                            Periodo
+                        </Text>
+                    </View>
+
+                    <View style={Styles.BoxText}>
+                        <Text style={Styles.Texto}>
+                            {title}
+                        </Text>
+                    </View>
+
                 </View>
 
-                <View style={Styles.BoxText}>
-                    <Text style={Styles.Texto}>
-                        {title}
-                    </Text>
-                </View>
+                <View style={Styles.ItemBottom}>
 
+                    <View style={Styles.BoxTitle}>
+                        <Text style={Styles.Texto}>
+                            Sucursal
+                        </Text>
+                    </View>
+
+                    <View style={Styles.BoxText}>
+                        <Text style={Styles.Texto}>
+                            {sucursal}
+                        </Text>
+                    </View>
+
+                </View>
             </View>
 
-            <View style={Styles.ItemBottom}>
-
-                <View style={Styles.BoxTitle}>
-                    <Text style={Styles.Texto}>
-                        Sucursal
-                    </Text>
-                </View>
-
-                <View style={Styles.BoxText}>
-                    <Text style={Styles.Texto}>
-                        {sucursal}
-                    </Text>
-                </View>
-
+            <View style={Styles.Container2}>
+                <ColorsCode/>
             </View>
+
         </View>
      );
 }

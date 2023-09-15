@@ -97,7 +97,55 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
     const listTags = extractTags(user)
     const listDevices = extractDevices(user)
     const listTypes = extractTypesMaintances(user)
-    const compareMonths = extractMonth(user[0].start_date) === currentMonth? true: false;
+
+    const compareColorMonth = (monthIndex) => {
+        let color
+        let monthMaintance = extractMonth(user[0].start_date)
+        let monthConfig = configState[monthIndex].monthProgram
+        let monthComplete = configState[monthIndex].monthComplete
+        let monthStatus = configState[monthIndex].status
+
+            if(monthMaintance === monthConfig && monthStatus != ""){
+                color = 'green'
+            }
+            
+            if(monthConfig === monthComplete && monthStatus != ""){
+                color = 'green'
+            }
+
+            if(monthConfig != monthMaintance && monthStatus != ""){
+                color = 'orange'
+            }
+
+            if(monthConfig === "" || !monthStatus ){
+                color = 'white'
+            }
+
+            return color
+    }
+
+    const compareMonthName = (monthIndex) => {
+        let month
+        let monthConfig = configState[monthIndex].monthProgram
+        let monthMaintance = extractMonth(user[0].start_date)
+        let monthComplete = configState[monthIndex].monthComplete
+        let monthStatus = configState[monthIndex].status
+
+        if(monthComplete != "" && monthConfig != currentMonth){
+            month = monthComplete
+        }
+
+        if(monthComplete != "" && monthConfig === currentMonth){
+            month = monthMaintance
+        }
+
+        if(!monthStatus){
+            month = 'PENDIENTE'
+        }
+
+        return month
+    }
+
 
     return ( 
         <View style={Style.sectionItem}>
@@ -200,23 +248,29 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
                 </View>
 
                 <View style={{...Style.monthCol,
-                    backgroundColor:`${configState[0].monthComplete != ""? "green": "white"}`,
+                    backgroundColor:`${compareColorMonth(0)}`,
                     color:`${configState[0].monthComplete != ""? "white": "black"}`
                     }}>
                     <Text style={{ ...Style.boxText}}>
-                    {configState[0].monthComplete === "" ?'PENDIENTE' : configState[0].monthComplete}
+                    { compareMonthName(0)}
                     </Text>
                 </View>
 
-                <View style={{...Style.monthCol }}>
+                <View style={{...Style.monthCol,
+                backgroundColor:`${compareColorMonth(1)}`,
+                color:`${configState[1].monthComplete != ""? "white": "black"}`
+                }}>
                     <Text style={{ ...Style.boxText}}>
-                        {configState[1].monthComplete === "" ?'PENDIENTE' : configState[1].monthComplete}
+                        { compareMonthName(1)}
                     </Text>
                 </View>
 
-                <View style={{...Style.monthCol }}>
+                <View style={{...Style.monthCol,
+                backgroundColor:`${compareColorMonth(2)}`,
+                color:`${configState[2].monthComplete != ""? "white": "black"}`
+                }}>
                     <Text style={{...Style.boxText}}>
-                        {configState[2].monthComplete === "" ?'PENDIENTE' : configState[2].monthComplete}
+                        { compareMonthName(2)}
                     </Text>
                 </View>
 
