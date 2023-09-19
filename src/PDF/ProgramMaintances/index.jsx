@@ -48,17 +48,17 @@ const Styles = StyleSheet.create({
 function ProgramMaintances({ dataUsers, image, configState, managerSystems, userCurrent, total }) {
 
   // Divide dataUsers en grupos de 5
-  const groupsOFive = [];
-  for (let i = 0; i < dataUsers.length; i += 5) {
-    groupsOFive.push(dataUsers.slice(i, i + 5));
+  const groupsOFSix = [];
+  for (let i = 0; i < dataUsers.length; i += 6) {
+    groupsOFSix.push(dataUsers.slice(i, i + 6));
   }
 
-  const endPage = groupsOFive?.length;
+  const endPage = groupsOFSix?.length;
 
     return (
         <Document>
 
-            {groupsOFive.map((group, pageIndex) => (
+            {groupsOFSix.map((group, pageIndex) => (
                 <Page
                     key={pageIndex}
                     size="LETTER"

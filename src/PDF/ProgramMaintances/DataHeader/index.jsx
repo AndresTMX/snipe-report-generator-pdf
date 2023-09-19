@@ -75,19 +75,19 @@ function DataHeader({ sucursal, title, total }) {
 
                     <View style={Styles.BoxTitle}>
                         <Text style={Styles.Texto}>
-                            Periodo
+                            Fecha
                         </Text>
                     </View>
 
                     <View style={Styles.BoxText}>
                         <Text style={Styles.Texto}>
-                            {title}
+                            {`${title.split(" ")[2]} de ${title.split(" ")[3]} del ${title.split(" ")[4]}`}
                         </Text>
                     </View>
 
                 </View>
 
-                <View style={{...Styles.ItemBottom, borderBottom:'1'}}>
+                <View style={Styles.ItemBottom}>
 
                     <View style={Styles.BoxTitle}>
                         <Text style={Styles.Texto}>
@@ -102,36 +102,20 @@ function DataHeader({ sucursal, title, total }) {
                     </View>
 
                 </View>
-
-                <View style={Styles.ItemBottom}>
-
-                    <View style={Styles.BoxTitle}>
-                        <Text style={Styles.Texto}>
-                            Costo total
-                        </Text>
-                    </View>
-
-                    <View style={Styles.BoxText}>
-                        <Text style={Styles.Texto}>
-                            $ {total}
-                        </Text>
-                    </View>
-
-                </View>
             </View>
 
             <View style={Styles.Container2}>
 
                 <View style={Styles.ItemTop}>
-                    <View style={Styles.BoxText}>
-                        <Text style={Styles.Texto}>
-                           Codigos de color
-                        </Text>
-                    </View>
+                    <ColorsCode/>
                 </View>
 
                  <View style={Styles.ItemBottom}>
-                   <ColorsCode/>
+                 <View style={Styles.BoxText}>
+                        <Text style={Styles.Texto}>
+                           {`Costo total: $ ${total}`}
+                        </Text>
+                    </View>
                 </View>
 
                 

@@ -42,7 +42,7 @@ const Style = StyleSheet.create({
     },
     descriptionCol:{
         display:'flex',
-        width:'14%',
+        width:'20%',
         textAlign:'center',
         justifyContent:'center',
         borderLeft:'1',
@@ -88,6 +88,16 @@ const Style = StyleSheet.create({
         paddingTop:'2px',
         paddingBottom:'2px',
     },
+    boxTextMulti:{
+        display:'flex',
+        justifyContent:'center',
+        textAlign:'center',
+        alignItems:'center',
+        paddingTop:'4px',
+        paddingBottom:'4px',
+        width:'50%'
+    }
+    
 
 })
 
@@ -96,7 +106,6 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
     const newCount = page === 0 ? index + 1 : page * 5 + index + 1;
     const listTags = extractTags(user)
     const listDevices = extractDevices(user)
-    const listTypes = extractTypesMaintances(user)
 
     const compareColorMonth = (monthIndex) => {
         let color 
@@ -105,11 +114,12 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
         let monthComplete = configState[monthIndex].monthComplete
         let monthStatus = configState[monthIndex].status
 
-            if( monthConfig === monthComplete && monthStatus|| monthMaintance === monthConfig && monthStatus){
+            if( monthConfig === monthComplete && monthStatus ){
                 color = 'green'
             }
-            else if( monthComplete != monthConfig  && monthStatus || monthMaintance != monthConfig  && monthStatus){
+            else if( monthComplete != monthConfig  && monthStatus){
                 color = 'orange'
+
             }else{
                 color= 'white'
             }
@@ -152,7 +162,7 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
 
                 <View style={Style.idCol}>
                     <Text style={Style.boxText}>
-                        IDs
+                        OFCMI
                     </Text>
                 </View>
 
@@ -162,17 +172,17 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
                     </Text>
                 </View>
 
-                <View style={Style.locationCol}>
+                {/* <View style={Style.locationCol}>
                     <Text style={Style.boxText}>
                         UBICACIÓN
                     </Text>
-                </View>
+                </View> */}
                 
-                <View style={Style.actionCol}>
+                {/* <View style={Style.actionCol}>
                     <Text style={Style.boxText}>
                         ACCIÓN
                     </Text>
-                </View>
+                </View> */}
 
                 <View style={{...Style.monthCol, 
                 backgroundColor:`${configState[0].monthProgram != "" ? "red": "#1976d2"}`,
@@ -211,33 +221,49 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
                     <Text style={Style.boxText}>{newCount}</Text>
                 </View>
 
-                <View style={Style.idCol}>
+                <View style={{
+                    display:'flex',
+                    flexDirection:'row',
+                    width:'10%',
+                    flexWrap:'wrap',
+                    justifyContent:'flex-start',
+                    borderLeft:'1',
+                    borderColor:'black'
+                }}>
                     {listTags.map((tag, index) => (
-                        <Text  key={index} style={Style.boxText}>{tag}</Text>
+                        <Text  key={index} style={Style.boxTextMulti}>{tag.split("-")[1]}</Text>
                     ))}
                 </View>
 
-                <View style={Style.descriptionCol}>
+                <View style={{
+                    display:'flex',
+                    flexDirection:'row',
+                    width:'20%',
+                    flexWrap:'wrap',
+                    justifyContent:'flex-start',
+                    borderLeft:'1',
+                    borderColor:'black'
+                }}>
                     {listDevices.map((device, index) => (
-                        <Text  key={index} style={Style.boxText}>
+                        <Text  key={index} style={Style.boxTextMulti}>
                         {device}
                         </Text>
                     ))}
                 </View>
 
-                <View style={Style.locationCol}>
+                {/* <View style={Style.locationCol}>
                     <Text style={Style.boxText}>
                         {user[0].location}
                     </Text>
-                </View>
+                </View> */}
                 
-                <View style={Style.actionCol}>
+                {/* <View style={Style.actionCol}>
                     {listTypes.map((type, index) => (
                         <Text key={index}  style={Style.boxText}>
                         {type}
                         </Text>
                     ))}
-                </View>
+                </View> */}
 
                 <View style={{...Style.monthCol,
                     backgroundColor:`${compareColorMonth(0)}`,

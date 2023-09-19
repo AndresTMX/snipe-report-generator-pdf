@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext } from "react";
 import {
   getAuth,
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { Container } from "@mui/material";
+import { Container, CircularProgress } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAppFirebase } from "../Firebase/useAppFirebase";
 import { useSessionStorage } from "../Hooks/useSessionStorage";
@@ -16,14 +16,14 @@ const AuthContext = createContext();
 function AuthProvider({ children }) {
   const firebaseOn = useAppFirebase();
   const navigate = useNavigate();
-  const { session, error, initSession, finalSession } = useSessionStorage();
+  const { initSession, finalSession } = useSessionStorage();
 
   const login = ({ email, password }) => {
     return new Promise((resolve, reject) => {
       const auth = getAuth();
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          const user = userCredential.user;
+          const user = userCredential.user;          
           navigate("/");
           resolve(user);
           initSession();
@@ -85,7 +85,11 @@ function AuthProtect(props) {
           height: "100vh",
         }}
       >
-        <ThreeDots />
+        <CircularProgress 
+        sx={{
+          animationDuration: '1000ms',
+        }}
+        />
       </Container>
     );
   }
