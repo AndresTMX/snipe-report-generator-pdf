@@ -19,7 +19,7 @@ import { IoIosCloseCircle, IoIosCheckmarkCircle } from "react-icons/io";
 
 function ItemSelectMonths({location}) {
 
-    const { configState, loading, handleMonthChange, ToggleStatus } = useProgramMaintances(location.description)
+    const { configState, loading, handleMonthChange, handleMonthComplete, ToggleStatus } = useProgramMaintances(location.description)
 
     return ( 
         <Paper
@@ -73,8 +73,14 @@ function ItemSelectMonths({location}) {
 
 
                     {configState.map((item, index) => (
-                        <>
-                            <FormControl key={index} size="small" sx={{ width: '20%' }}>
+                        <Box 
+                        sx={{
+                            display:'flex',
+                            flexDirection:'column',
+                            width:'20%',
+                            gap:'20px'
+                        }}>
+                            <FormControl key={index} size="small">
 
                                 <InputLabel>{`${index + 1} Mantenimiento`}</InputLabel>
                                 <Select
@@ -82,6 +88,24 @@ function ItemSelectMonths({location}) {
                                     value={item.monthProgram}
                                     label={`${index + 1} Mantenimiento`}
                                     onChange={(e) => handleMonthChange(index, e.target.value)}
+                                >
+                                    {months.map((item) => (
+                                        <MenuItem key={item.month} value={item.month}>{item.month}</MenuItem>
+                                    ))}
+
+                                </Select>
+    
+                            </FormControl >
+
+
+                            <FormControl key={index} size="small">
+
+                                <InputLabel>{`${index + 1} Mantenimiento`}</InputLabel>
+                                <Select
+                                    key={index}
+                                    value={item.monthComplete}
+                                    label={`${index + 1} Mantenimiento`}
+                                    onChange={(e) => handleMonthComplete(index, e.target.value)}
                                 >
                                     {months.map((item) => (
                                         <MenuItem key={item.month} value={item.month}>{item.month}</MenuItem>
@@ -101,10 +125,11 @@ function ItemSelectMonths({location}) {
                                     />
                                 </FormHelperText>
                             </FormControl >
-                        </>
+                        </Box>
                     ))}
 
                 </Box>
+
             </Container>)}
         </Paper>
      );

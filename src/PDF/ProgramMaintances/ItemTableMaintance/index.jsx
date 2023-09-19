@@ -99,26 +99,19 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
     const listTypes = extractTypesMaintances(user)
 
     const compareColorMonth = (monthIndex) => {
-        let color
+        let color 
         let monthMaintance = extractMonth(user[0].start_date)
         let monthConfig = configState[monthIndex].monthProgram
         let monthComplete = configState[monthIndex].monthComplete
         let monthStatus = configState[monthIndex].status
 
-            if(monthMaintance === monthConfig && monthStatus != ""){
+            if( monthConfig === monthComplete && monthStatus|| monthMaintance === monthConfig && monthStatus){
                 color = 'green'
             }
-            
-            if(monthConfig === monthComplete && monthStatus != ""){
-                color = 'green'
-            }
-
-            if(monthConfig != monthMaintance && monthStatus != ""){
+            else if( monthComplete != monthConfig  && monthStatus || monthMaintance != monthConfig  && monthStatus){
                 color = 'orange'
-            }
-
-            if(monthConfig === "" || !monthStatus ){
-                color = 'white'
+            }else{
+                color= 'white'
             }
 
             return color
@@ -197,10 +190,9 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
                     </Text>
                 </View>
 
-                <View style={Style.monthCol}>
-                    <Text style={{...Style.boxText,
-                    backgroundColor:`${configState[2].monthProgram != "" ? "red": "#1976d2"}`,
-                    }}>
+                <View style={{...Style.monthCol,
+                     backgroundColor:`${configState[2].monthProgram != "" ? "red": "#1976d2"}`,}}>
+                    <Text style={Style.boxText}>
                     {configState[2].monthProgram === '' ?'SIN PROGRAMAR' : configState[2].monthProgram}
                     </Text>
                 </View>

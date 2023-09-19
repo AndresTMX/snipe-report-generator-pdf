@@ -37,10 +37,10 @@ function SendMaintances() {
     const [select, setSelect] = useState(10)
     const {search, setSearch} = useSearcher()  
   
-    const {postMaintenance, closeNotification, statusMaintance} = useSendMaintances();
+    const {postMaintenance, closeNotification, closeAll, statusMaintance} = useSendMaintances();
     const {states, actions} = useGetSearch(search, select);
 
-    const { loadingMaintances, notifications } = statusMaintance;
+    const { loadingMaintances, notifications, errorMaintance } = statusMaintance;
     const {results, loading, error, input} = states;
     const {Search, setResults } = actions;
   
@@ -194,11 +194,13 @@ function SendMaintances() {
           </Notification>
         )}
 
-        {notifications.length > 0 && (
+        {notifications.length > 0 || errorMaintance && (
           <Modal>
             <LoadingMaintances
               maintances={notifications}
+              error={errorMaintance}
               action={closeNotification}
+              clear={closeAll}
             />
           </Modal>
         )}

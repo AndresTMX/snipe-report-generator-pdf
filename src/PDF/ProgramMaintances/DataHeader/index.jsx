@@ -7,6 +7,7 @@ const Styles = StyleSheet.create({
         display:'flex',
         flexDirection:'row',
         alignItems:'center',
+        justifyContent:'space-between',
         width:'95%',
         marginTop:'0px',
         marginBottom:'0px',
@@ -23,8 +24,10 @@ const Styles = StyleSheet.create({
     },
     Container2:{
         display:'flex',
-        width:'40%',
+        width:'30%',
         flexDirection:'column',
+        borderStyle:'solid',    
+        border:'1',
     },
     ItemTop:{
         display:'flex',
@@ -63,7 +66,7 @@ const Styles = StyleSheet.create({
 
 })
 
-function DataHeader({ sucursal, title, }) {
+function DataHeader({ sucursal, title, total }) {
     return ( 
         <View style={Styles.Section}>
 
@@ -84,7 +87,7 @@ function DataHeader({ sucursal, title, }) {
 
                 </View>
 
-                <View style={Styles.ItemBottom}>
+                <View style={{...Styles.ItemBottom, borderBottom:'1'}}>
 
                     <View style={Styles.BoxTitle}>
                         <Text style={Styles.Texto}>
@@ -99,10 +102,39 @@ function DataHeader({ sucursal, title, }) {
                     </View>
 
                 </View>
+
+                <View style={Styles.ItemBottom}>
+
+                    <View style={Styles.BoxTitle}>
+                        <Text style={Styles.Texto}>
+                            Costo total
+                        </Text>
+                    </View>
+
+                    <View style={Styles.BoxText}>
+                        <Text style={Styles.Texto}>
+                            $ {total}
+                        </Text>
+                    </View>
+
+                </View>
             </View>
 
             <View style={Styles.Container2}>
-                <ColorsCode/>
+
+                <View style={Styles.ItemTop}>
+                    <View style={Styles.BoxText}>
+                        <Text style={Styles.Texto}>
+                           Codigos de color
+                        </Text>
+                    </View>
+                </View>
+
+                 <View style={Styles.ItemBottom}>
+                   <ColorsCode/>
+                </View>
+
+                
             </View>
 
         </View>

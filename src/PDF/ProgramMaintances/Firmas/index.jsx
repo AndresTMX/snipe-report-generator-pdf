@@ -12,7 +12,7 @@ const Style = StyleSheet.create({
         marginLeft:'auto',
         marginRight:'auto',
         position:'absolute',
-        bottom:'20px'
+        bottom:'40px'
     },
     Item:{
         display:'flex',

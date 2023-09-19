@@ -3,7 +3,7 @@ import { Paper, IconButton, CircularProgress, Container } from "@mui/material";
 import { Viewer } from "../PDFViewer";
 import { IoIosCloseCircle } from "react-icons/io";
 import { ProgramMaintances } from "../../PDF/ProgramMaintances";
-import { switchViewDocument, assetsForUser , extractLocation, extractNameCompany} from "../../Helpers/actionsMaintance";
+import { switchViewDocument, assetsForUser , extractLocation, extractNameCompany, calcCostTotal} from "../../Helpers/actionsMaintance";
 import { useImagePDF } from "../../Hooks/useImagePDF";
 import { useProgramMaintances } from "../../Hooks/useProgramMaintances";
 
@@ -13,7 +13,7 @@ function PreviewProgramMaintances({state, dispatch, managerSystems, userCurrent}
     const location = maintances?.length>0? extractLocation(maintances):"";
     const company = maintances?.length>0? extractNameCompany(maintances):"";
     const dataUsers = maintances?.length>0? assetsForUser(maintances, 'user'):"";
-
+    const totalCostMaintances = calcCostTotal(maintances);
     const {image} = useImagePDF(company)
     const { configState, loading, updateMonthComplete } = useProgramMaintances(location)
 
@@ -44,6 +44,7 @@ function PreviewProgramMaintances({state, dispatch, managerSystems, userCurrent}
             configState={configState}
             managerSystems={managerSystems}
             userCurrent={userCurrent}
+            total={totalCostMaintances}
             />
         </Viewer>)}
 

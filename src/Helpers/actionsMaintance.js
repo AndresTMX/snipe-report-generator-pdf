@@ -156,3 +156,15 @@ export function extractLocation (maintances){
 
 }
 
+export function calcCostTotal(maintances){
+    let total = []
+
+    maintances.map((item) => {
+     total.push(parseInt(item.cost))
+    })
+
+    const suma = total.reduce((total, num) => total + num, 0);
+
+    return suma
+}
+

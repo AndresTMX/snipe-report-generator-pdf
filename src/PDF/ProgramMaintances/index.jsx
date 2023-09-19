@@ -31,7 +31,7 @@ const Styles = StyleSheet.create({
         flexDirection:'column',
         width:'100%',
         height:'auto',
-        gap:'10px'
+        gap:'5px'
     },
     Pagination:{
         display:'flex',
@@ -45,7 +45,7 @@ const Styles = StyleSheet.create({
     }
 })
 
-function ProgramMaintances({ dataUsers, image, configState, managerSystems, userCurrent }) {
+function ProgramMaintances({ dataUsers, image, configState, managerSystems, userCurrent, total }) {
 
   // Divide dataUsers en grupos de 5
   const groupsOFive = [];
@@ -67,7 +67,11 @@ function ProgramMaintances({ dataUsers, image, configState, managerSystems, user
                 >
                     <View style={Styles.page}>
                         {pageIndex === 0 && <HeaderTableMaintance image={image} />}
-                        {pageIndex === 0 && <DataHeader sucursal={dataUsers[0][0].location} title={dataUsers[0][0].title} />}
+                        {pageIndex === 0 && <DataHeader 
+                        sucursal={dataUsers[0][0].location} 
+                        title={dataUsers[0][0].title}
+                        total={total}
+                        />}
                         <View style={Styles.SectionItemMaintance}>
                             {group.map((user,index) => (
                                 <ItemTableMaintance

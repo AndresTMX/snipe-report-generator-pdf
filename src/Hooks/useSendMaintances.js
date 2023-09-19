@@ -13,16 +13,21 @@ function useSendMaintances() {
           const responses = await Promise.all(arrayMaintances.map(maintance => SendMaintance(maintance)));          
           setNotifications(formatNotifications(responses));
           setLoading(false)
-        } catch (error) {
+        } catch (error) {          
           setError(error);
           setLoading(false);
-          throw new Error('Error del post ' + error.message);
         }
       };
 
-      const statusMaintance = {loadingMaintances, errorMaintance, notifications}
+    
+    const closeAll = () => {
+      setNotifications([])
+      setError(null)
+    }
+    
+    const statusMaintance = {loadingMaintances, errorMaintance, notifications}
 
-    return {postMaintenance, closeNotification, statusMaintance}
+    return {postMaintenance, closeNotification, statusMaintance, closeAll}
 
 
 }

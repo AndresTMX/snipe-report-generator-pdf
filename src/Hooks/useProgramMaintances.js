@@ -47,6 +47,13 @@ function useProgramMaintances(location) {
         saveConfig()
       };
 
+    const handleMonthComplete = (index, selectedMonth) => {
+        const updatedConfig = [...configState];
+        updatedConfig[index].monthComplete = selectedMonth;
+        setConfig(updatedConfig);
+        saveConfig()
+    }
+
     const ToggleStatus = (index, newStatus) => {
         const updatedConfig = [...configState];
         updatedConfig[index].status = newStatus;
@@ -63,7 +70,7 @@ function useProgramMaintances(location) {
         saveConfig()
     }
 
-    return { configState, loading, saveConfig, handleMonthChange, ToggleStatus, updateMonthComplete}
+    return { configState, loading, saveConfig, handleMonthChange, ToggleStatus, updateMonthComplete, handleMonthComplete}
 }
 
 export {useProgramMaintances};

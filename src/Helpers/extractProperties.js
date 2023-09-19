@@ -13,6 +13,8 @@ export function extractDevices(array){
 
 export function extractTypesMaintances(array){
     const listTypes = []
+
     array.map((item) => listTypes.push(item.asset_maintenance_type))
+    console.log(listTypes)
     return listTypes
 }

@@ -6,13 +6,12 @@ const Style = StyleSheet.create({
         flexDirection:'row',
         width:'100%',
         justifyContent:'flex-end',
-        paddingRight:'20px',
-        gap:'10px',
         margin:'0px'
     },
     Item:{
         display:'flex',
         height:'20px',
+        width:'33.33%',
         justifyContent:'center',
         alignItems:'center',
         padding:'5px'
