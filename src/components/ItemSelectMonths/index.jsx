@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { months } from "../../Helpers/Date";
 import { useProgramMaintances } from "../../Hooks/useProgramMaintances";
 import {
@@ -13,13 +14,22 @@ import {
     Skeleton,
     FormHelperText,
     Chip,
+    Tabs,
+    Tab,
 } from "@mui/material";
+import { CustomTabPanel } from '../../sections/CustomPanel';
 import { IoIosCloseCircle, IoIosCheckmarkCircle } from "react-icons/io";
 
 
 function ItemSelectMonths({location}) {
 
     const { configState, loading, handleMonthChange, handleMonthComplete, ToggleStatus } = useProgramMaintances(location.description)
+
+    const [tab, setTabs] = useState(0)
+
+    const handleTab = (event, newValue) => {
+        setTabs(newValue)
+    }
 
     return ( 
         <Paper
@@ -32,105 +42,148 @@ function ItemSelectMonths({location}) {
                 </Stack>
             )}
 
-            {loading === false && (<Container
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    padding: '20px',
-
-                }}
-            >
-
-                <Box
+            {loading === false && (
+                <Container
                     sx={{
                         display: 'flex',
-                        flexDirection: 'row',
-                        marginBottom: '20px',
-                        justifyContent: 'space-between',
-                        alignITems: 'center',
-                        marginTop: '5px',
-                        gap: '20px',
-                    }}
-                >
-                    <Typography
-                        sx={{ display: 'flex', alignItems: 'center' }}
-                        variant="subtitle2"
-                        fontWeight="500"
-                    >
-                        {location.description}
-                    </Typography>
-
-                </Box>
-
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        gap: '10px'
+                        flexDirection: 'column',
+                        padding: '20px',
                     }}
                 >
 
-
-                    {configState.map((item, index) => (
-                        <Box 
+                    <Box
                         sx={{
-                            display:'flex',
-                            flexDirection:'column',
-                            width:'20%',
-                            gap:'20px'
-                        }}>
-                            <FormControl key={index} size="small">
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            marginBottom: '15px'
+                        }}
+                    >
+                        <Typography
+                            sx={{ display: 'flex', alignItems: 'center' }}
+                            variant="subtitle2"
+                            fontWeight="600"
+                        >
+                            {location.description}
+                        </Typography>
 
-                                <InputLabel>{`${index + 1} Mantenimiento`}</InputLabel>
-                                <Select
-                                    key={index}
-                                    value={item.monthProgram}
-                                    label={`${index + 1} Mantenimiento`}
-                                    onChange={(e) => handleMonthChange(index, e.target.value)}
-                                >
-                                    {months.map((item) => (
-                                        <MenuItem key={item.month} value={item.month}>{item.month}</MenuItem>
-                                    ))}
+                    </Box>
 
-                                </Select>
-    
-                            </FormControl >
+                    <Tabs
+                        value={tab}
+                        onChange={handleTab}
+                        variant="scrollable"
+                        scrollButtons
+                        allowScrollButtonsMobile
+                    >
+                        <Tab label="Programado" />
+                        <Tab label="Realizado" />
+                    </Tabs>
 
+                    <CustomTabPanel value={tab} index={0}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'space-around',
+                                flexDirection: 'row',
+                                width: '100%',
+                                gap: '20px',
+                                '@media (max-width:600px)': {
+                                    flexWrap: 'wrap',
+                                    flexDirection: 'column',
 
-                            <FormControl key={index} size="small">
+                                }
+                            }}
+                        >
+                            {configState.map((item, index) => (
 
-                                <InputLabel>{`${index + 1} Mantenimiento`}</InputLabel>
-                                <Select
-                                    key={index}
-                                    value={item.monthComplete}
-                                    label={`${index + 1} Mantenimiento`}
-                                    onChange={(e) => handleMonthComplete(index, e.target.value)}
-                                >
-                                    {months.map((item) => (
-                                        <MenuItem key={item.month} value={item.month}>{item.month}</MenuItem>
-                                    ))}
-
-                                </Select>
-                                <FormHelperText sx={{ position: 'relative', right: '10px' }}>
-                                    <Chip
-                                        size="small"
-                                        label={item.status ? 'realizado' : 'pendiente'}
-                                        color={item.status ? 'success' : 'warning'}
-                                        icon={
-                                            item.status ?
-                                                <IoIosCheckmarkCircle /> : <IoIosCloseCircle />
+                                <FormControl
+                                    sx={{
+                                        display: 'flex',
+                                        width: '30%',
+                                        '@media (max-width:600px)': {
+                                            width: '100%'
                                         }
-                                        onClick={() => ToggleStatus(index, !item.status)}
-                                    />
-                                </FormHelperText>
-                            </FormControl >
+                                    }}
+                                    key={index}
+                                    size="small"
+                                >
+
+                                    <InputLabel>{`${index + 1} Mantenimiento`}</InputLabel>
+                                    <Select
+                                        key={index}
+                                        value={item.monthProgram}
+                                        label={`${index + 1} Mantenimiento`}
+                                        onChange={(e) => handleMonthChange(index, e.target.value)}
+                                    >
+                                        {months.map((item) => (
+                                            <MenuItem key={item.month} value={item.month}>{item.month}</MenuItem>
+                                        ))}
+
+                                    </Select>
+
+                                </FormControl>
+                            ))}
                         </Box>
-                    ))}
+                    </CustomTabPanel>
 
-                </Box>
+                    <CustomTabPanel value={tab} index={1} >
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'space-around',
+                                flexDirection: 'row',
+                                width: '100%',
+                                gap: '20px',
+                                '@media (max-width:600px)': {
+                                    flexWrap: 'wrap',
+                                    flexDirection: 'column',
+                                }
+                            }}
+                        >
+                            {configState.map((item, index) => (
 
-            </Container>)}
+                                <FormControl
+                                    sx={{
+                                        display: 'flex',
+                                        width: '30%',
+                                        '@media (max-width:600px)': {
+                                            width: '100%'
+                                        }
+                                    }}
+                                    key={index}
+                                    size="small">
+
+                                    <InputLabel>{`${index + 1} Mantenimiento`}</InputLabel>
+                                    <Select
+                                        key={index}
+                                        value={item.monthComplete}
+                                        label={`${index + 1} Mantenimiento`}
+                                        onChange={(e) => handleMonthComplete(index, e.target.value)}
+                                    >
+                                        {months.map((item) => (
+                                            <MenuItem key={item.month} value={item.month}>{item.month}</MenuItem>
+                                        ))}
+
+                                    </Select>
+                                    <FormHelperText sx={{ position: 'relative', right: '10px' }}>
+                                        <Chip
+                                            size="small"
+                                            label={item.status ? 'realizado' : 'pendiente'}
+                                            color={item.status ? 'success' : 'warning'}
+                                            icon={
+                                                item.status ?
+                                                    <IoIosCheckmarkCircle /> : <IoIosCloseCircle />
+                                            }
+                                            onClick={() => ToggleStatus(index, !item.status)}
+                                        />
+                                    </FormHelperText>
+                                </FormControl >
+                            ))}
+                        </Box>
+                    </CustomTabPanel>
+
+                </Container>)}
         </Paper>
      );
 }

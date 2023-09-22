@@ -36,25 +36,26 @@ function LoadingMaintances({ maintances, action, clear, error }) {
               </Typography>
            </Box>}
 
+           <ScrollContainer height={height}>
             {maintances.length > 0 &&
                 maintances.map((maintance) => (
 
-                    <ScrollContainer height={height}>
-                        <Alert
-                            severity={maintance.status === 'success' ? 'success' : 'error'}
-                            key={maintance.assetId}
-                            action={
-                                <Button color="inherit" size="small" onClick={() => action(maintance.assetId)}>
-                                    X
-                                </Button>
-                            }>
+                    <Alert
+                        severity={maintance.status === 'success' ? 'success' : 'error'}
+                        key={maintance.assetId}
+                        action={
+                            <Button color="inherit" size="small" onClick={() => action(maintance.assetId)}>
+                                X
+                            </Button>
+                        }>
 
-                            <span>{maintance.message}  <strong>{maintance.assetId}</strong> </span>
+                        <span>{maintance.message}  <strong>{maintance.assetId}</strong> </span>
 
-                        </Alert>
+                    </Alert>
 
-                    </ScrollContainer>
-                ))}
+
+                    ))}
+                </ScrollContainer>
 
 
         {

@@ -1,3 +1,4 @@
+import { useContext } from "react"
 import { useState } from "react"
 //Material ui
 import {Box, Tabs, Tab} from "@mui/material"
@@ -8,8 +9,9 @@ import {UserConfig} from '../../components/UserConfig'
 import {SendMaintances} from '../../sections/SendMaintances'
 import { GetAllMaintances } from "../../sections/getAllMaintances"
 import { ProgramMaintances } from "../../sections/ProgramMaintances"
-import { useContext } from "react"
 import { DocContext } from "../../Context/DocContext"
+//media
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 function PageMaintenances() {
 
@@ -18,6 +20,9 @@ function PageMaintenances() {
   const [state, dispatch] = useContext(DocContext);
   //Destructuracion de los estados del contexto
   const { StatesModals } = state;
+
+  //mediaQuery
+  const isMovile = useMediaQuery('(max-width:700px)');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -38,8 +43,8 @@ function PageMaintenances() {
           <Tabs
             value={value}
             onChange={handleChange}
-            aria-label="basic tabs example"
-            centered
+            centered={!isMovile}
+            variant={isMovile ? 'scrollable' : 'standard'}
           >
             <Tab label="Programar mantenimientos" />
             <Tab label="Subir mantenimientos" />

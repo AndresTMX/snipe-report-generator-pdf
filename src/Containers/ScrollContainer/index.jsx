@@ -24,6 +24,10 @@ function ScrollContainer({ children, height }) {
         "&::-webkit-scrollbar-thumb:hover": {
           backgroundColor: "gray",
         },
+        '@media(max-width:700px)':{
+          paddingLeft:'0px',
+          paddingRight:'0px',
+        }
       }}
     >
       {children}

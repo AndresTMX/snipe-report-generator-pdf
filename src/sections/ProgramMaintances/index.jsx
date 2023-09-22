@@ -6,12 +6,18 @@ import { ScrollContainer } from "../../Containers/ScrollContainer";
 function ProgramMaintances() {
     return (
         <>
-           <ScrollContainer>
+           <ScrollContainer 
+           height={'75vh'}
+           >
            <Container
             sx={{
                 display:'flex',
                 flexDirection:'column',
-                gap:'20px'
+                gap:'20px',
+                '@media(max-width:700px)':{
+                    paddingLeft:'2px',
+                    paddingRight:'2px',
+                }
             }}
             >
                 {arrayLocations.map((location, index) => (
