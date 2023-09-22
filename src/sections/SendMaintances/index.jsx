@@ -194,7 +194,7 @@ function SendMaintances() {
           </Notification>
         )}
 
-        {notifications.length > 0 || errorMaintance && (
+        {(notifications.length > 0)  &&(
           <Modal>
             <LoadingMaintances
               maintances={notifications}
@@ -204,6 +204,18 @@ function SendMaintances() {
             />
           </Modal>
         )}
+
+         {(errorMaintance != null ) &&(
+          <Modal>
+            <LoadingMaintances
+              maintances={notifications}
+              error={errorMaintance}
+              action={closeNotification}
+              clear={closeAll}
+            />
+          </Modal>
+        )}
+
 
         {loadingMaintances && (
           <Modal>

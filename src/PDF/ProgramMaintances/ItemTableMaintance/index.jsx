@@ -76,9 +76,10 @@ const Style = StyleSheet.create({
     nameCol:{
         display:'flex',
         width:'28%',
-        textAlign:'center',
+        textAlign:'start',
         justifyContent:'center',
-         borderLeft:'1',
+        paddingLeft:'5px',
+        borderLeft:'1',
         borderColor:'black'
     },
     boxText:{
@@ -184,28 +185,17 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
                     </Text>
                 </View> */}
 
-                <View style={{...Style.monthCol, 
-                backgroundColor:`${configState[0].monthProgram != "" ? "red": "#1976d2"}`,
-                }}>
-                    <Text style={Style.boxText}>
-                    {configState[0].monthProgram === '' ?'SIN PROGRAMAR' : configState[0].monthProgram}
-                    </Text>
-                </View>
-
-                <View style={{...Style.monthCol,
-                 backgroundColor:`${configState[1].monthProgram != "" ? "red": "#1976d2"}`,
-                }}>
-                    <Text style={Style.boxText}>
-                    {configState[1].monthProgram === '' ?'SIN PROGRAMAR' : configState[1].monthProgram}
-                    </Text>
-                </View>
-
-                <View style={{...Style.monthCol,
-                     backgroundColor:`${configState[2].monthProgram != "" ? "red": "#1976d2"}`,}}>
-                    <Text style={Style.boxText}>
-                    {configState[2].monthProgram === '' ?'SIN PROGRAMAR' : configState[2].monthProgram}
-                    </Text>
-                </View>
+                {configState.map((item, index) => (
+                    item.monthProgram != "" && (
+                        <View style={{...Style.monthCol, 
+                            backgroundColor:`${configState[index].monthProgram != "" ? "red": "#1976d2"}`,
+                            }}>
+                                <Text style={Style.boxText}>
+                                {configState[index].monthProgram}
+                                </Text>
+                            </View>
+                    )
+                ))}
 
                 <View style={Style.nameCol}>
                     <Text style={Style.boxText}>
@@ -265,32 +255,19 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
                     ))}
                 </View> */}
 
-                <View style={{...Style.monthCol,
-                    backgroundColor:`${compareColorMonth(0)}`,
-                    color:`${configState[0].monthComplete != ""? "white": "black"}`
-                    }}>
-                    <Text style={{ ...Style.boxText}}>
-                    { compareMonthName(0)}
-                    </Text>
-                </View>
-
-                <View style={{...Style.monthCol,
-                backgroundColor:`${compareColorMonth(1)}`,
-                color:`${configState[1].monthComplete != ""? "white": "black"}`
-                }}>
-                    <Text style={{ ...Style.boxText}}>
-                        { compareMonthName(1)}
-                    </Text>
-                </View>
-
-                <View style={{...Style.monthCol,
-                backgroundColor:`${compareColorMonth(2)}`,
-                color:`${configState[2].monthComplete != ""? "white": "black"}`
-                }}>
-                    <Text style={{...Style.boxText}}>
-                        { compareMonthName(2)}
-                    </Text>
-                </View>
+                {configState.map((item, index) => (
+                    item.monthProgram != "" && (
+                        <View style={{
+                            ...Style.monthCol,
+                            backgroundColor: `${compareColorMonth(index)}`,
+                            color: `${configState[index].monthComplete != "" ? "white" : "black"}`
+                        }}>
+                            <Text style={{ ...Style.boxText }}>
+                                {compareMonthName(index)}
+                            </Text>
+                        </View>
+                    )
+                ))}
 
                 <View style={Style.nameCol}>
                     <Text style={Style.boxText}>

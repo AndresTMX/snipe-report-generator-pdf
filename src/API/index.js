@@ -173,7 +173,7 @@ export const SendMaintance = async (data) => {
         
         return response;
     } catch (error) {
-        throw new Error('Error al enviar el mantenimiento con id: ' + maintance.asset_id);
+        throw new Error('Error al enviar el mantenimiento: ' + error);
     }
 };
 

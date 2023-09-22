@@ -7,6 +7,7 @@ function LoadingMaintances({ maintances, action, clear, error }) {
     const maintancesSuccess = maintances.filter((item) => item.status === 'success');
     const maintancesError = maintances.filter((item) => item.status != 'success');
 
+    const height = maintances?.length > 0? '200px' : '0px'; 
 
     return ( 
         <Paper 
@@ -38,7 +39,7 @@ function LoadingMaintances({ maintances, action, clear, error }) {
             {maintances.length > 0 &&
                 maintances.map((maintance) => (
 
-                    <ScrollContainer height={'200px'}>
+                    <ScrollContainer height={height}>
                         <Alert
                             severity={maintance.status === 'success' ? 'success' : 'error'}
                             key={maintance.assetId}
