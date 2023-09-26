@@ -7,6 +7,8 @@ import { IoIosCloseCircle } from "react-icons/io";
 //helpers
 import { builderMaintance, switchForm, transformDate, ClearMaintances } from "../../Helpers/actionsMaintance";
 import { FormEditMaintances } from "../FormEditMaintances";
+//components
+import { FormAllEditMaintances } from "../FormAllEditMaintances";
 //.emv Maintenances provider
 const providerMaintenance = import.meta.env.VITE_PROVIDER_MAINTENANCES;
 
@@ -15,8 +17,8 @@ function FormMaintance({state, dispatch, postMaintenance}) {
   const { maintances } = state
 
   const {states, actions} = useEditMaintances(maintances, dispatch, true)
-  const { selectUser, typeItem, titleMaintance, currentDate }= states 
-  const { updateMaintance, setSelectUser } = actions
+  const { selectUser, typeItem, titleMaintance, currentDate, editAll }= states 
+  const { updateMaintance, setSelectUser, setEditAll, updateAllMaintances } = actions
 
   const SendMaintenance = async (e) => {
 
@@ -86,7 +88,7 @@ function FormMaintance({state, dispatch, postMaintenance}) {
         </Typography>
       )}
       
-      {maintances.length > 0 && !selectUser &&(
+      {maintances.length > 0 && !selectUser && !editAll &&(
         <UserItemMaintance
           maintances={maintances}
           setSelectUser={setSelectUser}
@@ -103,12 +105,21 @@ function FormMaintance({state, dispatch, postMaintenance}) {
         />
       )}
 
-        {!selectUser && maintances.length > 0 && (<Button
+      {editAll && maintances.length > 0 && (
+        <FormAllEditMaintances 
+        setEditAll={setEditAll}
+        updateAll={updateAllMaintances}
+        />
+      )}
+
+        {!selectUser && maintances.length > 0 && !editAll &&(
+         <Button
+         onClick={() => setEditAll(!editAll)}
           variant="outlined">
           Editar todos
         </Button>)}
 
-      {!selectUser && maintances.length > 0 && (
+      {!selectUser && maintances.length > 0 && !editAll && (
         <Button
           type="submit"
           variant="contained">

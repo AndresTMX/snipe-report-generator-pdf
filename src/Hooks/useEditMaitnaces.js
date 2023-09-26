@@ -10,6 +10,7 @@ function useEditMaintances(maintances, dispatch, typeItem) {
     const [selectUser, setSelectUser] = useState(null)
     const titleMaintance = `Mantenimiento Preventivo ${currentDate.$D} ${months[(currentDate.$M)].month} ${currentDate.$y}`
     const titleMaintancePendent = `Mantenimiento Pendiente ${currentDate.$D} ${months[(currentDate.$M)].month} ${currentDate.$y}`
+    const [editAll, setEditAll] = useState(false)
 
     useEffect(() => {
 
@@ -33,6 +34,23 @@ function useEditMaintances(maintances, dispatch, typeItem) {
 
         
     },[update])
+
+    const updateAllMaintances = (type, title, dateInit, dateEnd) => {
+
+        const datadfault =  maintances.map((item, index) => ({
+            ...item,
+            id:item.id,
+            notes:item.user,
+            supplier_id:parseInt(providerMaintenance),
+            title:title,
+            start_date:dateInit,
+            asset_maintenance_type: type,
+            completion_date:dateEnd,
+            editable: true
+        }))
+        dispatch({type: actionTypes.setMaintances, payload: datadfault})
+
+    }
     
     const updateMaintance = (index, tagItem, newData,) => {
         const maintance = maintances.find((item) => item.tag === tagItem)
@@ -73,8 +91,8 @@ function useEditMaintances(maintances, dispatch, typeItem) {
 
     }
 
-    const states = { selectUser, typeItem,  titleMaintance, currentDate }
-    const actions = { updateMaintance, setSelectUser, Toggle }
+    const states = { selectUser, typeItem,  titleMaintance, currentDate, editAll }
+    const actions = { updateMaintance, setSelectUser, Toggle, setEditAll, updateAllMaintances }
 
     return { states, actions }
 }
