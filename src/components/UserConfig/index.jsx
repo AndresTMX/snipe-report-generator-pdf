@@ -3,7 +3,7 @@ import { actionTypes as actionTypesModals } from "../../Context/StatesModalsRedu
 import { ThreeDots } from "../../components/Loading/";
 import { useGetUsersSystems } from "../../Hooks/useGetUsersSystems";
 import { Modal } from "../../modals/modal";
-import { Box, Button, Paper, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Box, Button, Paper, FormControl, InputLabel, Select, MenuItem, CircularProgress   } from "@mui/material";
 
 function UserConfig({ state, dispatch }) {
   const { initialStore, StatesModals } = state;
@@ -34,17 +34,16 @@ function UserConfig({ state, dispatch }) {
   return (
     <>
       {loading && (
-        <Modal>
-          <Paper
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "white",
-            }}
-          >
-            <ThreeDots />
-          </Paper>
+        <Modal
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width:'90%',
+          maxWidth:'500px'
+        }}
+        >
+            <CircularProgress/>
         </Modal>
       )}
 

@@ -13,6 +13,7 @@ import { useSearcher } from "../Searcher/useSearcher";
 import { useProgramMaintances } from "../../Hooks/useProgramMaintances";
 import { extractLocation, switchNotification } from "../../Helpers/actionsMaintance";
 import { useEditMaintances } from "../../Hooks/useEditMaitnaces";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function ViewDocumentMaintance({ state, dispatch, managerSystems, userCurrent}) {
 
@@ -20,6 +21,7 @@ function ViewDocumentMaintance({ state, dispatch, managerSystems, userCurrent}) 
   
   const {search, setSearch} = useSearcher()
   const {states, actions} = useEditMaintances(maintances, dispatch, false)
+  const isMovile = useMediaQuery('(max-width:950px)');
   const { selectUser, typeItem }= states 
   const { updateMaintance, setSelectUser, Toggle } = actions
   const location = maintances?.length > 0? extractLocation(maintances):"";
@@ -47,6 +49,10 @@ function ViewDocumentMaintance({ state, dispatch, managerSystems, userCurrent}) 
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        overflowY:'auto',
+        maxHeight:'90vh',
+        paddingTop:'150px',
+        paddingBottom:'20px'
       }}
     >
       <Paper
@@ -56,7 +62,9 @@ function ViewDocumentMaintance({ state, dispatch, managerSystems, userCurrent}) 
           flexDirection: "column",
           gap: "20px",
           padding: "20px",
-          width: "500px",
+          width: "90%",
+          maxWidth:'500px',
+          height:'auto',          
         }}
       >
         <Box
@@ -67,7 +75,10 @@ function ViewDocumentMaintance({ state, dispatch, managerSystems, userCurrent}) 
             alignItems: "center",
           }}
         >
-          <Typography variant="h5">Configuracion de documento</Typography>
+          <Typography 
+          variant={isMovile? 'span': 'h5'}>
+            Configuracion de documento
+          </Typography>
 
           <IconButton 
           variant="contained" 

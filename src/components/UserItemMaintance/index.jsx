@@ -53,7 +53,7 @@ function UserItemMaintance({maintances, selectUser, setSelectUser, dispatch}) {
 
         {maintances?.length > 0 && (
           <ScrollContainer height={"250px"}>
-            <Box sx={{ display: "flex", flexDirection: "column", gap:'10px' }}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap:'10px', padding:'5px' }}>
             {assetsGroup.map((assetUser, index) => (
               <Paper
                 elevation={2}
@@ -61,7 +61,7 @@ function UserItemMaintance({maintances, selectUser, setSelectUser, dispatch}) {
                 sx={{ display: "flex", flexDirection: "column", gap: "5px", backgroundColor:`${selectUser === index? '#edf4fc':'white'}`, borderRadius:'5px', padding:'10px' }}
               >
                 <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} >
-                  <Typography variant="span">{assetUser[0].user ? assetUser[0].user : 'NO ASIGNADO'}</Typography>
+                  <Typography variant="span" fontSize='12px' >{assetUser[0].user ? assetUser[0].user : 'NO ASIGNADO'}</Typography>
                   <IconButton
                    onClick={() =>  toggleUser(assetUser[0].user)}
                   >
@@ -85,7 +85,7 @@ function UserItemMaintance({maintances, selectUser, setSelectUser, dispatch}) {
                       startIcon={renderIcon(asset.device)}
                       onClick={() => ToggleItem(maintances, dispatch, asset )}
                     >
-                      {asset.tag}
+                      {asset.tag.split('-')[1]}
                     </Button>
                   ))}
                 </Box>

@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { useState } from "react"
 //Material ui
-import {Box, Tabs, Tab} from "@mui/material"
+import {Box, Tabs, Tab, tabsClasses } from "@mui/material"
 //components
 import { CustomTabPanel } from "../../sections/CustomPanel"
 import {UserConfig} from '../../components/UserConfig'
@@ -22,7 +22,7 @@ function PageMaintenances() {
   const { StatesModals } = state;
 
   //mediaQuery
-  const isMovile = useMediaQuery('(max-width:700px)');
+  const isMovile = useMediaQuery('(max-width:900px)');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -37,18 +37,26 @@ function PageMaintenances() {
           flexDirection: "column",
           paddingTop: "140px",
           width: "100%",
+          
         }}
       >
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider"}}>
           <Tabs
             value={value}
             onChange={handleChange}
             centered={!isMovile}
             variant={isMovile ? 'scrollable' : 'standard'}
+            scrollButtons
           >
-            <Tab label="Programar mantenimientos" />
-            <Tab label="Subir mantenimientos" />
-            <Tab label="Generar Programa" />
+            <Tab 
+            wrapped={isMovile}
+            label="Programar mantenimientos" />
+            <Tab 
+            wrapped={isMovile}
+            label="Subir mantenimientos" />
+            <Tab 
+            wrapped={isMovile}
+            label="Generar Programa" />
           </Tabs>
         </Box>
 

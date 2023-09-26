@@ -125,7 +125,7 @@ function MiniSearcher({limit, Toggle, maintances}) {
                                 justifyContent:'space-between'
                                }}
                                >
-                               <Typography variant="subtitle2">
+                               <Typography variant="subtitle2" fontSize='12px'> 
                                 {extractNameUser(result)}
                                </Typography>
 
@@ -136,7 +136,7 @@ function MiniSearcher({limit, Toggle, maintances}) {
                                     startIcon={renderIcon(result.category?.name)}
                                     color="primary" 
                                     >
-                                    {result.asset_tag}
+                                    {result.asset_tag.split('-')[1]}
                                     </Button>
                                </Box>
                             ))

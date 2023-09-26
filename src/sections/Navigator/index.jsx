@@ -40,6 +40,7 @@ function Navigator() {
       type: actionTypesModals.setModalConfig,
       payload: !StatesModals.setModalConfig,
     });
+    handleCloseUserMenu()
   };
   const settings = [
     { name: "Logout", function: auth.logOut },

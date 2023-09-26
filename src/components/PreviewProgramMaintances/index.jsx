@@ -28,7 +28,7 @@ function PreviewProgramMaintances({state, dispatch, managerSystems, userCurrent}
             flexDirection: 'column', 
             alignItems: 'flex-end', 
             padding: '10px', 
-            gap: '10px'
+            gap: '10px',
         }}>
         <IconButton
           color="error"

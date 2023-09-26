@@ -24,7 +24,7 @@ function Banner() {
             left:'0px',
             '@media (max-width: 1050px)': {
                 backgroundSize:'cover',
-                backgroundPosition:'initial',
+                backgroundPosition:'center',
               },
         }}
         >
@@ -33,7 +33,8 @@ function Banner() {
 
                 <Box sx={{display:'flex', height:'60px', margin:'0px', width:'60px' , backgroundImage:`url(${logo})`, backgroundPosition:'center', backgroundSize:'cover', objectFit:'contain',}}/>
 
-                <Box sx={{display:'flex', flexDirection:'column', height:'100%', margin:'0px', width:'auto', }}>
+                <Box 
+                sx={{display:'flex', flexDirection:'column', height:'100%', margin:'0px', width:'auto', }}>
                     <h3 style={{color:'white', fontWeight:'500', margin:'0px'}}>Tu aliado confiable en </h3>
                     <h3 style={{color:'white', fontWeight:'500', margin:'0px'}}>Conexiones y Mangueras</h3>
                     <span style={{borderBottom:'1', borderColor:'#faa419', borderStyle:'solid', width:'300px'}}/>

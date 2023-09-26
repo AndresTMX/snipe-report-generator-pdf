@@ -1,11 +1,21 @@
 import { Box, Chip, Typography,Stack, Skeleton } from "@mui/material";
 import { IoIosCloseCircle, IoIosCheckmarkCircle } from "react-icons/io";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function ChipProgramMaintance({ configState, loading, updateMonthComplete}) {
 
+    const isMovile = useMediaQuery('(max-width:950px)');
+
     return ( 
         <>
-            <Box sx={{ display: 'flex', flexDirection: 'column', width: '90%', margin: 'auto', gap: '10px' }}>
+            <Box 
+            sx={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            width: '90%', 
+            margin: 'auto', 
+            gap: '10px',
+            }}>
 
                 <Typography variant="subtitle2">
                     Programa de mantenimientos
@@ -24,6 +34,7 @@ function ChipProgramMaintance({ configState, loading, updateMonthComplete}) {
                         display: 'flex',
                         flexDirection: 'row',
                         gap: '10px',
+                        flexWrap:'wrap'
                     }}
                     elevation={4}
                 >
@@ -31,7 +42,7 @@ function ChipProgramMaintance({ configState, loading, updateMonthComplete}) {
                         <Chip
                             disabled={item.monthComplete != "" ? true : false}
                             key={index}
-                            size="medium"
+                            size={isMovile? 'small': 'medium'}
                             label={item.monthProgram ? item.monthProgram : 'Sin programar'}
                             color={item.status ? 'success' : 'warning'}
                             onClick={() => updateMonthComplete(index)}

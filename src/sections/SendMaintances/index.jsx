@@ -21,7 +21,7 @@ import { FaTrashAlt } from "react-icons/fa";
 //helpers actions
 import { switchForm, switchNotification } from "../../Helpers/actionsMaintance";
 import { actionTypes } from "../../Context/MaintanceReducer";
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 function SendMaintances() {
 
@@ -36,6 +36,9 @@ function SendMaintances() {
 
     const [select, setSelect] = useState(10)
     const {search, setSearch} = useSearcher()  
+    //mediaQuery
+    const isMovile = useMediaQuery('(max-width:700px)');
+    const widthSearcher = isMovile? '100%': '60%';
   
     const {postMaintenance, closeNotification, closeAll, statusMaintance} = useSendMaintances();
     const {states, actions} = useGetSearch(search, select);
@@ -77,6 +80,12 @@ function SendMaintances() {
             gap: "15px",
             alignItems: "center",
             justifyContent: "space-between",
+            '@media(max-width:950px)':{
+              flexDirection:'column',
+              alignItems:'flex-start',
+              padding:'0px',
+              width:'90%',
+            },
           }}
         >
           <InputSearch
@@ -84,7 +93,7 @@ function SendMaintances() {
             setState={setSearch}
             placeholder={"Busca un activo por cualquiera de sus parametros"}
             action={Search}
-            width={"60%"}
+            width={widthSearcher}
             onKey={Enter}
           />
 

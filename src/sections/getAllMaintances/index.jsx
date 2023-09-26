@@ -12,7 +12,6 @@ import { switchDocument, switchNotification } from "../../Helpers/actionsMaintan
 import { actionTypes } from "../../Context/MaintanceReducer";
 import { PreviewProgramMaintances } from "../../components/PreviewProgramMaintances";
 
-
 function GetAllMaintances() {
 
   const [state, dispatch] = useContext(MaintanceContext);
@@ -124,11 +123,26 @@ function GetAllMaintances() {
           gap:'20px'
         }}>
           <Box
-          sx={{display:'flex', gap:'10px', flexDirection:'row', alignItems:'center'}}
+          sx={{
+            display:'flex',
+            gap:'10px', 
+            flexDirection:'row', 
+            alignItems:'center',
+            '@media(max-width:950px)':{
+            display:'grid',
+            gridTemplateColumns:'1fr 1fr',
+            gridGap:'10px'
+          },
+          }}
           >
 
             <FormControl
-            sx={{width:'180px'}}
+            sx={{
+              width:'180px',
+            '@media(max-width:950px)':{
+              width:'100%'
+          },
+          }}
             size="small"
             >
             <InputLabel>Selecciona el mes</InputLabel>
@@ -145,7 +159,12 @@ function GetAllMaintances() {
             </FormControl>
 
             <FormControl
-            sx={{width:'180px'}}
+            sx={{
+              width:'180px',
+            '@media(max-width:950px)':{
+              width:'100%'
+          },
+          }}
             size="small"
             >
             <InputLabel>Selecciona el año</InputLabel>
@@ -162,15 +181,25 @@ function GetAllMaintances() {
             </FormControl>
 
             <Button 
+            sx={{
+            '@media(max-width:950px)':{
+              gridColumn:'span 2'
+          },
+            }}
             variant="contained"
             onClick={() => fetchMaintances()}
             >Consultar mantenimientos</Button>
 
              <Button
+             sx={{
+              '@media(max-width:950px)':{
+                gridColumn:'span 2'
+            },
+              }}
               variant="contained"
               onClick={() => switchDocument(dispatch, true)}
             >
-              Documento
+              generar documento
             </Button>
 
           </Box>

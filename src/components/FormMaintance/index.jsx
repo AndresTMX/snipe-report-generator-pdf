@@ -50,7 +50,8 @@ function FormMaintance({state, dispatch, postMaintenance}) {
         flexDirection: "column",
         gap: "20px",
         padding: "20px",
-        width: "500px",
+        width: "90%",
+        maxWidth:'500px'
       }}
     >
 
@@ -58,7 +59,8 @@ function FormMaintance({state, dispatch, postMaintenance}) {
       sx={{
         display:'flex',
         alignItems:'center',
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+       
       }}
       >
          <Typography
