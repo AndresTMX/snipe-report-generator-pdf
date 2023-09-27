@@ -5,6 +5,9 @@ import { BsKeyboard } from "react-icons/bs"; //teclado
 import { BsMouse3 } from "react-icons/bs"; //mouse
 import { FiMonitor } from "react-icons/fi"; //monitor
 import { PiDesktopTowerDuotone } from "react-icons/pi"; //gabinete
+import { FaListCheck, FaLaptopFile } from 'react-icons/fa6' //checliks
+import { MdAdd } from "react-icons/md"; //add
+import { FaTrashAlt } from "react-icons/fa"; //trash
 //Hook y context
 import { useContext } from "react";
 import {UseModal} from '../../Hooks/useModal';
@@ -15,26 +18,16 @@ import { validateRepeat, ToggleItem } from "../../Helpers/actionsMaintance";
 import {Modal} from '../../modals/modal';
 import {ViewMaintances} from '../ViewMaintances';
 
-function ItemSearch({
-  id,
-  name,
-  tag,
-  serial,
-  model,
-  status,
-  device,
-  brand,
-  location,
-  userData,
-}) {
+function ItemSearch({assetForUser}) {
+
+  // const {id, name, asset_tag, serial, model, status_label, category, manufacturer, location, assigned_to} = assetForUser
+
   const [state, dispatch] = useContext(MaintanceContext);
-  const {modal, setModal} = UseModal()
+  const {modal, setModal} = UseModal();
   const { maintances } = state;
   
-  const user = userData?.name ? userData.name : status;
-  const renderButton = validateRepeat(maintances, { tag, id, device, user });
-  const variant = renderButton ? "outlined" : "contained";
-  const color = renderButton ? "error" : "primary";
+  const user = assetForUser[0].assigned_to?.name ? assetForUser[0].assigned_to.name : assetForUser[0].status_label.name;
+  const location = assetForUser[0].location.name
 
   function renderIcon(device) {
     if (device === "LAPTOP") {
@@ -58,10 +51,9 @@ function ItemSearch({
     }
   }
 
-  const toggleMaintance = () => {
+  const toggleMaintance = (tag, id, device, user) => {
     ToggleItem(maintances, dispatch, { tag, id, device, user});
   }
-
 
   return (
     <>
@@ -74,49 +66,105 @@ function ItemSearch({
           padding: "20px",
         }}
       >
-        <Typography variant="h5" fontWeight={500}>
+
+        <Box
+        sx={{
+          display:'flex',
+          flexDirection:'row',
+          justifyContent:'space-between',
+          alignItems:'center'
+        }}
+        >
+        <Box>
+          <Typography variant="h5" fontWeight={500}>
           {user}
-        </Typography>
+        </Typography> 
+        <Typography variant="subtitle" fontWeight={500}>
+          {location}
+        </Typography> 
+        </Box>
+        
 
-        <Box sx={{ display: "flex", flexDirection: "row", gap: "20px" }}>
-          <span
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "10px",
-              alignItems: "center",
-            }}
-          >
-            {renderIcon(device)}
-            {device}
-          </span>
-
-          <span>{model}</span>
-
-          <span>{tag}</span>
-
-          <span>NS: {serial}</span>
+           <IconButton variant='contained'>
+            <FaListCheck/>
+           </IconButton>
         </Box>
 
-        <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
 
-          <Button variant="contained" onClick={() => setModal(!modal)}>
-            Ver mantenimientos
-          </Button>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+          }}
+        >
+          {assetForUser.map((item, index) => (
+            <>
+              <Box 
+              sx={{ 
+                display: "flex", 
+                flexDirection: "row", 
+                gap: "20px", 
+                alignItems:'center', 
+                justifyContent:'space-between'
+               }}
+               key={index}
+               >
+                
+                <Box
+                sx={{
+                  display:'flex',
+                  flexDirection:'row',
+                  gap:'10px'
+                }}
+                >
+                  <span
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: "10px",
+                      alignItems: "center",
+                    }}
+                  >
+                    {renderIcon(item.category.name)}
+                    {item.category.name}
+                  </span>
 
-          <Button
-            variant={variant}
-            color={color}
-            onClick={toggleMaintance}
-          >
-            Agregar mantenimiento
-          </Button>
+                  <span>{item.model.name}</span>
+
+                  <span>{item.asset_tag}</span>
+
+                  <span>NS: {item.serial}</span>
+                </Box>
+
+                <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
+
+                  <IconButton 
+                  variant="contained"
+                  color='info' 
+                  onClick={() => setModal(item.id)}>
+                    <FaLaptopFile/>
+                  </IconButton>
+
+                  <IconButton
+                    variant={validateRepeat(maintances, { tag: item.asset_tag }) ? "outlined" : "contained"}
+                    color={validateRepeat(maintances, { tag: item.asset_tag }) ? "error" : "primary"}
+                    onClick={() => toggleMaintance(item.asset_tag, item.id, item.category.name, user)}
+                  >
+                    {validateRepeat(maintances, { tag: item.asset_tag }) ? <FaTrashAlt/>:<MdAdd/> }
+                  </IconButton>
+                </Box>
+              </Box>
+
+            </>
+          ))}
         </Box>
+
       </Paper>
 
       {modal && (
         <Modal>
-          <ViewMaintances modal={modal} setModal={setModal} idAsset={id}/>
+          <ViewMaintances modal={modal} setModal={setModal} idAsset={modal}/>
         </Modal>)}
 
     </>

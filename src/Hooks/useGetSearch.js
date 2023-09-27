@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSearch } from "../API";
-import { filterResults } from "../Helpers/actionsMaintance";
+import { filterResults, assetsForSearcher } from "../Helpers/actionsMaintance";
 
 function useGetSearch(search, limit) {
 
@@ -22,8 +22,9 @@ function useGetSearch(search, limit) {
         const fetchSearch = async () => {
             try {
                 const results = await getSearch(input, limit);                
-                const resultsFiltered = filterResults(results);                
-                setResults(resultsFiltered);
+                const resultsFiltered = filterResults(results);                     
+                const resultsFilteredForUser = assetsForSearcher(resultsFiltered, 'assigned_to', 'status_label')         
+                setResults(resultsFilteredForUser);
                 setLoading(false);
             } catch (error) {
                 setLoading(false)

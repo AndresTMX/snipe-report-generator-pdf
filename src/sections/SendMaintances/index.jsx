@@ -45,6 +45,7 @@ function SendMaintances() {
 
     const { loadingMaintances, notifications, errorMaintance } = statusMaintance;
     const {results, loading, error, input} = states;
+    console.log("🚀 ~ file: index.jsx:48 ~ SendMaintances ~ results:", results)
     const {Search, setResults } = actions;
   
     const OnSelect = (e) =>{
@@ -145,19 +146,10 @@ function SendMaintances() {
           )}
 
           {!loading && !error && results &&
-            results.map((result) => (
+            results.map((result, index) => (
               <ItemSearch
-                key={result.id}
-                id={result.id}
-                name={result.name}
-                tag={result.asset_tag}
-                serial={result?.serial}
-                model={result.model?.name}
-                status={result.status_label?.name}
-                device={result.category?.name}
-                brand={result.manufacturer?.name}
-                location={result.location?.name}
-                userData={result.assigned_to}
+                key={index}
+                assetForUser={result}
               />
             ))}
 

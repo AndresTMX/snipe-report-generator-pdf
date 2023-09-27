@@ -129,6 +129,19 @@ export function assetsForUser (array, property) {
     return Object.values(groups);
  }
 
+ export function assetsForSearcher (array, property, property2) {
+    const groups = {} 
+    array.forEach(obj => {
+     const propValue = obj[property].name? obj[property].name : obj[property2].name
+     if(!groups[propValue]){
+         groups[propValue] = []
+     }
+     groups[propValue].push(obj)
+    })
+
+    return Object.values(groups);
+ }
+
 export function switchViewDocument (dispatch, payload) {
     dispatch({
         type:actionTypes.setDocument,
