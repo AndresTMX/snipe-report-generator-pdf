@@ -66,6 +66,9 @@ function PageHome() {
           height: "100vh",
           position: "fixed",
           left: "20px",
+          '@media(max-width:1200px)':{
+            display:'none'
+          }
         }}
       >
         <Container
@@ -218,7 +221,52 @@ function PageHome() {
         search={search}
         setSearch={setSearch}
         searchResults={searchResults}
-      />
+      >
+        <Box>
+        {!complete && (
+            <UserContainer>
+
+              {loading && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alingItems: "center",
+                    height: "200px",
+                  }}
+                >
+                  <ThreeDots />
+                </Box>
+              )}
+
+              {!loading && (
+                <NotResultUsers error={error} pageRender={pageRender} loading={loading} />
+              )}
+
+              {!loading && pageRender && pageRender.map((user) => (
+                  <UserCard
+                    key={user.id}
+                    id={user.id}
+                    user={user.name}
+                    department={user.department?.name}
+                    manager={user.manager?.name}
+                    avatar={user?.avatar}
+                    location={user.location?.name}
+                    company={user.company?.name}
+                    accesories={user?.accessories_count}
+                    licences={user?.licenses_count}
+                    assets={user?.assets_count}
+                    email={user?.email}
+                    jobtitle={user?.jobtitle}
+                    state={state}
+                    dispatch={dispatch}
+                  />
+                ))}
+            </UserContainer>
+          )}
+        </Box>
+      </ConfigReport>
     </Container>
   );
 }

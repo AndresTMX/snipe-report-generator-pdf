@@ -26,6 +26,7 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function UserCard({
   id,
@@ -60,6 +61,7 @@ function UserCard({
   });
   
   const {image} = useImagePDF(nameCompany);
+  const isMovile = useMediaQuery('(max-width:1200px)');
 
   const ButtongetActives = () => {
   
@@ -110,11 +112,31 @@ function UserCard({
       <Grid item>
         <Paper
           elevation={8}
-          sx={{ width: "250px", height: 'auto', backgroundColor: "#d9d9d9", border:'2px', borderStyle:'solid', borderColor:'#d9d9d9' }}
+          sx={{
+          width: "250px", 
+          height: 'auto', 
+          backgroundColor: "#d9d9d9", 
+          border:'2px', 
+          borderStyle:'solid', 
+          borderColor:'#d9d9d9'
+         }}
         >
-          <Card sx={{height:'100%'}}>
+          <Card 
+          sx={{
+            height:'100%',
+           }}>
             <CardHeader
-            sx={{height:'100px'}}
+            sx={{
+              height:'100px',
+              '@media(max-width:1200px)':{
+                padding:'0px',
+                flexDirection:'column',
+                width:'90%',
+                margin:'auto',
+                textAlign:'center',
+                gap:'15px'
+              }
+            }}
               avatar={
                 <Avatar
                   sx={{
@@ -122,6 +144,13 @@ function UserCard({
                     border: "2px",
                     borderColor: "#0071bb",
                     borderStyle: "solid",
+                    '@media(max-width:1200px)':{
+                      height:'20px',
+                      width:'20px',
+                      position:'relative',
+                      top:'10px',
+                      left:'108px',
+                    }
                   }}
                 >
                   <img
@@ -138,15 +167,24 @@ function UserCard({
               subheader={nameJobtitle}
             />
 
-            <CardContent sx={{ fontSize: "0.875rem", }}>
+            <CardContent 
+            sx={{ 
+              fontSize: "0.875rem", 
+              '@media(max-width:1200px)':{
+                display:'none'
+              }
+              }}>
               <Box>
                 <h4 className="h4">Departamento</h4>
                 <span className="span">{nameDepartment} </span>
               </Box>
             </CardContent>
 
-            <CardActions disableSpacing>
+            <CardActions 
+            disableSpacing      
+            >
               <IconButton 
+              size={isMovile? 'small':'medium'}
               aria-label="Activos"
                title='Ver Activos'
               onClick={() => ButtongetActives()}>
@@ -155,6 +193,7 @@ function UserCard({
               </IconButton>
 
               <IconButton 
+              size={isMovile? 'small':'medium'}
               aria-label="Accesorios"
               title='Ver Accesorios'
               onClick={()=> ButtongetAccesories()}>
@@ -162,7 +201,8 @@ function UserCard({
                <span className="textIcon">{accesories}</span>
               </IconButton>
 
-              <IconButton 
+              <IconButton
+              size={isMovile? 'small':'medium'}
               aria-label="Licencias"
               title='Ver Licencias'
               onClick={() => ButtongetMoreInfoUser()}
@@ -172,6 +212,7 @@ function UserCard({
               </IconButton>
 
               <ExpandMore
+                size={isMovile? 'small':'medium'}
                 expand={expanded}
                 onClick={handleExpandClick}
                 aria-expanded={expanded}
@@ -184,6 +225,20 @@ function UserCard({
             <Collapse in={expanded} timeout="auto" unmountOnExit>
 
             <CardContent sx={{ fontSize: "0.875rem" }}>
+
+            <Box
+             sx={{ 
+              display:'none',
+              '@media(max-width:1200px)':{
+                display:'flex',
+                flexDirection:'column'
+              }
+             }}
+            >
+                <h4 className="h4">Departamento</h4>
+                <span className="span">{nameDepartment} </span>
+              </Box>
+
               <Box>
                 <h4 className="h4">Empresa</h4>
                 <span className="span">{nameCompany}</span>

@@ -1,4 +1,5 @@
 import { InputSearch } from "../Searcher";
+import { ScrollContainer } from '../../Containers/ScrollContainer'
 import { DocStoreCardInfoUser } from "../DocStoreCardInfoUser";
 import { DocStoreTable } from "../DocStoreTable";
 import { DocStoreCardSelect } from "../DocStoreCardSelect";
@@ -13,15 +14,17 @@ import {
   AccordionDetails,
   Button,
   IconButton,
-  InputLabel,
 } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { AiOutlineSetting } from "react-icons/ai";
 import { FaUserCog } from "react-icons/fa";
 import { ButtonPDF } from "../ButonPDF";
 import { UserConfig } from "../UserConfig";
 
-function ConfigReport({ state, dispatch, search, setSearch, searchResult }) {
+function ConfigReport({ children, state, dispatch, search, setSearch, searchResult }) {
+
   const { initialStore, StatesModals } = state;
+  const isMovile  = useMediaQuery('(max-width:1200px)');
   const { storage } = initialStore ? initialStore : {};
   const { assets, accessories } = storage ? storage : {};
   const validateContent = storage
@@ -97,6 +100,9 @@ function ConfigReport({ state, dispatch, search, setSearch, searchResult }) {
         "&::-webkit-scrollbar-thumb:hover": {
           backgroundColor: "gray",
         },
+        '@media(max-width:1200px)':{
+          width:'100%'
+        }
       }}
     >
       <Box
@@ -115,6 +121,12 @@ function ConfigReport({ state, dispatch, search, setSearch, searchResult }) {
           placeholder={'Buscar usuarios'}
           width={'100%'}
         />
+
+        {isMovile && (
+          <ScrollContainer height="40vh">
+            {children}
+          </ScrollContainer>
+        )}
 
         <DocStoreCardInfoUser state={state} dispatch={dispatch} />
 
