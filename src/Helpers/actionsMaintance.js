@@ -55,6 +55,27 @@ export function ToggleItem(listTag, dispatch, payload){
 
 }
 
+export function ToggleMultipleItems(listTag, dispatch, arrayPayload){
+
+    const arrayAdd = []
+    const newList = [...listTag]
+
+    arrayPayload.forEach((item) => {
+       const validate = validateRepeat(listTag, item)
+       if(!validate){
+        arrayAdd.push(item)
+       }else{
+        const index = newList.findIndex(element =>  element.tag === item.tag)
+        newList.splice(index, 1)
+    }
+
+       const List = [...newList, ...arrayAdd]
+       dispatch({type:actionTypes.setMaintances, payload: List})
+
+    })
+
+}
+
 export function ClearMaintances(dispatch){
     dispatch({type: actionTypes.setMaintances, payload: []})
 }
@@ -132,7 +153,7 @@ export function assetsForUser (array, property) {
  export function assetsForSearcher (array, property, property2) {
     const groups = {} 
     array.forEach(obj => {
-     const propValue = obj[property].name? obj[property].name : obj[property2].name
+     const propValue = obj[property]?.name? obj[property].name : obj[property2].name
      if(!groups[propValue]){
          groups[propValue] = []
      }

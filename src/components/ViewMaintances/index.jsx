@@ -59,7 +59,8 @@ function ViewMaintances({modal, setModal, idAsset}) {
           flexDirection: "column",
           gap: "10px",
           padding: "20px",
-          maxWidth: "700px",
+          width:'90%',
+          maxWidth: "500px",
           maxHeight: "60vh",
           overflowX: "auto",
           overflowY: "auto",
@@ -82,9 +83,20 @@ function ViewMaintances({modal, setModal, idAsset}) {
             justifyContent: "space-between",
             alignItems: "center",
             gap: "50px",
+            '@media(max-width:800px)':{
+              gap:'10px'
+              }
           }}
         >
-          <Typography variant="h5" fontWeight="500">
+          <Typography 
+          variant="h5"
+          fontWeight="500"
+          sx={{
+            '@media(max-width:800px)':{
+            fontSize:'20px'
+            }
+          }}
+          >
             Mantenimientos realizados
           </Typography>
 

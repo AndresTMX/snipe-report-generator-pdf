@@ -22,7 +22,7 @@ function useGetSearch(search, limit) {
         const fetchSearch = async () => {
             try {
                 const results = await getSearch(input, limit);                
-                const resultsFiltered = filterResults(results);                     
+                const resultsFiltered = filterResults(results);                                     
                 const resultsFilteredForUser = assetsForSearcher(resultsFiltered, 'assigned_to', 'status_label')         
                 setResults(resultsFilteredForUser);
                 setLoading(false);

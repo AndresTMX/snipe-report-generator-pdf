@@ -1,4 +1,4 @@
-import { Paper, Typography, Button, Box, IconButton } from "@mui/material";
+import { Paper, Typography, Button, Box, IconButton, Chip, Divider, Stack } from "@mui/material";
 //icons
 import { AiOutlineLaptop } from "react-icons/ai"; //lap
 import { BsKeyboard } from "react-icons/bs"; //teclado
@@ -10,17 +10,15 @@ import { MdAdd } from "react-icons/md"; //add
 import { FaTrashAlt } from "react-icons/fa"; //trash
 //Hook y context
 import { useContext } from "react";
-import {UseModal} from '../../Hooks/useModal';
+import { UseModal } from '../../Hooks/useModal';
 import { MaintanceContext } from "../../Context/MaintanceContext";
 //helpers actions
-import { validateRepeat, ToggleItem } from "../../Helpers/actionsMaintance";
+import { validateRepeat, ToggleItem, ToggleMultipleItems } from "../../Helpers/actionsMaintance";
 //components
 import {Modal} from '../../modals/modal';
 import {ViewMaintances} from '../ViewMaintances';
 
 function ItemSearch({assetForUser}) {
-
-  // const {id, name, asset_tag, serial, model, status_label, category, manufacturer, location, assigned_to} = assetForUser
 
   const [state, dispatch] = useContext(MaintanceContext);
   const {modal, setModal} = UseModal();
@@ -55,6 +53,20 @@ function ItemSearch({assetForUser}) {
     ToggleItem(maintances, dispatch, { tag, id, device, user});
   }
 
+  const addMultipleMaintance = () => {
+    const allMaintances = assetForUser.map((item) => {
+      const newObject = {
+        tag: item.asset_tag,
+        id: item.id,
+        device: item.category.name,
+        user: item.assigned_to?.name? item.assigned_to.name:item.status_label.name
+      }
+      return newObject
+    })
+
+    ToggleMultipleItems(maintances, dispatch, allMaintances)
+  }
+
   return (
     <>
       <Paper
@@ -64,6 +76,10 @@ function ItemSearch({assetForUser}) {
           flexDirection: "column",
           gap: "15px",
           padding: "20px",
+          '@media(max-width:900px)':{
+            width:'90%',
+            margin:'auto'
+          }
         }}
       >
 
@@ -76,16 +92,41 @@ function ItemSearch({assetForUser}) {
         }}
         >
         <Box>
-          <Typography variant="h5" fontWeight={500}>
+          <Typography 
+          variant="h5" 
+          fontWeight={500}
+          sx={{
+            '@media(max-width:900px)':{
+              fontSize:'18px'
+            },
+            '@media(max-width:500px)':{
+              fontSize:'14px'
+            }
+          }}
+          >
           {user}
         </Typography> 
-        <Typography variant="subtitle" fontWeight={500}>
+        <Typography 
+        variant="subtitle"
+        fontWeight={500}
+        sx={{
+          '@media(max-width:900px)':{
+            fontSize:'15px'
+          },
+          '@media(max-width:500px)':{
+            fontSize:'12px'
+          }
+        }}
+        >
           {location}
         </Typography> 
         </Box>
         
 
-           <IconButton variant='contained'>
+           <IconButton 
+           variant='contained'
+           onClick={addMultipleMaintance}
+           >
             <FaListCheck/>
            </IconButton>
         </Box>
@@ -95,6 +136,7 @@ function ItemSearch({assetForUser}) {
           sx={{
             display: 'flex',
             flexDirection: 'column',
+            justifyContent:'center',
             gap: '10px',
           }}
         >
@@ -115,28 +157,71 @@ function ItemSearch({assetForUser}) {
                 sx={{
                   display:'flex',
                   flexDirection:'row',
-                  gap:'10px'
+                  alignItems:'center',
+                  gap:'10px',
+                  '@media (max-width:900px)':{
+                    flexDirection:'column',
+                    alignItems:'start'
+                  },
                 }}
                 >
-                  <span
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      gap: "10px",
-                      alignItems: "center",
-                    }}
+
+
+                  <Stack 
+                  flexDirection='row'
+                  gap='10px'
+                  sx={{
+                    '@media(max-width:460px)':{
+                    flexDirection:'column'
+                    }
+                  }}
                   >
-                    {renderIcon(item.category.name)}
-                    {item.category.name}
-                  </span>
+                    <Chip
+                      sx={{
+                        padding: '5px'
+                      }}
+                      color='primary'
+                      size="medium"
+                      label={item.category.name}
+                      icon={renderIcon(item.category.name)}
+                    />
 
-                  <span>{item.model.name}</span>
+                    <Chip
+                      color='primary'
+                      variant="outlined"
+                      size="small"
+                      label={item.asset_tag}
+                    />
 
-                  <span>{item.asset_tag}</span>
+                  </Stack>
 
-                  <span>NS: {item.serial}</span>
+                  <Stack flexDirection='row' gap='10px'
+                  sx={{
+                    '@media(max-width:460px)':{
+                      display:'none'
+                    }
+                  }}
+                  >
+                    <Chip
+                    color='primary'
+                    variant="outlined"
+                    size="small"
+                    label={item.model.name}
+                    />
+
+                   <Chip
+                   color='primary'
+                   variant="outlined"
+                  size="small"
+                  label={item.serial}
+                  />
+                  </Stack>
+                 
+
+                  
+
                 </Box>
-
+               
                 <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
 
                   <IconButton 
@@ -150,14 +235,17 @@ function ItemSearch({assetForUser}) {
                     variant={validateRepeat(maintances, { tag: item.asset_tag }) ? "outlined" : "contained"}
                     color={validateRepeat(maintances, { tag: item.asset_tag }) ? "error" : "primary"}
                     onClick={() => toggleMaintance(item.asset_tag, item.id, item.category.name, user)}
-                  >
+                    >
                     {validateRepeat(maintances, { tag: item.asset_tag }) ? <FaTrashAlt/>:<MdAdd/> }
                   </IconButton>
                 </Box>
               </Box>
-
+             {  index + 1 != assetForUser.length && 
+             <Divider>
+            </Divider>}
             </>
           ))}
+         
         </Box>
 
       </Paper>

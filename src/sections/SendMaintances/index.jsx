@@ -45,7 +45,6 @@ function SendMaintances() {
 
     const { loadingMaintances, notifications, errorMaintance } = statusMaintance;
     const {results, loading, error, input} = states;
-    console.log("🚀 ~ file: index.jsx:48 ~ SendMaintances ~ results:", results)
     const {Search, setResults } = actions;
   
     const OnSelect = (e) =>{
@@ -71,6 +70,9 @@ function SendMaintances() {
           flexDirection: "column",
           paddingTop: "10px",
           width: "100%",
+          '@media(max-width:900px)':{
+            gap:'20px'
+          }
         }}
       >
         <Container
