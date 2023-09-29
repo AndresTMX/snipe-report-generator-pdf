@@ -118,7 +118,11 @@ function UserCard({
           backgroundColor: "#d9d9d9", 
           border:'2px', 
           borderStyle:'solid', 
-          borderColor:'#d9d9d9'
+          borderColor:'#d9d9d9',
+          '@media (max-width:600px)': {
+           width:'90%',
+           margin:'auto'    
+           },
          }}
         >
           <Card 
@@ -130,11 +134,12 @@ function UserCard({
               height:'100px',
               '@media(max-width:1200px)':{
                 padding:'0px',
-                flexDirection:'column',
-                width:'90%',
+                flexDirection:'row',
+                width:'100%',
                 margin:'auto',
-                textAlign:'center',
-                gap:'15px'
+                textAlign:'start',
+                gap:'15px',
+                justifyContent:'space-between'
               }
             }}
               avatar={
@@ -145,11 +150,11 @@ function UserCard({
                     borderColor: "#0071bb",
                     borderStyle: "solid",
                     '@media(max-width:1200px)':{
-                      height:'20px',
-                      width:'20px',
+                      display:'flex',
+                      height:'30px',
+                      width:'30px',
                       position:'relative',
-                      top:'10px',
-                      left:'108px',
+                      left:'15px'
                     }
                   }}
                 >

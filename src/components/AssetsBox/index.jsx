@@ -1,5 +1,6 @@
 import "../../index.css";
 //Hooks
+import { useState, useRef } from "react";
 import { UseModal } from "../../Hooks/useModal";
 import { useItems } from "../../Hooks/useItems";
 import { useMaintancesAssets } from "../../Hooks/useMaintancesAsset";
@@ -15,7 +16,7 @@ import { ViewMaintances } from "../ViewMaintances";
 import { Notification } from "../../modals/notification";
 import { ThreeDots } from "../Loading/";
 //material UI
-import { Box, IconButton, Container, ButtonGroup, Button, Paper } from "@mui/material";
+import { Box, IconButton, Container, ButtonGroup, Button, Paper, Popper, Grow, ClickAwayListener, MenuList, MenuItem } from "@mui/material";
 import {
   Table,
   TableBody,
@@ -24,6 +25,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function AssetsBox({
   modal,
@@ -49,6 +51,8 @@ function AssetsBox({
   });
 
   const { addItem, deleteItem } = actions;
+
+  const isMovile = useMediaQuery('(max-width:930px)');
 
   const { countAssets } = states;
   const count = countAssets.toString()
@@ -164,7 +168,40 @@ function AssetsBox({
     setModal(!modal);
   };
 
+  const options = [
+    { title: 'Mantenimiento Preventivo', value: 'MP' },
+    { title: ' Mantenimiento Correctivo', value: 'MC' },
+    { title: 'Vale de baja', value: 'VB' },
+    { title: 'CheckList', value: 'CL' },
+    { title: 'Carta Responsiva', value: 'CR' }
+  ];
 
+  const anchorRef = useRef(null);
+  const [open, setOpen] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleMultiClick = () => {
+    GenerateDocument(options[selectedIndex].value)
+  }
+
+  const handleMenuItemClick = (event, index) => {
+    setSelectedIndex(index);
+    setOpen(false);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+ 
   return (
     <Container sx={{display:'flex', flexDirection:'column', backgroundColor:'white'}}>
       <Box
@@ -216,12 +253,15 @@ function AssetsBox({
           sx={{
             display: "flex",
             gap: "10px",
-            "@media (max-width: 807px)": {
-              flexDirection: "column",
-            },
+            '@media(max-width:930px)':{
+              flexDirection:'column',
+            }
           }}
         >
-          <Button
+         
+         {!isMovile && (
+          <>
+           <Button
             variant="contained"
             onClick={() => GenerateDocument("MP")}
             className="button-action"
@@ -256,6 +296,78 @@ function AssetsBox({
           >
             Carta responsiva
           </Button>
+          </>
+         )}
+
+         {isMovile && (
+           <>
+           <ButtonGroup variant="contained">
+             <Button 
+             fullWidth
+             onClick={handleMultiClick}
+             >{options[selectedIndex].title}</Button>
+             <Button
+           size="small"
+           aria-controls={open ? 'split-button-menu' : undefined}
+           aria-expanded={open ? 'true' : undefined}
+           onClick={handleToggle}
+         >
+           <MdAdd />
+         </Button>
+ 
+           </ButtonGroup>
+ 
+           <Popper
+         sx={{
+           zIndex: 1,
+           display:'flex',
+           width:'86%',
+           height:'100vh',
+           justifyContent:'flex-end',
+           alignItems:'center',
+         }}
+         open={open}
+         anchorEl={anchorRef.current}
+         role={undefined}
+         transition
+         disablePortal
+       >
+         {({ TransitionProps, placement }) => (
+           <Grow
+             {...TransitionProps}
+             style={{
+               transformOrigin:
+                 placement === 'bottom' ? 'center top' : 'center bottom',
+             }}
+           >
+             <Paper
+             sx={{
+              height:'250px',
+              position:'relative',
+              top:'28px',
+
+             }}
+             >
+               <ClickAwayListener onClickAway={handleClose}>
+                 <MenuList autoFocusItem>
+                   {options.map((option, index) => (
+                     <MenuItem
+                       key={index}
+                       selected={index === selectedIndex}
+                       onClick={(event) => handleMenuItemClick(event, index)}
+                     >
+                       {option.title}
+                     </MenuItem>
+                   ))}
+                 </MenuList>
+               </ClickAwayListener>
+             </Paper>
+           </Grow>
+         )}
+       </Popper>
+           </>
+         )}
+
         </Box>
         <TableContainer
           sx={{

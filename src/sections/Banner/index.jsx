@@ -25,13 +25,26 @@ function Banner() {
             '@media (max-width: 1050px)': {
                 backgroundSize:'cover',
                 backgroundPosition:'center',
-              },
+              }
         }}
         >
 
             <Container maxWidth='xxl' sx={{display:'flex', flexDirection:'row', justifyContent:'space-between', width:'90%' , margin:'auto'}}>
 
-                <Box sx={{display:'flex', height:'60px', margin:'0px', width:'60px' , backgroundImage:`url(${logo})`, backgroundPosition:'center', backgroundSize:'cover', objectFit:'contain',}}/>
+                <Box 
+                sx={{
+                    display:'flex', 
+                    height:'60px',
+                    margin:'0px', 
+                    width:'60px' , 
+                    backgroundImage:`url(${logo})`, 
+                    backgroundPosition:'center', 
+                    backgroundSize:'cover', 
+                    objectFit:'contain',
+              '@media (max-width: 500px)': {
+                display:'none'
+              },
+                    }}/>
 
                 <Box 
                 sx={{display:'flex', flexDirection:'column', height:'100%', margin:'0px', width:'auto', }}>
