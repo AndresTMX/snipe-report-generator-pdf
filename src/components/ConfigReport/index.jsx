@@ -28,7 +28,7 @@ function ConfigReport({ children, state, dispatch, search, setSearch, searchResu
   const { storage } = initialStore ? initialStore : {};
   const { assets, accessories } = storage ? storage : {};
   const validateContent = storage
-    ? storage.user && storage.assets && storage.typeDocument
+    ? storage.user && storage.assets?.length > 0 && storage.typeDocument
     : false;
   const date = new Date(); // fecha actual
   const year = date.getFullYear();
@@ -189,15 +189,24 @@ function ConfigReport({ children, state, dispatch, search, setSearch, searchResu
             width: "100%",
             gap: "10px",
             justifyContent: "space-between",
+            '@media(max-width:1200px)':{
+              flexDirection:'column',
+              justifyContent:'center',
+            }
           }}
         >
+          {!isMovile && 
           <Button variant="contained" onClick={GenerateDocument}>
             Vista Previa
-          </Button>
+          </Button>}
+
           {validateContent && <ButtonPDF />}
+
           {!validateContent && (
-            <Button variant="contained" onClick={GenerateDocument}>
-              Descargar
+            <Button 
+            variant="disabled"
+            onClick={GenerateDocument}>
+              descargar
             </Button>
           )}
         </Box>

@@ -20,14 +20,29 @@ function ButtonPDF() {
   return (
     <PDFDownloadLink 
       document={<MyDocument state={state} />}
-      fileName={`${nameDocument}`}
-
-    >
+      fileName={`${nameDocument}`}>
+        
       {({ blob, url, loading, error }) =>
         loading ? (
-          <Button variant="contained" size="meidum">Cargando...</Button>
+          <Button 
+          variant="contained" 
+          size="meidum"
+          sx={{
+            '@media(max-width:1200px)':{
+              width:'100%'
+            }
+          }}
+          >Cargando...</Button>
         ) : (
-          <Button variant="contained" size="meidum">Descargar</Button>
+          <Button 
+          variant="contained" 
+          size="meidum"
+          sx={{
+            '@media(max-width:1200px)':{
+              width:'100%'
+            }
+          }}
+          >Descargar</Button>
         )
       }
     </PDFDownloadLink>

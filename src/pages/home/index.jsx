@@ -223,7 +223,7 @@ function PageHome() {
         searchResults={searchResults}
       >
         <Box>
-        {!complete && (
+        
             <UserContainer>
 
               {loading && (
@@ -264,7 +264,7 @@ function PageHome() {
                   />
                 ))}
             </UserContainer>
-          )}
+  
         </Box>
       </ConfigReport>
     </Container>

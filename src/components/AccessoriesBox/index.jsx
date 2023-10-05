@@ -1,5 +1,6 @@
 import "../../index.css";
 //Hooks
+import { useRef, useState } from "react";
 import { useItems } from "../../Hooks/useItems";
 //ActionTypes
 import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
@@ -15,6 +16,13 @@ import {
   ButtonGroup,
   Button,
   Paper,
+  Stack,
+  Chip,
+  Popper, 
+  Grow,
+  ClickAwayListener,
+  MenuList,
+  MenuItem,
 } from "@mui/material";
 import {
   Table,
@@ -24,6 +32,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 //Icons
 import { IoIosCloseCircle } from "react-icons/io";
 import { FaTrashAlt } from "react-icons/fa";
@@ -41,7 +50,7 @@ function AccessoriesBox({
   dispatch,
 }) {
   const { user, company, location, manager, email, department } = dataUser;
-
+  const isMovile = useMediaQuery('(max-width:930px)');
   const { actions, states } = useItems({
     idUser,
     user,
@@ -169,25 +178,70 @@ function AccessoriesBox({
 
   };
 
+  const options = [
+    { title: 'Preventivo', value: 'MP' },
+    { title: 'Correctivo', value: 'MC' },
+    { title: 'Vale de baja', value: 'VB' },
+    { title: 'CheckList', value: 'CL' },
+    { title: 'Carta Responsiva', value: 'CR' }
+  ];
+
+  const anchorRef = useRef(null);
+  const [open, setOpen] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [column, setColumn] = useState({ofcmi:true, description:true, serial:true})
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleMultiClick = () => {
+    GenerateDocument(options[selectedIndex].value)
+  }
+
+  const handleMenuItemClick = (event, index) => {
+    setSelectedIndex(index);
+    setOpen(false);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+
+
   return (
     <>
       <Container
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          backgroundColor: "white",
-        }}
+          display:'flex',
+          flexDirection:'column',
+          backgroundColor:'white',
+          '@media (max-width:900px)':{
+            padding:'5px'
+          }
+          }}
       >
+
         <Box
           sx={{
             display: "flex",
             width: "100%",
-            justifyContent: "flex-end",
-            position: "relative",
-            top: "10px",
-            left: "-5px",
+            flexDirection: "row",
+            marginBottom: "10px",
+            alignItems:'flex-start',
+            justifyContent:'space-between'
           }}
         >
+          <Stack>
+             <h2 className="h2">Accesorios</h2>
+             <span className="span">Accesorios agregados: {count}</span>
+          </Stack>
+
           <IconButton
             sx={{
               "&:hover": {
@@ -202,64 +256,135 @@ function AccessoriesBox({
           </IconButton>
         </Box>
 
-        <Box
-          sx={{
-            display: "flex",
-            width: "100%",
-            flexDirection: "column",
-            paddingLeft: "20px",
-            marginBottom: "10px",
-          }}
+        <Container
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          height: "auto",
+          width: "100%",
+          gap:'10px',
+          '@media(max-width:900px)':{
+            padding:'0px'
+          }
+        }}
         >
-          <h2 className="h2">Lista de accesorios</h2>
-          <span className="span">Accesorios agregados: {count}</span>
-        </Box>
-
-        <Container>
           <Box
-            sx={{
-              display: "flex",
-              gap: "10px",
-              "@media (max-width: 807px)": {
-                flexDirection: "column",
-              },
-            }}
+           sx={{
+            display: "flex",
+            gap: "10px",
+            '@media(max-width:930px)':{
+              flexDirection:'column',
+            }
+          }}
           >
-            <Button
-              variant="contained"
-              onClick={() => {GenerateDocument("MP")}}
-              className="button-action"
-            >
-              Preventivo
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => {GenerateDocument("MC")}}
-              className="button-action"
-            >
-              Correctivo
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => {GenerateDocument("VB")}}
-              className="button-action"
-            >
-              Baja de equipos
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => {GenerateDocument("CL")}}
-              className="button-action"
-            >
-              CheckList
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => {GenerateDocument("CR")}}
-              className="button-action"
-            >
-              Carta responsiva
-            </Button>
+          {!isMovile && (
+          <>
+           <Button
+            variant="contained"
+            onClick={() => GenerateDocument("MP")}
+            className="button-action"
+          >
+            Preventivo
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => GenerateDocument("MC")}
+            className="button-action"
+          >
+            Correctivo
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => GenerateDocument("VB")}
+            className="button-action"
+          >
+            Baja de equipos
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => GenerateDocument("CL")}
+            className="button-action"
+          >
+            CheckList
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => GenerateDocument("CR")}
+            className="button-action"
+          >
+            Carta responsiva
+          </Button>
+          </>
+         )}
+
+         {isMovile && (
+           <>
+           <ButtonGroup variant="contained">
+             <Button 
+             fullWidth
+             onClick={handleMultiClick}
+             >{options[selectedIndex].title}</Button>
+             <Button
+           size="small"
+           aria-controls={open ? 'split-button-menu' : undefined}
+           aria-expanded={open ? 'true' : undefined}
+           onClick={handleToggle}
+         >
+           <MdAdd />
+         </Button>
+ 
+           </ButtonGroup>
+ 
+           <Popper
+         sx={{
+           zIndex: 1,
+           display:'flex',
+           width:'86%',
+           height:'100vh',
+           justifyContent:'flex-end',
+           alignItems:'center',
+         }}
+         open={open}
+         anchorEl={anchorRef.current}
+         role={undefined}
+         transition
+         disablePortal
+       >
+         {({ TransitionProps, placement }) => (
+           <Grow
+             {...TransitionProps}
+             style={{
+               transformOrigin:
+                 placement === 'bottom' ? 'center top' : 'center bottom',
+             }}
+           >
+             <Paper
+             sx={{
+              height:'250px',
+              position:'relative',
+              top:'-10px',
+
+             }}
+             >
+               <ClickAwayListener onClickAway={handleClose}>
+                 <MenuList autoFocusItem>
+                   {options.map((option, index) => (
+                     <MenuItem
+                       key={index}
+                       selected={index === selectedIndex}
+                       onClick={(event) => handleMenuItemClick(event, index)}
+                     >
+                       {option.title}
+                     </MenuItem>
+                   ))}
+                 </MenuList>
+               </ClickAwayListener>
+             </Paper>
+           </Grow>
+         )}
+       </Popper>
+           </>
+         )}
           </Box>
 
           <Container
@@ -277,10 +402,38 @@ function AccessoriesBox({
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>ID</TableCell>
-                    <TableCell>ACCESORIO</TableCell>
-                    <TableCell>MARCA</TableCell>
-                    <TableCell>ACCION</TableCell>
+                    <TableCell 
+                     sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}
+                    >ID</TableCell>
+                    <TableCell 
+                     sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}
+                    >ACCESORIO</TableCell>
+                    <TableCell 
+                     sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}
+                    >MARCA</TableCell>
+                    <TableCell 
+                     sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}
+                    >ACCION</TableCell>
                   </TableRow>
                 </TableHead>
 
@@ -298,9 +451,30 @@ function AccessoriesBox({
                         }`}
                         key={accesorieIndex}
                       >
-                        <TableCell>{accessorie.id}</TableCell>
-                        <TableCell>{accessorie.name}</TableCell>
-                        <TableCell>{accessorie.manufacturer?.name}</TableCell>
+                        <TableCell 
+                         sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}
+                        >{accessorie.id}</TableCell>
+                        <TableCell 
+                         sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}
+                        >{accessorie.name}</TableCell>
+                        <TableCell 
+                         sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}
+                        >{accessorie.manufacturer?.name}</TableCell>
                         <TableCell>
                           <ButtonGroup>
                             <IconButton

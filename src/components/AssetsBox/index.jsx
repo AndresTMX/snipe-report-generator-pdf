@@ -16,7 +16,7 @@ import { ViewMaintances } from "../ViewMaintances";
 import { Notification } from "../../modals/notification";
 import { ThreeDots } from "../Loading/";
 //material UI
-import { Box, IconButton, Container, ButtonGroup, Button, Paper, Popper, Grow, ClickAwayListener, MenuList, MenuItem } from "@mui/material";
+import { Box, IconButton, Container, ButtonGroup, Button, Paper, Popper, Grow, ClickAwayListener, MenuList, MenuItem, Stack, Chip } from "@mui/material";
 import {
   Table,
   TableBody,
@@ -169,8 +169,8 @@ function AssetsBox({
   };
 
   const options = [
-    { title: 'Mantenimiento Preventivo', value: 'MP' },
-    { title: ' Mantenimiento Correctivo', value: 'MC' },
+    { title: 'Preventivo', value: 'MP' },
+    { title: 'Correctivo', value: 'MC' },
     { title: 'Vale de baja', value: 'VB' },
     { title: 'CheckList', value: 'CL' },
     { title: 'Carta Responsiva', value: 'CR' }
@@ -179,6 +179,7 @@ function AssetsBox({
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [column, setColumn] = useState({ofcmi:true, description:true, serial:true})
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -203,17 +204,32 @@ function AssetsBox({
 
  
   return (
-    <Container sx={{display:'flex', flexDirection:'column', backgroundColor:'white'}}>
+    <Container 
+    sx={{
+      display:'flex',
+      flexDirection:'column',
+      backgroundColor:'white',
+      '@media (max-width:900px)':{
+        padding:'5px'
+      }
+      }}>
+ 
+
       <Box
         sx={{
           display: "flex",
           width: "100%",
-          justifyContent: "flex-end",
-          position: "relative",
-          top: "10px",
-          left: "-5px",
+          flexDirection: "row",
+          marginBottom: "10px",
+          alignItems:'flex-start',
+          justifyContent:'space-between'
         }}
       >
+        <Stack>
+        <h2 className="h2">Activos</h2>
+        <span className="span">Activos agregados: {count}</span>
+        </Stack>
+
         <IconButton
           sx={{
             "&:hover": {
@@ -226,19 +242,7 @@ function AssetsBox({
         >
           <IoIosCloseCircle />
         </IconButton>
-      </Box>
-
-      <Box
-        sx={{
-          display: "flex",
-          width: "100%",
-          flexDirection: "column",
-          paddingLeft: "20px",
-          marginBottom: "10px",
-        }}
-      >
-        <h2 className="h2">Lista de activos</h2>
-        <span className="span">Activos agregados: {count}</span>
+        
       </Box>
 
       <Container
@@ -247,6 +251,10 @@ function AssetsBox({
           flexDirection: "column",
           height: "auto",
           width: "100%",
+          gap:'10px',
+          '@media(max-width:900px)':{
+            padding:'0px'
+          }
         }}
       >
         <Box
@@ -321,7 +329,7 @@ function AssetsBox({
          sx={{
            zIndex: 1,
            display:'flex',
-           width:'86%',
+           width:'90%',
            height:'100vh',
            justifyContent:'flex-end',
            alignItems:'center',
@@ -344,7 +352,7 @@ function AssetsBox({
              sx={{
               height:'250px',
               position:'relative',
-              top:'28px',
+              top:'-10px',
 
              }}
              >
@@ -369,6 +377,34 @@ function AssetsBox({
          )}
 
         </Box>
+
+        <Stack gap='5px' flexDirection='row'>
+          <Chip 
+          size="small"
+          color='primary' 
+          variant={column.ofcmi? 'contained': 'outlined'} 
+          label='OFCMI'
+          onClick={() => setColumn({...column, ofcmi:!column.ofcmi})}
+          />
+
+          <Chip 
+          size="small"
+          color='primary' 
+          variant={column.description? 'contained': 'outlined'} 
+          label='DESCRIPCION'
+          onClick={() => setColumn({...column, description:!column.description})}
+          />
+
+          <Chip 
+          size="small"
+          color='primary' 
+          variant={column.serial? 'contained': 'outlined'} 
+          label='NS'
+          onClick={() => setColumn({...column, serial:!column.serial})}
+          />
+
+        </Stack>
+
         <TableContainer
           sx={{
             height: "auto",
@@ -389,26 +425,92 @@ function AssetsBox({
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>OFCMI</TableCell>
-                <TableCell>DESCRIPCION</TableCell>
-                <TableCell>NS</TableCell>
-                <TableCell>ACCION</TableCell>
+
+               {column.ofcmi && 
+               <TableCell 
+                sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}
+                >OFCMI
+                </TableCell>}
+                { column.description && 
+                <TableCell 
+                sx={{
+                    '@media (max-width:500px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                      width:'150px',
+                      display:'flex'
+                    }
+                  }}
+                >DESCRIPCION</TableCell>}
+                {column.serial && <TableCell 
+                sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}
+                >NS</TableCell>}
+                <TableCell 
+                sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}
+                >ACCION</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
               {dataRender.map((asset) => (
+
+
                 <TableRow
-                  sx={{ [`&.asset_included`]: { backgroundColor: "#d9d9d9" } }}
+                  sx={{
+                     [`&.asset_included`]: { backgroundColor: "#d9d9d9" },
+                    }}
                   className={`asset_${
                     AssetsList.includes(asset.asset_tag) ? "included" : ""
                   }`}
-                  key={asset.asset_tag}
-                >
-                  <TableCell>{asset.asset_tag.slice(6, 10)}</TableCell>
-                  <TableCell>{asset.name}</TableCell>
-                  <TableCell>{asset?.serial}</TableCell>
-                  <TableCell>
+                  key={asset.asset_tag}>
+                  {column.ofcmi && 
+                  <TableCell sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}>{asset.asset_tag.slice(6, 10)}
+                  </TableCell>}
+
+                  {column.description && 
+                  <TableCell sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}>{asset.name}
+                  </TableCell>}
+
+                  {column.serial && 
+                  <TableCell sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}>{asset?.serial}
+                  </TableCell>}
+
+                  <TableCell sx={{
+                    '@media (max-width:900px)': {
+                      fontSize:'12px',
+                      padding:'4px',
+                    }
+                  }}>
                     <ButtonGroup>
                       <IconButton
                         onClick={() => ButtonAddItem(asset)}
