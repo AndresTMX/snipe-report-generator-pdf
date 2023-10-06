@@ -56,9 +56,7 @@ function ProgramMaintances({ dataUsers, image, configState, managerSystems, user
   const endPage = groupsOFSix?.length;
 
     return (
-        <Document
-        pageMode="fullScreen"
-        >
+        <Document>
 
             {groupsOFSix.map((group, pageIndex) => (
                 <Page

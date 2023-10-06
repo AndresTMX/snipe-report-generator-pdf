@@ -187,7 +187,7 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
 
                 {configState.map((item, index) => (
                     item.monthProgram != "" && (
-                        <View style={{...Style.monthCol, 
+                        <View key={index} style={{...Style.monthCol, 
                             backgroundColor:`${configState[index].monthProgram != "" ? "red": "#1976d2"}`,
                             }}>
                                 <Text style={Style.boxText}>
@@ -221,7 +221,7 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
                     borderColor:'black'
                 }}>
                     {listTags.map((tag, index) => (
-                        <Text  key={index} style={Style.boxTextMulti}>{tag.split("-")[1]}</Text>
+                        <Text key={index} style={Style.boxTextMulti}>{tag.split("-")[1]}</Text>
                     ))}
                 </View>
 
@@ -257,7 +257,7 @@ function ItemTableMaintance({user, index, page, currentMonth, extractMonth, conf
 
                 {configState.map((item, index) => (
                     item.monthProgram != "" && (
-                        <View style={{
+                        <View key={index} style={{
                             ...Style.monthCol,
                             backgroundColor: `${compareColorMonth(index)}`,
                             color: `${configState[index].monthComplete != "" ? "white" : "black"}`

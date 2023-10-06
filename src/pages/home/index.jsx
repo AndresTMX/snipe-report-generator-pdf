@@ -24,10 +24,12 @@ import { ConfigReport } from "../../components/ConfigReport";
 //notification
 import { Notification } from "../../modals/notification";
 //MUI
-import { Container, Button, Paper, Box } from "@mui/material";
+import { Container, Button, Paper, Box, IconButton } from "@mui/material";
 //ActionTypes
 import { actionTypes as actionTypesDocs} from "../../Context/DocReducer";
 import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
+//icons
+import { IoIosCloseCircle } from "react-icons/io";
 
 function PageHome() {
   //hook del contexto
@@ -222,6 +224,7 @@ function PageHome() {
         setSearch={setSearch}
         searchResults={searchResults}
       >
+        {!complete && 
         <Box>
         
             <UserContainer>
@@ -265,7 +268,95 @@ function PageHome() {
                 ))}
             </UserContainer>
   
-        </Box>
+        </Box>}
+
+        {complete && (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                paddingTop: "20px",
+                paddingBottom: "20px",
+                heigth: "100%",
+                width: "100%",
+                alignItems: "center",
+                margin: "auto",
+                backgroundColor: "#d9d9d9",
+                gap:'20px',
+                padding:'0px',
+                "&::-webkit-scrollbar": {
+                  width: "8px",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "lightgray",
+                  borderRadius: "4px",
+                },
+                "&::-webkit-scrollbar-thumb:hover": {
+                  backgroundColor: "gray",
+                },
+                '@media(max-width:1200)':{
+                  gap:'10px',
+                  paddingTop:'0px'
+                }
+              }}
+            >
+              <Container
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <IconButton
+                  variant="contained"
+                  onClick={() =>
+                    dispatch({
+                      type: actionTypesDocs.updateStorage,
+                      payload: { ...initialStore.storage, complete: false },
+                    })
+                  }
+                >
+                  <IoIosCloseCircle/>
+                </IconButton>
+              </Container>
+              <PreviewContainer>
+                <Viewer>
+                  <MyDocument state={state} />
+                </Viewer>
+              </PreviewContainer>
+            </Box>
+          )}
+
+        {StatesModals.modalNotification && (
+            <Notification>
+              <Paper
+                elevation={2}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "10px",
+                  gap: "20px",
+                }}
+              >
+                <p className="span">{StatesModals.modalNotification}</p>
+                <Button
+                  onClick={() =>
+                    dispatch({
+                      type: actionTypesModals.setModalNotification,
+                      payload: false,
+                    })
+                  }
+                >
+                  Ok
+                </Button>
+              </Paper>
+            </Notification>
+        )}
+
+
+
       </ConfigReport>
     </Container>
   );

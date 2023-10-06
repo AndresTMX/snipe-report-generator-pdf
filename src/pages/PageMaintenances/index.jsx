@@ -36,8 +36,7 @@ function PageMaintenances() {
           margin: "auto",
           flexDirection: "column",
           paddingTop: "140px",
-          width: "100%",
-          
+          width: "100%",          
         }}
       >
         <Box sx={{ borderBottom: 1, borderColor: "divider"}}>

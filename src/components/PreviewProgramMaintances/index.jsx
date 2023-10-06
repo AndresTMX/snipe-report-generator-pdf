@@ -26,10 +26,9 @@ function PreviewProgramMaintances({state, dispatch, managerSystems, userCurrent}
         <Paper
         elevation={4}
         sx={{ 
-            width: '80%',
-            height: 'auto', 
-            maxHeight:'80%',
             display: 'flex', 
+            width: '90%',
+            height: '90%', 
             flexDirection: 'column', 
             padding: '10px', 
             gap: '10px',
@@ -37,18 +36,17 @@ function PreviewProgramMaintances({state, dispatch, managerSystems, userCurrent}
 
         <Stack 
         flexDirection='row' 
-        justifyContent={isMovile ? 'flex-end' : 'space-between' }
-        
+        justifyContent='space-between'
         >
 
-        { !isMovile && <ButtonDownload 
+        <ButtonDownload 
           dataUsers={dataUsers} 
           image={image} 
           configState={configState}
           managerSystems={managerSystems}
           userCurrent={userCurrent}
-          total={totalCostMaintances}
-          />}
+          maintances={maintances}
+          />
 
           <IconButton
             color="error"
@@ -62,26 +60,29 @@ function PreviewProgramMaintances({state, dispatch, managerSystems, userCurrent}
         <Box 
         sx={{
           display:'flex',
+          width:'100%',
+          heigth:'100%',
           flexDirection:'column',
           justifyContent:'center',
           alignItems:'center',
           gap:'20px'
         }}
         >
-          <Typography>
+          {/* <Typography>
             Vista previa no disponibe
-          </Typography>
-          <ButtonDownload 
+          </Typography> */}
+          
+          {/* <ButtonDownload 
           dataUsers={dataUsers} 
           image={image} 
           configState={configState}
           managerSystems={managerSystems}
           userCurrent={userCurrent}
           total={totalCostMaintances}
-          />
+          /> */}
         </Box>
 
-        {!loading && maintances?.length > 0 && !isMovile &&
+        {!loading && maintances?.length > 0 &&
         (<Viewer>
           <ProgramMaintances 
             dataUsers={dataUsers} 
@@ -112,25 +113,25 @@ function PreviewProgramMaintances({state, dispatch, managerSystems, userCurrent}
 
 export {PreviewProgramMaintances};
 
-function ButtonDownload({dataUsers, image, configState, managerSystems, userCurrent, totalCostMaintances}) {
+function ButtonDownload({dataUsers, image, configState, managerSystems, userCurrent, maintances}) {
 
   const sucursal = dataUsers[0][0].location 
   const title= dataUsers[0][0].title
-
+  const total = calcCostTotal(maintances)
   const titleDocument = `PROGRAMA DE MANTENIMIENTOS PREVENTIVOS DE ${sucursal} ${title.split(" ")[3]} ${title.split(" ")[4]}`
-
   return(
-      <PDFDownloadLink
-      document={<ProgramMaintances 
+    <PDFDownloadLink
+      document={
+        <ProgramMaintances
           dataUsers={dataUsers}
-          image={image} 
+          image={image}
           configState={configState}
           managerSystems={managerSystems}
           userCurrent={userCurrent}
-          total={totalCostMaintances}
-          />}
-        fileName={titleDocument}
-          >
+          total={total}
+        />}
+      fileName={titleDocument}
+    >
 
           {({ blob, url, loading, error }) =>
               loading ? (

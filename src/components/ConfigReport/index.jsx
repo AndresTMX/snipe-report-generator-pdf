@@ -26,7 +26,7 @@ function ConfigReport({ children, state, dispatch, search, setSearch, searchResu
   const { initialStore, StatesModals } = state;
   const isMovile  = useMediaQuery('(max-width:1200px)');
   const { storage } = initialStore ? initialStore : {};
-  const { assets, accessories } = storage ? storage : {};
+  const { assets, accessories, typeDocument } = storage ? storage : {};
   const validateContent = storage
     ? storage.user && storage.assets?.length > 0 && storage.typeDocument
     : false;
@@ -44,31 +44,36 @@ function ConfigReport({ children, state, dispatch, search, setSearch, searchResu
   };
 
   const GenerateDocument = () => {
-    if (!storage?.typeDocument) {
-      dispatch({
-        type: actionTypesModals.setModalNotification,
-        payload: "Selecciona el tipo de documento que deseas generar",
-      });
+
+    const currentUser =  localStorage.getItem("currentUser");
+    const managerSystems = localStorage.getItem("managerSystems");
+
+    if(!currentUser || !managerSystems){
+      dispatch({ type:actionTypesModals.setModalNotification, payload:'Configura el usuario emisor'})
     }
 
-    if (storage?.assets.length == 0) {
-      dispatch({
-        type: actionTypesModals.setModalNotification,
-        payload: "Agrega activos para generar un documento",
-      });
-    }
-
-    if (storage.typeDocument && storage.assets.length > 0) {
+    if(typeDocument && storage.assets?.length > 0 && currentUser && managerSystems){
       const document = {
-        ...storage,
-        typeDocument: storage.typeDocument,
-        dateDay: storage.dateDay ? storage.dateDay : formattedDate,
-        manager: storage?.manager,
-        complete: true,
+          ...storage,
+          typeDocument: typeDocument,
+          dateDay: storage.dateDay ? storage.dateDay : formattedDate,
+          emisor: currentUser,
+          managerSystems: managerSystems,
+          complete: true
       };
-
+    
       dispatch({ type: actionTypesDoc.updateStorage, payload: document });
     }
+
+    if(!storage?.typeDocument && !typeDocument){
+      dispatch({ type:actionTypesModals.setModalNotification, payload:'Selecciona el tipo de documento que deseas generar'})
+    }
+    
+    if(!storage.assets){
+      dispatch({ type:actionTypesModals.setModalNotification, payload:'Agrega activos para generar un documento'})
+    }
+
+    
   };
 
   const SwitchModal = () => {
@@ -85,7 +90,8 @@ function ConfigReport({ children, state, dispatch, search, setSearch, searchResu
         flexDirection: "column",
         width: "25%",
         background: "#D9D9D9",
-        height: "100vh",
+        height: "100%",
+        minHeight:'100vh',
         position: "fixed",
         right: "0px",
         overflowY: "auto",
@@ -111,7 +117,7 @@ function ConfigReport({ children, state, dispatch, search, setSearch, searchResu
           flexDirection: "column",
           width: "100%",
           paddingTop: "140px",
-          gap: "15px",
+          gap: "10px",
         }}
       >
         <InputSearch
@@ -200,11 +206,10 @@ function ConfigReport({ children, state, dispatch, search, setSearch, searchResu
             Vista Previa
           </Button>}
 
-          {validateContent && <ButtonPDF />}
+          {validateContent && <ButtonPDF/>}
 
           {!validateContent && (
             <Button 
-            variant="disabled"
             onClick={GenerateDocument}>
               descargar
             </Button>

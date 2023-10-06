@@ -1,6 +1,8 @@
 import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
 import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
-import { Box, Container, Paper, Button } from "@mui/material";
+import { Box, Container, Paper, Button, IconButton } from "@mui/material";
+import { IoIosCloseCircle } from "react-icons/io";
+
 
 function DocStoreCardComent({state, dispatch}) {
 
@@ -55,20 +57,39 @@ function DocStoreCardComent({state, dispatch}) {
           sx={{
             display: "flex",
             flexDirection: "column",
-            gap: "10px",
             margin: "auto",
             backgroundColor: "white",
-            width: "auto",
-            padding: "20px",
+            width: "90%",
+            maxWidth:'500px',
+            padding: "15px",
           }}
         >
-          <Container sx={{display:'flex', flexDirection: 'column', width:'100%', justifyContent:'center', gap:'30px'}}>
-            <Box sx={{display:'flex',  width:'100%', justifyContent:'end' }}>
-              <Button variant="contained" onClick={() => CloseBoxComent()}>x</Button>
+          <Container sx={{display:'flex', flexDirection: 'column', width:'100%', justifyContent:'center', gap:'20px'}}>
+            <Box sx={{
+              display:'flex', 
+              justifyContent:'space-between', 
+              }}>
+                
+              <span>Agregue comentarios para complementar su documento</span>
+
+              <IconButton 
+              sx={{
+                position:'relative',
+                left:'20px',
+                bottom:'10px',
+                '&& :hover':{
+                  color:'red',
+                  animate:'transition 300ms',
+                  transition:'ease'
+                }
+              }}
+              variant="contained" 
+              onClick={() => CloseBoxComent()}>
+                <IoIosCloseCircle/>
+              </IconButton>
             </Box>
 
-            <Box  sx={{display:'flex', flexDirection: 'column', width:'100%', justifyContent:'center', gap:'4px'}}> 
-            <span>Agregue comentarios para complementar su documento</span>
+            <Box  sx={{display:'flex', flexDirection: 'column', width:'100%', justifyContent:'center'}}> 
             <textarea
               style={{ display:'flex', margin:'0px', height:'120px', padding:'15px', fontSize:'1.2rem'}}
               onChange={(event) => OnChangueText(event)}
