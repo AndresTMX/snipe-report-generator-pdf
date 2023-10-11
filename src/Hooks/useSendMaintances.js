@@ -3,7 +3,7 @@ import { SendMaintance } from "../API";
 import { useSendNotification } from "./useSendNotification";
 
 function useSendMaintances() {
-    const {notifications, formatNotifications, setNotifications, closeNotification} = useSendNotification()  
+    const {notifications, formatNotifications, setNotifications, closeNotification} = useSendNotification()
     const [loadingMaintances, setLoading] = useState(null)
     const [errorMaintance, setError] = useState(null)
 

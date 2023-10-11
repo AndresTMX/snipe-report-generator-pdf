@@ -1,52 +1,52 @@
-import { actionTypes as actionTypesDocs } from "../../Context/DocReducer";
 import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
+import { actionTypes as actionTypesDocs } from "../../Context/DocReducer";
+//hooks
+import { useState } from "react";
+import { useGetDataUserFirestore } from "../../Firebase/useGetDataUserFirestore";
 import { useGetUsersSystems } from "../../Hooks/useGetUsersSystems";
+//components
 import { Modal } from "../../modals/modal";
-import { Box, Button, Paper, FormControl, InputLabel, Select, MenuItem, CircularProgress   } from "@mui/material";
+//icons
+import { IoIosCloseCircle } from "react-icons/io";
+import {MdModeEditOutline} from 'react-icons/md';
+// materialUI
+import { Box, Button, Paper, FormControl, InputLabel, Select, MenuItem, CircularProgress, TextField, Stack , IconButton, Skeleton  } from "@mui/material";
 
 function UserConfig({ state, dispatch }) {
+
   const { initialStore, StatesModals } = state;
-  const { storage } = initialStore ? initialStore : {};
+
+  const [username, setUsername] = useState({ edit:false, value:'' })
+  const [key, setKey] = useState({ edit:false, value:'' })
+
+  const { dataUser, editDataUser } = useGetDataUserFirestore();
   const { dataDepartment, dataUserSystems, loading } = useGetUsersSystems();
-  const managerSystems = dataDepartment? dataDepartment.manager.name: 'Error al cargar información de usuario';
-  const dataUsers = dataUserSystems? dataUserSystems.map((user) => ({
-        name: user.name,
-        id: user.id
-      }))
-    : [];
-
-  const onSelect = (event) => {
-
-    let newState = {
-      ...storage,
-      emisor: event.target.value,
-    };
-    const currentUser = event.target.value;
-    localStorage.setItem("currentUser", currentUser);
-    dispatch({ type: actionTypesDocs.updateStorage, payload: newState });
-  };
+  const managerSystems = dataDepartment? dataDepartment.manager.name: 'Error al cargar';
 
   const closeModal = () => {
     dispatch({type: actionTypesModals.setModalConfig, payload: false})
   }
 
+  const updateName = () => {
+    setUsername({
+      ...username,
+      edit: !username.edit
+    })
+  }
+
+  const updateKey = () => {
+    setKey({
+      ...key,
+      edit: !key.edit
+    })
+  }
+
+  const updateUser = () => {
+    editDataUser({ username, key})
+  }
+
   return (
     <>
-      {loading && (
-        <Modal
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width:'90%',
-          maxWidth:'500px'
-        }}
-        >
-            <CircularProgress/>
-        </Modal>
-      )}
-
-      {!loading && (
         <Modal>
           <Paper
             sx={{
@@ -55,39 +55,106 @@ function UserConfig({ state, dispatch }) {
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: "white",
-              padding:'20px'
+              padding:'20px',
+              gap:'20px'
             }}
           >
-              <Button 
+
+            <Stack 
+            width='100%'
+            flexDirection='row' 
+            justifyContent='space-between'
+            gap='30px'
+            >
+
+              <strong>Configuraciones de usuario</strong>
+             
+               <IconButton 
               variant="contained"
               onClick={closeModal}
               size="small"
-              sx={{position:'relative', right:'-40%' }}>x</Button>
-            <Box>
+              >
+                <IoIosCloseCircle/>
+              </IconButton>
+            </Stack>
+             
 
-              <h3>Configuraciones de usuario</h3>
-              <h4>Lider de sistemas</h4>
-              <p>{managerSystems}</p>
-              
-              <FormControl fullWidth>
+            <Box 
+            sx={{
+              display:'flex',
+              flexDirection:'column',
+              gap:'10px'
+            }}
+            >
+              <Box
+              sx={{
+                display:'flex',
+                flexDirection:'column',
+                gap:'10px'
+              }}
+              >
+              <strong>Lider de sistemas</strong>
+              {!loading && <span>{managerSystems}</span>}
+              {loading && <Skeleton variant="rounded" width={200} height={20}/>}
+              </Box>
+             
+             <strong>Información de usuario</strong>
 
-                <InputLabel> Usuario emisor </InputLabel>
-
-                <Select label="Usuario emisor" onChange={onSelect}>
-                {!loading && (dataUsers.map((user) => (
-                  <MenuItem key={user.id} value={user.name}>
-                    {user.name}
-                  </MenuItem>
-                )))}
-              </Select>
-
+              <FormControl
+               sx={{
+                display:'flex',
+                flexDirection:'row',
+                gap:'10px'
+              }}
+              >
+                <TextField
+                onChange={(e) => setUsername({...username, value: e.target.value})}
+                value={!username.edit? dataUser.name: username.value}
+                error={username.edit? true : false}
+                />
+                <Button 
+                onClick={updateName}
+                size="small"
+                variant='contained'
+                color={username.edit? 'error' : 'primary'}
+                >
+                  {username.edit? 'cancel': 'edit'}
+                </Button>
               </FormControl>
+
+              <FormControl
+               sx={{
+                display:'flex',
+                flexDirection:'row',
+                gap:'10px'
+              }}
+              >
+                <TextField 
+                onChange={(e) => setKey({...key, value: e.target.value})}
+                value={!key.edit? dataUser.apiKey: key.value}
+                error={key.edit? true : false}
+                />
+                <Button 
+                onClick={updateKey}
+                size="small"
+                variant='contained'
+                color={key.edit? 'error': 'primary'}
+                >
+                  {key.edit? 'cancel' : 'edit'}
+                </Button>
+              </FormControl>
+
+              <Button 
+              variant='contained'
+              onClick={updateUser}
+              >
+                Guardar cambios
+              </Button>
               
             </Box>
 
           </Paper>
         </Modal>
-      )}
     </>
   );
 }

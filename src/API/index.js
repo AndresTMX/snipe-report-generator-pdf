@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const baseURL = import.meta.env.VITE_BASE_URL_LOCAL;
-const baseURL = import.meta.env.VITE_BASE_URL;
+const baseURL = import.meta.env.VITE_BASE_URL_LOCAL;
+// const baseURL = import.meta.env.VITE_BASE_URL;
 const Authorization = import.meta.env.VITE_API_KEY;
 const departmentSystemId = import.meta.env.VITE_DEPARTMENT_SYSTEMS;
 
@@ -160,7 +160,7 @@ export const getSearch = async (search, limit) => {
     }
 }
 
-export const SendMaintance = async (data) => {
+export const SendMaintance = async (data, key) => {
 
     try {
         const response = await axios.post(`${baseURL}maintenances`, data, {
