@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import {getUsersSystemsDepartment, getManagerSystem} from '../API/'
+import { getManagerSystem} from '../API'
 
-function useGetUsersSystems() {
+function useGetManagerSystems() {
 
-    const [dataUserSystems, setDataUserSystems] = useState();
     const [dataDepartment, setDataDepartment] = useState();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -12,8 +11,6 @@ function useGetUsersSystems() {
         //obteniendo info de los usuarios del departamento de sistemas
         const fetchData = async () => {
             try {
-                const usersSystems = await getUsersSystemsDepartment();
-                setDataUserSystems(usersSystems);
                 const data = await getManagerSystem();
                 setDataDepartment(data);
                 localStorage.setItem("managerSystems", data.manager.name);
@@ -27,8 +24,8 @@ function useGetUsersSystems() {
 
     }, [loading]);
 
-    return{dataDepartment, dataUserSystems, loading}
+    return{dataDepartment, loading}
    
 }
 
-export {useGetUsersSystems};
+export {useGetManagerSystems};

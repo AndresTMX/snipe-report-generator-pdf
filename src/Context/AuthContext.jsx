@@ -1,14 +1,16 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import {
   getAuth,
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { Container, CircularProgress } from "@mui/material";
+import { Container, CircularProgress, Box } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAppFirebase } from "../Firebase/useAppFirebase";
 import { useSessionStorage } from "../Hooks/useSessionStorage";
+import { useGetDataUserFirestore } from "../Firebase/useGetDataUserFirestore";
+import { useGetManagerSystems } from "../Hooks/useGetManagerSystems";
 import { ThreeDots } from "../components/Loading";
 
 const AuthContext = createContext();
@@ -72,6 +74,23 @@ function useAuth() {
 function AuthProtect(props) {
   const auth = useAuth();
   const { session, isLoading } = useSessionStorage();
+  const { dataUser, loadingUser } = useGetDataUserFirestore();
+  const { dataDepartment , loading} = useGetManagerSystems();
+
+  useEffect(() => {
+     const currentUser =  localStorage.getItem("currentUser");
+     const managerSystems = localStorage.getItem("managerSystems")
+
+     if(!currentUser || currentUser !=  dataUser.name && !loadingUser){
+      localStorage.setItem("currentUser", dataUser.name)
+     }
+
+     if(!managerSystems && !loading ){
+      localStorage.setItem("managerSystems", dataDepartment.manager.name)
+     }
+
+  }, [loadingUser])
+
 
   if (isLoading) {
     return (
@@ -81,15 +100,23 @@ function AuthProtect(props) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          width: "100vh",
+          width: "100vw",
           height: "100vh",
         }}
       >
-        <CircularProgress 
+       <Box
+       sx={{
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center'
+       }}
+       >
+       <CircularProgress 
         sx={{
           animationDuration: '1000ms',
         }}
         />
+       </Box>
       </Container>
     );
   }

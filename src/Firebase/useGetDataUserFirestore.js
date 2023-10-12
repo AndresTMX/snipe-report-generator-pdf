@@ -9,7 +9,7 @@ function useGetDataUserFirestore() {
 
     //se conecta a la base de datos de firestore
     const {db} = useAppFirebase();
-    const [loading, setLoading] = useState(null)
+    const [loadingUser, setLoadingUser] = useState(null)
     const [error, setError] = useState(null)
     const [dataUser, setDataUser] = useState({
         id:'',
@@ -28,7 +28,7 @@ function useGetDataUserFirestore() {
                 try {
                 const data = await getDataUser(userRef)
                 setDataUser({...dataUser, name: data.name, apiKey:data.key, id:uid, email: email})
-                setLoading(false)
+                setLoadingUser(false)
                 } catch (error) {
                 setError(error)
                 }
@@ -73,7 +73,7 @@ function useGetDataUserFirestore() {
     }
 
 
-    return {editDataUser, dataUser}
+    return {editDataUser, dataUser, loadingUser}
 
 }
 

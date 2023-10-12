@@ -3,7 +3,7 @@ import { actionTypes as actionTypesDocs } from "../../Context/DocReducer";
 //hooks
 import { useState } from "react";
 import { useGetDataUserFirestore } from "../../Firebase/useGetDataUserFirestore";
-import { useGetUsersSystems } from "../../Hooks/useGetUsersSystems";
+import { useGetManagerSystems } from "../../Hooks/useGetManagerSystems";
 //components
 import { Modal } from "../../modals/modal";
 //icons
@@ -20,7 +20,7 @@ function UserConfig({ state, dispatch }) {
   const [key, setKey] = useState({ edit:false, value:'' })
 
   const { dataUser, editDataUser } = useGetDataUserFirestore();
-  const { dataDepartment, dataUserSystems, loading } = useGetUsersSystems();
+  const { dataDepartment, loading } = useGetManagerSystems();
   const managerSystems = dataDepartment? dataDepartment.manager.name: 'Error al cargar';
 
   const closeModal = () => {

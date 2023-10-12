@@ -165,7 +165,7 @@ export const SendMaintance = async (data, key) => {
     try {
         const response = await axios.post(`${baseURL}maintenances`, data, {
             headers: {
-                Authorization: Authorization,
+                Authorization: `Bearer ${key}`,
                 accept: 'application/json',
                 'Content-Type': 'application/json',
             }

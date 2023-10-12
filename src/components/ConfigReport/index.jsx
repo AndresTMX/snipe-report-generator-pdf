@@ -107,7 +107,7 @@ function ConfigReport({ children, state, dispatch, search, setSearch, searchResu
           backgroundColor: "gray",
         },
         '@media(max-width:1200px)':{
-          width:'100%'
+          width:'100%',
         }
       }}
     >
@@ -198,6 +198,7 @@ function ConfigReport({ children, state, dispatch, search, setSearch, searchResu
             '@media(max-width:1200px)':{
               flexDirection:'column',
               justifyContent:'center',
+              paddingBottom:'35px',
             }
           }}
         >
