@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
@@ -15,31 +17,41 @@
     "@firebase/analytics": "^0.10.0",
     "@fontsource/roboto": "^5.0.5",
     "@mui/lab": "^5.0.0-alpha.135",
-    "@mui/material": "^5.14.3",
-    "@mui/styled-engine-sc": "^5.12.0",
-    "@mui/x-data-grid": "^6.10.2",
+    "@mui/material": "^5.14.15",
+    "@mui/styled-engine-sc": "^5.14.12",
+    "@mui/x-data-grid": "^6.16.3",
     "@mui/x-date-pickers": "^6.10.2",
     "@react-pdf/renderer": "^3.1.12",
-    "axios": "^1.4.0",
-    "dayjs": "^1.11.9",
-    "firebase": "^10.1.0",
+    "axios": "^1.5.1",
+    "dayjs": "^1.11.10",
+    "firebase": "^10.5.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
-    "pdfjs-dist": "^3.9.179",
+    "pdfjs-dist": "^3.11.174",
     "react": "^18.2.0",
     "react-content-loader": "^6.2.1",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.10.1",
-    "react-pdf": "^7.3.3",
-    "react-router-dom": "^6.14.2",
+    "react-icons": "^4.11.0",
+    "react-pdf": "^7.5.1",
+    "react-router-dom": "^6.17.0",
     "semver-regex": "^4.0.5",
     "sort-by": "^1.2.0",
-    "styled-components": "^6.0.5"
+    "styled-components": "^5.3.1"
   },
   "devDependencies": {
-    "@types/react": "^18.2.18",
-    "@types/react-dom": "^18.2.7",
-    "@vitejs/plugin-react": "^4.0.4",
-    "vite": "^4.4.8"
+    "@storybook/addon-essentials": "^7.5.1",
+    "@storybook/addon-interactions": "^7.5.1",
+    "@storybook/addon-links": "^7.5.1",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.5.1",
+    "@storybook/react": "^7.5.1",
+    "@storybook/react-vite": "^7.5.1",
+    "@storybook/testing-library": "^0.2.2",
+    "@types/react": "^18.2.31",
+    "@types/react-dom": "^18.2.14",
+    "@vitejs/plugin-react": "^4.1.0",
+    "prop-types": "^15.8.1",
+    "storybook": "^7.5.1",
+    "vite": "^4.5.0"
   }
 }
