@@ -1,30 +1,44 @@
+/*/
+Este hook ejecuta la funcion getAccesoriesUser, 
+para esto primero la importa, junto con useState
+/*/
+import { useState } from "react";
 import { getAccesoriesUser } from "../API/index";
-import { useState, useEffect } from "react";
 
+/*/
+El hook llamado usegetAccesoriesUser recibe un idUser, 
+y devuelve => dataAccesories, loadingAccessorie, error, fetchAccesoriesUSer
+/*/
 function usegetAccesoriesUser(idUser) {
-  const [Aget, getAccesories] = useState(false);
+  
+  //Se usa useState para inicializar variables que despues 
+  //se actualizaran segun el comportamiento de la funcion 
   const [dataAccesories, setDataAccesories] = useState(null);
   const [loadingAccessorie, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    if (Aget) {
-      //obteninedo accesorios del usuario
+     /*/Esta funcion realiza la peticion a la api utilizando un
+     tryCatch para manejar los errores, en caso de haber. 
+
+     Si todo va bien se ejecuta lo que esta dentro del try{}
+     en caso contrario se ejcuta el catch.
+     /*/
       const fetchAccesoriesUSer = async () => {
+        setLoading(false)
         try {
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          //result alamacenara el resultado de la consulta hecha a travez de la funcion getAccesories
           const result = await getAccesoriesUser(idUser);
+          console.log("🚀 ~ file: useAccesoriesUser.js:30 ~ fetchAccesoriesUSer ~ result:", result)
+          //una vez obtenido el resultado actualizamos el estado dataAccesories con lo que almacenamos en result
           setDataAccesories(result);
+          //actualizamos el estado de carga a true
           setLoading(true);
         } catch (error) {
           setError(error)
           setLoading(true);
         }
       };
-      fetchAccesoriesUSer();
-    }
-  }, [Aget, idUser]);
 
-  return { dataAccesories, loadingAccessorie, Aget, getAccesories };
+  return { dataAccesories, loadingAccessorie, error, fetchAccesoriesUSer };
 }
 export { usegetAccesoriesUser };

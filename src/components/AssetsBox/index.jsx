@@ -16,7 +16,6 @@ import { ViewMaintances } from "../ViewMaintances";
 import { Notification } from "../../modals/notification";
 import { ThreeDots } from "../Loading/";
 //material UI
-import { Box, IconButton, Container, ButtonGroup, Button, Paper, Popper, Grow, ClickAwayListener, MenuList, MenuItem, Stack, Chip } from "@mui/material";
 import {
   Table,
   TableBody,
@@ -24,6 +23,19 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Box, 
+  IconButton, 
+  Container, 
+  ButtonGroup, 
+  Button, 
+  Paper, 
+  Popper, 
+  Grow, 
+  ClickAwayListener, 
+  MenuList, 
+  MenuItem, 
+  Stack, 
+  Chip
 } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -73,11 +85,6 @@ function AssetsBox({
   const month = (date.getMonth() + 1).toString().padStart(2, "0"); // agregar ceros a la izquierda si el mes es menor a 10
   const day = date.getDate().toString().padStart(2, "0"); // agregar ceros a la izquierda si el día es menor a 10
   const formattedDate = `${year}-${month}-${day}`; // formato YYYY-MM-DD
-
-  const ButtonGetMaintance = (id) => {
-    setidAsset(id);
-    setModal3(!modal3);
-  };
 
   const ButtonAddItem = (item) => {
     const tag = item.asset_tag;

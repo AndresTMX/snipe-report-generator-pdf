@@ -17,14 +17,11 @@ import {
   Button,
   Paper,
   Stack,
-  Chip,
   Popper, 
   Grow,
   ClickAwayListener,
   MenuList,
   MenuItem,
-} from "@mui/material";
-import {
   Table,
   TableBody,
   TableCell,
@@ -207,8 +204,6 @@ function AccessoriesBox({
 
     setOpen(false);
   };
-
-
 
   return (
     <>

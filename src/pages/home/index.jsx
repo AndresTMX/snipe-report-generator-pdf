@@ -147,7 +147,6 @@ function PageHome() {
                     user={user.name}
                     department={user.department?.name}
                     manager={user.manager?.name}
-                    avatar={user?.avatar}
                     location={user.location?.name}
                     company={user.company?.name}
                     accesories={user?.accessories_count}

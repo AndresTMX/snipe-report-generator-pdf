@@ -1,15 +1,13 @@
 import { getAssetsUser } from "../API/index";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function useGetAssetsUser(idUser) {
-  const [get, SetGet] = useState(false);
+
   const [dataAssets, setDataAssets] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    if (get) {
-      //obteninedo activos del usuario
+    //obteninedo activos del usuario
       const fetchAssetsUser = async () => {
         try {
           const result = await getAssetsUser(idUser);
@@ -20,10 +18,7 @@ function useGetAssetsUser(idUser) {
           setLoading(true);
         }
       };
-      fetchAssetsUser();
-    }
-  }, [get, idUser]);
 
-  return { dataAssets, idUser, loading, get, SetGet , error, setError, setLoading};
+  return { dataAssets, loading, error, fetchAssetsUser};
 }
 export { useGetAssetsUser };

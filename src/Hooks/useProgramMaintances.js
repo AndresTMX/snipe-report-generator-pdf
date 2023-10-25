@@ -23,17 +23,6 @@ function useProgramMaintances(location) {
         },1000)
     }, [])
 
-    const lastMaitanceIndex = () => {
-        const maped = configState.map((config, index) => ({
-            index,
-            monthProgram:config.monthProgram,
-            status:config.status,
-            monthComplete:config.monthComplete
-        }))
-        const maintancesCompleted = maped.filter(item.monthComplete === '')
-
-        return maintancesCompleted[0].index;
-    }
 
     const saveConfig = () => {
             const newConfig = [...configState]
