@@ -13,9 +13,7 @@ function useComind( company ) {
       : "null";
     //eliminamos caracteres innecesarios
     const caracteresDelete = /[.,!"']/g;
-    const stringName = nameWhitJumpLine
-      ? `${nameLineOne} \n ${nameLineTwo}`
-      : "null";
+    const stringName = nameWhitJumpLine? `${nameLineOne} \n ${nameLineTwo}`: "null";
     //obtenemos el nombre de la empresa con un salto de linea en un string
     newName = stringName ? stringName.replace(caracteresDelete, "") : "null";
   } else {

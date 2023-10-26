@@ -62,9 +62,7 @@ function AccessoriesBox({
   const count = countAccessories.toString();
   const { initialStore, StatesModals } = state;
   const { storage } = initialStore;
-  const dataRender = dataAccessories || [];
-  const newDataRender = dataRender
-    ? dataRender.map((accessorie, accesorieIndex) => {
+  const newDataRender = dataAccessories ? dataAccessories.map((accessorie, accesorieIndex) => {
         return { ...accessorie, accesorieIndex };
       })
     : [];

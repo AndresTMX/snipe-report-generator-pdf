@@ -1,13 +1,18 @@
+//importacion del hook de contexto
 import { useContext } from "react";
+//importacion del hook de useLocalStorage
 import { useLocalStorage } from "./useLocalStorage";
+//importacion del contexto del documento
 import { DocContext } from '../Context/DocContext';
-import { initialStore, reducer, actionTypes } from '../Context/DocReducer';
+//importacion de las actiones del documento
+import { actionTypes } from '../Context/DocReducer';
+//importacion de las acciones del modal de la pagina del documento
 import { actionTypes as actionTypesModals } from "../Context/StatesModalsReducer";
 
 function useItems({ idUser, user, company, location, manager, email, department, avatar }) {
 
   const [state, dispatch] = useContext(DocContext);
-
+//estado inicial del alamcenamiento de un usuario
   const Storage = {
     idUser,
     user,
@@ -30,16 +35,32 @@ function useItems({ idUser, user, company, location, manager, email, department,
     becario: false,
     complete: false,
   };
-
+//el hook de localstorage recibe el id del usuario y el estado inicial y devuelve estados y funcion actualizadora
   const { storageState, loadingState, errorState, saveItem } = useLocalStorage( idUser, Storage );
 
+  //Funciones para agregar y eliminar activos
+
   const addItem = ( item ) => {
+    //recupero activos almacenados en almacenamiento local
     const stateAssets = storageState.assets;
+    //recupero accesorios almacenados en almacenamiento local
     const stateAccessories = storageState.accessories;
+    //compruebo si hay elementos almacenados
     const validator = stateAssets ? stateAssets.length : false;
 
     let newStorage;
     let newCount;
+
+    /*/
+    Si no hay elementos almacenados actualizamos assets con un array con el item dentro
+
+    La funcion actualiza multiples campos cuando se agrega un activo, 
+    con el proposito de lograr una actualizacion uniforme en todos los
+    lugares de la aplicacion
+
+    Si hay multiples elementos, actualizamos assets con un array que ésta contiene
+    los elementos ya almacenados previamente y el elemento agregado 
+    /*/
 
     if (!validator) {
       newStorage = {
@@ -96,7 +117,7 @@ function useItems({ idUser, user, company, location, manager, email, department,
     }
   };
 
-  //accessories
+  //Funciones para agregar y eliminar accesorios
 
   const addAccessories = (item) => {
     const stateAccessories = storageState ? storageState.accessories : [];
@@ -155,13 +176,14 @@ function useItems({ idUser, user, company, location, manager, email, department,
     dispatch({ type: actionTypes.updateStorage, payload: newStorage });
     saveItem(newStorage);
   };
-
+  
+  //conteo de activos que tiene agregados el usuario
   const countAssets = storageState.assets ? storageState.assets.length : 0;
-
+  //conteo de los accesorios que tiene agregado el usuario
   const countAccessories = storageState.accessories ? storageState.accessories.length : 0;
-
+  //estados que devuelve el hook hechos objeto para destructurarlos despues
   const states = { storageState, loadingState, errorState, countAssets, countAccessories }
-
+  //funciones que devuelve el hoook hechos objeto para destructurarla despues
   const actions = { addItem, deleteItem, addAccessories, deleteAccessories };
 
   return { actions, states };

@@ -24,11 +24,9 @@ function usegetAccesoriesUser(idUser) {
      en caso contrario se ejcuta el catch.
      /*/
       const fetchAccesoriesUSer = async () => {
-        setLoading(false)
         try {
           //result alamacenara el resultado de la consulta hecha a travez de la funcion getAccesories
           const result = await getAccesoriesUser(idUser);
-          console.log("🚀 ~ file: useAccesoriesUser.js:30 ~ fetchAccesoriesUSer ~ result:", result)
           //una vez obtenido el resultado actualizamos el estado dataAccesories con lo que almacenamos en result
           setDataAccesories(result);
           //actualizamos el estado de carga a true

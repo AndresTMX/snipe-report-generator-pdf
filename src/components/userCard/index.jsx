@@ -60,12 +60,11 @@ function UserCard({
    /*/
   useGetAssetsUser es el hook encargado de traer los activos del usuario
   /*/
-  const { dataAssets, idUser, loading, fetchAssetsUser } = useGetAssetsUser(id);
+  const { dataAssets, loading, fetchAssetsUser } = useGetAssetsUser(id);
   /*/
   usegetAccesoriesUser es el hook encargado de traer los accesorios del usuario
   /*/
   const { dataAccesories, loadingAccessorie, fetchAccesoriesUSer } = usegetAccesoriesUser(id);
-   console.log("🚀 ~ file: index.jsx:68 ~ dataAccesories:", dataAccesories)
    /*/
   useModal es un hook que concentra varios estados para determinar que modal esta abierto o cerrado
   modal => modal de Activos
@@ -94,14 +93,14 @@ function UserCard({
   //funcion que responde al boton de activos
   const ButtongetActives = () => {
 
-    const data = JSON.parse(localStorage.getItem(idUser));
+    const data = JSON.parse(localStorage.getItem(id));
     fetchAssetsUser();
     setModal(!modal);
     setDataUser({ user: nameUser, company: nameCompany, location: nameLocation, manager: nameManager, email, department: nameDepartment });
-
     if (data) {
       dispatch({ type: actionTypesDoc.updateStorage, payload: { ...data, user: nameUser, company: nameCompany, location: nameLocation, manager: nameManager, email, department: nameDepartment } })
     }
+
 
   };
   //funcion que responde al boton de accesorios
@@ -330,7 +329,7 @@ function UserCard({
               numAccessories={accesories}
               setModal={setModal2}
               dataAccessories={dataAccesories}
-              idUser={idUser}
+              idUser={id}
               dataUser={dataUser}
               state={state}
               loadingAccessorie={loadingAccessorie}

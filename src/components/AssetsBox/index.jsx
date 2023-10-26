@@ -3,7 +3,6 @@ import "../../index.css";
 import { useState, useRef } from "react";
 import { UseModal } from "../../Hooks/useModal";
 import { useItems } from "../../Hooks/useItems";
-import { useMaintancesAssets } from "../../Hooks/useMaintancesAsset";
 //Icons
 import { IoIosCloseCircle } from "react-icons/io";
 import { FaTrashAlt } from "react-icons/fa";
@@ -12,7 +11,6 @@ import { MdAdd } from "react-icons/md";
 import { actionTypes as actionTypesModals } from "../../Context/StatesModalsReducer";
 import { actionTypes as actionTypesDoc } from "../../Context/DocReducer";
 //componentes
-import { ViewMaintances } from "../ViewMaintances";
 import { Notification } from "../../modals/notification";
 import { ThreeDots } from "../Loading/";
 //material UI
@@ -50,35 +48,25 @@ function AssetsBox({
   loadingAssets,
   dispatch,
 }) {
+  //destructuracion de datos en el objeto dataUSer
   const { user, company, location, manager, email, department } = dataUser;
-
-  const { actions, states } = useItems({
-    idUser,
-    user,
-    company,
-    location,
-    manager,
-    email,
-    department,
-  });
-
+  //useItem es el hook que te permite gestionar los items, agregar, eliminar, etc
+  const { actions, states } = useItems({idUser,user,company,location,manager,email,department});
+  //destructuracion de las funciones que vienen dentro del objeto actions de useItems
   const { addItem, deleteItem } = actions;
-
+  //Hook de materialui que te permite ver cuando el tamaño de la pantalla esta por debajo de 930px
   const isMovile = useMediaQuery('(max-width:930px)');
-
+  //destructuracion de states para extraer countAssets (numero de activos que el usuario tiene seleccionados)
   const { countAssets } = states;
-  const count = countAssets.toString()
-  const { modal3, setModal3 } = UseModal();
+  //destructuracion de state para extraer el estado inicial del usuario y los estados de los modales de notificaciones
   const { initialStore, StatesModals } = state;
+  //destructuracion de initialStore para extraer storage, storage contiene los activos y accesorios seleccionados
   const { storage } = initialStore;
-
+  //Se compara si dataAssets es true (lo que significa que tiene objetos dentro), si no tiene se pone un array vacio en su lugar para no romper el codigo
   const dataRender = dataAssets || [];
   const AssetsList = storage?.assets
     ? storage?.assets.map((asset) => asset.asset_tag)
     : [];
-
-  const { Maintances, dataMaintances, loading, idAsset, setidAsset } =
-    useMaintancesAssets();
 
   const date = new Date(); // fecha actual
   const year = date.getFullYear();
@@ -86,37 +74,54 @@ function AssetsBox({
   const day = date.getDate().toString().padStart(2, "0"); // agregar ceros a la izquierda si el día es menor a 10
   const formattedDate = `${year}-${month}-${day}`; // formato YYYY-MM-DD
 
+  /*/
+  Funcion para agregar el item 
+  /*/
   const ButtonAddItem = (item) => {
+    //extrae el tag (ofcmi) del activo 
     const tag = item.asset_tag;
+    /*/verifica si hay informacion almacenada en localStorage 
+       perteneciente al usuario, de ser asi es alamacenada en 
+       la variable, de no ser asi se asigna false
+    /*/
+    const stateVerification = localStorage.getItem(idUser)? JSON.parse(localStorage.getItem(idUser)): false;
+    /*/
+    Verifica si la variable anterior contiene informacion, de ser asi
+    realiza una busqueda de coincidencias entre el ofcmi del item agregado 
+    y los ofcmi de los items encontrados en el almacenamiento localm en caso
+    de no encontrar coincidencias retorna false
+    /*/
+    const repeat = stateVerification? stateVerification.assets.find((asset) => asset.asset_tag === tag):false;
 
-    const stateVerification = JSON.parse(localStorage.getItem(idUser));
-
-    const preState = stateVerification ? stateVerification : false;
-
-    const repeat = preState.assets
-      ? preState.assets.find((asset) => asset.asset_tag === tag)
-      : false;
-
+    /*/
+    comprueba si repeat es true, de ser asi significaria que el elemento
+    que intentas agregar esta repetido y no puede ser agregado nuevamente.
+    /*/
     if (repeat) {
+      /*/
+     lanza una notificacion del suceso
+    /*/
       dispatch({
         type: actionTypesModals.setModalNotification,
         payload: "Ya haz agregado este accesorio",
       });
     } else {
+      /*/
+     ejecuta la funcion que agrega el item a la lista
+    /*/
       addItem(item);
     }
   };
-
+   /*/
+  Funcion para eliminar el item 
+  /*/
   const ButtonDeleteItem = (tag, idUser) => {
-    const local = JSON.parse(localStorage.getItem(idUser));
 
-    const { assets } = local;
+    const stateVerification = localStorage.getItem(idUser)? JSON.parse(localStorage.getItem(idUser)): false;
 
-    const repeat = assets
-      ? assets.findIndex((asset) => asset.asset_tag === tag)
-      : false;
+    const repeat = stateVerification ? stateVerification.assets.find((asset) => asset.asset_tag === tag): false;
 
-    if (repeat >= 0) {
+    if (repeat) {
       deleteItem(tag, idUser);
     } else {
       dispatch({
@@ -125,12 +130,15 @@ function AssetsBox({
       });
     }
   };
-
+  /*/
+  Funcion para generar el documento PDF
+  /*/
   const GenerateDocument = (typeDocument) => {
-
+    //trae el nombre del usuario actual
     const currentUser =  localStorage.getItem("currentUser");
+    //trae el nombre del manager de sistemas
     const managerSystems = localStorage.getItem("managerSystems");
-
+    
     if(typeDocument && storage.assets.length>0 && managerSystems){
       const document = {
           ...storage,
@@ -153,8 +161,11 @@ function AssetsBox({
     }
 
   };
-
+/*/
+  Funcion cerra la ventana de activos
+  /*/
   const CloseModal = () => {
+    //cuando cierras la ventana se actualiza la informacion de los usuarios
     const newData = JSON.parse(localStorage.getItem(idUser));
     dispatch({
       type: actionTypesDoc.updateStorage,
@@ -216,7 +227,6 @@ function AssetsBox({
         padding:'5px'
       }
       }}>
- 
 
       <Box
         sx={{
@@ -230,7 +240,7 @@ function AssetsBox({
       >
         <Stack>
         <h2 className="h2">Activos</h2>
-        <span className="span">Activos agregados: {count}</span>
+        <span className="span">Activos agregados: {countAssets}</span>
         </Stack>
 
         <IconButton
@@ -573,17 +583,17 @@ function AssetsBox({
         </Box>
       )}
 
-      {modal3 && (
-        <ViewMaintances
-          modal={modal3}
-          setModal={setModal3}
-          dataMaintances={Maintances}
-        />
-      )}
-
       {StatesModals.modalNotification && (
         <Notification>
-          <Paper elevation={2} sx={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', padding:'10px', gap:'20px'}}>
+          <Paper elevation={2} 
+          sx={{
+            display:'flex',
+            flexDirection:'column', 
+            justifyContent:'center', 
+            alignItems:'center', 
+            padding:'10px', 
+            gap:'20px'
+            }}>
             <p className="span">{StatesModals.modalNotification}</p>
             <Button
               onClick={() =>
