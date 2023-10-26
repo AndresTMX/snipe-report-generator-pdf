@@ -1,134 +1,98 @@
-import {
-  Container,
-  Radio,
-  FormLabel,
-  Select,
-  MenuItem,
-  Button,
-  Box,
-  IconButton,
-} from "@mui/material";
+import { Container,Radio,FormLabel,Select,MenuItem,Button,Box,IconButton} from "@mui/material";
 //icons
 import { RiFilterOffFill } from 'react-icons/ri';
 //empresas
-import {comind, ipsa, toh, staff} from '../../Helpers/symbols';
+import { arrayCompanies } from "../../Helpers/symbols";
 //ubicaciones
-import {
-  contabilidad,
-  tohCentro,
-  rh,
-  tohTlaxcala,
-  tohTejeria,
-  coatza,
-  matamoros,
-  corpo,
-  tejeria,
-  paraiso,
-  tuxtla,
-  salina,
-  ordaz,
-  norte,
-} from "../../Helpers/symbols";
+import { arrayLocations } from "../../Helpers/symbols";
 //departamentos
-import {
-  direccion,
-  contraloria,
-  sucursales,
-  calidad,
-  admon,
-  contaduria,
-  marketing,
-  ventasInd,
-  ventasMost,
-  almacen,
-  sistemas,
-  compras,
-  recursosH,
-} from "../../Helpers/symbols";
+import { arrayDepartments } from "../../Helpers/symbols";
 
 function Filters({actionsPages, filterActions, filter}) {
+
   const {nextPage, prevPage} = actionsPages;
+
   const { setActives, setCompany, setLocation, setDepartment, clearFilters} = filterActions;
 
   const onSelectCompany = (company) => {
 
-    let shortName
-
-    if(company === comind.description){
-      shortName = 'COMIND';
+    if(company === 'INSTRUMENTACIÓN Y PRECISIÓN'){
+      return 'IPSA'
     }
 
-    if(company === ipsa.description){
-      shortName = 'IPSA';
+    if(company === 'CONEXIONES Y MANGUERAS INDUSTRIALES DE MINATITLAN'){
+      return 'COMIND'
     }
+   
 
-    if(company === staff.description){
-      shortName = 'STAFF';
+    if(company === 'STAFF RECURSOS EN MOVIMIENTO'){
+      return 'STAFF'
     }
+   
 
-    if(company === toh.description){
-      shortName = 'TOH';
+    if(company === 'TOH INDUSTRIAL'){
+      return 'TOH'
     }
-
-    return shortName
+   
+   
   }
 
   const onSelectLocation = (location) => {
     let shortName
 
-    if(location === contabilidad.description){
+    if(location === 'CONTABILIDAD COATZACOALCOS'){
       shortName = 'Contabilidad'
     }
 
-    if(location === tohCentro.description){
+    if(location === 'TOH CENTRO COATZACOALCOS'){
       shortName = 'TOH Coatza'
     }
 
-    if(location === rh.description){
+    if(location === 'RECURSOS HUMANOS COATZACOALCOS'){
       shortName = 'Recursos Humanos'
     }
 
-    if(location === tohTlaxcala.description){
+    if(location === 'TOH TLAXCALA'){
       shortName = 'TOH Tlaxcala'
     }
 
-    if(location === tohTejeria.description){
+    if(location === 'TOH TEJERIA'){
       shortName = 'TOH Tejeria'
     }
 
-    if(location === coatza.description){
+    if(location === 'COATZACOALCOS'){
       shortName = 'IPSA Coatzacoalcos'
     }
     
-    if(location === matamoros.description){
+    if(location === 'MATAMOROS'){
       shortName = 'Taller Matamoros'
     }
 
-    if(location === corpo.description){
+    if(location === 'CORPORATIVO'){
       shortName = 'Corporativo'
     }
 
-    if(location === tejeria.description){
+    if(location === 'TEJERIA'){
       shortName = 'COMIND Tejeria'
     }
 
-    if(location === paraiso.description){
+    if(location === 'PARAISO'){
       shortName = 'COMIND Paraiso'
     }
 
-    if(location === tuxtla.description){
+    if(location === 'TUXTLA'){
       shortName = 'COMIND Tuxtla'
     }
 
-    if(location === salina.description){
+    if(location === 'SALINA'){
       shortName = 'COMIND Salina'
     }
 
-    if(location === ordaz.description){
+    if(location === 'ORDAZ'){
       shortName = 'COMIND Ordaz'
     }
 
-    if(location === norte.description){
+    if(location === 'NORTE'){
       shortName = 'COMIND Norte'
     }
 
@@ -138,55 +102,55 @@ function Filters({actionsPages, filterActions, filter}) {
   const onSelectDepartment = (department) => {
     let shortName 
 
-    if(department === direccion.description){
+    if(department === 'DIRECCIÓN'){
       shortName = 'Dirección'
     }
 
-    if(department === contraloria.description){
+    if(department === 'CONTRALORIA'){
       shortName = 'Contraloría'
     }
 
-    if(department === sucursales.description){
+    if(department === 'COORDINACIÓN DE SUCURSALES'){
       shortName = 'Coord. Sucursales'
     }
 
-    if(department === calidad.description){
+    if(department === 'CALIDAD'){
       shortName = 'Calidad'
     }
 
-    if(department === admon.description){
+    if(department === 'ADMINISTRACIÓN'){
       shortName = 'Administración'
     }
 
-    if(department === contaduria.description){
+    if(department === 'CONTABILIDAD'){
       shortName = 'Contabilidad'
     }
 
-    if(department === marketing.description){
+    if(department === 'MARKETING'){
       shortName = 'Marketing'
     }
 
-    if(department === ventasInd.description){
+    if(department === 'VENTAS INDUSTRIA'){
       shortName = 'Ventas Industria'
     }
 
-    if(department === ventasMost.description){
+    if(department === 'VENTAS MOSTRADOR'){
       shortName = 'Ventas Mostrador'
     }
 
-    if(department === almacen.description){
+    if(department === 'ALMACEN'){
       shortName = 'Almacén'
     }
 
-    if(department === sistemas.description){
+    if(department === 'SISTEMAS INFORMATICOS'){
       shortName = 'Sistemas'
     }
 
-    if(department === compras.description){
+    if(department === 'COMPRAS'){
       shortName = 'Compras'
     }
 
-    if(department === recursosH.description){
+    if(department === 'RECURSOS HUMANOS'){
       shortName = 'Recursos Humanos'
     }
 
@@ -196,7 +160,11 @@ function Filters({actionsPages, filterActions, filter}) {
 
     return ( 
         <Container
-        sx={{ display: "flex", flexDirection: "column", gap: "15px" }}
+        sx={{ 
+          display: "flex", 
+          flexDirection: "column", 
+          gap: "15px" 
+        }}
       >
         <Box
           sx={{
@@ -258,7 +226,7 @@ function Filters({actionsPages, filterActions, filter}) {
               alignItems:'flex-start',
             }}
           >
-            {filter.company? onSelectCompany(filter.company): 'Empresa' } 
+            {filter.company? onSelectCompany(filter.company) : 'Empresa' } 
             <Select
               onChange={(e) => setCompany((e.target.value))}
               value={!filter.company?'': filter.company}
@@ -270,14 +238,13 @@ function Filters({actionsPages, filterActions, filter}) {
                 color:'white',
                 fontSize:'0.8rem',
                 "& .MuiSelect-icon": {
-                  color: "white", // Cambia el color aquí
+                  color: "white", // Cambia el color aquí del icono aqui
                 },
               }}
             >
-              <MenuItem value={comind.description}>COMIND</MenuItem>
-              <MenuItem value={ipsa.description}>IPSA</MenuItem>
-              <MenuItem value={staff.description}>STAFF</MenuItem>
-              <MenuItem value={toh.description}>TOH</MenuItem>
+              {arrayCompanies.map((companie, index) => (
+                <MenuItem key={index} value={companie.description}>{onSelectCompany(companie.description)}</MenuItem>
+              ))}
             </Select>
           </FormLabel>
           {/* Sucursal */}
@@ -306,20 +273,9 @@ function Filters({actionsPages, filterActions, filter}) {
                 },
               }}
             >
-              <MenuItem value={corpo.description}>Corporativo</MenuItem>
-              <MenuItem value={coatza.description}>Coatza</MenuItem>
-              <MenuItem value={contabilidad.description}>Contabilidad</MenuItem>
-              <MenuItem value={matamoros.description}>Matamoros</MenuItem>
-              <MenuItem value={tohCentro.description}>TOH Coatza</MenuItem>
-              <MenuItem value={rh.description}>RH</MenuItem>
-              <MenuItem value={ordaz.description}>Ordaz</MenuItem>
-              <MenuItem value={norte.description}>Norte</MenuItem>
-              <MenuItem value={salina.description}>Salina Cruz</MenuItem>
-              <MenuItem value={tohTlaxcala.description}>Tlaxcala</MenuItem>
-              <MenuItem value={tohTejeria.description}>Tejeria TOH</MenuItem>
-              <MenuItem value={tejeria.description}>Tejeria COMIND</MenuItem>
-              <MenuItem value={paraiso.description}>Paraiso</MenuItem>
-              <MenuItem value={tuxtla.description}>Tuxtla</MenuItem>
+              {arrayLocations.map((location, index) => (
+                <MenuItem key={index} value={location.description}>{onSelectLocation(location.description)}</MenuItem>
+              ))}
             </Select>
           </FormLabel>
           {/* Departamento */}
@@ -348,19 +304,9 @@ function Filters({actionsPages, filterActions, filter}) {
                 },
               }}
             >
-              <MenuItem value={direccion.description}>Dirección</MenuItem>
-              <MenuItem value={contraloria.description}>Contraloría</MenuItem>
-              <MenuItem value={sucursales.description}>Coord. Sucursales</MenuItem>
-              <MenuItem value={admon.description}>Administración</MenuItem>
-              <MenuItem value={calidad.description}>Calidad</MenuItem>
-              <MenuItem value={compras.description}>Compras</MenuItem>
-              <MenuItem value={sistemas.description}>Sistemas</MenuItem>
-              <MenuItem value={ventasMost.description}>Ventas Mostrador</MenuItem>
-              <MenuItem value={ventasInd.description}>Ventas Industria</MenuItem>
-              <MenuItem value={recursosH.description}>Recursos Humanos</MenuItem>
-              <MenuItem value={almacen.description}>Almacén</MenuItem>
-              <MenuItem value={marketing.description}>Marketing</MenuItem>
-              <MenuItem value={contaduria.description}>Contabilidad</MenuItem>
+             {arrayDepartments.map((department, index) => (
+              <MenuItem key={index} value={department.description}>{onSelectDepartment(department.description)}</MenuItem>
+             ))}
 
             </Select>
           </FormLabel>

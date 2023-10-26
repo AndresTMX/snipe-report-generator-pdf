@@ -191,6 +191,7 @@ function UserCard({
                       objectFit: "contain",
                     }}
                     src={image}
+                    alt="logo"
                   />
                 </Avatar>
               }

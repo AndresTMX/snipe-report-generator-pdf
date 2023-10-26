@@ -49,3 +49,26 @@ export const arrayLocations = [
     ordaz,
     norte
 ]
+
+export const arrayCompanies = [
+    ipsa,
+    comind,
+    staff,
+    toh
+]
+
+export const arrayDepartments = [
+    direccion,
+    contraloria,
+    sucursales,
+    calidad,
+    compras,
+    admon,
+    contaduria,
+    marketing,
+    ventasInd,
+    ventasMost,
+    almacen,
+    sistemas,
+    recursosH,
+]

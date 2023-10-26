@@ -45,7 +45,7 @@ function PageHome() {
   //Hooks de buscador, fetch de usuarios y paginación
   const { search, setSearch } = useSearcher();
   const { dataUsers, loading, error } = useGetUsers();  
-  const { searchResults, pageRender, actionsPages, filterActions, filter } = usePagination(loading, dataUsers, search, dispatch);
+  const { searchResults, pageRender, actionsPages, filterActions, filter } = usePagination( dataUsers, search, dispatch);
 
   return (
     <Container
