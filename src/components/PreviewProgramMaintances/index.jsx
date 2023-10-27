@@ -68,18 +68,7 @@ function PreviewProgramMaintances({state, dispatch, managerSystems, userCurrent}
           gap:'20px'
         }}
         >
-          {/* <Typography>
-            Vista previa no disponibe
-          </Typography> */}
-          
-          {/* <ButtonDownload 
-          dataUsers={dataUsers} 
-          image={image} 
-          configState={configState}
-          managerSystems={managerSystems}
-          userCurrent={userCurrent}
-          total={totalCostMaintances}
-          /> */}
+        
         </Box>
 
         {!loading && maintances?.length > 0 &&

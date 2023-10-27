@@ -47,20 +47,20 @@ function SendMaintances() {
     const {results, loading, error, input} = states;
     const {Search, setResults } = actions;
   
-    const OnSelect = (e) =>{
-      setSelect(e.target.value)
-    }
-
-    const Enter = (e) => {
-      if(e.key === "Enter"){
-          Search();
-      }
+  const OnSelect = (e) => {
+    setSelect(e.target.value)
   }
 
-    const ClearSearch = () => {
-      setResults(null);
-      setSearch("");
+  const Enter = (e) => {
+    if (e.key === "Enter") {
+      Search();
     }
+  }
+
+  const ClearSearch = () => {
+    setResults(null);
+    setSearch("");
+  }
 
     return ( 
         <Container
@@ -110,7 +110,10 @@ function SendMaintances() {
             }}
           >
 
-            <FormControl sx={{ width: "80px" }}>
+            <FormControl 
+            sx={{ 
+              width: "80px"
+               }}>
               <InputLabel>Limite</InputLabel>
               <Select
                 size="small"
@@ -142,7 +145,11 @@ function SendMaintances() {
 
         <ScrollContainer>
           {!loading && !input.length && !results && (
-            <Box sx={{display:'flex', justifyContent:'center'}}>
+            <Box 
+            sx={{
+              display:'flex',
+              justifyContent:'center'
+              }}>
               <span>Busca activos por alguna de sus propiedades</span>
             </Box>
           )}
@@ -157,7 +164,10 @@ function SendMaintances() {
 
           {loading && !error && input && (
              <Box
-             sx={{display:'flex', justifyContent:'center'}}
+             sx={{
+              display:'flex',
+              justifyContent:'center'
+            }}
              >
               <ThreeDots />
              </Box>

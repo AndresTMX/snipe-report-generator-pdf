@@ -118,7 +118,10 @@ function FormAllEditMaintances({setEditAll, updateAll}) {
                 <Button
                     color="primary"
                     variant="contained"
-                    onClick={() => updateAll(typeMaintance, titleDinamic, dateDefault.init, dateDefault.end )}
+                    onClick={() => {
+                        updateAll(typeMaintance, titleDinamic, dateDefault.init, dateDefault.end)
+                        setEdit(!edit)
+                    }}
                 >Guardar cambios
                 </Button>
         </Box>

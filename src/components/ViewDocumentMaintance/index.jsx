@@ -22,7 +22,7 @@ function ViewDocumentMaintance({ state, dispatch, managerSystems, userCurrent}) 
   const {search, setSearch} = useSearcher()
   const {states, actions} = useEditMaintances(maintances, dispatch, false)
   const isMovile = useMediaQuery('(max-width:950px)');
-  const { selectUser, typeItem }= states 
+  const { selectUser }= states 
   const { updateMaintance, setSelectUser, Toggle } = actions
   const location = maintances?.length > 0? extractLocation(maintances):"";
   const { configState, loading, updateMonthComplete } = useProgramMaintances(location)
@@ -99,7 +99,7 @@ function ViewDocumentMaintance({ state, dispatch, managerSystems, userCurrent}) 
           setSelectUser={setSelectUser}
           selectUser={selectUser}
           dispatch={dispatch}
-          typeItem={typeItem} />
+           />
       )}
 
       {selectUser && (

@@ -17,7 +17,7 @@ function FormMaintance({state, dispatch, postMaintenance}) {
   const { maintances } = state
 
   const {states, actions} = useEditMaintances(maintances, dispatch, true)
-  const { selectUser, typeItem, titleMaintance, currentDate, editAll }= states 
+  const { selectUser, titleMaintance, currentDate, editAll }= states 
   const { updateMaintance, setSelectUser, setEditAll, updateAllMaintances } = actions
 
   const SendMaintenance = async (e) => {
@@ -93,7 +93,6 @@ function FormMaintance({state, dispatch, postMaintenance}) {
           maintances={maintances}
           setSelectUser={setSelectUser}
           selectUser={selectUser}
-          typeItem={typeItem}
           dispatch={dispatch} />
       )}
 

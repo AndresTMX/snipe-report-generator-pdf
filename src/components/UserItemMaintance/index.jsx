@@ -6,13 +6,22 @@ import { AiOutlineLaptop } from "react-icons/ai"; //lap
 import { BsKeyboard } from "react-icons/bs"; //teclado
 import { FiMonitor } from "react-icons/fi"; //monitor
 import { BsMouse3 } from "react-icons/bs"; //mouse
-import {BiSolidSave} from 'react-icons/bi'//save
 //scrolling
 import { ScrollContainer } from "../../Containers/ScrollContainer";
 import { Typography, Box, IconButton, Button, Paper,  Stack} from "@mui/material";
 //helpers
 import { ToggleItem , assetsForUser } from "../../Helpers/actionsMaintance";
 
+
+/*/
+  Este componente renderza una lista scrolleable de cards 
+  que contienen los mantenimientos agrupandolos por usuarios
+
+  Redibe un array de manteniminetos que proviene del estado
+  global.
+
+  SelectUser que es un estado que contiene 
+/*/
 function UserItemMaintance({maintances, selectUser, setSelectUser, dispatch}) {
   
   const assetsGroup = assetsForUser(maintances, 'user')
@@ -58,7 +67,14 @@ function UserItemMaintance({maintances, selectUser, setSelectUser, dispatch}) {
               <Paper
                 elevation={2}
                 key={index}
-                sx={{ display: "flex", flexDirection: "column", gap: "5px", backgroundColor:`${selectUser === index? '#edf4fc':'white'}`, borderRadius:'5px', padding:'10px' }}
+                sx={{ 
+                  display: "flex", 
+                  flexDirection: "column", 
+                  gap: "5px", 
+                  backgroundColor:'white', 
+                  borderRadius:'5px', 
+                  padding:'10px' 
+                }}
               >
                 <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} >
                   <Typography variant="span" fontSize='12px' >{assetUser[0].user ? assetUser[0].user : 'NO ASIGNADO'}</Typography>

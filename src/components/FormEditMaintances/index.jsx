@@ -1,17 +1,16 @@
 import { useState } from "react"
 //icons
 import { PiDesktopTowerDuotone } from "react-icons/pi"; //gabinete
-import {MdModeEditOutline} from 'react-icons/md'; //edit
 import { AiOutlineLaptop } from "react-icons/ai"; //lap
 import { BsKeyboard } from "react-icons/bs"; //teclado
 import { FiMonitor } from "react-icons/fi"; //monitor
 import { BsMouse3 } from "react-icons/bs"; //mouse
 //materialui
-import {  Box, Button, Tabs, Tab } from "@mui/material"
+import {  Box, Tabs, Tab } from "@mui/material"
 import { FormsMaintancesItem } from "../FromsMaintanceItem";
 
 
-function FormEditMaintances({dispatch, selectUser, setSelectUser, update}) {
+function FormEditMaintances({ selectUser, setSelectUser, update}) {
 
     const [value, setValue] = useState(0)
 
